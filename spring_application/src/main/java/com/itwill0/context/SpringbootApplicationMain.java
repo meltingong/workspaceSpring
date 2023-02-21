@@ -12,7 +12,9 @@ import com.itwill.product.ProductService;
 public class SpringbootApplicationMain {
 
 	public static void main(String[] args) {
+		System.out.println("------------------Application생성시작--------------------");
 		ApplicationContext applicationContext = SpringApplication.run(SpringbootApplicationMain.class, args);
+		System.out.println("------------------Application생성끄읕--------------------");
 		
 		ProductService productService = (ProductService)applicationContext.getBean("productService");
 		

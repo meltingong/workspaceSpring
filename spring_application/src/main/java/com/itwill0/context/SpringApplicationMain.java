@@ -27,6 +27,11 @@ public class SpringApplicationMain {
 		ProductService productService = (ProductService)applicationContext.getBean("productService");
 		System.out.println(productService.productList());
 		System.out.println(productService.productDetail(55));
+		System.out.println("---------------singleton 객체------------");
+		System.out.println(applicationContext.getBean("productService"));
+		System.out.println(applicationContext.getBean("productService"));
+		
+		
 		
 	}
 
