@@ -41,7 +41,8 @@ public class ReflectionAnnotationGuestServiceMain {
 				}
 			}
 		}
-
+		System.out.println(applicationContext);
+		
 		System.out.println("--------@AutoWire setter method호출--------------");
 		Iterator<String> beanIdIterator= applicationContext.keySet().iterator();
 		while (beanIdIterator.hasNext()) {
@@ -53,10 +54,10 @@ public class ReflectionAnnotationGuestServiceMain {
 				Annotation[] annotations = method.getAnnotations();
 				for (Annotation annotation : annotations) {
 					if (annotation instanceof AutoWire) {
-						AutoWire myAutoWire = (AutoWire) annotation;
-						System.out.println(myAutoWire);
+						AutoWire AutoWire = (AutoWire) annotation;
+						System.out.println(AutoWire);
 						System.out.println(beanClass.getSimpleName() + ":" + method);
-						String componentId = myAutoWire.value();
+						String componentId = AutoWire.value();
 						Object injectionObject=applicationContext.get(componentId);
 						method.invoke(beanInstance, injectionObject);
 						
