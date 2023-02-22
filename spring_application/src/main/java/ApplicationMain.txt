@@ -1,0 +1,3 @@
+System.out.println("---------------Spring Container초기화 시작[ApplicationContext객체 생성시작]-----------");
+		ApplicationContext applicationContext = SpringApplication.run(Object.class, args);
+		System.out.println("---------------Spring Container초기화 시작[ApplicationContext객체 생성 끝]-----------");
