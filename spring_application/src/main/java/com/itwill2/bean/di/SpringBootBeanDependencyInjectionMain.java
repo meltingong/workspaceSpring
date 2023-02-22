@@ -22,6 +22,7 @@ public class SpringBootBeanDependencyInjectionMain {
 		System.out.println("-----------Setter Injection-----------");
 		UserService userService = (UserService)applicationContext.getBean(UserService.class);
 		userService.create(null);
+		System.out.println("-----------Field Injection-----------");
 		
 		
 	}
