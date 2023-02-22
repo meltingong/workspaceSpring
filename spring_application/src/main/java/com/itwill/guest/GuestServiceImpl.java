@@ -2,6 +2,11 @@ package com.itwill.guest;
 
 import java.util.List;
 
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Service;
+
+@Service(value = "guestService")
+@Scope("singleton")
 public class GuestServiceImpl implements GuestService {
 	
 	public GuestServiceImpl() {

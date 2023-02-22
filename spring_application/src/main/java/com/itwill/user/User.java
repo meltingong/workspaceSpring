@@ -1,6 +1,10 @@
 package com.itwill.user;
 
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
 
+@Component
+@Scope(scopeName = "prototype")
 public class User {
 	
 	private String userId;
@@ -53,10 +57,12 @@ public class User {
 	public void setEmail(String email) {
 		this.email = email;
 	}
+	/*
 	@Override
 	public String toString() {
 		return "user:"+userId+","+password+","+name+","+email;
 	}
+	*/
 	/*
 	 *패쓰워드 일치여부 검사 
 	 */

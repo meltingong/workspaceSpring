@@ -2,6 +2,9 @@ package com.itwill.user;
 
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
+@Service("userService")
 public class UserServiceImpl implements UserService {
 
 	public UserServiceImpl() {
