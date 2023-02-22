@@ -1,5 +1,7 @@
 package com.itwill.order;
 
-public interface OrderService {
+import java.util.List;
 
+public interface OrderService {
+	public List<Order> list();
 }

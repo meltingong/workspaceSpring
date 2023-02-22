@@ -1,5 +1,7 @@
 package com.itwill.order;
 
-public interface OrderDao {
+import java.util.List;
 
+public interface OrderDao {
+	public List<Order> list();
 }
