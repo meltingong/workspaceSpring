@@ -10,7 +10,7 @@ import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
-
+@Repository
 public class GuestDaoImpl implements GuestDao {
 	
 	private DataSource dataSource;
@@ -18,7 +18,7 @@ public class GuestDaoImpl implements GuestDao {
 	public GuestDaoImpl() {
 		System.out.println("2.#### GuestDaoImpl() 기본생성자호출");
 	}
-	
+	@Autowired
 	public GuestDaoImpl(DataSource dataSource) {
 		System.out.println("2.#### GuestDaoImpl(DataSource dataSource) 생성자호출:"+this);
 		this.dataSource = dataSource;
