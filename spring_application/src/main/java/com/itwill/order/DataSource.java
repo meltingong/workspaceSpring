@@ -1,5 +1,8 @@
 package com.itwill.order;
 
-public class DataSource {
+import org.springframework.stereotype.Component;
 
+@Component
+public class DataSource {
+	
 }

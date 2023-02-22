@@ -1,5 +1,8 @@
 package com.itwill.order;
 
-public class OrderDaoImpl {
-	
+import org.springframework.stereotype.Repository;
+
+@Repository
+public class OrderDaoImpl implements OrderDao {
+	private DataSource dataSource;
 }
