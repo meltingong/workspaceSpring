@@ -4,106 +4,44 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
-@Repository
+
 public class GuestDaoImplJdbcTemplete implements GuestDao {
-	
-	private DataSource dataSource;
-	
-	public GuestDaoImplJdbcTemplete() {
-		System.out.println("2.#### GuestDaoImpl() 기본생성자호출");
-	}
-	@Autowired
-	public GuestDaoImplJdbcTemplete(DataSource dataSource) {
-		System.out.println("2.#### GuestDaoImpl(DataSource dataSource) 생성자호출:"+this);
-		this.dataSource = dataSource;
-	}
-	
-	public void setDataSource(DataSource dataSource) {
-		System.out.println("3.#### GuestDaoImpl.setDataSource(DataSource dataSource) 메쏘드호출");
-		this.dataSource = dataSource;
-	}
+
 	@Override
-	public ArrayList<Guest> selectAll()
-			throws Exception{
-		ArrayList<Guest> guestList=new ArrayList<Guest>();
-		Connection con=dataSource.getConnection();
-		PreparedStatement pstmt=con.prepareStatement(GuestSQL.GUEST_SELECT_ALL);
-		ResultSet rs=pstmt.executeQuery();
-		while(rs.next()) {
-			guestList.add(new Guest(rs.getInt("guest_no"), 
-									rs.getString("guest_name"), 
-									rs.getString("guest_date"),
-									rs.getString("guest_email"),
-									rs.getString("guest_homepage"),
-									rs.getString("guest_title"),
-									rs.getString("guest_content")));
-		}
-		con.close();
-		return guestList;
+	public List<Guest> selectAll() throws Exception {
+		// TODO Auto-generated method stub
+		return null;
 	}
-	
+
 	@Override
-	public Guest selectByNo(int no)throws Exception{
-		Guest guest=null;
-		Connection con=dataSource.getConnection();
-		PreparedStatement pstmt=con.prepareStatement(GuestSQL.GUEST_SELECT_BY_NO);
-		pstmt.setInt(1, no);
-		ResultSet rs=pstmt.executeQuery();
-		if(rs.next()) {
-			guest=new Guest(rs.getInt("guest_no"), 
-					rs.getString("guest_name"), 
-					rs.getString("guest_date"),
-					rs.getString("guest_email"),
-					rs.getString("guest_homepage"),
-					rs.getString("guest_title"),
-					rs.getString("guest_content"));
-		}
-		con.close();
-		return guest;
+	public Guest selectByNo(int no) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
 	}
+
 	@Override
-	public int insertGuest(Guest guest)throws Exception {
-		Connection con=dataSource.getConnection();
-		PreparedStatement pstmt=con.prepareStatement(GuestSQL.GUEST_INSERT);
-		pstmt.setString(1, guest.getGuest_name());
-		pstmt.setString(2, guest.getGuest_email());
-		pstmt.setString(3, guest.getGuest_homepage());
-		pstmt.setString(4, guest.getGuest_title());
-		pstmt.setString(5, guest.getGuest_content());
-		int rowCount=pstmt.executeUpdate();
-		con.close();
-		return rowCount;
-		
+	public int insertGuest(Guest guest) throws Exception {
+		// TODO Auto-generated method stub
+		return 0;
 	}
+
 	@Override
-	public int updateGuest(Guest guest)throws Exception {
-		Connection con=dataSource.getConnection();
-		PreparedStatement pstmt=con.prepareStatement(GuestSQL.GUEST_UPDATE);
-		pstmt.setString(1, guest.getGuest_name());
-		pstmt.setString(2, guest.getGuest_email());
-		pstmt.setString(3, guest.getGuest_homepage());
-		pstmt.setString(4, guest.getGuest_title());
-		pstmt.setString(5, guest.getGuest_content());
-		pstmt.setInt(6, guest.getGuest_no());
-		int rowCount=pstmt.executeUpdate();
-		con.close();
-		return rowCount;
-		
+	public int updateGuest(Guest guest) throws Exception {
+		// TODO Auto-generated method stub
+		return 0;
 	}
+
 	@Override
-	public int deleteGuest(int no)throws Exception {
-		Connection con=dataSource.getConnection();
-		PreparedStatement pstmt=con.prepareStatement(GuestSQL.GUEST_DELETE);
-		pstmt.setInt(1, no);
-		int rowCount=pstmt.executeUpdate();
-		con.close();
-		return rowCount;
+	public int deleteGuest(int no) throws Exception {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 	
 	
