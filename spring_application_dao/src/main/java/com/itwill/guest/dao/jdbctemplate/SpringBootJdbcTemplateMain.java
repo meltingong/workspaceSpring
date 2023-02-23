@@ -10,7 +10,7 @@ public class SpringBootJdbcTemplateMain {
 
 	public static void main(String[] args) {
 		ApplicationContext applicationContext = SpringApplication.run(SpringBootJdbcTemplateMain.class, args);
-		JdbcTemplate jdbcTemplate = 
+		JdbcTemplate jdbcTemplate = (JdbcTemplate)applicationContext.getBean(JdbcTemplate.class);
 				
 	}
 
