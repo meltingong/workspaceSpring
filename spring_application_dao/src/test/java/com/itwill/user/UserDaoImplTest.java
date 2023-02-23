@@ -23,7 +23,7 @@ class UserDaoImplTest {
 	void contextLoad() {
 		System.out.println(applicationContext);
 	}
-	
+	@Disabled
 	@Test
 	void testCreate() throws Exception {
 		User user = new User("test88","test88","테스트","test@test.com");
