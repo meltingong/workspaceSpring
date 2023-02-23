@@ -1,4 +1,4 @@
-package com.itwill.guest.dao.jdbctemplete;
+package com.itwill.guest.dao.jdbctemplate;
 /*
 이름             널?       유형             
 -------------- -------- -------------- 

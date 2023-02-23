@@ -1,4 +1,4 @@
-package com.itwill.guest.dao.jdbctemplete;
+package com.itwill.guest.dao.jdbctemplate;
 
 import java.util.ArrayList;
 import java.util.List;

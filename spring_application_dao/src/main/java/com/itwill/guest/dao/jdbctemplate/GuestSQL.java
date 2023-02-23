@@ -1,4 +1,4 @@
-package com.itwill.guest.dao.jdbctemplete;
+package com.itwill.guest.dao.jdbctemplate;
 
 public class GuestSQL {
 	public final static String GUEST_SELECT_ALL
