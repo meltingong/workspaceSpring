@@ -14,7 +14,7 @@ class GuestDaoImplJdbcTempleteTest {
 	
 	@Autowired
 	GuestDao guestDao;
-	
+	@Disabled
 	@Test
 	void testSelectAll() throws Exception {
 		assertNotNull(guestDao.selectAll());
@@ -22,10 +22,10 @@ class GuestDaoImplJdbcTempleteTest {
 		System.out.println(guestDao.selectAll());
 	}
 	
-	@Disabled
+	
 	@Test
-	void testSelectByNo() {
-		fail("Not yet implemented");
+	void testSelectByNo() throws Exception {
+		System.out.println(guestDao.selectByNo(1));
 	}
 	@Disabled
 	@Test

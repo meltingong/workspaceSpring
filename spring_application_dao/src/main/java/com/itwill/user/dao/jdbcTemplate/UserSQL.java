@@ -1,4 +1,4 @@
-package com.itwill.user;
+package com.itwill.user.dao.jdbcTemplate;
 
 public class UserSQL {
 	public final static String USER_INSERT=

@@ -1,4 +1,4 @@
-package com.itwill.user;
+package com.itwill.user.dao.jdbcTemplate;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

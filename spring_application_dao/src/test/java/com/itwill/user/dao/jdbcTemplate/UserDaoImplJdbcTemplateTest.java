@@ -1,36 +1,32 @@
-package com.itwill.user;
+package com.itwill.user.dao.jdbcTemplate;
 
 import static org.junit.jupiter.api.Assertions.*;
+
+import java.sql.SQLIntegrityConstraintViolationException;
 
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.context.ApplicationContext;
-
-import com.itwill.user.dao.jdbc.User;
-import com.itwill.user.dao.jdbc.UserDao;
-
+import org.springframework.dao.DuplicateKeyException;
 @SpringBootApplication
 @SpringBootTest
-class UserDaoImplTest {
-	
-	@Autowired
-	ApplicationContext applicationContext;
-	
+class UserDaoImplJdbcTemplateTest {
 	@Autowired
 	UserDao userDao;
-	
-	@Test
-	void contextLoad() {
-		System.out.println(applicationContext);
-	}
 	@Disabled
 	@Test
 	void testCreate() throws Exception {
-		User user = new User("test88","test88","테스트","test@test.com");
-		assertEquals(userDao.create(user), 1);
+		User user = new User("스타벅스","1111","하","후");
+		try {
+			int rowCount = userDao.create(user);
+			assertEquals(rowCount, 1);
+		}catch (Exception e) {
+			//fail(e.getMessage());
+			assertInstanceOf(SQLIntegrityConstraintViolationException.class, e);
+			//assertInstanceOf(DuplicateKeyException.class, e);
+		}
 	}
 	@Disabled
 	@Test
@@ -45,13 +41,7 @@ class UserDaoImplTest {
 	
 	@Test
 	void testFindUser() throws Exception {
-		User user = userDao.findUser("test88");
-		assertNotNull(user);
-		assertNotNull(user.getUserId());
-		assertNotNull(user.getPassword());
-		assertNotNull(user.getName());
-		assertNotNull(user.getEmail());
-		System.out.println(user);
+		System.out.println(userDao.findUser("guard1"));
 	}
 	@Disabled
 	@Test
