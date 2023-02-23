@@ -15,8 +15,6 @@ import org.springframework.stereotype.Repository;
 public class GuestDaoImplJdbcTemplete implements GuestDao {
 
 	
-	
-	
 	@Override
 	public List<Guest> selectAll() throws Exception {
 		// TODO Auto-generated method stub
