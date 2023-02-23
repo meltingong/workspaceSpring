@@ -10,6 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import com.itwill.guest.dao.jdbc.Guest;
+import com.itwill.guest.dao.jdbc.GuestDao;
+
 @SpringBootApplication
 @SpringBootTest
 class GuestDaoImplTest {

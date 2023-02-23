@@ -1,4 +1,4 @@
-package com.itwill.guest;
+package com.itwill.guest.dao.jdbc;
 /*
 이름             널?       유형             
 -------------- -------- -------------- 

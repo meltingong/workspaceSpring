@@ -1,4 +1,4 @@
-package com.itwill.guest;
+package com.itwill.guest.dao.jdbc;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
