@@ -39,6 +39,21 @@ public class StudentDao {
 		return sqlSession.selectList("com.mybatis3.dao.mapper.studentMapper.findAllStudents");
 	}
 	
+	/*
+	 * B.select sql의결과타입이 String,Wrapper객체인경우 resultType : java.lang.String,java.lang.Integer
+	 */
+	
+	/*
+	 * select sql의결과타입이 Wrapper,String 객체인경우 resultType : Wrapper,String
+	 */
+	public String findStudentNameById(Integer userId) {
+		return sqlSession.selectOne("findStudentNameById",userId);
+	}
+
+	public List<String> findStudentNameList() {
+		return sqlSession.selectList("findStudentNameList");
+	}
+	
 	/***********************************
 	 * INSERT
 	 ***********************************/
@@ -57,6 +72,29 @@ public class StudentDao {
 		return sqlSession.insert("insertStudentBySequence2",student);
 	}
 	
+	/***********************************
+	 * UPDATE
+	 ***********************************/
+	public int updateStudentById(Student student) {
+		return sqlSession.update("updateStudentById",student);
+
+	}
+
+	/***********************************
+	 * DELETE
+	 ***********************************/
+	public int deleteStudentById(Integer studId) {
+		return sqlSession.delete("deleteStudentById",studId);
+	}
+
+	public int deleteStudentByName(String name) {
+		return sqlSession.delete("deleteStudentByName",name);
+	}
+
+	public int deleteStudentByNameLike(String name) {
+		return 0;
+	}
+	
 	/**************************************************
 	 * 결과데이타를 Map(HashMap)에 담아서 반환할수있다
 	 ***************************************************/
@@ -67,33 +105,6 @@ public class StudentDao {
 	public List<Map> findAllStudentsMapList() {
 		return null;
 	}
-
-	/***********************************
-	 * DELETE
-	 ***********************************/
-	public int deleteStudentById(Integer studId) {
-		return 0;
-	}
-
-	public int deleteStudentByName(String name) {
-		return 0;
-	}
-
-	public int deleteStudentByNameLike(String name) {
-		return 0;
-	}
-
-	/***********************************
-	 * UPDATE
-	 ***********************************/
-	public int updateStudentById(Student student) {
-		return 0;
-
-	}
-
-	
-
-	
 
 	/**************************************************
 	 * SELECT[students + address + courses[course_enrollment] JOIN( 1 : 1 : N )
@@ -125,18 +136,6 @@ public class StudentDao {
 		return null;
 	}
 
-	
-
-	/*
-	 * select sql의결과타입이 Wrapper,String 객체인경우 resultType : Wrapper,String
-	 */
-	public String findStudentNameById(Integer userId) {
-		return null;
-	}
-
-	public List<String> findStudentNameList() {
-		return null;
-	}
 
 	/*
 	 * B.select sql의결과타입이 DTO,VO,Domain객체인경우 resultMap : DTO,VO,Domain

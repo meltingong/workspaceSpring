@@ -13,17 +13,18 @@ import com.mybatis3.domain.Student;
 @SpringBootApplication
 public class SpringBootStudentDaoSELECTMain {
 	public static void main(String[] args) {
-		ApplicationContext appicationContext=
+		ApplicationContext applicationContext=
 				SpringApplication.run(SpringBootStudentDaoSELECTMain.class, args);
-		StudentDao studentDao =(StudentDao)appicationContext.getBean(StudentDao.class);
+		StudentDao studentDao =(StudentDao)applicationContext.getBean(StudentDao.class);
 		System.out.println(studentDao);
 		System.out.println("---------findStudentById-----------------------------");
 		System.out.println(studentDao.findStudentById(1));
 		System.out.println("---------findAllStudents-----------------------------");
 		System.out.println(studentDao.findAllStudents());
 		System.out.println("---------findStudentNameById-------------------------");
-		
+		System.out.println(studentDao.findStudentNameById(2));
 		System.out.println("---------findStudentNameList-------------------------");
+		System.out.println(studentDao.findStudentNameList());
 		System.out.println("---------findStudentByIdResultMap--------------------");
 		System.out.println("---------findAllStudentsResultMap--------------------");
 		
