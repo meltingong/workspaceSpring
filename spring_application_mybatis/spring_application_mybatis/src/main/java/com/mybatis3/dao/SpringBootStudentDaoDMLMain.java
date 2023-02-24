@@ -24,6 +24,10 @@ public class SpringBootStudentDaoDMLMain {
 		Student student2 = new Student(0,"멍청이","stupid@gmail.com",new Date());
 		System.out.println("###insert rowCount :"+studentDao.insertStudentBySequence1(student2));
 		System.out.println("---------insertStudentBySequence2--------------------");
+		Student student3 = new Student(0,"하하하","haha@gmail.com",new Date());
+		System.out.println("###insert rowcount :"+studentDao.insertStudentBySequence2(student3));
+		System.out.println("### pk-->"+student3.getStudId());
+		System.out.println("###"+student3.getStudId()+"번 pk student:"+studentDao.findStudentById(student3.getStudId()));
 		System.out.println("---------updateStudentById---------------------------");
 		System.out.println("---------deleteStudentById---------------------------");
 		System.out.println("---------deleteStudentByName-------------------------");
