@@ -10,11 +10,15 @@
 	
 	<insert id="insertGuest" parameterType="com.itwill.guest.dao.mybatis.Guest" >
 		insert into guest(guset_no,guest_name,guest_date,guest_email,guest_homepage,guest_title,guest_content) 
-		values(#{guest_no},#{guest_name},#{guest_date},#{guest_email},#{guest_homepage},#{guest_title},#{guest_content})
+		values(guest_guest_no_seq.nextval,#{guest_name},#{guest_date},#{guest_email},#{guest_homepage},#{guest_title},#{guest_content})
 	</insert>
 	
 	<update id="updateGuest" parameterType="com.itwill.guest.dao.mybatis.Guest">
 		update guest set guest_name=#{guest_name},guest_Date=#{guest_date},guest_email=#{guest_email},guest_homepage=#{guest_homepage},guest_title=#{guest_title},guest_content=#{guest_content}
 		where guest_no=#{guest_no}
 	</update>
+	
+	<delete id="deleteGuest" parameterType="int">
+		delete from guest where guest_no=#{guest_no}
+	</delete>
 </mapper>

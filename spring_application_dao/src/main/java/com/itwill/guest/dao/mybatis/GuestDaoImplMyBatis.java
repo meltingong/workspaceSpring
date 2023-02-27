@@ -40,7 +40,7 @@ public class GuestDaoImplMyBatis implements GuestDao {
 	@Override
 	public int deleteGuest(int no) throws Exception {
 		// TODO Auto-generated method stub
-		return 0;
+		return sqlSession.delete("com.itwill.guest.dao.mybatis.guestMapper.deleteGuest",no);
 	}
 
 	
