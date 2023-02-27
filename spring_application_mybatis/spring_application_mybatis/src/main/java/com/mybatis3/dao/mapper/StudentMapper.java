@@ -30,13 +30,19 @@ public interface StudentMapper {
 	public int insertStudent(Student student);
 	
 	public int insertStudentBySequence1(Student student);
-	@SelectKey(statement = "select students_stud_id_seq.nextval from dual",before = true, keyProperty = "student", resultType = Integer.class)
-	@Insert("insert into students(stud_id,name,email,dob) values(#{studId},#{name},#{email},#{dob})")
-	public int insertStudentBySequence2(@Param("student")Student student);
+	@SelectKey(	statement = "select students_stud_id_seq.nextval from dual",
+			before = true,
+			keyProperty ="studId",
+			resultType = Integer.class)
+	@Insert("insert into students(stud_id,name,email,dob) values (#{student.studId},#{student.name},#{student.email},#{student.dob})")
+	public int insertStudentBySequence2(@Param("student") Student student);
 	
 	public int updateStudentById(Student student);
 	
 	public int deleteStudentById(Integer StudId);
 	
 	public int deleteStudentByNameLike(String name);
+
+	public Student findStudentByIdWithAddress(Integer studId);
+	
 }

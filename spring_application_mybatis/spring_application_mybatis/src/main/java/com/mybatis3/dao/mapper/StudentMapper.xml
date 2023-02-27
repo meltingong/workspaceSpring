@@ -1,6 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.mybatis3.dao.mapper.StudentMapper">
+	<!-- ###################resultMap 정의 #################-->
+	<resultMap id="studentWithAddressResultMap" type="com.mybatis3.domain.Student" autoMapping="true" >
+		<!-- 
+		<result column="STUD_ID" property="studId"/>
+		<result column="NAME" property="name"/>
+		<result column="EMAIL" property="email"/>
+		<result column="DOB" property="dob"/>
+		 -->
+		 
+		<association property="address" javaType="com.mybatis3.domain.Address" autoMapping="true">
+			<!-- 
+			<result column="ADDR_ID" property="addrId"/>
+			<result column="STREET" property="street"/>
+			<result column="CITY" property="city"/>
+			<result column="STATE" property="state"/>
+			<result column="ZIP" property="zip"/>
+			<result column="COUNTRY" property="country"/>
+			 -->
+		</association>
+	</resultMap>
+	
+	
+	
+	
+	<!-- #####################################################-->
 	<!-- 
 	/*
 	 * A.select sql의결과타입이 DTO,VO,Domain객체인경우 resultType : DTO,VO,Domain
@@ -32,14 +57,14 @@
 	<insert id="insertStudentBySequence1" parameterType="com.mybatis3.domain.Student">
 		insert into students(stud_id,name,email,dob) values(students_stud_id_seq.nextval,#{name},#{email},#{dob})
 	</insert>
-	
+	<!--  
 	<insert id="insertStudentBySequence2" parameterType="com.mybatis3.domain.Student">
 		<selectKey order="BEFORE" resultType="int" keyProperty="studId">
 			select students_stud_id_seq.nextval from dual
 		</selectKey>
 		insert into students(stud_id,name,email,dob) values(#{studId},#{name},#{email},#{dob})
 	</insert>
-	
+	-->
 	<!-- update -->
 	<update id="updateStudentById" parameterType="com.mybatis3.domain.Student">
 		update students set name=#{name},email=#{email},dob=#{dob} where stud_id=#{studId}
@@ -57,5 +82,23 @@
 	<delete id="deleteStudentByNameLike" parameterType="string">
 		
 	</delete>
+	<!--  
+	/**************************************************
+	 * SELECT[students + addresses JOIN]( 1 : 1 )
+	 **************************************************/
+	 /*
+	 select sql 의 결과타입이 DTO,VO,Domain객체인 경우
+	 resultMap:
+	 */
+	-->
+	<select id="findStudentByIdWithAddress" parameterType="int" resultMap="studentWithAddressResultMap">
+		select stud_id, name, dob,phone, a.addr_id, street, city, state, zip, country
+		from students s 
+		left outer join addresses a 
+		on s.addr_id=a.addr_id where stud_id=#{studId}
+	</select>
+	
+	
+	
 	
 </mapper>
