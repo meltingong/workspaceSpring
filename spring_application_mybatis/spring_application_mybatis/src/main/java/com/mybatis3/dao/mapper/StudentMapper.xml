@@ -22,6 +22,12 @@
 		</association>
 	</resultMap>
 	
+	<resultMap id="studentWithCoursesResultMap" type="com.mybatis3.domain.Student" autoMapping="true" >
+		<result column="STUDENT_NAME" property="name" />
+		<collection property="courseList" javaType="java.util.List" ofType="com.mybatis3.domain.Course" autoMapping="true">
+			<result column="COURSE_NAME" property="name"/>
+		</collection>
+	</resultMap>
 	
 	
 	
@@ -48,6 +54,22 @@
 	<select id="findStudentNameList" resultType="String">
 		select name from students
 	</select>
+	<!-- 
+	/*
+	 *SELECT[students + course_enrollment JOIN](1:1)
+	 */
+	 -->
+	<select id="findStudentByIdWithCourses" parameterType="java.lang.Integer" resultMap="">
+			select s.*,c.* 
+			from students s 
+			join course_enrollment ce
+			on s.stud_id = ce.stud_id
+			join courses c
+			on ce.course_id=c.course_id where s.stud_id=#{studId};
+	</select>
+	
+	
+	
 	
 	<!-- insert parametatype -->
 	<insert id="insertStudent" parameterType="com.mybatis3.domain.Student">
