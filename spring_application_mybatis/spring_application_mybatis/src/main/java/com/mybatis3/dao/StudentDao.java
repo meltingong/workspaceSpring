@@ -101,9 +101,15 @@ public class StudentDao {
 		return studentMapper.findStudentByIdWithAddress(studId);
 	}
 	
-	
-	
-	
+	/**************************************************
+	 * SELECT[students + courses[course_enrollment] JOIN( 1 : N )
+	 **************************************************/
+	/*
+	 * select sql의결과타입이 DTO,VO,Domain객체인경우 resultMap : studentWithCoursesResultMap
+	 */
+	public Student findStudentByIdWithCourses(Integer studId) {
+		return studentMapper.findStudentByIdWithCourses(studId);
+	}
 	
 	/**************************************************
 	 * 결과데이타를 Map(HashMap)에 담아서 반환할수있다
@@ -126,15 +132,7 @@ public class StudentDao {
 		return null;
 	}
 
-	/**************************************************
-	 * SELECT[students + courses[course_enrollment] JOIN( 1 : N )
-	 **************************************************/
-	/*
-	 * select sql의결과타입이 DTO,VO,Domain객체인경우 resultMap : studentWithCoursesResultMap
-	 */
-	public Student findStudentByIdWithCourses(Integer studId) {
-		return null;
-	}
+	
 
 	
 

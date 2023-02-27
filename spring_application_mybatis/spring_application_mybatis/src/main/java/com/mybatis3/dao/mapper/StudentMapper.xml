@@ -58,16 +58,17 @@
 	/*
 	 *SELECT[students + course_enrollment JOIN](1:1)
 	 */
-	 -->
+	
 	<select id="findStudentByIdWithCourses" parameterType="java.lang.Integer" resultMap="studentWithCoursesResultMap">
-			select s.*,c.* 
+			select s.stud_id,s.name as student_name,email,dob,
+			c.course_id,c.name as course_name,description,start_date,end_date 
 			from students s 
 			join course_enrollment ce
 			on s.stud_id = ce.stud_id
 			join courses c
-			on ce.course_id=c.course_id where s.stud_id=#{studId};
+			on ce.course_id=c.course_id where s.stud_id=#{studId}
 	</select>
-	
+	 -->
 	
 	
 	

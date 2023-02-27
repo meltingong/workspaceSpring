@@ -2,6 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.mybatis3.dao.mapper.TutorMapper">
 	<!-- ###############resultMap############# -->
+	
 	<resultMap id="tutorWithCoursesResultMap" 
 			   type="com.mybatis3.domain.Tutor" 
 			   autoMapping="true">
@@ -13,6 +14,7 @@
 		</collection>			
 	</resultMap>
 	
+	<!-- 
 	<select id="findTutorByIdWithCourses" 
 			parameterType="java.lang.Integer"
 			resultMap="tutorWithCoursesResultMap">
@@ -24,6 +26,6 @@
 			on t.tutor_id = c.tutor_id 
 			where t.tutor_id=#{tutorId}
 	</select>
-	
+	 -->
 	
 </mapper>
