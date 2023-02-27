@@ -24,7 +24,7 @@ students + addresses [left outer join]
 select stud_id, name, email,phone, a.addr_id, street, city, state, zip, country
 FROM students s 
 left outer join addresses a 
-on s.addr_id=a.addr_id where stud_id=1;
+on s.addr_id=a.addr_id where stud_id=7;
 
      
 
@@ -126,7 +126,11 @@ SELECT course_id, c.name, c.description, c.start_date, c.end_date,t.tutor_id, t.
       on c.tutor_id=t.tutor_id
 where c.course_id = 1;
       
-      
+/*
+tutors + courses join [1:N]
+    강사정보와 개설된 강의들
+*/
+select *  from tutors t join courses c on t.tutor_id=c.tutor_id where t.tutor_id = 1;      
 /*
 students + addresses + courses 
 */
