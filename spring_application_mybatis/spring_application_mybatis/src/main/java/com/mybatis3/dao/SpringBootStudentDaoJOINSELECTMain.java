@@ -21,7 +21,7 @@ public class SpringBootStudentDaoJOINSELECTMain {
 		Student student = studentDao.findStudentByIdWithAddress(1);
 		System.out.println(student);
 		System.out.println("---------findStudentByIdWithCourses------------------");
-		
+		studentDao.findStudentByIdWithCourses(1);
 		System.out.println("---------findStudentByIdWithAddressWithCourses-------");
 		
 		

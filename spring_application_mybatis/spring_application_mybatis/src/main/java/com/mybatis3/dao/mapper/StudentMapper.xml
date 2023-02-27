@@ -59,7 +59,7 @@
 	 *SELECT[students + course_enrollment JOIN](1:1)
 	 */
 	 -->
-	<select id="findStudentByIdWithCourses" parameterType="java.lang.Integer" resultMap="">
+	<select id="findStudentByIdWithCourses" parameterType="java.lang.Integer" resultMap="studentWithCoursesResultMap">
 			select s.*,c.* 
 			from students s 
 			join course_enrollment ce
