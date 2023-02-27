@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;import org.springframework.jdbc.datasource.SimpleDriverDataSource;
@@ -14,6 +15,7 @@ import com.mybatis3.basic.SpringBootMyBatisFlowMain;
 import com.mybatis3.domain.Student;
 
 @SpringBootApplication
+@MapperScan(basePackages = "com.mybatis3.dao.mapper")
 public class SpringBootStudentDaoDMLMain {
 	public static void main(String[] args) throws ParseException {
 		ApplicationContext appicationContext=
@@ -41,7 +43,7 @@ public class SpringBootStudentDaoDMLMain {
 		System.out.println("---------deleteStudentById---------------------------");
 		System.out.println("###delete rowCount :"+studentDao.deleteStudentById(9));
 		System.out.println("---------deleteStudentByName-------------------------");
-		System.out.println("###delete rowCount :"+studentDao.deleteStudentByName("만두"));
+		//System.out.println("###delete rowCount :"+studentDao.deleteStudentByName("만두"));
 		System.out.println("---------deleteStudentByNameLike---------------------");
 		
 		
