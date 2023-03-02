@@ -12,6 +12,7 @@ import org.springframework.web.servlet.View;
 import org.springframework.web.servlet.view.AbstractView;
 import org.springframework.web.servlet.view.BeanNameViewResolver;
 import org.springframework.web.servlet.view.InternalResourceView;
+import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.RedirectView;
 
 import com.itwill.view.XMLView;
@@ -58,13 +59,17 @@ public class ResponseController {
 			  (/WEB-INF/views/response_view_name.jsp 로 forward가이루어진다)	
 			  
 		  << mcv-config-view-resolver.xml >>
-		  <!-- InternalResourceViewResolver -->
-		 <bean 	id="myInternalResourceViewResolver" 
-			class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-			<property name="order" value="1"/>
-			<property name="prefix" value="/WEB-INF/views/"/>
-			<property name="suffix" value=".jsp"/>
-		</bean>		
+		  
+		  1. WebConfig.java에 InternalResourceViewResolver 등록
+		  
+		  	@Bean
+			public InternalResourceViewResolver internalResourceViewResolver() {
+			InternalResourceViewResolver internalResourceViewResolver = new InternalResourceViewResolver();
+			internalResourceViewResolver.setPrefix("/WEB-INF/views/");
+			internalResourceViewResolver.setSuffix(".jsp");
+			internalResourceViewResolver.setOrder(0);
+			return internalResourceViewResolver;
+		}
 		
 		< Controller반환 String >>
 			1.forward:/WEB-INF/views/response_view_name.jsp ==> prefix,suffix설정적용안됨
@@ -184,13 +189,15 @@ public class ResponseController {
 			public BeanNameViewResolver beanNameViewResolver() {}
 			
 			2.InternalResourceViewResolver 등록[빈으로 정의하지않아도 기본생성됨]
-			
-			<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-				<property name="order" value="1"/>
-				<!-- InternalResouceView객체생성후 DispatcherServlet에 반환시 forward path에 prefix,suffix -->
-				<property name="prefix" value="/WEB-INF/views/"/>
-				<property name="suffix" value=".jsp"></property>
-			</bean>
+				설정을 변경하려면 WebConfig.java파일에 InternalResourceViewResolver 등록
+			@Bean
+			public InternalResourceViewResolver internalResourceViewResolver() {
+			InternalResourceViewResolver internalResourceViewResolver = new InternalResourceViewResolver();
+			internalResourceViewResolver.setPrefix("/WEB-INF/views/");
+			internalResourceViewResolver.setSuffix(".jsp");
+			internalResourceViewResolver.setOrder(0);
+			return internalResourceViewResolver;
+		}
 			  
 		 */
 		

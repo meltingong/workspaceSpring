@@ -8,6 +8,7 @@ import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.handler.SimpleUrlHandlerMapping;
 import org.springframework.web.servlet.view.BeanNameViewResolver;
+import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 import com.itwill.controller.HelloController;
 
@@ -29,7 +30,14 @@ public class WebConfig implements WebMvcConfigurer{
 		return beanNameViewResolver;
 		
 	}
-	
+	@Bean
+	public InternalResourceViewResolver internalResourceViewResolver() {
+		InternalResourceViewResolver internalResourceViewResolver = new InternalResourceViewResolver();
+		internalResourceViewResolver.setPrefix("/WEB-INF/views/");
+		internalResourceViewResolver.setSuffix(".jsp");
+		internalResourceViewResolver.setOrder(0);
+		return internalResourceViewResolver;
+	}
 	
 	/*
 	@Bean
