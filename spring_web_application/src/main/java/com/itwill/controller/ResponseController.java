@@ -3,10 +3,14 @@ package com.itwill.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.context.annotation.Bean;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.View;
+import org.springframework.web.servlet.view.AbstractView;
+import org.springframework.web.servlet.view.BeanNameViewResolver;
 import org.springframework.web.servlet.view.InternalResourceView;
 import org.springframework.web.servlet.view.RedirectView;
 
@@ -16,7 +20,7 @@ import com.itwill.view.XMLView;
 public class ResponseController {
 	/*##################forward###########################*/
 	/*
-	 * fowading view객체반환
+	 * fowarding view객체반환
 	 */
 	@RequestMapping("/response_forward_view_object")
 	public View response_forward_view_object() {
@@ -40,7 +44,7 @@ public class ResponseController {
 	/*
 	 * fowading view name(String)반환
 	 */
-	@RequestMapping("/response_forward_view_name.do")
+	@RequestMapping("/response_forward_view_name")
 	public String response_forward_view_name() {
 		/* 
 		  0 . Controller 가 view name(String)을 반환
@@ -96,7 +100,7 @@ public class ResponseController {
 	/*
 	 * redirect view name(String)반환
 	 */
-	@RequestMapping("/response_redirect_view_name.do")
+	@RequestMapping("/response_redirect_view_name")
 	public String response_redirect_view_name() {
 		/* 
 		  0 . Controller 가 view name(String)반환
@@ -148,7 +152,7 @@ public class ResponseController {
 	/*
 	 * xml출력 view name반환
 	 */
-	@RequestMapping("/response_xml_view_name.do")
+	@RequestMapping("/response_xml_view_name")
 	public String response_xml_view_name(Model model) {
 		List<String> friendList=new ArrayList<String>();
 		friendList.add("김수미");
@@ -169,16 +173,18 @@ public class ResponseController {
 		  6 . DispatcherServlet객체는 반환받은 View객체(XMLView)객체의 renderMergedOutputModel() 메쏘드호출한다: 	
 		  7 . XML출력 	  
 			  
-		  << mcv-config-view-resolver.xml >>
+		  
 		 	<!-- View 객체등록-->
-			<bean id="xmlView" class="com.itwill.view.XMLView" />
+			@Component("xmlView")
+			public class XMLView extends AbstractView {}
 			
 			<!-- ViewResolver객체등록 -->
-			<!-- 1. -->
-			<bean class="org.springframework.web.servlet.view.BeanNameViewResolver">
-				<property name="order" value="0"/>
-			</bean>
-			<!-- 2.InternalResourceViewResolver 등록[빈으로 정의하지않아도 기본생성됨]-->
+			1. WebConfig.java에 BeanNameViewResolver를 등록한다.
+			@Bean
+			public BeanNameViewResolver beanNameViewResolver() {}
+			
+			2.InternalResourceViewResolver 등록[빈으로 정의하지않아도 기본생성됨]
+			
 			<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 				<property name="order" value="1"/>
 				<!-- InternalResouceView객체생성후 DispatcherServlet에 반환시 forward path에 prefix,suffix -->
@@ -186,7 +192,7 @@ public class ResponseController {
 				<property name="suffix" value=".jsp"></property>
 			</bean>
 			  
-		*/
+		 */
 		
 		return "xmlView";
 	}
