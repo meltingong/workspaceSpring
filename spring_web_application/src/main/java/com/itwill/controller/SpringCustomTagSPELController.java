@@ -44,12 +44,12 @@ public class SpringCustomTagSPELController {
 	/************Spring JSP에서 국제화*******************
 	1. ApplicationConfig.java 에 MessageSource빈설정
 	
-	@Bean("messageSource")
-	public MessageSource messageSource() {
-		ResourceBundleMessageSource resourceBundleMessageSource = new ResourceBundleMessageSource();
-		resourceBundleMessageSource.setBasenames("messages/messages","messages/user");
-		return resourceBundleMessageSource;
-	}
+		@Bean("messageSource")
+		public MessageSource messageSource() {
+			ResourceBundleMessageSource resourceBundleMessageSource = new ResourceBundleMessageSource();
+			resourceBundleMessageSource.setBasenames("messages/messages","messages/user");
+			return resourceBundleMessageSource;
+		}
   	 *****************************************************/
 	
 	@RequestMapping("/spring_customtag_spel_i18n")
