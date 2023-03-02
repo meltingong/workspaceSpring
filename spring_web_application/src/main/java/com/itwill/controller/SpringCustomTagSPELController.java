@@ -2,20 +2,24 @@ package com.itwill.controller;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.context.MessageSource;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.itwill.dto.Guest;
 
 @Controller
 public class SpringCustomTagSPELController {
-	
+	@GetMapping("/jstl_fmt_i18n")
 	public String jstl_fmt_i18n() {
-		return "";
+		return "jstl_fmt_i18n";
 		
 	}
-	
+	@GetMapping("/spring_customtag_spel")
 	public String spring_customtag_spel(HttpServletRequest request) {
 		
 		request.setAttribute("price0", 234234);
@@ -38,15 +42,19 @@ public class SpringCustomTagSPELController {
 		return "spring_customtag_spel";
 	}
 	/************Spring JSP에서 국제화*******************
-	1. application-config.xml에 MessageSource빈설정
-	 <bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
-  		<property name="basenames" value="messages/messages,messages/user"/>
-  	 </bean>
+	1. ApplicationConfig.java 에 MessageSource빈설정
+	
+	@Bean("messageSource")
+	public MessageSource messageSource() {
+		ResourceBundleMessageSource resourceBundleMessageSource = new ResourceBundleMessageSource();
+		resourceBundleMessageSource.setBasenames("messages/messages","messages/user");
+		return resourceBundleMessageSource;
+	}
   	 *****************************************************/
 	
-	
+	@RequestMapping("/spring_customtag_spel_i18n")
 	public String spring_customtag_spel_i18n() {
-		return "";
+		return "spring_customtag_spel_i18n";
 	}
 	
 	
