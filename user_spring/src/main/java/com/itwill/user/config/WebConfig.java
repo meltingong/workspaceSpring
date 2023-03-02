@@ -1,11 +1,8 @@
 package com.itwill.user.config;
 
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-import org.springframework.web.servlet.view.BeanNameViewResolver;
-import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 @Configuration
 
@@ -21,6 +18,7 @@ public class WebConfig implements WebMvcConfigurer{
 		 registry.jsp("/WEB-INF/views/",".jsp");
 	}
 	*/
+	
 	/*************************************************************/
 	
 	/*********************Spring MVC 빈객체등록*********************/

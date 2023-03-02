@@ -5,7 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.itwill.user.User;
-//@Mapper
+@Mapper
 public interface UserMapper {
 	/*
 	<insert id="create" parameterType="com.itwill.user.User">

@@ -33,14 +33,20 @@ public class UserController {
 	public String user_main() {
 		return "user_main";
 	}
-	
+	@RequestMapping("/user_write_form")
 	public String user_write_form() {
-		String forward_path = "";
+		String forward_path = "user_write_form";
 		return forward_path;
 	}
-
-	public String user_write_action_post() throws Exception {
-		String forward_path = "";
+	@RequestMapping("/user_write_action")
+	public String user_write_action_post(HttpServletRequest request) throws Exception {
+		String userId = request.getParameter("userId");
+		String password = request.getParameter("password");
+		String name = request.getParameter("name");
+		String email = request.getParameter("email");
+		User user = new User(userId,password,name,email);
+		userService.create(user);
+		String forward_path = "redirect:user_login_form";
 		return forward_path;
 	}
 	@RequestMapping("/user_login_form")
@@ -48,12 +54,18 @@ public class UserController {
 		String forward_path = "user_login_form";
 		return forward_path;
 	}
-
+	@RequestMapping("/user_login_action")
 	public String user_login_action_post(HttpServletRequest request) throws Exception {
+		HttpSession session = request.getSession();
+		String userId = request.getParameter("userId");
+		String password = request.getParameter("password");
+		User fuser= new User(userId,password,"","");
+		int login = userService.login(userId, password);
 		
-		String forwardPath = "";
+		String forwardPath = "redirect:user_main";
 		return forwardPath;
 	}
+	
 
 	public String user_view() throws Exception {
 		/************** login check **************/

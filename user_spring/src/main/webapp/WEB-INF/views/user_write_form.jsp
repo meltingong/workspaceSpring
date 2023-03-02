@@ -58,7 +58,7 @@
 			f.password.select();
 			return false;
 		}
-		document.f.action = "user_write_action.do";
+		document.f.action = "user_write_action";
 		document.f.method='POST';
 		document.f.submit();
 	}
