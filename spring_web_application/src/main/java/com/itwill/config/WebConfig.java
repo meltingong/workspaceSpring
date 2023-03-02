@@ -19,6 +19,8 @@ public class WebConfig implements WebMvcConfigurer{
 		registry.addViewController("/").setViewName("forward:/index.jsp");
 	}
 	
+	
+	
 	/************************spring mvc 객체등록**********************/
 	@Bean
 	public BeanNameViewResolver beanNameViewResolver() {
