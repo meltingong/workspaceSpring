@@ -3,6 +3,7 @@ package com.itwill.user.controller;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -39,12 +40,7 @@ public class UserController {
 		return forward_path;
 	}
 	@RequestMapping("/user_write_action")
-	public String user_write_action_post(HttpServletRequest request) throws Exception {
-		String userId = request.getParameter("userId");
-		String password = request.getParameter("password");
-		String name = request.getParameter("name");
-		String email = request.getParameter("email");
-		User user = new User(userId,password,name,email);
+	public String user_write_action_post(HttpServletRequest request, @ModelAttribute User user) throws Exception {
 		userService.create(user);
 		String forward_path = "redirect:user_login_form";
 		return forward_path;
@@ -55,12 +51,14 @@ public class UserController {
 		return forward_path;
 	}
 	@RequestMapping("/user_login_action")
-	public String user_login_action_post(HttpServletRequest request) throws Exception {
+	public String user_login_action_post(HttpServletRequest request,@ModelAttribute User user) throws Exception {
 		HttpSession session = request.getSession();
-		String userId = request.getParameter("userId");
-		String password = request.getParameter("password");
-		User fuser= new User(userId,password,"","");
-		int login = userService.login(userId, password);
+
+		User fuser= new User(user.getUserId(),user.getPassword(),"","");
+		int login = userService.login(user.getUserId(), user.getPassword());
+		if(login == 0) {
+			
+		}
 		
 		String forwardPath = "redirect:user_main";
 		return forwardPath;
