@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,6 +16,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.itwill.user.User;
 import com.itwill.user.UserService;
+import com.itwill.user.exception.ExistedUserException;
+import com.itwill.user.exception.PasswordMissMatchException;
+import com.itwill.user.exception.UserNotFoundException;
 /*
  * /user_main 
  * /user_write_form 
@@ -41,9 +45,15 @@ public class UserController {
 		return forward_path;
 	}
 	@RequestMapping("/user_write_action")
-	public String user_write_action_post(@ModelAttribute User user) throws Exception {
-		userService.create(user);
-		String forward_path = "redirect:user_login_form";
+	public String user_write_action_post(@ModelAttribute("fuser") User user,Model model) throws Exception {
+		String forward_path = "";
+		try {
+			userService.create(user);
+		    forward_path="redirect:user_login_form";
+		} catch (ExistedUserException e) {
+			 model.addAttribute("msg",e.getMessage());
+			 forward_path="user_write_form";
+		}
 		return forward_path;
 	}
 	@RequestMapping("/user_login_form")
@@ -51,42 +61,36 @@ public class UserController {
 		String forward_path = "user_login_form";
 		return forward_path;
 	}
-	@RequestMapping("/user_login_action")
-	public String user_login_action_post(HttpServletRequest request,@ModelAttribute User user) throws Exception {
-		HttpSession session = request.getSession();
+	@PostMapping("/user_login_action")
+	public String user_login_action_post(@ModelAttribute("fuser") User user,Model model,HttpSession session) throws Exception {
 		String forwardPath = "";
-		User fuser= new User(user.getUserId(),user.getPassword(),"","");
-		int login = userService.login(user.getUserId(), user.getPassword());
-		if(login == 0) {
-			String msg1 = user.getUserId()+"는 존재하지 않는 아이디 입니다.";
-			request.setAttribute("msg1", msg1);
-			request.setAttribute("fuser", fuser);
-			forwardPath = "user_login_form";
-		}else if(login ==1) {
-			String msg2 = "아이디 또는 비밀번호가 일치하지 않습니다.";
-			request.setAttribute("msg2", msg2);
-			request.setAttribute("fuser", fuser);
-			forwardPath = "user_login_form";
-		}else {
-			session.setAttribute("sUserId", fuser.getUserId());
+		try {
+			userService.login(user.getUserId(), user.getPassword());
+			session.setAttribute("sUserId", user.getUserId());
 			forwardPath = "redirect:user_main";
-			
+		}catch (UserNotFoundException e1) {
+			e1.printStackTrace();
+			model.addAttribute("msg1",e1.getMessage());
+			forwardPath = "user_login_form";
+		}catch (PasswordMissMatchException e2) {
+			e2.printStackTrace();
+			model.addAttribute("msg2",e2.getMessage());
+			forwardPath = "user_login_form";
 		}
 		
 		return forwardPath;
 	}
 	
 	@RequestMapping("/user_view")
-	public String user_view(HttpServletRequest request) throws Exception {
+	public String user_view(HttpSession session,Model model) throws Exception {
 		/************** login check **************/
-		HttpSession session = request.getSession();
 		String sUserId = (String)session.getAttribute("sUserId");
 		String forwardPath = "";
 		if(sUserId == null) {
 			forwardPath = "redirect:user_login_form";
 		}else {
 			User loginUser = userService.findUser(sUserId);
-			request.setAttribute("loginUser", loginUser);
+			model.addAttribute("loginUser", loginUser);
 			forwardPath = "user_view";
 		}
 		return forwardPath;
@@ -139,9 +143,8 @@ public class UserController {
 	}
 	
 	@RequestMapping("/user_logout_action")
-	public String user_logout_action(HttpServletRequest request) {
+	public String user_logout_action(HttpSession session) {
 		/************** login check **************/
-		HttpSession session = request.getSession();
 		String forwardPath = "";
 		String sUserId=(String)session.getAttribute("sUserId");
 		if(sUserId == null) {
@@ -152,11 +155,15 @@ public class UserController {
 		}
 		return forwardPath;
 	}
-	
+	@GetMapping({"user_write_action","user_logout_action","user_remove_action","user_login_action"})
 	public String user_action_get() {
-		String forwardPath = "";
+		String forwardPath = "redirect:user_main";
 		return forwardPath;
 	}
-
+	
+	@ExceptionHandler(Exception.class)
+	public String user_exception_handler(Exception e) {
+		return "user_error";
+	}
 
 }

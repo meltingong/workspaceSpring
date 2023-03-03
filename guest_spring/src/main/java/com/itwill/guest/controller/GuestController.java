@@ -91,14 +91,30 @@ public class GuestController {
 		String forwardPath = "redirect:guest_list";
 		return forwardPath;
 	}
-
+	/*
 	@PostMapping("/guest_write_action")
-	public String guest_write_action(@ModelAttribute Guest guest) throws Exception {
-		guestService.insertGuest(guest);
-		String forwardPath = "redirect:guest_list";
-		return forwardPath;
+	public String guest_write_action(@RequestParam("guest_name") String guest_name,
+									 @RequestParam("guest_email") String guest_email,
+									 @RequestParam("guest_homepage") String guest_homepage,
+									 @RequestParam("guest_title") String guest_title,
+									 @RequestParam("guest_content") String guest_content,
+									 RedirectAttributes redirectAttributes)throws Exception {
+		Guest guest = new Guest(0,guest_name,null,guest_email,guest_homepage,guest_title,guest_content);
+		int guest_no = guestService.insertGuest(guest);
+		redirectAttributes.addAttribute("guest_no",guest_no);
+		return "redirect:guest_view";
 	}
-
+*/
+	
+	@PostMapping("/guest_write_action")
+	public String guest_write_action(@ModelAttribute Guest guest,
+									RedirectAttributes redirectAttributes)throws Exception {
+		int guest_no = guestService.insertGuest(guest);
+		redirectAttributes.addAttribute("guest_no",guest_no);
+		return "redirect:guest_view";
+	}
+	
+	
 	@RequestMapping("/guest_write_form")
 	public String guest_write_form() {
 		String forwardPath = "guest_write_form";
