@@ -14,9 +14,12 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.itwill.guest.Guest;
 import com.itwill.guest.GuestService;
+
+import oracle.jdbc.proxy.annotation.Post;
 @Controller
 public class GuestController {
 	@Autowired
@@ -57,6 +60,7 @@ public class GuestController {
 		String forwardPath = "guest_view";
 		return forwardPath;
 	}
+	
 	@RequestMapping("/guest_error")
 	public String guest_error() {
 		String forwardPath = "guest_error";
@@ -80,7 +84,6 @@ public class GuestController {
 		return forwardPath;
 	}
 
-	
 
 	@PostMapping("/guest_remove_action")
 	public String guest_remove_action(@RequestParam int guest_no) throws Exception {
@@ -88,14 +91,11 @@ public class GuestController {
 		String forwardPath = "redirect:guest_list";
 		return forwardPath;
 	}
-	
-	
 
 	@PostMapping("/guest_write_action")
 	public String guest_write_action(@ModelAttribute Guest guest) throws Exception {
 		guestService.insertGuest(guest);
 		String forwardPath = "redirect:guest_list";
-
 		return forwardPath;
 	}
 
