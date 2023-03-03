@@ -4,14 +4,14 @@ package com.itwill.guest;
 
 
 public class Guest {
-	public  int guest_no;
-	public String guest_name;
-	public String guest_date;
-	public String guest_email;
-	public String guest_homepage;
-	public String guest_title;
-	public String guest_content;
-	public Guest() {
+	private int guest_no;
+	private String guest_name;
+	private String guest_date;
+	private String guest_email;
+	private String guest_homepage;
+	private String guest_title;
+	private String guest_content;
+	private Guest() {
 	}
 	public Guest(int guest_no, String guest_name, String guest_date, String guest_email, String guest_homepage,
 			String guest_title, String guest_content) {

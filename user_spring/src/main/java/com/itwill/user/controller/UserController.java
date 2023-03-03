@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -40,7 +41,7 @@ public class UserController {
 		return forward_path;
 	}
 	@RequestMapping("/user_write_action")
-	public String user_write_action_post(HttpServletRequest request, @ModelAttribute User user) throws Exception {
+	public String user_write_action_post(@ModelAttribute User user) throws Exception {
 		userService.create(user);
 		String forward_path = "redirect:user_login_form";
 		return forward_path;
@@ -91,24 +92,49 @@ public class UserController {
 		return forwardPath;
 	}
 
-	@RequestMapping("/user_modify_form")
+	@PostMapping("/user_modify_form")
 	public String user_modify_form_post(HttpServletRequest request) throws Exception {
 		/************** login check **************/
+		HttpSession session = request.getSession();
+		String sUserId = (String)session.getAttribute("sUserId");
+		String forwardPath = "";
+		if(sUserId == null) {
+			forwardPath = "redirect:user_login_form";
+		}else {
+			User loginUser = userService.findUser(sUserId);
+			request.setAttribute("loginUser", loginUser);
+			forwardPath = "user_modify_form";
+		}
+
+		return forwardPath;
+	}
+	@PostMapping("/user_modify_action")
+	public String user_modify_action_post(HttpServletRequest request,@ModelAttribute User user) throws Exception {
+		/************** login check **************/
+		HttpSession session = request.getSession();
+		String sUserId = (String)session.getAttribute("sUserId");
+		String forwardPath = "";
+		if(sUserId == null) {
+			forwardPath = "redirect:user_login_form";
+		}else {
+			userService.update(user);
+			forwardPath = "redirect:user_view";
+		}
+		return forwardPath;
+	}
+	@PostMapping("/user_remove_action")
+	public String user_remove_action_post(HttpServletRequest request) throws Exception {
+		/************** login check **************/
+		HttpSession session = request.getSession();
+		String sUserId = (String)session.getAttribute("sUserId");
+		String forwardPath = "";
+		if(sUserId == null) {
+			forwardPath = "redirect:user_login_form";
+		}
+		userService.remove(sUserId);
+		session.invalidate();
+		forwardPath = "redirect:user_main";
 		
-		String forwardPath = "";
-
-		return forwardPath;
-	}
-
-	public String user_modify_action_post() throws Exception {
-		/************** login check **************/
-		String forwardPath = "";
-		return forwardPath;
-	}
-
-	public String user_remove_action_post() throws Exception {
-		/************** login check **************/
-		String forwardPath = "";
 		return forwardPath;
 	}
 	
@@ -126,7 +152,7 @@ public class UserController {
 		}
 		return forwardPath;
 	}
-
+	
 	public String user_action_get() {
 		String forwardPath = "";
 		return forwardPath;
