@@ -1,10 +1,5 @@
-
-
-
-
-
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 <title>방명록 관리</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -18,30 +13,17 @@
 	<!-- container start-->
 	<div id="container">
 		<!-- header start -->
-		<div id="header">
+		<div id="header" th:include="include_common_top::include_common_top">
 			<!-- include_common_top.jsp start-->
-			
-  
-<h1>
-	<a href="">방명록 [gust spring jsp]</a>
-</h1>
+
 
 			<!-- include_common_top.jsp end-->
 		</div>
 		<!-- header end -->
 		<!-- navigation start-->
-		<div id="navigation">
+		<div id="navigation" th:include="include_common_left::include_common_left">
 			<!-- include_common_left.jsp start-->
 			
-<p>
-	<strong>메 뉴</strong>
-</p>
-<ul>
-	<li><a href="guest_main">방명록홈</a></li>
-	<li><a href="guest_list">방명록리스트</a></li>
-	<li><a href="guest_write_form">방명록쓰기폼</a></li>
-</ul>
-
 			<!-- include_common_left.jsp end-->
 		</div>
 		<!-- navigation end-->
@@ -71,25 +53,14 @@
 									
 									
 									
-									<tr>
-										<td width=50 align=center bgcolor="ffffff" height="20">158</td>
-										<td width=300 bgcolor="ffffff" style="padding-left:10"><a
-											href="guest_view?guest_no=158" class="user">제목</a></td>
-										<td width=120 align=center bgcolor="ffffff">테스트</td>
-										<td width=120 align=center bgcolor="ffffff">2023-02-15</td>
+									<tr th:each="guest:${guestList}">
+										<td th:text="${guest.guest_no}" width=50 align=center bgcolor="ffffff" height="20"></td>
+										<td  width=300 bgcolor="ffffff" style="padding-left:10">
+										<a th:text="${guest.guest_title}" th:href="@{guest_view(guest_no=${guest.guest_no})}" href="guest_view?guest_no=158" class="user"></a></td>
+										<td th:text="${guest.guest_name}" width=120 align=center bgcolor="ffffff"></td>
+										<td th:text="${guest.guest_date.substring(0,10)}" width=120 align=center bgcolor="ffffff"></td>
 									</tr>
-									
-									<tr>
-										<td width=50 align=center bgcolor="ffffff" height="20">141</td>
-										<td width=300 bgcolor="ffffff" style="padding-left:10"><a
-											href="guest_view?guest_no=141" class="user">제목</a></td>
-										<td width=120 align=center bgcolor="ffffff">테스트</td>
-										<td width=120 align=center bgcolor="ffffff">2023-02-15</td>
-									</tr>
-									
-									
-
-
+					
 								</table>
 							</form> <br> <!-- button -->
 							<table border="0" cellpadding="0" cellspacing="1" width="590">
@@ -104,12 +75,9 @@
 		</div>
 		<!-- wrapper content end-->
 		<!-- footer start-->
-		<div id="footer">
+		<div id="footer" th:include="include_common_bottom::include_common_bottom">
 			<!-- include_common_bottom.jsp start-->
 			
-	<p align="center">Copyright (&copy;) By Kimkyoungho.[김경호] All
-		rights reserved.</p>
-
 			<!-- include_common_bottom.jsp end-->
 		</div>
 		<!-- footer end -->
