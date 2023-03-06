@@ -1,7 +1,5 @@
-
-
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 <title>방명록 관리</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -16,15 +14,10 @@
 	<!-- container start-->
 	<div id="container">
 		<!-- header start -->
-		<div id="header">
-			<!-- include_common_top.jsp start-->
+		<div id="header" th:include="include_common_top::include_common_top">
+			<!-- include_common_top.html start-->
 			
-  
-<h1>
-	<a href="">방명록 [gust spring jsp]</a>
-</h1>
-
-			<!-- include_common_top.jsp end-->
+			<!-- include_common_top.html end-->
 		</div>
 		<!-- header end -->
 		<!-- navigation start-->
