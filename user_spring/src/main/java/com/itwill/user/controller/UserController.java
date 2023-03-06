@@ -80,75 +80,62 @@ public class UserController {
 		
 		return forwardPath;
 	}
-	
+	@LoginCheck
 	@RequestMapping("/user_view")
 	public String user_view(HttpServletRequest request) throws Exception {
 		/************** login check **************/
-		String sUserId = (String)request.getSession().getAttribute("sUserId");
 		String forwardPath = "";
-		if(sUserId == null) {
-			return "redirect:user_login_form";
-		}else {
-			User loginUser = userService.findUser(sUserId);
-			request.setAttribute("loginUser", loginUser);
-			forwardPath = "user_view";
-		}
+		String sUserId = (String)request.getSession().getAttribute("sUserId");
+		User loginUser = userService.findUser(sUserId);
+		request.setAttribute("loginUser", loginUser);
+		forwardPath = "user_view";
+		
 		return forwardPath;
 	}
-
+	@LoginCheck
 	@PostMapping("/user_modify_form")
 	public String user_modify_form_post(HttpSession session, Model model) throws Exception {
 		/************** login check **************/
 		String sUserId = (String)session.getAttribute("sUserId");
 		String forwardPath = "";
-		if(sUserId == null) {
-			forwardPath = "redirect:user_login_form";
-		}else {
-			User loginUser = userService.findUser(sUserId);
-			model.addAttribute("loginUser", loginUser);
-			forwardPath = "user_modify_form";
-		}
-
+	
+		User loginUser = userService.findUser(sUserId);
+		model.addAttribute("loginUser", loginUser);
+		forwardPath = "user_modify_form";
+		
 		return forwardPath;
 	}
+	@LoginCheck
 	@PostMapping("/user_modify_action")
 	public String user_modify_action_post(HttpServletRequest request,@ModelAttribute User user) throws Exception {
 		/************** login check **************/
 		HttpSession session = request.getSession();
-		String sUserId = (String)session.getAttribute("sUserId");
 		String forwardPath = "";
-		if(sUserId == null) {
-			forwardPath = "redirect:user_login_form";
-		}else {
-			userService.update(user);
-			forwardPath = "redirect:user_view";
-		}
+	
+		userService.update(user);
+		forwardPath = "redirect:user_view";
+	
 		return forwardPath;
 	}
+	@LoginCheck
 	@PostMapping("/user_remove_action")
 	public String user_remove_action_post(HttpServletRequest request) throws Exception {
 		/************** login check **************/
 		HttpSession session = request.getSession();
 		String sUserId = (String)session.getAttribute("sUserId");
 		String forwardPath = "";
-		if(sUserId == null) {
-			forwardPath = "redirect:user_login_form";
-		}
+		
 		userService.remove(sUserId);
 		session.invalidate();
 		forwardPath = "redirect:user_main";
 		//forwardPath = "forward:user_logout_action";
 		return forwardPath;
 	}
-	
+	@LoginCheck
 	@RequestMapping("/user_logout_action")
 	public String user_logout_action(HttpServletRequest request) {
 		/************** login check **************/
 		String forwardPath = "";
-		String sUserId=(String)request.getSession().getAttribute("sUserId");
-		if(sUserId == null) {
-			return "redirect:user_login_form";
-		}
 		request.getSession().invalidate(); //false일 경우 null반환
 		forwardPath = "redirect:user_main";
 		

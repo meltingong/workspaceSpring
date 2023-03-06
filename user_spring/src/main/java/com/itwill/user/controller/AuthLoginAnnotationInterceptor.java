@@ -36,10 +36,10 @@ public class AuthLoginAnnotationInterceptor implements HandlerInterceptor {
 			HandlerMethod는 그 자체가 실행가능한 객체가 아니라 메소드를 실행하기 위해 필요한 
 			참조정보를 담고 있는 객체 로써 다음과 같은 정보들을 가지고 있다.
 				- @Controller가붙은 컨트롤러 빈정보
-				- @RequestMapping이 붙은 메소드 메타정보
-				- @RequestMapping이 붙은 메소드 파라미터 메타정보
-				- @RequestMapping이 붙은 메소드 어노테이션 메타정보
-				- @RequestMapping이 붙은 메소드 리턴 값 메타정보
+				- @RequestMapping(@GetMapping , @PostMapping) 이 붙은 메소드 메타정보
+				- @RequestMapping(@GetMapping , @PostMapping) 이 붙은 메소드 파라미터 메타정보
+				- @RequestMapping(@GetMapping , @PostMapping) 이 붙은 메소드 어노테이션 메타정보
+				- @RequestMapping(@GetMapping , @PostMapping) 이 붙은 메소드 리턴 값 메타정보
  
 			디스패처 서블릿은 애플리케이션이 실행될 때 모든 컨트롤러 빈의 메소드를 살펴서 
 			매핑 후보가 되는 메소드들을 추출한 뒤, 이를 HandlerMethod 형태로 저장해둔다. 
@@ -67,15 +67,15 @@ public class AuthLoginAnnotationInterceptor implements HandlerInterceptor {
 		/***************************
 		 3.HandlerMethod객체 로부터 @LoginCheck 어노테이션 객체얻기
 		***************************/
-		//LoginCheck loginCheck = handlerMethod.getMethodAnnotation(LoginCheck.class);
+		LoginCheck loginCheck = handlerMethod.getMethodAnnotation(LoginCheck.class);
 		/***************************
 		4. HandlerMethod객체에 @LoginCheck어노테이션 이없는 경우, 
 		   즉 인증이 필요 없는 요청
 		***************************/
-//		if (loginCheck == null) {
-//			System.out.println("### AuthLoginAnnotationInterceptor.preHandle()메써드 @LoginCheck 없는경우");
-//			return true;
-//		}
+		if (loginCheck == null) {
+			System.out.println("### AuthLoginAnnotationInterceptor.preHandle()메써드 @LoginCheck 없는경우");
+			return true;
+		}
 		/***************************
 		4. HandlerMethod객체에 @LoginCheck어노테이션 이있는 경우, 
 		   세션이 있는지 체크
