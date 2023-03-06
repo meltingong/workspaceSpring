@@ -1,9 +1,5 @@
-
-
-
- 
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 <title>방명록 관리</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -19,29 +15,14 @@
 	<!-- container start-->
 	<div id="container">
 		<!-- header start -->
-		<div id="header">
+		<div id="header" th:include="include_common_top::include_common_top">
 			<!-- include_common_top.jsp start-->
-			
-  
-<h1>
-	<a href="">방명록 [gust spring jsp]</a>
-</h1>
-
-			<!-- include_common_top.jsp end-->
+	<!-- include_common_top.jsp end-->
 		</div>
 		<!-- header end -->
 		<!-- navigation start-->
-		<div id="navigation">
+		<div id="navigation" th:include="include_common_left::include_common_left">
 			<!-- include_common_left.jsp start-->
-			
-<p>
-	<strong>메 뉴</strong>
-</p>
-<ul>
-	<li><a href="guest_main">방명록홈</a></li>
-	<li><a href="guest_list">방명록리스트</a></li>
-	<li><a href="guest_write_form">방명록쓰기폼</a></li>
-</ul>
 
 			<!-- include_common_left.jsp end-->
 		</div>
@@ -64,13 +45,13 @@
 								방명록 수정</b></td>
 					</tr>
 				</table> <!-- modify Form  -->
-				<form name="f" method="post">
-					<input type="hidden" name="guest_no" value="206" />
+				<form th:object="${guest}" name="f" method="post">
+					<input th:value="*{guest_no}" type="hidden" name="guest_no" value="206" />
 					<table border="0" cellpadding="0" cellspacing="1" width="590"
 						bgcolor="BBBBBB">
 						<tr>
 							<td width=100 align=center bgcolor="E6ECDE" height="22">번호</td>
-							<td align="left" width=490 bgcolor="ffffff"
+							<td th:text="*{guest_no}" align="left" width=490 bgcolor="ffffff"
 								style="padding-left: 10px">206</td>
 						</tr>
 						<tr>
@@ -78,33 +59,33 @@
 							<td align="left" width=490 bgcolor="ffffff"
 								style="padding-left: 10px"><input type="text"
 								style="width: 150" name="guest_name"
-								value="테스트"></td>
+								th:value="*{guest_name}"></td>
 						</tr>
 						<tr>
 							<td width=100 align=center bgcolor="E6ECDE" height="22">홈페이지</td>
 							<td align="left" width=490 bgcolor="ffffff"
 								style="padding-left: 10px"><input type="text"
 								style="width: 150" name="guest_homepage"
-								value="홈페이지"></td>
+								th:value="*{guest_homepage}"></td>
 						</tr>
 						<tr>
 							<td width=100 align=center bgcolor="E6ECDE" height="22">이메일</td>
 							<td align="left" width=490 bgcolor="ffffff"
 								style="padding-left: 10px"><input type="text"
 								style="width: 240" name="guest_email"
-								value="test@test.com"></td>
+								th:value="*{guest_email}"></td>
 						</tr>
 						<tr>
 							<td width=100 align=center bgcolor="E6ECDE" height="22">제목</td>
 							<td align="left" width=490 bgcolor="ffffff"
 								style="padding-left: 10px"><input type="text"
 								style="width: 240" name="guest_title"
-								value="제목"></td>
+								th:value="*{guest_title}"></td>
 						</tr>
 						<tr>
 							<td width=100 align=center bgcolor="E6ECDE" height="22">내용</td>
 							<td align="left" width=490 bgcolor="ffffff"
-								style="padding-left: 10px"><textarea wrap="soft"
+								style="padding-left: 10px"><textarea th:text="*{guest_content}" wrap="soft"
 									style="width: 240px" rows="10" name="guest_content">내용</textarea>
 
 							</td>
@@ -126,12 +107,9 @@
 		</div>
 		<!-- wrapper content end-->
 		<!-- footer start-->
-		<div id="footer">
+		<div id="footer" th:include="include_common_bottom::include_common_bottom">
 			<!-- include_common_bottom.jsp start-->
-			
-	<p align="center">Copyright (&copy;) By Kimkyoungho.[김경호] All
-		rights reserved.</p>
-
+	
 			<!-- include_common_bottom.jsp end-->
 		</div>
 		<!-- footer end -->

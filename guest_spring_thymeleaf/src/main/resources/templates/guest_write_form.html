@@ -1,7 +1,5 @@
-
-
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 <title>방명록 관리</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -15,29 +13,15 @@
 	<!-- container start-->
 	<div id="container">
 		<!-- header start -->
-		<div id="header">
+		<div id="header" th:include="include_common_top::include_common_top">
 			<!-- include_common_top.jsp start-->
-			
-  
-<h1>
-	<a href="">방명록 [gust spring jsp]</a>
-</h1>
 
 			<!-- include_common_top.jsp end-->
 		</div>
 		<!-- header end -->
 		<!-- navigation start-->
-		<div id="navigation">
+			<div id="navigation" th:include="include_common_left::include_common_left">
 			<!-- include_common_left.jsp start-->
-			
-<p>
-	<strong>메 뉴</strong>
-</p>
-<ul>
-	<li><a href="guest_main">방명록홈</a></li>
-	<li><a href="guest_list">방명록리스트</a></li>
-	<li><a href="guest_write_form">방명록쓰기폼</a></li>
-</ul>
 
 			<!-- include_common_left.jsp end-->
 		</div>
@@ -108,11 +92,8 @@
 		</div>
 		<!-- wrapper content end-->
 		<!-- footer start-->
-		<div id="footer">
+		<div id="footer" th:include="include_common_bottom::include_common_bottom">
 			<!-- include_common_bottom.jsp start-->
-			
-	<p align="center">Copyright (&copy;) By Kimkyoungho.[김경호] All
-		rights reserved.</p>
 
 			<!-- include_common_bottom.jsp end-->
 		</div>
