@@ -29,6 +29,11 @@ public class GuestController {
 		String forwardPath = "guest_main";
 		return forwardPath;
 	}
+	@RequestMapping("/thymeleaf_test")
+	public String thymeleaf_test() {
+		String forwardPath = "thymeleaf_test";
+		return forwardPath;
+	}
 	@RequestMapping("/guest_list")
 	public String guest_list(Model model) throws Exception{
 		String forwardPath = "";
