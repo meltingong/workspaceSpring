@@ -82,7 +82,22 @@ public class UserController {
 	}
 	
 	@RequestMapping("/user_view")
-	public String user_view(HttpSession session,Model model) throws Exception {
+	public String user_view(HttpServletRequest request) throws Exception {
+		/************** login check **************/
+		String sUserId = (String)request.getSession().getAttribute("sUserId");
+		String forwardPath = "";
+		if(sUserId == null) {
+			return "redirect:user_login_form";
+		}else {
+			User loginUser = userService.findUser(sUserId);
+			request.setAttribute("loginUser", loginUser);
+			forwardPath = "user_view";
+		}
+		return forwardPath;
+	}
+
+	@PostMapping("/user_modify_form")
+	public String user_modify_form_post(HttpSession session, Model model) throws Exception {
 		/************** login check **************/
 		String sUserId = (String)session.getAttribute("sUserId");
 		String forwardPath = "";
@@ -91,22 +106,6 @@ public class UserController {
 		}else {
 			User loginUser = userService.findUser(sUserId);
 			model.addAttribute("loginUser", loginUser);
-			forwardPath = "user_view";
-		}
-		return forwardPath;
-	}
-
-	@PostMapping("/user_modify_form")
-	public String user_modify_form_post(HttpServletRequest request) throws Exception {
-		/************** login check **************/
-		HttpSession session = request.getSession();
-		String sUserId = (String)session.getAttribute("sUserId");
-		String forwardPath = "";
-		if(sUserId == null) {
-			forwardPath = "redirect:user_login_form";
-		}else {
-			User loginUser = userService.findUser(sUserId);
-			request.setAttribute("loginUser", loginUser);
 			forwardPath = "user_modify_form";
 		}
 
@@ -138,24 +137,25 @@ public class UserController {
 		userService.remove(sUserId);
 		session.invalidate();
 		forwardPath = "redirect:user_main";
-		
+		//forwardPath = "forward:user_logout_action";
 		return forwardPath;
 	}
 	
 	@RequestMapping("/user_logout_action")
-	public String user_logout_action(HttpSession session) {
+	public String user_logout_action(HttpServletRequest request) {
 		/************** login check **************/
 		String forwardPath = "";
-		String sUserId=(String)session.getAttribute("sUserId");
+		String sUserId=(String)request.getSession().getAttribute("sUserId");
 		if(sUserId == null) {
-			forwardPath = "redirect:user_login_form";
-		}else {
-			session.invalidate();
-			forwardPath = "redirect:user_main";
+			return "redirect:user_login_form";
 		}
+		request.getSession().invalidate(); //false일 경우 null반환
+		forwardPath = "redirect:user_main";
+		
 		return forwardPath;
 	}
-	@GetMapping({"user_write_action","user_logout_action","user_remove_action","user_login_action"})
+	
+	@GetMapping({"user_write_action","user_remove_action","user_login_action","user_modify_form"})
 	public String user_action_get() {
 		String forwardPath = "redirect:user_main";
 		return forwardPath;
