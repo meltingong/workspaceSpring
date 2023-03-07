@@ -31,7 +31,24 @@
     	document.write("outer_function1 --> inner1_var:(존재안함)<br>");
     	return inner_function1;
     }
-
+	
+    function outer_function2(){
+    	let outer2_var = "outer2 var value";
+    	return function(){
+    		let inner2_var = "inner2 var value"
+    		document.write("익명 inner_fumction2 --> outer2_var:"+outer2_var+"<br>");
+    		document.write("익명 inner_fumction2 --> inner2_var:"+inner2_var+"<br>");
+    	}
+    }
+    
+    function outer_function4(a,b){
+    	let c = a+b;
+    	return function(){
+    		document.write("익명 inner_function4() --> a:"+a+"<br>");
+    		document.write("익명 inner_function4() --> b:"+b+"<br>");
+    		document.write("익명 inner_function4() --> c:"+c+"<br>");
+    	}
+    }
     
 </script>
 
@@ -49,10 +66,17 @@
 		document.write('######################반환받은 inner_function1()호출   끝##################<br>');
 		
 		document.write('######################반환받은 inner_function2()호출 시작##################<br>');
+		let returnInnerFunction2 = outer_function2();
+		returnInnerFunction2();
 		document.write('######################반환받은 inner_function2()호출   끝##################<br>');
+		
 		document.write('######################반환받은 inner_function3()호출 시작##################<br>');
+		
 		document.write('######################반환받은 inner_function3()호출   끝##################<br>');
+		
 		document.write('######################반환받은 inner_function4()호출  시작##################<br>');
+		let returnInnerFunction4 = outer_function4(5,6);
+		returnInnerFunction4();
 		document.write('######################반환받은 inner_function4()호출    끝##################<br>');
     </script>
 </body>
