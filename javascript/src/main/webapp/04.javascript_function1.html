@@ -31,20 +31,53 @@
 <script type="text/javascript">
 	
 	/*
-	A.선언적함수
+	A.이름이 존재하는 선언적함수
 	*/
+	function func1(){
+		let localVar = '#func1() local변수값';
+		document.write('func1()내부에서 실행:localVar='+localVar+"<br>");
+		return;
+	}
 	
+	function func2(msg){
+		document.write('func2(msg) 실행-->local변수 msg:'+msg+"<br>");
+		return;
+	}
 	
 	/*
 	1.함수를 변수에 대입
 	*/
+	let func3Var = function func3(){
+						document.write("fun3() 실행<br>");
+					}
+	
+	let func4Var = function func4(arg){
+						document.write("func4("+arg+")실행<br>");
+					};
 	
 	/*
 	2.함수를 인자로 대입
  	*/
+ 	function arg_func5(){
+		document.write("arg_func5() 실행<br>");
+	}
+ 	
+	function func5(funcArg){
+		document.write("--------------func5(funcArg)-----------------<br>");
+		document.write("1.func5호출 시 인자로 받은 funcArg function 실행<br>");
+		document.write("2.typeof funcArg --> "+typeof funcArg+"<br>");
+		funcArg();
+		document.write("---------------------------------------------<br>");
+	}
  	
 	/*
-	B. 익명함수
+	B. 익명함수 (선언과 동시에 호출 가능, 외부에서 호출 불가능)
+		- 익명함수 실행 전 위에 함수 ;으로 끊어줘야함
+	*/
+	/*
+	(function(){
+		document.write("익명함수 실행<br>");
+	})();
 	*/
 	
 </script>
@@ -55,15 +88,28 @@
 	/*
 	A.선언적함수호출
 	*/
+	window.func1();
+	window.func2('#인자1');
 	
+	/*
+	----접근 불가-----
+	console.log(localVar);
+	console.log(msg);
+	*/
 	
 	/*
 	1.변수에대입한 함수를 호출
 	*/
 	
+	func3Var();
+	func4Var("#인자1");
+	
 	/*
 	2.함수호출시[func5] 함수객체[arg_func5]를 인자로 대입
+		func5(arg_func5());로 호출xxx 함수 이름을 인자로 넣어야함
 	*/
+	
+	func5(arg_func5);
 	
 	/*
 	B. 익명함수호출
