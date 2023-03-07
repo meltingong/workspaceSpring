@@ -45,6 +45,20 @@
 	document.write(studentObject1.text+"<br>");
 	
 	/********************Object[생성자함수]********************/
+	let studentObject2 = new Object();
+	studentObject2.id='bbb';
+	studentObject2.name='정지훈';
+	studentObject2.weight=89;
+	studentObject2.married=true;
+	studentObject2.age=38;
+	studentObject2.address='서울';
+	studentObject2.setWeight=function(weight){
+		this.weight=weight;
+	};
+	studentObject2.toString = function(){
+		return "["+this.id+"]"+this.name+this.weigth+this.marrid;
+	}
+	
 	
 	/*******멤버(프로퍼티)동적추가********/
 	
