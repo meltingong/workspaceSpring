@@ -21,7 +21,7 @@
 				weight:56.32,
 				married:true,
 				toString:function(){
-					return ">>>>>>>>>";
+					return "["+this.id+"]"+this.name+this.weigth+this.marrid;
 				},
 				text:'이제그만ㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴ'
 	      };
@@ -29,18 +29,19 @@
 	studentObject1.age=34;
 	studentObject1.address='서울';
 	studentObject1.setWeight=function(weight){
-		
+		this.weight = weight;
 	};
 	
 	document.write("-------------studentObject1출력--------------<br>");
 	document.write(studentObject1.id+"<br>");
 	document.write(studentObject1.name+"<br>");
 	document.write(studentObject1.weight+"<br>");
+	studentObject1.setWeight(56.89);
+	document.write(studentObject1.weight+"<br>");
 	document.write(studentObject1.married+"<br>");
 	document.write(studentObject1.toString()+"<br>");
 	document.write(studentObject1.age+"<br>");
 	document.write(studentObject1.address+"<br>");
-	studentObject1.setWeight(56.89);
 	document.write(studentObject1.text+"<br>");
 	
 	/********************Object[생성자함수]********************/
