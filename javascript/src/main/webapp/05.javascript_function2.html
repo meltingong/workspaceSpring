@@ -11,16 +11,40 @@
     3. function객체를 반환
      */
     /*********인자로 대입할함수(변수)****************/
-   
+   	function arg_func1(){
+    	document.write("## arg_func1()실행<br>");
+    }
+    
+    function arg_func2(){
+    	document.write("## arg_func2()실행<br>");
+    }
     /****함수(익명함수)를 인자로받아서실행할함수***/
-    
+    function func3(funcArg){
+    	document.write("## func3(funcArg) 실행<br>");
+    	funcArg();
+    }
+    function func4(funcArg1,funcArg2){
+    	document.write("## func4(funcArg1,funcArg2) 실행 <br>");
 	//인자로대입된함수를 실행
-	
+    	funcArg1();
+    	funcArg2();
+    }
     
     
-    /***********kQuery.js************
+    /***********kQuery.js*************
     
-     */
+    function hello(name,funcArg){
+    	document.write(">>> kQuery --> hello(name,funcArg)실행<br>");
+    	let msg = name+"님 안녕하세요<br>";
+    	funcArg(msg);
+    }
+    
+    function forEach(array,userCallBackFunction){
+    	for(let i = 0; i < array.length; i++){
+    		userCallBackFunction(i,array[i]);
+    	}
+    }
+    **********************************/
 </script>
 </head>
 <body>
@@ -31,18 +55,47 @@
 	<<javascript api document>
 	https://www.w3schools.com
 	 */
-	document	.write('---------------1.함수를인자로대입--------------------------------<br>');
-	
+	document.write('---------------1.함수를인자로대입--------------------------------<br>');
+	func3(arg_func1);
+	func4(arg_func1,arg_func2);
 	document.write('---------------2.익명함수대입된 함수형변수 대입------------------<br>');
+	document.write('---------------3.익명함수대입------------------------------------<br>');
+	func3(function(){
+		document.write("#### func3(funcArg)에 인자로 대입한 익명함수<br>");
+	});
 	
+	func4(function(){
+		document.write("#### func4(funcArg1,funcArg2)에 첫번째 인자로 대입한 익명함수<br>");
+	},function(){
+		document.write("#### func4(funcArg1,funcArg2)에 두번째 인자로 대입한 익명함수<br>");
+	});
 	
+	document.write('---------------kQuery에서 제공하는 function사용----------------<br>');
+	hello("김경호",function(msg){
+		document.write("### 인자로 대입한 익명함수 실행<br>");
+		document.write("### hello function에서  익명함수 실행시 대입한 인자 msg:"+msg+"<br>");
+	});
 	
-	document	.write('---------------3.익명함수대입------------------------------------<br>');
+	//인자 1개일 때 괄호생략 가능
+	hello("김경호",msg=>{
+		document.write("### 인자로 대입한 익명함수 실행[arrow함수]<br>");
+		document.write("### hello function에서  익명함수 실행시 대입한 인자 msg[arrow함수]:"+msg+"<br>");
+	});
 	
+	let nameArray = ['김경미','김경양','김경가','김경나','김경다'];
+	forEach(nameArray,function(i,name){
+		document.write("#### i = "+i+":"+name+"<br>");
+	});
 	
-
-	document	.write('---------------kQuery에서 제공하는 function사용----------------<br>');
+	forEach(nameArray,(i,name)=>{
+		document.write("#### i = "+i+":"+name+"[arrow함수]<br>");
+	});
 	
+	let tot = 0;
+	forEach([1,2,3,4,5,8], function(i,number){
+		tot += number;
+	});
+	document.write('tot:'+tot);
 	
     </script>
 </body>

@@ -15,12 +15,22 @@
     		외부함수에의해 내부함수가 반환된이후에도 환경(life-cycle)이
     		유지되는것을 의미한다.
      */
-
 	
-	
-    
-
-    
+	function outer_function1(){
+    	let outer1_var = "outer1 var value";
+    	/*************inner function***********/
+    	function inner_function1(){
+    		let inner1_var = "inner1 var value";
+    		document.write("inner_function1 --> outer1_var:"+outer1_var+"<br>");
+    		document.write("inner_function1 --> inner1_var:"+inner1_var+"<br>");
+    	}
+    	document.write("-------------outer_function1에서 inner_function1호출 시작----------<br>");
+    	inner_function1();
+    	document.write("-------------outer_function1에서 inner_function1호출 끄읕----------<br>");
+    	document.write("outer_function1 --> outer1_var:"+outer1_var+"<br>");
+    	document.write("outer_function1 --> inner1_var:(존재안함)<br>");
+    	return inner_function1;
+    }
 
     
 </script>
@@ -31,15 +41,19 @@
 	<hr />
 	<script type="text/javascript">
 		document.write('######################outer_function1()호출 시작##################<br>');
-		document	.write('######################outer_function1()호출  끝##################<br>');
-		document	.write('######################반환받은 inner_function1()호출 시작##################<br>');
-		document	.write('######################반환받은 inner_function1()호출   끝##################<br>');
-		document	.write('######################반환받은 inner_function2()호출 시작##################<br>');
-		document	.write('######################반환받은 inner_function2()호출   끝##################<br>');
-		document	.write('######################반환받은 inner_function3()호출 시작##################<br>');
-		document	.write('######################반환받은 inner_function3()호출   끝##################<br>');
-		document	.write('######################반환받은 inner_function4()호출  시작##################<br>');
-		document	.write('######################반환받은 inner_function4()호출    끝##################<br>');
+		let returnInnerFunction1 = outer_function1();
+		document.write('######################outer_function1()호출  끝##################<br>');
+		
+		document.write('######################반환받은 inner_function1()호출 시작##################<br>');
+		returnInnerFunction1();
+		document.write('######################반환받은 inner_function1()호출   끝##################<br>');
+		
+		document.write('######################반환받은 inner_function2()호출 시작##################<br>');
+		document.write('######################반환받은 inner_function2()호출   끝##################<br>');
+		document.write('######################반환받은 inner_function3()호출 시작##################<br>');
+		document.write('######################반환받은 inner_function3()호출   끝##################<br>');
+		document.write('######################반환받은 inner_function4()호출  시작##################<br>');
+		document.write('######################반환받은 inner_function4()호출    끝##################<br>');
     </script>
 </body>
 </html>
