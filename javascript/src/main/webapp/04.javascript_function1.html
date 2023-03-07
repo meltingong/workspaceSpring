@@ -73,7 +73,16 @@
 	/*
 	B. 익명함수 (선언과 동시에 호출 가능, 외부에서 호출 불가능)
 		- 익명함수 실행 전 위에 함수 ;으로 끊어줘야함
+		- 자바스크립트 변수선언 안 할수록 좋음
 	*/
+	let func6Var = function(){
+				document.write("func6Var 변수에 대입된 익명함수가 실행<br>");
+		};
+		
+	let func7Var = function(arg1,arg2){
+				document.write("func7Var 변수에 대입된 익명함수가 실행["+arg1+","+arg2+"]<br>");
+		};
+	
 	/*
 	(function(){
 		document.write("익명함수 실행<br>");
@@ -110,10 +119,17 @@
 	*/
 	
 	func5(arg_func5);
-	
+	func5(function(){
+		document.write("func5에 인자로 대입한 익명함수 실행<br>");
+	});
+		
 	/*
 	B. 익명함수호출
 	*/
+	
+	func6Var();
+	func7Var('#인자1','#인자2');
+	
 	
 </script>
 </body>
