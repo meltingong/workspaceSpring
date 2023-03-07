@@ -9,17 +9,94 @@
 <script type="text/javascript">
 	
 	
-	console.log('-------3항연산자------');
+	console.log('------- === ------');
+	let str1 = "KIM";
+	let str2 = new String('KIM');
+	let str3 = new String('KIM');
+	let str4 = str3;
+	console.log(typeof str1);
+	console.log(typeof str2);
+	console.log(typeof str3);
 	
+	if(str1 == str2){
+		console.log("str1 == str2 값 일치");
+	}
+	
+	if(str1 === str2){
+		console.log("str1,str2 참조변수 동일");
+	}else{
+		console.log("str1,str2 참조변수 동일하지 않음");
+	}
+	
+	if(str2 === str3){
+		console.log("str2,str3 참조변수 동일");
+	}else{
+		console.log("str2,str3 참조변수 동일하지 않음");
+	}
+	
+	if(str3 === str4){
+		console.log("str3,str4 참조변수 동일");
+	}else{
+		console.log("str3,str4 참조변수 동일하지 않음");
+	}
+	
+	console.log('-------------3항 연산자------------');
+	let a = 12;
+	let b = 20;
+	
+	let result1 = (a > b) ? a:b;
+	console.log('result1:',result1);
+	
+	let result2;
+	(a > b) ? result2 = a:result2 = b;
+	console.log('result2:',result2);
+	
+	let level = 67;
+	let msg = level > 0? '양수':'음수';
+	console.log('msg:',msg);
 	
 	console.log('-------------논리형타입으로자동변경------------');
 	//falsy한값
-
-	//truthy
+	let zeroNumber = 0;
+	let nullValue = null;
+	let emptyStr = '';
+	let undefinedVar;
 	
+	if(!zeroNumber){
+		console.log(zeroNumber,"--->",false);
+	}
+	if(!nullValue){
+		console.log(nullValue,"--->",false);
+	}
+	if(!emptyStr){
+		console.log(emptyStr,"--->",false);
+	}
+	if(!undefinedVar){
+		console.log(undefinedVar,"--->",false);
+	}
 	
+	//truthy한 값(모든 데이터)
+	let zeroNumberStr = '0';
+	let boolStr = 'false';
+	let number = 123123;
+	let spaceStr = ' ';
+	let str = '김경호';
 	
-	
+	if(zeroNumberStr){
+		console.log(zeroNumberStr,"-->",true);
+	}
+	if(boolStr){
+		console.log(boolStr,"-->",true);
+	}
+	if(number){
+		console.log(number,"-->",true);
+	}
+	if(spaceStr){
+		console.log(spaceStr,"-->",true);
+	}
+	if(str){
+		console.log(str,"-->",true);
+	}
 	
 </script>
 
