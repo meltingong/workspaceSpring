@@ -22,38 +22,48 @@
 				e.stopPropagation();
 			});
 	    	
-			document.getElementById("mainp")
-				.addEventListener('click',function(){
-					alert('main.jsp로 페이지기반 요청');
-				});
+		document.getElementById("mainp")
+			.addEventListener('click',function(e){
+				alert('main.jsp로 페이지기반 요청');
+			});
 			/*
 	    	anchor클릭시
 	    	1.click event발생(o)
 	    	2.href에기술된 url로 page요청(o)
 	    	*/
 	   		
+		document.getElementById("maina")
+			.addEventListener('click',function(e){
+				alert('main.jsp로 페이지기반 요청 취소');
+		    	/*
+		    	anchor클릭시
+		    	1.click event발생(o)
+		    	*/
+				e.preventDefault();		    	
+		    	/*
+		    	2.href에기술된 url로 page요청취소( X )[e.preventDefault();]
+		    	*/
+			});
 	    	
-	    	
-	    	/*
-	    	anchor클릭시
-	    	1.click event발생(o)
-	    	2.href에기술된 url로 page요청취소( X )[e.preventDefault();]
-	    	*/
-	    	
-		  /*
-	    	submit버튼클릭시
-	    	1.submit event발생(o)
-	    	2.action 에기술된 url로 page요청( x )
-	    	*/
-	    
+	    	document.getElementById("f")
+	    		.addEventListener('submit',function(e){
+				   /*
+			    	submit버튼클릭시
+			    	1.submit event발생(o)
+			    	2.action 에기술된 url로 page요청( x )
+			    	*/
+			    	alert('submit버튼 클릭시 join.jsp로 페이지요청 취소');
+	    			console.log(e.target);
+					e.preventDefault();				
+	    		});
 	
 	    	
-	/*
-	document.getElementById();
-	document.getElementsByClassName();
-	document.getElementsByTagName();
-	document.getElementsByName();
-	 */
+			/*
+			document.getElementById();
+			document.getElementsByClassName();
+			document.getElementsByTagName();
+			document.getElementsByName();
+			 */
 	});
 		
 </script>
