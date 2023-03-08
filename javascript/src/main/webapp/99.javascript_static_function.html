@@ -5,8 +5,16 @@
 <title>Insert title here</title>
 <script type="text/javascript">
 /********************************************/
-
-
+function Member(id,name){
+	this.id=id;
+	this.name=name;
+}
+Member.prototype.instanceMethod=function(){
+	document.write("Member객체.instanceMethod():"+this.id+","+this.name+"<br>");
+}
+Member.staticMethod = function(){
+	document.write("Member함수.staticMethod()<br>");
+}
 /********************************************/
 </script>
 
@@ -15,11 +23,19 @@
 <h1>javascript static function</h1><hr/>
 <script type="text/javascript">
     /****************instance method호출************/
-	
-    
+	var member1 = new Member(1,'와');
+	var member2 = new Member(2,'우');
+    member1.instanceMethod();
+    member2.instanceMethod();
+	//member1.staticMethod(); (X)
 	/****************static method호출************/
+	Member.staticMethod();
+	Member.staticMethod();
+	
+	
 	let no = Math.round(34.5984);
 	document.write("Math.round(34.5984) --> "+no+"<br>");
+	document.write("Math.sqrt(2) --> "+Math.sqrt(2)+"<br>");
     
     
 </script>
