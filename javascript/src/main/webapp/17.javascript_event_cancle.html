@@ -5,13 +5,22 @@
 <title>Insert title here</title>
 <script type="text/javascript">
 	
-	
+	window.addEventListener('load',function(){
 		/*
 		window.onload 이벤트발생시점
 		   - DOM Tree 생성직후 렌더링전에호출
 		 */
 		/*******이벤트등록*********/
-		
+		//addEventListner는 load시에 등록 , 이벤트 발생시 실행됨
+		document.getElementById('tweet')
+			.addEventListener('click',function(){
+				alert('상세보기');
+			});
+		document.getElementById('imageSpan')
+			.addEventListener('click',function(e){
+				alert('그만하기');
+				e.stopPropagation();
+			});
 	    	
 		/*
 	    	anchor클릭시
@@ -39,6 +48,8 @@
 	document.getElementsByTagName();
 	document.getElementsByName();
 	 */
+	});
+		
 </script>
 </head>
 <body>
