@@ -11,11 +11,13 @@
 		<< Node생성기능 document객체만가지는 기능 >>
 		1.div Element(tag)
 		 */
+		let newDiveE = document.createElement('div');
 		
 			/*
 			1-1.TextNode생성
 			 */
-			
+			let newTextNode = document.createTextNode("새로생성된DIV1 의 TextNode");
+			newDiveE.appendChild(newTextNode);
 			/*
 			1-2.img Element생성
 				<img src='p_red.png' width='20px' height='20px'/>
@@ -24,7 +26,8 @@
 		/*
 		2.DOM Tree에추가
 		 */
-	
+		var parentDivE = document.getElementById('parent');
+		 parentDivE.appendChild(newDiveE);
 	}
 	function remove() {
 	   

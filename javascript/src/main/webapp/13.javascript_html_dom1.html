@@ -5,14 +5,31 @@
 <title>Insert title here</title>
 <script type="text/javascript">
 	function findById(){
-		
+		let div1E = document.getElementById('div1');
+		let div2E = document.getElementById('div2');
+		let div3E = document.getElementById('div3');
+		let div4E = document.getElementById('div4');
+		div1E.innerHTML="<form>검색어<input type='search'/><input type='submit' value='검색'/></form>";
+		div2E.innerHTML='div2 change';
+		div3E.style.border = '3px solid red';
+		div4E.style.visibility = 'hidden';
 	}
 	function findByClass(){
-		
+		let divNodeList = document.getElementsByClassName('menu');
+		for(let i = 0; i < divNodeList.length; i++){
+			divNodeList[i].style.color='white';
+			divNodeList[i].style.background='pink';
+			divNodeList[i].style.border='1px dotted gray';
+		}
 	}
 	var count=0;
 	function findByTagName(){
-		 
+		 let h1ENodeList = document.getElementsByTagName('h1');
+		 for(let i = 0; i < h1ENodeList.length; i++){
+			 h1ENodeList[i].innerHTML = 'h1변경['+ count++ +']';
+			 h1ENodeList[i].style.fontSize = count+"pt";
+		 }
+		
 	}
 </script>
 </head>
