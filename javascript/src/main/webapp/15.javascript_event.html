@@ -9,16 +9,20 @@
 		resultDivE.innerHTML += msg+"<br>";
 	}
 	function inlineEventHandler(e){
-		
+		let msg = "inlineEventHandler --> 이벤트 타겟:"+e.target+",이벤트타입:"+e.type;
+		displayMessage(msg);
 	}
 	function button2EventHandler(e){
-	   
+		let msg = "button2EventHandler --> 이벤트 타겟:"+e.target+",이벤트타입:"+e.type;
+		displayMessage(msg);
 	}
 	function button3EventHandler1(e){
-	   
+		let msg = "button3EventHandler1[click] --> 이벤트 타겟:"+e.target+",이벤트타입:"+e.type;
+		displayMessage(msg);
 	}
 	function button3EventHandler2(e){
-	    
+		let msg = "button3EventHandler2[click] --> 이벤트 타겟:"+e.target+",이벤트타입:"+e.type;
+		displayMessage(msg);
 	}
 	
 	/*
@@ -29,17 +33,49 @@
 	function event_regist(){
 		alert(' >>>> 실행시점 DOMTree로딩완료후 랜더링전시점에실행');
 		/*** DOM LEVEL - 0 ***/
-		
+		let button2E = document.getElementById('button2');
 		/*********CASE1*******/
-		
+		button2E.onclick = button2EventHandler; // button2EventHandler(); --> 호출임 *형태 유의
 		/*********CASE2******/
+		button2E.onclick = function(e){
+			let msg = "button2EventHandler 익명함수 --> 이벤트 타겟:"+e.target+",이벤트타입:"+e.type;
+			displayMessage(msg);
+		};		
 		
 		/*
 		https://www.w3schools.com/
 		*/
 		/*** DOM LEVEL - 2 ***/
+		let button3E = document.getElementById('button3');
+		button3E.addEventListener('click',button3EventHandler1);
+		button3E.addEventListener('click',button3EventHandler2);
+		button3E.addEventListener('click',function(e){
+			let msg = "button3익명EventHandler1[click] --> 이벤트 타겟:"+e.target+",이벤트타입:"+e.type;
+			displayMessage(msg);
+		});
+		button3E.addEventListener('mouseover',function(e){
+			let msg = "button3익명EventHandler2[mouseover] --> 이벤트 타겟:"+e.target+",이벤트타입:"+e.type;
+			displayMessage(msg);
+		});
 		
+		let movie_rankOrderedListElement = document.getElementById('movie_rank'); 
+		let movie_rankListElementArray = movie_rankOrderedListElement.getElementsByTagName("li");
 		
+		for(let i = 0; i < movie_rankListElementArray.length; i++){
+			movie_rankListElementArray[i].addEventListener('click',function(e){
+				let clickElement = e.target;
+				displayMessage('click한 영화:'+clickElement.innerHTML);
+				
+				if(clickElement.style.background == 'gray'){
+				clickElement.style.background = 'white';
+				clickElement.style.color = 'black';
+				}else{
+				clickElement.style.background = 'gray';
+				clickElement.style.color = 'pink';
+				}
+				
+			});
+		}
 		
 		/*
 			<< element1의 하위노드만검색 >>
@@ -54,10 +90,17 @@
 		
 		
 	};
+	
 	/*
 	window.onload 이벤트발생시점
 	   - DOM Tree 생성직후 렌더링전에호출  이벤트등록
-	
+	   ****window 객체에 function이나 property가 등록되는 행위 xxxx
+	*/
+	window.onload = event_regist;
+	/* 
+		window.onload = function(){
+			event_regist();
+		}; 
 	*/
 	
 	
