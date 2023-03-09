@@ -42,7 +42,9 @@
 	*/
 	StringBuffer sb=new StringBuffer();
 	sb.append("<ul>");
-	for(int i=0;i<newsList.size();i++){
+	int count = (int)(Math.random()*newsList.size()+1);
+	
+	for(int i=0;i<count;i++){
 		News news=newsList.get(i);
 		sb.append("<li>"+news.getTitle()+"["+news.getCompany()+"-"+news.getDate()+"][HTML]</li>");
 	}

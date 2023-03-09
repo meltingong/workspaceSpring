@@ -18,20 +18,20 @@
 			/*
 			1. XMLHttpRequest객체생성
 			*/
-			
+			xhr = new XMLHttpRequest();
 			
 			/*
 			2. 요청속성설정 
 			*/
-			
+			xhr.open('GET','02.ajaxRequest.jsp?id='+idStr);
 				/*
 				응답이 도착했을때 실행되는 콜백함수등록(이벤트프로퍼티에함수등록)
 				*/
-			
+			xhr.onload = responseCallBack;
 			/*
 			3.요청
 			*/
-		
+			xhr.send(null);
 			
 			
 	}	
@@ -39,6 +39,8 @@
 	응답이 도착했을때 실행되는 사용자정의 콜백함수
 	*/
 	function responseCallBack(){
+		let responseStr = xhr.responseText;
+		document.getElementById('msg').innerHTML = responseStr;
 	}
 </script>
 </head>

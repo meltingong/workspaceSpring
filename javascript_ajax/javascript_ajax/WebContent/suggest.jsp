@@ -1,16 +1,19 @@
-<%@ page contentType="text/plain; charset=euc-kr"%>
+<%@ page contentType="application/json; charset=UTF-8"%>
 <%@ page import="java.util.List"%>
 <%!	
-	String[] keywords = {"AJAX","AJAX ½ÇÀü ÇÁ·Î±×·¡¹Ö",
-						"AJA","AZERA","ÀÚ¶óÀÚ",
-						"ÀÚ¶ó","ÀÚ¹Ù ÇÁ·Î±×·¡¹Ö",
-			   			"ÀÚ¹Ù ¼­¹ö ÆäÀÌÁö","ÀÚ¹Ù½ºÅÍµð",
-			   			"ÀÚ¹Ù¼­ºñ½º","ÀÚ¹ÙÄµ"};
+	String[] keywords = {"AJAX","AJAX ì‹¤ì „ í”„ë¡œê·¸ëž˜ë°",
+						"AJA","AZERA","ìžë¼ìž",
+						"ìžë¼","ìžë°” í”„ë¡œê·¸ëž˜ë°",
+			   			"ìžë°” ì„œë²„ íŽ˜ì´ì§€","ìžë°”ìŠ¤í„°ë””",
+			   			"ìžë°”ì„œë¹„ìŠ¤","ìžë°”ìº”"};
 	public List search(String keyword) {
 		if (keyword == null || keyword.equals("")) 
 			return java.util.Collections.EMPTY_LIST;
+		
 		keyword = keyword.toUpperCase();
-		List result = new java.util.ArrayList(8);
+		
+		List result = new java.util.ArrayList();
+		
 		for ( int i = 0 ; i < keywords.length ; i++ ) {
 			if (((String)keywords[i]).startsWith(keyword)) {
 				result.add(keywords[i]);
@@ -20,17 +23,31 @@
 	}
 %>
 
-<%	request.setCharacterEncoding("utf-8");
+<%	
+	request.setCharacterEncoding("utf-8");
 	String keyword = request.getParameter("keyword");
 	List keywordList = this.search(keyword);
-	out.print(keywordList.size());
-	out.print("|");
-	for (int i = 0 ; i < keywordList.size() ; i++) {
-		String key = (String)keywordList.get(i);
-		out.print(key);
-		if (i < keywordList.size() - 1) {
-			out.print(",");
+	
+	StringBuffer stringBuffer=new StringBuffer();
+	stringBuffer.append("{");
+	stringBuffer.append("\"count\":"+keywordList.size());
+	stringBuffer.append(",");
+	stringBuffer.append("\"data\":[");
+	for(int i=0;i<keywordList.size();i++){
+		stringBuffer.append("\""+keywordList.get(i)+"\"");
+		if(i < keywordList.size()-1){
+			stringBuffer.append(",");
 		}
 	}
+	stringBuffer.append("]");
+	stringBuffer.append("}");
 %>
+<%=stringBuffer.toString()%>
+<%--
+{
+	"count":2,
+	"data":["ìžë°”","ìžë¼","ìžë°”ë¼"]
+}
+--%>
+
 

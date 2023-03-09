@@ -8,7 +8,7 @@
 	1.tag selector
 	*/
 	h1{
-		color: blue;
+		color: white;
 		text-align: center;
 	}
 	ul{
@@ -19,7 +19,7 @@
 	2. class selector
 	*/
 	.titleBackClass{
-		background-color: yellow;
+		background-color: gray;
 	}
 	/*
 	3.id selector
@@ -37,20 +37,19 @@
 		padding-left: 10%;
 		border: 1px solid blue;
 		font-size: 13pt;
-		background: orange;
+		background: pink;
 	}
 	
 </style>
-
+<script type="text/javascript" src="ajaxRequest.js"></script>
 <script type="text/javascript">
 	
 	function requestNews() {
-	   
+	   ajaxRequest('GET','08.newsTitlesJSON.jsp',null,responseNews);
 	}
 	
-	function responseNews() {
-	    
-	   
+	function responseNews(xhr) {
+	    //console.log(xhr.responseText);
 		/*
 		<< 서버로부터받은데이타[JSON] >>
 		{
@@ -70,6 +69,23 @@
 					]
 		}
 		*/
+		let responseJsonStr = xhr.responseText;
+		let responseJsonObject = JSON.parse(responseJsonStr);
+		
+		let newsJsonArray = responseJsonObject.data;
+		
+		let htmlTemplate = `<ul>`;
+		
+		for(let i = 0 ; i < newsJsonArray.length; i++){
+			let title = newsJsonArray[i].newsTitle;
+			let company = newsJsonArray[i].company;
+			let date = newsJsonArray[i].date;
+			htmlTemplate +=	`<li>${title}[${company}-${date}]</li>`;
+		}
+		htmlTemplate +=`</ul>`;
+		
+		
+		document.getElementById('newsDiv').innerHTML = htmlTemplate;
 		
 		/*	
 		<< 보여줘야할데이타[HTML] >>
@@ -85,11 +101,13 @@
 			<li>한국인들 실직·이직 공포에 시달린다[ITWILL뉴스-2021. 4. 14 오후 12:33:32]</li>
 		</ul>
 		 */
+		 
 			
 		
 	}
+	
 	window.onload=function(){
-		
+		setInterval(requestNews,3000);
 	};
 </script>
 </head>
