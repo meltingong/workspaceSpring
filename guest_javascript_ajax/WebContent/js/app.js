@@ -20,5 +20,7 @@ menuGuestList.addEventListener('click',function(){
 menuGuestWriteForm.addEventListener('click',function(){
 	
 });
-
+/*
+초기 로딩 시에 home anchor click event trigger
+*/
 menuGuestHome.click();
