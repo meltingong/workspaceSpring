@@ -55,6 +55,8 @@
 <script type="text/javascript">
 	
 </script>
+<script  defer src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.1.2/handlebars.min.js"></script>
+<script  src="js/app.js" type="module"></script>
 </head>
 
 <body bgcolor=#FFFFFF text=#000000 leftmargin=0 topmargin=0
@@ -373,5 +375,9 @@
 	
 	<script  src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.1.2/handlebars.min.js"></script>
 	<script  src="js/app.js" type="module"></script>
+	<script type="module">
+		import {render} from './js/view.js';
+		console.log(render);
+	</script>
 </body>
 </html>
