@@ -5,6 +5,20 @@
 /*
 메뉴객체 이벤트등록
 */
-//const menuGuestHome = document.querysel
-//const menuGuestList = 
-//const menuGuestWriteForm = 
+const menuGuestHome = document.querySelector('#menu_guest_home');
+const menuGuestList = document.querySelector('#menu_guest_list');
+const menuGuestWriteForm = document.querySelector('#menu_guest_write_form');
+
+menuGuestHome.addEventListener('click',function(e){
+	let templateHtml = document.querySelector('#guest-main-template');
+	document.querySelector('#content').innerHTML = templateHtml.innerHTML;
+	e.preventDefault();
+});
+menuGuestList.addEventListener('click',function(){
+	
+});
+menuGuestWriteForm.addEventListener('click',function(){
+	
+});
+
+menuGuestHome.click();
