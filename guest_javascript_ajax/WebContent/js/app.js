@@ -19,6 +19,7 @@ menuGuestHome.addEventListener('click',function(e){
 });
 menuGuestList.addEventListener('click',function(e){
 	let jsonResult = Service.guestService('GET','guest/guest_list_json.jsp','');
+	console.log(jsonResult);
 	View.render("#guest-list-template",jsonResult,"#content");
 	e.preventDefault();
 	

@@ -8,13 +8,13 @@ function guestService(method,url,params){
 	ajaxRequest(method,
 				url,
 				function(jsonResult){
-					console.log(jsonResult);
+					returnJsonResult = jsonResult;
 				},
 				params,
-				true);
+				false);
 	
 	
-	returnJsonResult;
+	return returnJsonResult;
 }
 function ajaxRequest(method,url,callbackFunction,params,async){
 	let xhr=new XMLHttpRequest();
