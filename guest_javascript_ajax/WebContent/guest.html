@@ -15,7 +15,7 @@
 	
 	https://developer.mozilla.org/ko/docs/Mozilla
 	 */
-	/*************template literal(es6)***************/
+	/*************template literal(es6)**************
 	var name='김경호';
 	var age=34;
 	
@@ -45,7 +45,12 @@
 	 
 	let nameArray = ["KIM","LEE","CHOI"];
 	
-	
+	let nameHtmlArray = nameArray.map(function(name){
+								return `<li>${name}</li>`;
+						});
+	let html = nameHtmlArray.join("");
+	console.log(html);
+	*/
 </script>
 <script type="text/javascript">
 	
