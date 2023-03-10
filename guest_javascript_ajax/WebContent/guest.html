@@ -15,7 +15,7 @@
 	
 	https://developer.mozilla.org/ko/docs/Mozilla
 	 */
-	/*************template literal(es6)***************
+	/*************template literal(es6)***************/
 	var name='김경호';
 	var age=34;
 	
@@ -34,13 +34,18 @@
 	    return element+1;
 	}
 	
-	var newNoArray=noArray.map(addOne);
+	var newNoArray=noArray.map(addOne); 
+	// array데이터 첫번째부터 꺼내서 addOne 함수 적용 addOne함수 파라메타 자동으로 들어옴 --> 1,2,3,4,5의 값을 차례로 적용해서 +1한 값 반환
 	
 	console.log("original array:"+noArray);
 	console.log("map array:"+newNoArray);
-	var newNoArrayStr = newNoArray.join(",");
+	
+	var newNoArrayStr = newNoArray.join(","); // newNoArray의 값들을 ,로 결합시키는 함수 = join
 	console.log(".join('')==>"+newNoArrayStr);
-	 */
+	 
+	let nameArray = ["KIM","LEE","CHOI"];
+	
+	
 </script>
 <script type="text/javascript">
 	
