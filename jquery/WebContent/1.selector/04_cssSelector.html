@@ -18,9 +18,12 @@ div, span {
 <script type="text/javascript">
 	$(function(){
 		/***********직계자식 > **********/
-		
+		$('body > div').css('border','2px solid skyblue');
+		$('body > span').css('border','2px solid pink');
 		/***********자손모두  **********/
-	
+		$('body  div').css('background','white');
+		$('body  span').css('background','gray');
+		
 		/*
 		$('body > *').css();
 		$('body  *').css();

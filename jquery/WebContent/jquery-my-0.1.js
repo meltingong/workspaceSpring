@@ -39,6 +39,11 @@ window.jQuery = function(arg){
 		window.addEventListener('load',arg);
 	}
 }
+/**********jQuery global function********/
+window.jQuery.each = function(){
+	
+}
+
 window.$ = window.jQuery;
 
 
