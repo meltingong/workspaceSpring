@@ -6,8 +6,16 @@
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <script type="text/javascript">
 	$(function(){
+		let h2Text = $('h2').text();
+		$('#title').html(h2Text);
+		$('.contents').html('<u>jQuery는 오픈소스입니다.</u>');
 		
-		
+		$('h2').text(function(i,oldTextValue){
+			if(i%2==0){
+				return "우와 집에 가고싶다";
+			}
+			return oldTextValue;
+		});
 	});
 </script>
 </head>
