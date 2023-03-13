@@ -7,9 +7,13 @@
 
 <script type="text/javascript">
 $(function() {
-	
-   
-	
+	let listElementArray = $('#nameList > li').get();
+	let listElement0 = $('#nameList >li').get(0);
+   	console.log("1. li element array"+listElementArray);
+   	console.log("2. li element array index 0 "+listElement0);
+   	console.log("3. li element array index 0 : listElement0.firstChild.nodeValue --> "+listElement0.firstChild.nodeValue);
+   	console.log("4. li element array index 0 : $(listElement0).text()) --> "+$(listElement0).text());
+	$('h2').text("Mebers of Groups are "+$('#nameList > li').get().length + "명");
 });
 </script>
 </head>

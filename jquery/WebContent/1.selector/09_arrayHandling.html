@@ -24,10 +24,26 @@
 	$(function(){
 		
 		var memberNameArray=['kim','sim','kang','king','hong'];
-	
+		memberNameArray.sort();
+		//memberNameArray.reverse();
+		memberNameArray.sort(function(name1,name2){
+			if(name1 < name2){
+				return 1;
+			}else{
+				return -1;
+			}
+		});
 		
 		var memberScoreArray=[89,45,23,98,12];
-	
+		memberScoreArray.sort();
+		//memberScoreArray.reverse();
+		memberScoreArray.sort(function(score1,score2){
+			if(score1 < score2){
+				return 1;
+			}else{
+				return -1;
+			}
+		});
 		
 		var memberArray=[
 				{'id':'guard1','name':'kim1','address':'경기도'},
@@ -36,12 +52,19 @@
 				{'id':'guard4','name':'kim4','address':'경기파'},
 				{'id':'guard5','name':'kim5','address':'경기솔'}
 		];
-		
-		
-		
-		
+		memberArray.sort(function(member1,member2){
+			if(member2.id > member1.id){
+				return 1;
+			}else{
+				return -1;
+			}
+		});
 		/*************정렬결과출력**************/
-		
+		$('.sorted1').html(memberNameArray.join(' --> '));
+		$('.sorted2').html(memberScoreArray.join(' --> '));
+		$.each(memberArray,function(i,member){
+			$('.sorted3').append(`${member.id},${member.name},${member.address} <br>`);
+		})
 	});
 	
 	

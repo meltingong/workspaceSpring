@@ -49,6 +49,12 @@
 			console.log(i+"-->"+element);
 		});
 		
+		let h3Element = document.querySelector('h3');
+		let h3JQueryObject = $(h3Element);
+		console.log("h3Element 표준객체:"+h3Element);		
+		console.log("h3jQueryObject jQuery객체:"+h3JQueryObject);		
+		//h3Element.text('jQuery객체 아님')(x)
+		h3JQueryObject.text('>>>>>>jQuery객체');
  	});
  /*
 	window.onload=function(){

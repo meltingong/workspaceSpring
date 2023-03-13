@@ -37,6 +37,40 @@ window.jQuery = function(arg){
 		window.onload이벤트 프로퍼티에 등록
 		*/
 		window.addEventListener('load',arg);
+	}else if(typeof arg == 'object'){
+		/*
+		표준객체(element,document,window...) 
+		*/
+		let elementNodeList=[];
+		elementNodeList.push(arg);
+		let jQueryWrapperObject = {
+			'elementNodeList':elementNodeList,
+			'css':function(propertyName,propertyValue){
+				for(let i = 0; i < this.elementNodeList.length; i++){
+					this.elementNodeList[i].style.cssText +=`${propertyName}:${propertyValue};`;
+				}
+				return this;
+			},
+			'text':function(textArg){
+				//set text
+				if(textArg){
+					for(let i = 0; i <this.elementNodeList.length; i++){
+						//this.elementNodeList[i].innerHTML = textArg;
+						this.elementNodeList[i].firstChild.nodeValue = textArg;
+					}
+					return this;
+				}else if(textArg == undefined){
+					//get text
+					let returnText = "";
+					for(let i = 0; i <this.elementNodeList.length; i++){
+						//this.elementNodeList[i].innerHTML = textArg;
+						returnText += this.elementNodeList[i].firstChild.nodeValue;
+					}
+					return returnText;
+				}
+			}	
+		}
+		return jQueryWrapperObject;
 	}
 }
 /**********jQuery global function********/
