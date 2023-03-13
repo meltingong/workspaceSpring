@@ -34,20 +34,32 @@
 	 이것을 다양한방식으로다룰수 있게해준다.
 	 */
 	
+	 console.log("1."+window.$);
+	 console.log("2."+window.jQuery);
+	 
 	 $(function(){
 		   /*
 			DOM tree loading후 렌더링전에 호출
 			*/
-		
-		
+			let jQueryWrapper1 = $('h1');
+			let jQueryWrapper2 = $('h2');
+		   console.log('3.jQuerWrapperObject1:'+jQueryWrapper1);
+		   console.log('4.jQuerWrapperObject1:'+jQueryWrapper2);
+		   jQueryWrapper1.css('color','skyblue');
+		   jQueryWrapper2.css('color','pink');
+		   
+		   $('h3').text('우와 집에 가고싶다');
+		   $('h4').text('factory function은 jQueryObject를 반환합니다');
+		   $('h5').text('언제 다시 주말...');
+		   $('h6').text('언제 수료...');
+		   
+		   $('h3').css('color','lightgoldenrodyellow');
+		   $('h4').css('color','white').css('background','lightcyan');
+		   $('h5').css('color','white').css('background','plum');
+		   
+		   $('h6').text('프론트').css('color','slategray');
 	 });
 	 
-	 window.onload=function(){
-		/*
-		DOM tree loading후 렌더링전에 호출
-		*/
-		
-	 }
 </script>
 </head>
 <body>

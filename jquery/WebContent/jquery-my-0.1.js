@@ -12,11 +12,22 @@ window.jQuery = function(arg){
 				return this;
 			},
 			'text':function(textArg){
-				for(let i = 0; i <this.elementNodeList.length; i++){
-					//this.elementNodeList[i].innerHTML = textArg;
-					this.elementNodeList[i].firstChild.nodeValue = textArg;
+				//set text
+				if(textArg){
+					for(let i = 0; i <this.elementNodeList.length; i++){
+						//this.elementNodeList[i].innerHTML = textArg;
+						this.elementNodeList[i].firstChild.nodeValue = textArg;
+					}
+					return this;
+				}else if(textArg == undefined){
+					//get text
+					let returnText = "";
+					for(let i = 0; i <this.elementNodeList.length; i++){
+						//this.elementNodeList[i].innerHTML = textArg;
+						returnText += this.elementNodeList[i].firstChild.nodeValue = textArg;
+					}
+					return returnText;
 				}
-				return this;
 			}	
 		}
 		return jQueryWrapperObject;
