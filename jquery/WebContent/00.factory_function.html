@@ -20,8 +20,29 @@
 	console.log("2.:"+window.$);
  	$(function(){
 		console.log('------DOM tree로딩직후 호출되는코드[jQuery,$]------');	
-	});
- 
+		let jQueryWrapperObject1 = jQuery('h1');
+		let jQueryWrapperObject2 = $('h1');
+		console.log("3. factory function reutrn :"+jQueryWrapperObject1);
+		console.log("4. factory function reutrn :"+jQueryWrapperObject2);
+		
+		jQueryWrapperObject1.css('color','white');
+		jQueryWrapperObject2.css('background','skyblue');
+		
+		let jQueryWrapperObject3 = jQuery('h2');
+		let jQueryWrapperObject4 = $('h2');
+		jQueryWrapperObject3.css('color','white');
+		jQueryWrapperObject4.css('background','pink');
+		
+		jQueryWrapperObject1.text('이제 끝날시간');
+		jQueryWrapperObject3.text('factory function은 중요한 내용입니다');
+		
+		$('h3').css('background','lightgoldenrodyellow').text('jquery chaining coding');
+		$('h4').text('아아아악').css('border','5px solid red');
+		$('h5').css('color','green').text('주말 어디갔어');
+		$('h6').css('background','paleturquoise').css('color','white');
+		
+ 	});
+ /*
 	window.onload=function(){
 		console.log('------DOM tree로딩직후 호출되는코드[window.onload]------');	
 		let jQueryWrapperObject1 = jQuery('h1');
@@ -45,10 +66,8 @@
 		$('h5').css('color','green').text('주말 어디갔어');
 		$('h6').css('background','paleturquoise').css('color','white');
 		
-		
-		
  };
-	
+*/	
 </script>
 </head>
 <body>
