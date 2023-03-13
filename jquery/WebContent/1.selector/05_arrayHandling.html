@@ -15,7 +15,13 @@
 				{'id':'guard5','name':'kim5','address':'경기솔'}
 		];
 		
-		
+		$('h2').append(memberNameArray.length+"명");
+		$.each(memberNameArray,function(i,name){
+			$('#memberNameList').append('<li>'+name+'</li>');
+		});
+		$.each(memberArray,function(i,member){
+			$('#memberList').append(`<li>[${member.id}]${member.name},${member.address}</li>`);
+		});
 	});
 </script>
 </head>

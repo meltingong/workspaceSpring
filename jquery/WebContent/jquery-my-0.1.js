@@ -40,8 +40,10 @@ window.jQuery = function(arg){
 	}
 }
 /**********jQuery global function********/
-window.jQuery.each = function(){
-	
+window.jQuery.each = function(array,funArg){
+	for(let i = 0; i < array.length; i++){
+		funArg(i,array[i]);
+	}
 }
 
 window.$ = window.jQuery;
