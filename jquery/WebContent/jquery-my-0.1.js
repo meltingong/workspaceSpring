@@ -24,7 +24,7 @@ window.jQuery = function(arg){
 					let returnText = "";
 					for(let i = 0; i <this.elementNodeList.length; i++){
 						//this.elementNodeList[i].innerHTML = textArg;
-						returnText += this.elementNodeList[i].firstChild.nodeValue = textArg;
+						returnText += this.elementNodeList[i].firstChild.nodeValue;
 					}
 					return returnText;
 				}
