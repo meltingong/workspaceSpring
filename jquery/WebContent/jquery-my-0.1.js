@@ -1,6 +1,8 @@
 window.jQuery = function(arg){
 	if(typeof arg == 'string'){
+		/********selector*******/
 		let elementNodeList = document.querySelectorAll(arg);
+		if(!elementNodeList) elementNodeList=[];
 		let jQueryWrapperObject = {
 			'elementNodeList':elementNodeList,
 			'css':function(propertyName,propertyValue){
@@ -18,6 +20,8 @@ window.jQuery = function(arg){
 			}	
 		}
 		return jQueryWrapperObject;
+	}else if(typeof arg == 'function'){
+		
 	}
 }
 window.$ = window.jQuery;
