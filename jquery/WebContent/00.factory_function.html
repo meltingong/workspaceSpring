@@ -18,17 +18,12 @@
 	
 	console.log("1.:"+window.jQuery);
 	console.log("2.:"+window.$);
-	
-
-	
-/* 	
  	$(function(){
-	
-		console.log('------DOM tree로딩직후 호출되는코드------');	
+		console.log('------DOM tree로딩직후 호출되는코드[jQuery,$]------');	
 	});
- */
+ 
 	window.onload=function(){
-		console.log('------DOM tree로딩직후 호출되는코드------');	
+		console.log('------DOM tree로딩직후 호출되는코드[window.onload]------');	
 		let jQueryWrapperObject1 = jQuery('h1');
 		let jQueryWrapperObject2 = $('h1');
 		console.log("3. factory function reutrn :"+jQueryWrapperObject1);

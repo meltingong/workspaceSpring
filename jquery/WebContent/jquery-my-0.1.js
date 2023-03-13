@@ -21,7 +21,11 @@ window.jQuery = function(arg){
 		}
 		return jQueryWrapperObject;
 	}else if(typeof arg == 'function'){
-		
+		/*
+		인자로 대입된 함수를 DOM트리 생성직후에 호출되도록
+		window.onload이벤트 프로퍼티에 등록
+		*/
+		window.addEventListener('load',arg);
 	}
 }
 window.$ = window.jQuery;
