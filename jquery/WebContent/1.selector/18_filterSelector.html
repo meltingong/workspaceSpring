@@ -67,7 +67,20 @@ td {
 	</div>
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <script>
-	
+	$('td').css('border','1px dotted red');
+	$('td:first').css('color','pink');
+	$('td:first-child').css('background','gray');
+	$('td:last').css('color','white');
+	$('td:last-child').css('background','navy');
+	$('td:nth-child(2)').css('background','aliceblue');
+	$('td:nth-child(2)').css('color','skyblue');
+	/*
+	#account > a
+	#account > div > a
+	#da_top > div > a > div > img:nth-child(3)
+	#NM_THEME_CATE_LIST > li:nth-child(4) > a
+	#NM_THEME_CONTAINER > div:nth-child(6) > div.poster_view_wrap.type_album > div > div > div > div:nth-child(1) > a:nth-child(3) > div.poster_thumb > span
+	*/
 </script>	
 </body>
 </html>

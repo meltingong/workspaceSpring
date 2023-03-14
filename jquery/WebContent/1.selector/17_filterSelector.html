@@ -18,13 +18,22 @@ td {
 	border: 1px solid #AAA;
 }
 
+td.notSelect{
+	border: 1px dashed navy;
+	
+}
+td:not(.notSelect){
+	background:pink;
+	
+}
 
 
 </style>
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <script type="text/javascript">
 	$(function(){
-		
+		$('td.notSelect').css('border','1px double red');
+		$('td:not(.notSelect)').css('background','skyblue');
 		
 	});
 </script>
