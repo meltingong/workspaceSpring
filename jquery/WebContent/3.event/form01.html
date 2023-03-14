@@ -30,7 +30,19 @@ td {
 			2.jquery ajax요청
 			3.submit default중지
 			*/
-			
+			/*
+			$('#f').on('submit',function(e){
+				
+			});
+			*/
+			$('#f').submit(function(e){
+				alert('submit-->');
+				let parameter1 = $(e.target).serialize();
+				let parameter2 = $("#f").serialize();
+				console.log('1.parameter1:'+parameter1);				
+				console.log('2.parameter2:'+parameter2);				
+				e.preventDefault();
+			});
 			
 			
 			/*
