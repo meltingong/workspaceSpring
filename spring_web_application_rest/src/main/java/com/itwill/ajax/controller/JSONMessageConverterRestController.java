@@ -13,10 +13,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.itwill.ajax.domain.News;
 
+import io.swagger.annotations.ApiOperation;
+
 @RestController
 public class JSONMessageConverterRestController {
 
-	
+	@ApiOperation(value = "뉴스리스트")
 	@GetMapping(value = "/news",produces = "application/json;charset=UTF-8")
 	public List<News> newsTitlesListJson() {
 		return this.getNewsList();
@@ -38,6 +40,7 @@ public class JSONMessageConverterRestController {
 	 * "company": "연합뉴스", "date": "2021. 10. 13 오전 10:48:19" },.. ] }
 	 * 
 	 */
+	
 	@GetMapping(value = "/map_news" ,produces = "application/json;charset=UTF-8")
 	public Map<String, Object> newsTitlesMapJson() {
 		Map<String,Object> resultMap = new HashMap<String,Object>();

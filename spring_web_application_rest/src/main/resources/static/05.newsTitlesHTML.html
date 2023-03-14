@@ -53,7 +53,7 @@
 <script type="text/javascript">
 	
 	function requestNews() {
-	   ajaxRequest('GET','05.newsTitlesHTML.jsp',null,responseNews);
+	   ajaxRequest('GET','05.newsTitlesHTML',null,responseNews);
 	}
 	function responseNews(xhr) {
 		document.getElementById('newsDiv').innerHTML=xhr.responseText;
