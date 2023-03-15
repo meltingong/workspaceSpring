@@ -24,7 +24,22 @@ $('#menu_guest_home').click(function(e){
 });
  /********guest_list*******/
 $(document).on('click','#menu_guest_list','#btn_guest_list',function(e){
-	console.log(e.target);
+	
+	let url='';
+	let jsonData={};
+	let method = 'GET';
+	let async=true;
+	
+	$.ajax({
+		url:url,
+		method:method,
+		data:jasonData,
+		success:function(){
+			
+		},
+		async:async
+	})
+	
 	View.render("#guest-list-template",{});
 	e.preventDefault();
 });
