@@ -23,10 +23,12 @@ menuGuestHome.addEventListener('click',function(e){
 });
 menuGuestList.addEventListener('click',function(e){
 	let params='';
-	let jsonResult=Service.guestService('GET',
-							URL.GUEST_LIST_URL,
+	Service.guestService('GET',
+							"guest",
+							function(jsonResult){
+								View.render("#guest-list-template",jsonResult,"#content");			
+							},
 							params);
-	View.render("#guest-list-template",jsonResult,"#content");			
 	e.preventDefault();
 });
 /*

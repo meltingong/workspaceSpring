@@ -1,13 +1,11 @@
-function guestService(method,url,params){
+function guestService(method,url,callBackFunction,params){
 	//ajax요청
 	let returnJsonResult={};
 	ajaxRequest(method,
 				url,
-				function(jsonResult){
-					returnJsonResult=jsonResult;
-				},
+				callBackFunction,
 				params,
-				false);
+				true);
 	return returnJsonResult;
 }
 
