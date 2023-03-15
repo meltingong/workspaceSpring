@@ -7,5 +7,5 @@ package com.itwill.guest.controller;
 	5. DELETE - /guest/n : n번째 데이터를 제거한다.
 	*/
 public class GuestRestController {
-
+	
 }
