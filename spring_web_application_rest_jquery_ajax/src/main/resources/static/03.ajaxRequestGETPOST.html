@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.js"></script>
+<script type="text/javascript">
+	
+	$(function(){
+		
+	});	
+
+	
+</script>
+</head>
+<body>
+<h1>AJAX POST요청</h1><hr/>
+<form id="postForm" name="postForm">
+	아이디[POST]:<input  type="text" name="id" id="id"  >
+	<span id="postResultSpan"></span>
+</form>
+<script type="text/javascript">
+	$('#id').keyup(function(e){
+		if($(e.target).val().trim()==''){
+			return;
+		}
+		$.ajax({
+			url:'03.ajaxRequestGETPOST',
+			method:'POST',
+			data:$('#postForm').serialize(),
+			beforeSend:function(){
+				$('#postResultSpan').html("loading...");
+			},
+			success:function(responseData){
+				$('#postResultSpan').html(responseData.trim());
+			},
+			error:function(){
+				alert('ajax error!!');
+			}
+		});
+	});
+</script>
+</body>
+</html>
