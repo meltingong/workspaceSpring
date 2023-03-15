@@ -95,18 +95,21 @@
 								<td width="120" align="center" bgcolor="E6ECDE">이름</td>
 								<td width="120" align="center" bgcolor="E6ECDE">날짜</td>
 							</tr>
+
+							{{#each data}}
 							<!-- guest start -->
 							<tr class="guest_item">
-								<td width="50" align="center" bgcolor="ffffff" height="20">124</td>
+								<td width="50" align="center" bgcolor="ffffff" height="20">{{guest_no}}</td>
 								<td width="300" bgcolor="ffffff" style="padding-left: 10">
-									<a href="#"  class="guest_item_a user" guest_no="124">오늘밤 주인공은
+									<a href="#"  class="guest_item_a user" guest_no="{{guest_no}}">{{guest_title}}
 								</a>
 								</td>
-								<td width="120" align="center" bgcolor="ffffff">나야나</td>
-								<td width="120" align="center" bgcolor="ffffff">2022-08-10</td>
+								<td width="120" align="center" bgcolor="ffffff">{{guest_name}}</td>
+								<td width="120" align="center" bgcolor="ffffff">{{substring guest_date 0 9}}</td>
 							</tr>
 							<!-- guest end -->
-						
+							{{/each}}
+
 						</tbody>
 					</table>
 				</form> <!-- button -->
