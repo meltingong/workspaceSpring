@@ -10,7 +10,7 @@
 <script type="text/javascript">
 	
 </script>
-<script  defer type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.js"></script>
+<script  defer src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.js"></script>
 <script  defer type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.1.2/handlebars.min.js"></script>
 <script  src="js/app.js"  type="module" ></script>
 </head>
@@ -72,7 +72,7 @@
 	<!-- guest-list-template -->
 	<script id="guest-list-template" type="text/x-handlebars-template">
 		<table border="0" cellpadding="0" cellspacing="0">
-		<tbody>
+	<tbody>
 		<tr>
 			<td><br>
 				<table style="padding-left: 10px" border="0" cellpadding="0"
@@ -95,17 +95,16 @@
 								<td width="120" align="center" bgcolor="E6ECDE">이름</td>
 								<td width="120" align="center" bgcolor="E6ECDE">날짜</td>
 							</tr>
-							{{#each data}}
 							<!-- guest start -->
 							<tr class="guest_item">
-								<td width="50" align="center" bgcolor="ffffff" height="20">{{guest_no}}</td>
+								<td width="50" align="center" bgcolor="ffffff" height="20">124</td>
 								<td width="300" bgcolor="ffffff" style="padding-left: 10">
-									<a href="#" class="user guest_item_a" guest_no="{{guest_no}}">{{guest_title}}</a>
+									<a href="#" class="user" class="guest_item_a" guest_no="124">오늘밤 주인공은
+								</a>
 								</td>
-								<td width="120" align="center" bgcolor="ffffff">{{guest_name}}</td>
-								<td width="120" align="center" bgcolor="ffffff">{{guest_date}}</td>
+								<td width="120" align="center" bgcolor="ffffff">나야나</td>
+								<td width="120" align="center" bgcolor="ffffff">2022-08-10</td>
 							</tr>
-							{{/each}}
 							<!-- guest end -->
 						
 						</tbody>
@@ -118,15 +117,14 @@
 						</tr>
 					</tbody>
 				</table></td>
-			</tr>
-		</tbody>
-		</table>
+		</tr>
+	</tbody>
+</table>
 	</script>
 	<!-- guest-view-template -->
 	<script id="guest-detail-template" type="text/x-handlebars-template">
-	{{#data}}	
 	<table border="0" cellpadding="0" cellspacing="0">
-		<tbody>
+	<tbody>
 		<tr>
 			<td>
 				<!--contents--> <br>
@@ -139,7 +137,6 @@
 						</tr>
 					</tbody>
 				</table> <!-- view Form  -->
-				
 				<form name="f" method="post">
 					<input type="hidden" name="guest_no" value="3">
 					<table border="0" cellpadding="0" cellspacing="1" width="590"
@@ -148,56 +145,52 @@
 							<tr>
 								<td width="100" align="center" bgcolor="E6ECDE" height="22">번호</td>
 								<td width="490" bgcolor="ffffff" align="left"
-									style="padding-left: 10px">{{guest_no}}</td>
+									style="padding-left: 10px">3</td>
 							</tr>
 							<tr>
 								<td width="100" align="center" bgcolor="E6ECDE" height="22">이름</td>
 								<td width="490" bgcolor="ffffff" align="left"
-									style="padding-left: 10px">{{guest_name}}</td>
+									style="padding-left: 10px">김경호3333</td>
 							</tr>
 							<tr>
 								<td width="100" align="center" bgcolor="E6ECDE" height="22">날짜</td>
 								<td width="490" bgcolor="ffffff" align="left"
-									style="padding-left: 10px">{{guest_date}}</td>
+									style="padding-left: 10px">2022-07-22</td>
 							</tr>
 							<tr>
 								<td width="100" align="center" bgcolor="E6ECDE" height="22">홈페이지</td>
 								<td width="490" bgcolor="ffffff" align="left"
-									style="padding-left: 10px">{{guest_homepage}}</td>
+									style="padding-left: 10px">http://</td>
 							</tr>
 							<tr>
 								<td width="100" align="center" bgcolor="E6ECDE" height="22">제목</td>
 								<td width="490" bgcolor="ffffff" align="left"
-									style="padding-left: 10px">{{guest_title}}</td>
+									style="padding-left: 10px">방명록 사용법 [수정]gfhf</td>
 							</tr>
 							<tr>
 								<td width="100" align="center" bgcolor="E6ECDE" height="110">내용</td>
 								<td width="490" bgcolor="ffffff" align="left"
-									style="padding-left: 10px">{{guest_content}}</td>
+									style="padding-left: 10px">방명록처럼 사용하시면 됩니다람쥐~~~</td>
 							</tr>
 						</tbody>
 					</table>
-				</form> 
-				
-				<br>
+				</form> <br>
 				<table width="590" border="0" cellpadding="0" cellspacing="0">
 					<tbody>
 						<tr>
 							<td align="center"><input type="button" value="수정"
-								id="btn_guest_modify_form" guest_no="{{guest_no}}">
+								id="btn_guest_modify_form" guest_no="1">
 								&nbsp; <input type="button" value="삭제"
-								id="btn_guest_remove_action" guest_no="{{guest_no}}">
+								id="btn_guest_remove_action" guest_no="1">
 								&nbsp; <input type="button" value="목록" id="btn_guest_list">
 							</td>
 						</tr>
 					</tbody>
 				</table>
-				
 			</td>
 		</tr>
-		</tbody>
-	</table>
- {{/data}}
+	</tbody>
+</table>
 	</script>
 	<!--guest-write-form-template  -->
 	<script id="guest-write-form-template" type="text/x-handlebars-template">
@@ -268,9 +261,8 @@
 	</script>
 	<!-- guest-modify-form-template -->
 	<script id="guest-modify-form-template" type="text/x-handlebars-template">
-		{{#data}}
 		<table border="0" cellpadding="0" cellspacing="0">
-		<tbody>
+	<tbody>
 		<tr>
 			<td><br>
 				<table style="padding-left: 10px" border="0" cellpadding="0"
@@ -282,45 +274,45 @@
 						</tr>
 					</tbody>
 				</table> <!-- modify Form  -->
-				<form id="guest_modify_form" name="f" method="post">
-					<input type="hidden" name="guest_no" value="{{guest_no}}">
+				<form name="f" method="post">
+					<input type="hidden" name="guest_no" value="3">
 					<table border="0" cellpadding="0" cellspacing="1" width="590"
 						bgcolor="BBBBBB">
 						<tbody>
 							<tr>
 								<td width="100" align="center" bgcolor="E6ECDE" height="22">번호</td>
 								<td align="left" width="490" bgcolor="ffffff"
-									style="padding-left: 10px">{{guest_no}}</td>
+									style="padding-left: 10px">3</td>
 							</tr>
 							<tr>
 								<td width="100" align="center" bgcolor="E6ECDE" height="22">이름</td>
 								<td align="left" width="490" bgcolor="ffffff"
 									style="padding-left: 10px"><input type="text"
-									style="width: 150" name="guest_name" value="{{guest_name}}"></td>
+									style="width: 150" name="guest_name" value="김경호3333"></td>
 							</tr>
 							<tr>
 								<td width="100" align="center" bgcolor="E6ECDE" height="22">홈페이지</td>
 								<td align="left" width="490" bgcolor="ffffff"
 									style="padding-left: 10px"><input type="text"
-									style="width: 150" name="guest_homepage" value="{{guest_homepage}}"></td>
+									style="width: 150" name="guest_homepage" value="http://"></td>
 							</tr>
 							<tr>
 								<td width="100" align="center" bgcolor="E6ECDE" height="22">이메일</td>
 								<td align="left" width="490" bgcolor="ffffff"
 									style="padding-left: 10px"><input type="text"
-									style="width: 240" name="guest_email" value="{{guest_email}}"></td>
+									style="width: 240" name="guest_email" value="guard3@naver.com"></td>
 							</tr>
 							<tr>
 								<td width="100" align="center" bgcolor="E6ECDE" height="22">제목</td>
 								<td align="left" width="490" bgcolor="ffffff"
 									style="padding-left: 10px"><input type="text"
-									style="width: 240" name="guest_title" value="{{guest_title}}"></td>
+									style="width: 240" name="guest_title" value="방명록 사용법 [수정]gfhf"></td>
 							</tr>
 							<tr>
 								<td width="100" align="center" bgcolor="E6ECDE" height="22">내용</td>
 								<td align="left" width="490" bgcolor="ffffff"
 									style="padding-left: 10px"><textarea wrap="soft"
-										style="width: 240px" rows="10" name="guest_content">{{guest_content}}</textarea>
+										style="width: 240px" rows="10" name="guest_content">방명록처럼 사용하시면 됩니다람쥐~~~</textarea>
 
 								</td>
 							</tr>
@@ -337,24 +329,12 @@
 						</tr>
 					</tbody>
 				</table></td>
-			</tr>
-		</tbody>
-	</table>
-	{{/data}}
+		</tr>
+	</tbody>
+</table>
 	</script>
 	
 	
 	
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
