@@ -44,8 +44,16 @@ $(document).on('click','#menu_guest_list','#btn_guest_list',function(e){
 });
  /********guest_detail*******/
 $(document).on('click','.guest_item_a',function(e){
-	console.log(e.target);
-	View.render("#guest-detail-template",{});
+	
+	let guest_no = $(e.target).attr('guest_no');
+	let sendData = {};
+	Request.ajaxRequest('guest/'+guest_no,
+						'GET',
+						'application/json;charset=UTF-8',
+						sendData,
+						function(resultJson){
+							View.render("#guest-detail-template",resultJson);
+						},true)
 	e.preventDefault();
 });
  /********guest_write_form*******/
@@ -72,8 +80,11 @@ $(document).on('click','#btn_guest_write_action',function(e){
 						JSON.stringify(sendData),
 						function(resultJson){
 							if(resultJson.code==1){
-								
-								
+								let new_guest_no = resultJson.data[0].guest_no;
+								console.log('요청 url --> guest/'+new_guest_no);
+								//ajaxRequest();
+								console.log(resultJson);
+								View.render("#guest-detail-template",resultJson);
 								
 							}else{
 								alert(resultJson.msg);
