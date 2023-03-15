@@ -81,8 +81,23 @@
 			<li>한국인들 실직·이직 공포에 시달린다[ITWILL뉴스-2021. 4. 14 오후 12:33:32]</li>
 		</ul>
 		 */
-			
-		
+		$(function(){
+			setInterval(function(){
+				$.ajax({
+					url:'08.newsTitlesJSON',
+					dataType:'json',
+					success:function(responseJsonObject){
+						let html =`<ul>`;
+						$.each(responseJsonObject.data,function(i,news){
+							html+=`<li>${news.title}[${news.company}-${news.date}]</li>`;
+						});
+						html+=`</ul>`;
+						$('#newsDiv').html(html);
+						
+					}
+				})
+			},1000);
+		});		
 	
 </script>
 </head>
