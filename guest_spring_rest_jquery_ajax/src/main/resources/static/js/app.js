@@ -38,7 +38,6 @@ $(document).on('click','#menu_guest_write_form','#btn_guest_write_form',function
  /********guest_write_action*******/
 $(document).on('click','#btn_guest_write_action',function(e){
 	console.log(e.target);
-	
 	e.preventDefault();
 });
 
