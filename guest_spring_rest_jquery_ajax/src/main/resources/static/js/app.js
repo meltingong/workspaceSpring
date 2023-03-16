@@ -80,7 +80,14 @@ $(document).on('click','#menu_guest_write_form,#btn_guest_write_form',function(e
 						required:true,
 						minlength:2
 					}
+				},
+				messages:{
+					guest_name:{
+						required:"이름을 입력하세요",
+						minlength:"이름은 {0}글자 이상입니다"
+					}
 				}
+				
 			}
 		);
 	e.preventDefault();

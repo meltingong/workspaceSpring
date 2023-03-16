@@ -6,12 +6,19 @@
 <link rel=stylesheet href="css/styles.css" type="text/css">
 <link rel=stylesheet href="css/guest.css" type="text/css">
 <link rel="icon" href="image/favicon-32x32.png">
-<style type="text/css" media="screen"></style>
-<script type="text/javascript">
-	
-</script>
+<style type="text/css" media="screen">
+	/******form validation css추가******/	
+	label.error{
+		color:red;
+		margin-left: 10px;
+	}
+	.valid{
+		border:1px solid green;
+	}
+</style>
 <script  defer src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.js"></script>
 <script  defer src="js/jquery.validate.js"></script>
+<script  defer src="js/messages_ko.js"></script>
 <script  defer type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.1.2/handlebars.min.js"></script>
 <script  src="js/app.js"  type="module" ></script>
 </head>
