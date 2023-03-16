@@ -20,7 +20,7 @@ import * as Request from "./request.js";
  
  /*******validator 국제화**** */
  console.log(navigator.language);
-$.getScript(`js/localization/messages_${navigator.language}.js`);
+$.getScript(`js/localization/messages_${navigator.language}.js`); 
 /*************validator 기본설정************/
 let validator = null;
 $.validator.setDefaults({
@@ -236,13 +236,18 @@ $(document).on('click','#btn_guest_remove_action',function(e){
 });
 /****************jQuery Ajax Global Event*************/
 $(document).ajaxStart(function(){
-	console.log('ajax start');
+	$("<div id = 'loading'>loading...</div>").insertBefore('#content').show();
+	
 });
 $(document).ajaxComplete(function(){
-	console.log('ajax complete');
+	$('#loading').hide();
+	$('#loading').remove();
 });
 
-
+/*
+페이지 로딩 후 홈컨텐트 보여주기
+*/
+$('#menu_guest_home').trigger('click');
 
 
 

@@ -152,7 +152,7 @@
              Note: The pattern used is equivalent to using pattern="common" -->
         <Valve className="org.apache.catalina.valves.AccessLogValve" directory="logs" pattern="%h %l %u %t &quot;%r&quot; %s %b" prefix="localhost_access_log" suffix=".txt"/>
 
-      <Context docBase="javascript" path="/javascript" reloadable="true" source="org.eclipse.jst.jee.server:javascript"/><Context docBase="javascript_ajax" path="/javascript_ajax" reloadable="true" source="org.eclipse.jst.jee.server:javascript_ajax"/><Context docBase="guest_javascript_ajax" path="/guest_javascript_ajax_sample" reloadable="true" source="org.eclipse.jst.jee.server:guest_javascript_ajax"/><Context docBase="jquery" path="/jquery" reloadable="true" source="org.eclipse.jst.jee.server:jquery"/></Host>
+      <Context docBase="javascript" path="/javascript" reloadable="true" source="org.eclipse.jst.jee.server:javascript"/><Context docBase="javascript_ajax" path="/javascript_ajax" reloadable="true" source="org.eclipse.jst.jee.server:javascript_ajax"/><Context docBase="guest_javascript_ajax" path="/guest_javascript_ajax_sample" reloadable="true" source="org.eclipse.jst.jee.server:guest_javascript_ajax"/><Context docBase="jquery" path="/jquery" reloadable="true" source="org.eclipse.jst.jee.server:jquery"/><Context docBase="css" path="/css" reloadable="true" source="org.eclipse.jst.jee.server:css"/></Host>
     </Engine>
   </Service>
 </Server>
