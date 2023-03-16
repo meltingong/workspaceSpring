@@ -17,6 +17,13 @@ import * as Request from "./request.js";
 	
 	.guest_item_a
  */
+ 
+/*************validator 기본설정************/
+let validator = null;
+$.validator.setDefaults({
+	
+}); 
+ 
  /********guest_home*******/
 $('#menu_guest_home').click(function(e){
 	console.log(e.target);
@@ -24,7 +31,7 @@ $('#menu_guest_home').click(function(e){
 	e.preventDefault();
 });
  /********guest_list*******/
-$(document).on('click','#menu_guest_list','#btn_guest_list',function(e){
+$(document).on('click','#menu_guest_list,#btn_guest_list',function(e){
 	
 	let url='guest';
 	let method = 'GET';
@@ -47,7 +54,7 @@ $(document).on('click','.guest_item_a',function(e){
 	
 	let guest_no = $(e.target).attr('guest_no');
 	let sendData = {};
-	Request.ajaxRequest('guest/'+guest_no,
+	Request.ajaxRequest(`guest/${guest_no}`,
 						'GET',
 						'application/json;charset=UTF-8',
 						sendData,
@@ -57,60 +64,129 @@ $(document).on('click','.guest_item_a',function(e){
 	e.preventDefault();
 });
  /********guest_write_form*******/
-$(document).on('click','#menu_guest_write_form','#btn_guest_write_form',function(e){
-	console.log(e.target);
-	View.render("#guest-write-form-template");
+$(document).on('click','#menu_guest_write_form,#btn_guest_write_form',function(e){
+	/*###############################[form validator plugin]##########################
+	    form validator
+		 - HOMEPAGE :   https://jqueryvalidation.org/
+		 - API      :   https://jqueryvalidation.org/validate/
+			1. $(form).validate() function은 form loading시에 미리 호출되어있어야한다.
+			2. var validator=$(form).validate(); 실행후 반환되는 validator 객체를 사용한다.
+	#################################################################################*/
+	 View.render("#guest-write-form-template");
+	 validator = $('#guest_write_form').validate(
+			{
+				rules:{
+					guest_name:{
+						required:true,
+						minlength:2
+					}
+				}
+			}
+		);
 	e.preventDefault();
 });
 
  /********guest_write_action*******/
 $(document).on('click','#btn_guest_write_action',function(e){
 	
-	let sendData={
+	if(validator.form()){
+		let sendData={
+			guest_name:document.f.guest_name.value,
+			guest_email:document.f.guest_email.value,
+			guest_homepage:document.f.guest_homepage.value,
+			guest_title:document.f.guest_title.value,
+			guest_content:document.f.guest_content.value
+		};
+		console.log(sendData);
+		Request.ajaxRequest('guest',
+							'POST',
+							'application/json;charset=UTF-8',
+							JSON.stringify(sendData),
+							function(resultJson){
+								if(resultJson.code==1){
+									let new_guest_no = resultJson.data[0].guest_no;
+									Request.ajaxRequest('guest/'+new_guest_no,
+														'GET',
+														'application/json;charset=UTF-8',
+														{},
+														function(resultJson){
+															View.render("#guest-detail-template",resultJson);
+														},true);
+								}else{
+									alert(resultJson.msg);
+								}
+							},
+							true);
+	}else{
+		alert('validation false');
+	}
+	e.preventDefault();
+});
+
+ /********guest_modify_form*******/
+$(document).on('click','#btn_guest_modify_form',function(e){
+	let guest_no = $(e.target).attr('guest_no');
+	Request.ajaxRequest('guest/'+guest_no,
+						'GET',
+						'application/json;charset=UTF-8',
+						{},
+						function(resultJson){
+							View.render("#guest-modify-form-template",resultJson);
+						},true
+	);
+	e.preventDefault();
+});
+
+ /********guest_modify_action*******/
+$(document).on('click','#btn_guest_modify_action',function(e){
+	let guest_no = f.guest_no.value;
+	let sendData = {
 		guest_name:document.f.guest_name.value,
 		guest_email:document.f.guest_email.value,
 		guest_homepage:document.f.guest_homepage.value,
 		guest_title:document.f.guest_title.value,
 		guest_content:document.f.guest_content.value
 	};
-	console.log(sendData);
-	Request.ajaxRequest('guest',
-						'POST',
+	Request.ajaxRequest('guest/'+guest_no,
+						'PUT',
 						'application/json;charset=UTF-8',
 						JSON.stringify(sendData),
 						function(resultJson){
 							if(resultJson.code==1){
-								let new_guest_no = resultJson.data[0].guest_no;
-								console.log('요청 url --> guest/'+new_guest_no);
-								//ajaxRequest();
-								console.log(resultJson);
-								View.render("#guest-detail-template",resultJson);
-								
-							}else{
-								alert(resultJson.msg);
+								Request.ajaxRequest('guest/'+guest_no,
+													'GET',
+													'application/json;charset=UTF-8',
+													{},
+													function(resultJson){
+														View.render('#guest-detail-template',resultJson);
+													},true);
 							}
-						},
-						true);
-	
+						}
+			,true);
 	e.preventDefault();
 });
 
- /********guest_modify_form*******/
-$(document).on('click','#btn_guest_modify_form',function(e){
-	console.log(e.target);
-	View.render("#guest-modify-form-template");
-	e.preventDefault();
-});
-
- /********guest_modify_action*******/
-$(document).on('click','#btn_guest_modify_action',function(e){
-	console.log(e.target);
-	e.preventDefault();
-});
 
  /********guest_remove_action*******/
 $(document).on('click','#btn_guest_remove_action',function(e){
-	console.log(e.target);
+	let guest_no = $(e.target).attr('guest_no');
+	Request.ajaxRequest('guest/'+guest_no,
+						'Delete',
+						'application/json;charset=UTF-8',
+						{},
+						function(resultJson){
+							if(resultJson.code==1){
+								Request.ajaxRequest('guest',
+													'GET',
+													'application/json;charset=UTF-8',
+													{},
+													function(resultJson){
+														View.render("#guest-list-template",resultJson);													
+													},true
+								);
+							}
+						}
+	);
 	e.preventDefault();
 });
 
