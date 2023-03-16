@@ -18,10 +18,42 @@ import * as Request from "./request.js";
 	.guest_item_a
  */
  
+ /*******validator 국제화**** */
+ console.log(navigator.language);
+$.getScript(`js/localization/messages_${navigator.language}.js`);
 /*************validator 기본설정************/
 let validator = null;
 $.validator.setDefaults({
-	
+	rules:{
+			guest_name:{
+				required:true,
+				minlength:2
+			},
+			guest_email:{
+				required:true,
+				email:true
+			},
+			guest_homepage:{
+				required:true,
+				url:true
+			},
+			guest_title:{
+				required:true,
+				rangelength:[3,6]
+			}
+		},
+			messages:{
+				guest_name:{
+					required:"이름을 입력하세요",
+					minlength:"이름은 {0}글자 이상입니다"
+				},
+				guest_title:{
+					required:"타이틀을 입력하세요",
+					rangelength:"타이틀의 글자수는 {0} ~ {1} 사이입니다"
+				}
+			},
+	errorClass:'error',
+	validClass:'valid'
 }); 
  
  /********guest_home*******/
@@ -76,18 +108,17 @@ $(document).on('click','#menu_guest_write_form,#btn_guest_write_form',function(e
 	 validator = $('#guest_write_form').validate(
 			{
 				rules:{
-					guest_name:{
+					guest_content:{
 						required:true,
-						minlength:2
-					}
+						equalTo:'#guest_title'
+					}//equalTo는 아이디를 부여해야함
 				},
 				messages:{
-					guest_name:{
-						required:"이름을 입력하세요",
-						minlength:"이름은 {0}글자 이상입니다"
+					guest_content:{
+						required:"내용을 입력하세요",
+						equalTo:'타이틀과 일치하여야 합니다.'
 					}
 				}
-				
 			}
 		);
 	e.preventDefault();
@@ -176,27 +207,40 @@ $(document).on('click','#btn_guest_modify_action',function(e){
 
  /********guest_remove_action*******/
 $(document).on('click','#btn_guest_remove_action',function(e){
+	//let guest_no = $("#guest_view_form input[name='guest_no']").val(); id로 접근 시 
 	let guest_no = $(e.target).attr('guest_no');
 	Request.ajaxRequest('guest/'+guest_no,
-						'Delete',
+						'DELETE',
 						'application/json;charset=UTF-8',
 						{},
 						function(resultJson){
 							if(resultJson.code==1){
-								Request.ajaxRequest('guest',
+								/*
+								#menu_guest_list jQuery객체 이벤트 발생
+								*/
+								$('#menu_guest_list').trigger('click');
+								/*Request.ajaxRequest('guest',
 													'GET',
 													'application/json;charset=UTF-8',
 													{},
 													function(resultJson){
 														View.render("#guest-list-template",resultJson);													
 													},true
-								);
+								);*/
+							}else{
+								alert(resultJson.msg);
 							}
 						}
 	);
 	e.preventDefault();
 });
-
+/****************jQuery Ajax Global Event*************/
+$(document).ajaxStart(function(){
+	console.log('ajax start');
+});
+$(document).ajaxComplete(function(){
+	console.log('ajax complete');
+});
 
 
 

@@ -18,7 +18,6 @@
 </style>
 <script  defer src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.js"></script>
 <script  defer src="js/jquery.validate.js"></script>
-<script  defer src="js/messages_ko.js"></script>
 <script  defer type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.1.2/handlebars.min.js"></script>
 <script  src="js/app.js"  type="module" ></script>
 </head>
@@ -149,7 +148,7 @@
 						</tr>
 					</tbody>
 				</table> <!-- view Form  -->
-				<form name="f" method="post">
+				<form id="guest_view_form" name="f" method="post">
 					<input type="hidden" name="guest_no" value="{{guest_no}}">
 					<table border="0" cellpadding="0" cellspacing="1" width="590"
 						bgcolor="BBBBBB">
@@ -247,7 +246,7 @@
 										<td width="100" align="center" bgcolor="E6ECDE" height="22">타이틀</td>
 										<td width="490" align="left" bgcolor="ffffff"
 											style="padding-left: 10px"><input type="text"
-											style="width: 240" name="guest_title"></td>
+											style="width: 240" name="guest_title" id="guest_title"></td>
 									</tr>
 									<tr>
 										<td width="100" align="center" bgcolor="E6ECDE" height="22">내용</td>
