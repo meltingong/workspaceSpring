@@ -5,32 +5,52 @@
 <title>Insert title here</title>
 <style type="text/css">
 	div,span{
-		
+		border:1px solid red;
+		width:100px;
+		height:100px;
+		margin:10px;
+		padding:10px;
 	}
 	div{
-		
+		display:inline;
 	}
 	span{
+		display:block;
+	}
+	#ib{
+		display:block;
+		width: 600px;
+	}
+	#ib > span{
+		display:inline-block;
+		margin:0px;
+		padding:10px;
+		width:100px;
+		height:100px;
 		
 	}
 </style>
 </head>
 <body>
-<div>
-	div1
-</div>
-<div>
-	div2
-</div>
-<div>
-	div2
-</div>
-<br>
-<br>
-<br>
-<span>span1</span>
-<span>span2</span>
-<span>span3</span>
-
+	<div>
+		div1
+	</div>
+	<div>
+		div2
+	</div>
+	<div>
+		div2
+	</div>
+	<br>
+	<br>
+	<br>
+	<span>span1</span>
+	<span>span2</span>
+	<span>span3</span>
+	<div id ="ib">
+		<span>span..</span>
+		<span>span.....</span>
+		<span>span...............</span>
+	</div>
 </body>
 </html>
