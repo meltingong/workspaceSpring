@@ -1,23 +1,59 @@
 /* extra small devices (phone, 576px and down)*/
 @media ( max-width : 576px) {
-	
+	body{
+		margin: 0px 0px 0px 0px;
+		padding: 0px;
+		background-color:#ddd; 
+		color:#222;
+		font-family: Helvetica;
+		font-size: 14pt
+	}
+	h1{
+		margin:0px;
+		padding:0px;
+	}
+	#header h1 a{
+		background-color: #ccc;
+		display: block;
+		text-decoration: none;
+		text-align: center;
+		color:#222;
+		cursor: default;
+		font-size: 20pt;
+		font-weight: bold;
+	}
 }
 /* extra small devices (phone, 576px and up)*/
 @media ( min-width : 576px) {
+	body{
+		background:skyblue;
+	}
 }
 
 /* Medium devices (tablets, 768px and up)*/
 @media ( min-width : 768px) {
+	body{
+		background:pink;
+	}
 }
 
 /*Large devices (desktops, 992px and up)*/
 @media ( min-width : 992px) {
+	body{
+		background:orange;
+	}
 }
 
 /* X-Large devices (large desktops, 1200px and up)*/
 @media ( min-width : 1200px) {
+	body{
+		background:lavender;
+	}
 }
 
 /* XX-Large devices (larger desktops, 1400px and up)*/
 @media ( min-width : 1400px) {
+	body{
+		background:red;
+	}
 }
