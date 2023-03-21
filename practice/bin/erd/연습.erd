@@ -479,8 +479,51 @@
       <description></description>
       <columns>
         <net.java.amateras.db.visual.model.ColumnModel>
-          <columnName>COLUMN_1</columnName>
-          <logicalName>Column1</logicalName>
+          <columnName>re_no</columnName>
+          <logicalName>re_no</logicalName>
+          <columnType class="net.java.amateras.db.dialect.ColumnType">
+            <name>NUMBER</name>
+            <logicalName>Numeric</logicalName>
+            <supportSize>true</supportSize>
+            <type>2</type>
+          </columnType>
+          <size>100</size>
+          <notNull>false</notNull>
+          <primaryKey>true</primaryKey>
+          <description></description>
+          <autoIncrement>true</autoIncrement>
+          <defaultValue></defaultValue>
+        </net.java.amateras.db.visual.model.ColumnModel>
+        <net.java.amateras.db.visual.model.ColumnModel>
+          <columnName>re_title</columnName>
+          <logicalName>re_title</logicalName>
+          <columnType class="net.java.amateras.db.dialect.ColumnType">
+            <name>VARCHAR2</name>
+            <logicalName>String</logicalName>
+            <supportSize>true</supportSize>
+            <type>12</type>
+          </columnType>
+          <size>20</size>
+          <notNull>true</notNull>
+          <primaryKey>false</primaryKey>
+          <description></description>
+          <autoIncrement>false</autoIncrement>
+          <defaultValue></defaultValue>
+        </net.java.amateras.db.visual.model.ColumnModel>
+        <net.java.amateras.db.visual.model.ColumnModel>
+          <columnName>re_category</columnName>
+          <logicalName>re_category</logicalName>
+          <columnType class="net.java.amateras.db.dialect.ColumnType" reference="../../net.java.amateras.db.visual.model.ColumnModel[2]/columnType"/>
+          <size>20</size>
+          <notNull>true</notNull>
+          <primaryKey>false</primaryKey>
+          <description></description>
+          <autoIncrement>false</autoIncrement>
+          <defaultValue></defaultValue>
+        </net.java.amateras.db.visual.model.ColumnModel>
+        <net.java.amateras.db.visual.model.ColumnModel>
+          <columnName>COLUMN_4</columnName>
+          <logicalName>Column4</logicalName>
           <columnType class="net.java.amateras.db.dialect.ColumnType">
             <name>INTEGER</name>
             <logicalName>Integer</logicalName>
@@ -495,42 +538,9 @@
           <defaultValue></defaultValue>
         </net.java.amateras.db.visual.model.ColumnModel>
         <net.java.amateras.db.visual.model.ColumnModel>
-          <columnName>COLUMN_2</columnName>
-          <logicalName>Column2</logicalName>
-          <columnType class="net.java.amateras.db.dialect.ColumnType" reference="../../net.java.amateras.db.visual.model.ColumnModel/columnType"/>
-          <size>10</size>
-          <notNull>false</notNull>
-          <primaryKey>false</primaryKey>
-          <description></description>
-          <autoIncrement>false</autoIncrement>
-          <defaultValue></defaultValue>
-        </net.java.amateras.db.visual.model.ColumnModel>
-        <net.java.amateras.db.visual.model.ColumnModel>
-          <columnName>COLUMN_3</columnName>
-          <logicalName>Column3</logicalName>
-          <columnType class="net.java.amateras.db.dialect.ColumnType" reference="../../net.java.amateras.db.visual.model.ColumnModel/columnType"/>
-          <size>10</size>
-          <notNull>false</notNull>
-          <primaryKey>false</primaryKey>
-          <description></description>
-          <autoIncrement>false</autoIncrement>
-          <defaultValue></defaultValue>
-        </net.java.amateras.db.visual.model.ColumnModel>
-        <net.java.amateras.db.visual.model.ColumnModel>
-          <columnName>COLUMN_4</columnName>
-          <logicalName>Column4</logicalName>
-          <columnType class="net.java.amateras.db.dialect.ColumnType" reference="../../net.java.amateras.db.visual.model.ColumnModel/columnType"/>
-          <size>10</size>
-          <notNull>false</notNull>
-          <primaryKey>false</primaryKey>
-          <description></description>
-          <autoIncrement>false</autoIncrement>
-          <defaultValue></defaultValue>
-        </net.java.amateras.db.visual.model.ColumnModel>
-        <net.java.amateras.db.visual.model.ColumnModel>
           <columnName>COLUMN_5</columnName>
           <logicalName>Column5</logicalName>
-          <columnType class="net.java.amateras.db.dialect.ColumnType" reference="../../net.java.amateras.db.visual.model.ColumnModel/columnType"/>
+          <columnType class="net.java.amateras.db.dialect.ColumnType" reference="../../net.java.amateras.db.visual.model.ColumnModel[4]/columnType"/>
           <size>10</size>
           <notNull>false</notNull>
           <primaryKey>false</primaryKey>
