@@ -50,6 +50,7 @@ public class KaKaoService {
 		parameters.set("redirect_uri", redirect_url);
 		parameters.set("code", code);
 		HttpEntity<MultiValueMap<String, Object>> restRequest = new HttpEntity<>(parameters, headers);
+		//http요청
 		ResponseEntity<JSONObject> apiResponse = restTemplate.postForEntity(uri, restRequest, JSONObject.class);
 		JSONObject responseBody = apiResponse.getBody();
 		accessToken = (String) responseBody.get("access_token");
@@ -95,7 +96,10 @@ public class KaKaoService {
 		MultiValueMap<String, Object> parameters = new LinkedMultiValueMap<String, Object>();
 		HttpEntity<MultiValueMap<String, Object>> entity = new HttpEntity<>(parameters, headers);
 		ResponseEntity<String> kakaoResponseEntity = restTemplate.postForEntity(uri, entity, String.class);
-
+		
+		String kakaoProfileStr = kakaoResponseEntity.getBody();
+		System.out.println(">>>"+kakaoProfileStr);
+		
 		ObjectMapper objectMapper = new ObjectMapper();
 		KakaoProfile kakaoProfile = objectMapper.readValue(kakaoResponseEntity.getBody(), KakaoProfile.class);
 		System.out.println("카카오 아이디(번호) : " + kakaoProfile.getId());

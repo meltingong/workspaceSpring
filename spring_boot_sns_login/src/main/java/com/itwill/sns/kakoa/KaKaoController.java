@@ -38,6 +38,8 @@ public class KaKaoController {
    		 KakaoProfile kakaoProfile = kakaoService.getKakaoProfile(access_token);
 		 
 		/*
+		 * 이미 가입한 사용자라면 로그인 진행
+		 * 미가입 사용자라면 회원가입 진행
 		create table kakao_table (
 		k_number bigint auto_increment,
 		   k_name varchar(20) not null,
@@ -58,7 +60,7 @@ public class KaKaoController {
          // 위 코드는 session객체에 담긴 정보를 초기화 하는 코드.
          session=request.getSession();
          
-         session.setAttribute("kakaoProfile", kakaoProfile);
+         //session.setAttribute("kakaoProfile", kakaoProfile);
          request.setAttribute("kakaoProfile", kakaoProfile);
          Cookie authorize_access_token=new Cookie("authorize-access-token", access_token);
          response.addCookie(authorize_access_token);
@@ -68,8 +70,7 @@ public class KaKaoController {
 	
 	@ResponseBody
 	@GetMapping("/kakao_userinfo_with_token")
-	public KakaoProfile getKakaoUserInfoWithToken( HttpSession session) throws Exception {
-		String access_token = "";
+	public KakaoProfile getKakaoUserInfoWithToken(String access_token, HttpSession session) throws Exception {
 		System.out.println(access_token);
 		KakaoProfile kakaoProfile = kakaoService.getKakaoProfile(access_token);
 		return kakaoProfile;
