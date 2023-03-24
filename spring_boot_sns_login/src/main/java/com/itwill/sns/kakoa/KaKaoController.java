@@ -27,7 +27,7 @@ public class KaKaoController {
 	}
 	/*
     - redirection url로 등록된 요청
-    - kakao가 발행한 access token 을 code파라메타로 붙혀서 호출해준다.
+    - kakao가 발행한 code를 파라메타로 붙혀서 호출해준다.
     - ajax방식으로는 불가능하다.
      */
 	@RequestMapping(value = "/kakao_login_action", method = RequestMethod.GET)
