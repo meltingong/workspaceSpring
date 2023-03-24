@@ -8,7 +8,7 @@
     function naverLogin(){
         let uri = 'https://nid.naver.com/oauth2.0/authorize?' +
             'response_type=code' +                  // 인증과정에 대한 내부 구분값 code 로 전공 (고정값)
-            '&client_id=uKiP7WPNBZBkt2l_R87L' +     // 발급받은 client_id 를 입력
+            '&client_id=DiVm26H4q1ntqiN1E6LX' +     // 발급받은 client_id 를 입력
             '&state=NAVER_LOGIN_TEST' +             // CORS 를 방지하기 위한 특정 토큰값(임의값 사용)
             '&redirect_uri=http://localhost:8080/naver_login_action';   // 어플케이션에서 등록했던 CallBack URL를 입력
 		location.href=uri;
