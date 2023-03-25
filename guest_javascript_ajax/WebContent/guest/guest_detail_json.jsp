@@ -1,5 +1,5 @@
-<%@page import="com.itwill.guest.GuestService"%>
 <%@page import="com.itwill.guest.Guest"%>
+<%@page import="com.itwill.guest.GuestService"%>
 <%@page import="com.itwill.guest.GuestDao"%>
 <%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="application/json; charset=UTF-8"
