@@ -62,15 +62,6 @@ DROP SEQUENCE CV_cv_seq_SEQ;
 
 CREATE SEQUENCE CV_cv_seq_SEQ NOMAXVALUE NOCACHE NOORDER NOCYCLE;
 
-CREATE TRIGGER CV_cv_seq_TRG
-BEFORE INSERT ON CV
-FOR EACH ROW
-BEGIN
-IF :NEW.cv_seq IS NOT NULL THEN
-  SELECT CV_cv_seq_SEQ.NEXTVAL INTO :NEW.cv_seq FROM DUAL;
-END IF;
-END;
-
 
 CREATE TABLE education(
 		education_seq                 		NUMBER(20)		 NOT NULL,
@@ -87,14 +78,6 @@ DROP SEQUENCE education_education_seq_SEQ;
 
 CREATE SEQUENCE education_education_seq_SEQ NOMAXVALUE NOCACHE NOORDER NOCYCLE;
 
-CREATE TRIGGER education_education_seq_TRG
-BEFORE INSERT ON education
-FOR EACH ROW
-BEGIN
-IF :NEW.education_seq IS NOT NULL THEN
-  SELECT education_education_seq_SEQ.NEXTVAL INTO :NEW.education_seq FROM DUAL;
-END IF;
-END;
 
 
 CREATE TABLE experience(
@@ -111,14 +94,6 @@ DROP SEQUENCE experience_experience_seq_SEQ;
 
 CREATE SEQUENCE experience_experience_seq_SEQ NOMAXVALUE NOCACHE NOORDER NOCYCLE;
 
-CREATE TRIGGER experience_experience_seq_TRG
-BEFORE INSERT ON experience
-FOR EACH ROW
-BEGIN
-IF :NEW.experience_seq IS NOT NULL THEN
-  SELECT experience_experience_seq_SEQ.NEXTVAL INTO :NEW.experience_seq FROM DUAL;
-END IF;
-END;
 
 
 CREATE TABLE awards(
@@ -175,14 +150,6 @@ DROP SEQUENCE recruit_recruit_seq_SEQ;
 
 CREATE SEQUENCE recruit_recruit_seq_SEQ NOMAXVALUE NOCACHE NOORDER NOCYCLE;
 
-CREATE TRIGGER recruit_recruit_seq_TRG
-BEFORE INSERT ON recruit
-FOR EACH ROW
-BEGIN
-IF :NEW.recruit_seq IS NOT NULL THEN
-  SELECT recruit_recruit_seq_SEQ.NEXTVAL INTO :NEW.recruit_seq FROM DUAL;
-END IF;
-END;
 
 
 CREATE TABLE tag(
@@ -194,14 +161,6 @@ DROP SEQUENCE tag_tag_id_SEQ;
 
 CREATE SEQUENCE tag_tag_id_SEQ NOMAXVALUE NOCACHE NOORDER NOCYCLE;
 
-CREATE TRIGGER tag_tag_id_TRG
-BEFORE INSERT ON tag
-FOR EACH ROW
-BEGIN
-IF :NEW.tag_id IS NOT NULL THEN
-  SELECT tag_tag_id_SEQ.NEXTVAL INTO :NEW.tag_id FROM DUAL;
-END IF;
-END;
 
 
 CREATE TABLE app(
@@ -215,15 +174,6 @@ DROP SEQUENCE app_app_seq_SEQ;
 
 CREATE SEQUENCE app_app_seq_SEQ NOMAXVALUE NOCACHE NOORDER NOCYCLE;
 
-CREATE TRIGGER app_app_seq_TRG
-BEFORE INSERT ON app
-FOR EACH ROW
-BEGIN
-IF :NEW.app_seq IS NOT NULL THEN
-  SELECT app_app_seq_SEQ.NEXTVAL INTO :NEW.app_seq FROM DUAL;
-END IF;
-END;
-
 
 CREATE TABLE recruit_scrap(
 		rs_seq                        		NUMBER(20)		 NOT NULL,
@@ -235,14 +185,6 @@ DROP SEQUENCE recruit_scrap_rs_seq_SEQ;
 
 CREATE SEQUENCE recruit_scrap_rs_seq_SEQ NOMAXVALUE NOCACHE NOORDER NOCYCLE;
 
-CREATE TRIGGER recruit_scrap_rs_seq_TRG
-BEFORE INSERT ON recruit_scrap
-FOR EACH ROW
-BEGIN
-IF :NEW.rs_seq IS NOT NULL THEN
-  SELECT recruit_scrap_rs_seq_SEQ.NEXTVAL INTO :NEW.rs_seq FROM DUAL;
-END IF;
-END;
 
 
 CREATE TABLE corp_bookmark(
@@ -282,15 +224,6 @@ DROP SEQUENCE orders_order_no_SEQ;
 
 CREATE SEQUENCE orders_order_no_SEQ NOMAXVALUE NOCACHE NOORDER NOCYCLE;
 
-CREATE TRIGGER orders_order_no_TRG
-BEFORE INSERT ON orders
-FOR EACH ROW
-BEGIN
-IF :NEW.order_no IS NOT NULL THEN
-  SELECT orders_order_no_SEQ.NEXTVAL INTO :NEW.order_no FROM DUAL;
-END IF;
-END;
-
 
 CREATE TABLE payment(
 		payment_seq                   		NUMBER(10)		 NULL ,
@@ -323,14 +256,6 @@ DROP SEQUENCE corp_image_corp_image_seq_SEQ;
 
 CREATE SEQUENCE corp_image_corp_image_seq_SEQ NOMAXVALUE NOCACHE NOORDER NOCYCLE;
 
-CREATE TRIGGER corp_image_corp_image_seq_TRG
-BEFORE INSERT ON corp_image
-FOR EACH ROW
-BEGIN
-IF :NEW.corp_image_seq IS NOT NULL THEN
-  SELECT corp_image_corp_image_seq_SEQ.NEXTVAL INTO :NEW.corp_image_seq FROM DUAL;
-END IF;
-END;
 
 
 CREATE TABLE blog_cate(
@@ -341,15 +266,6 @@ CREATE TABLE blog_cate(
 DROP SEQUENCE blog_cate_blog_cate_seq_SEQ;
 
 CREATE SEQUENCE blog_cate_blog_cate_seq_SEQ NOMAXVALUE NOCACHE NOORDER NOCYCLE;
-
-CREATE TRIGGER blog_cate_blog_cate_seq_TRG
-BEFORE INSERT ON blog_cate
-FOR EACH ROW
-BEGIN
-IF :NEW.blog_cate_seq IS NOT NULL THEN
-  SELECT blog_cate_blog_cate_seq_SEQ.NEXTVAL INTO :NEW.blog_cate_seq FROM DUAL;
-END IF;
-END;
 
 
 CREATE TABLE blog(
@@ -368,14 +284,6 @@ DROP SEQUENCE blog_blog_seq_SEQ;
 
 CREATE SEQUENCE blog_blog_seq_SEQ NOMAXVALUE NOCACHE NOORDER NOCYCLE;
 
-CREATE TRIGGER blog_blog_seq_TRG
-BEFORE INSERT ON blog
-FOR EACH ROW
-BEGIN
-IF :NEW.blog_seq IS NOT NULL THEN
-  SELECT blog_blog_seq_SEQ.NEXTVAL INTO :NEW.blog_seq FROM DUAL;
-END IF;
-END;
 
 
 CREATE TABLE blog_comment(
@@ -400,14 +308,6 @@ DROP SEQUENCE message_massage_seq_SEQ;
 
 CREATE SEQUENCE message_massage_seq_SEQ NOMAXVALUE NOCACHE NOORDER NOCYCLE;
 
-CREATE TRIGGER message_massage_seq_TRG
-BEFORE INSERT ON message
-FOR EACH ROW
-BEGIN
-IF :NEW.massage_seq IS NOT NULL THEN
-  SELECT message_massage_seq_SEQ.NEXTVAL INTO :NEW.massage_seq FROM DUAL;
-END IF;
-END;
 
 
 CREATE TABLE admin(
