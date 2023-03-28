@@ -53,7 +53,14 @@ class UserRepositoryTest {
 		userRepository.delete(saveUser1);
 		
 	}
-
+	@Test
+	void select() {
+		User user1 = new User("김경호1","guard1@gmail.com",new Date(),LocalDateTime.now());
+		User user2 = new User("김경호2","guard2@gmail.com",new Date(),LocalDateTime.now());
+		User user3 = new User("김경호3","guard3@gmail.com",new Date(),LocalDateTime.now());
+		System.out.println(">>>>findByName"+userRepository.findByName("김경호1"));
+		System.out.println(">>>>findByEmail"+userRepository.findByEmail("guard2@gmail.com"));
+	}
 	
 	
 	
