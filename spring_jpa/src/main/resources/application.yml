@@ -8,6 +8,6 @@ spring:
     generate-ddl: true
     properties:
       hibernate:
-        format-sql:true
+        format_sql: true
     hibernate:
       ddl-auto: create

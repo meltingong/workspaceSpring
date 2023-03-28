@@ -18,13 +18,15 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
+import lombok.ToString;
 
-//@RequiredArgsConstructor  // null이 아닌 것들에 대해 생성자 생성
 
 @Data
+@RequiredArgsConstructor  // null이 아닌 것들에 대해 생성자 생성
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+@ToString
 @Entity(name = "users")
 public class User {
 	@Id
@@ -35,11 +37,14 @@ public class User {
 	@NonNull
 	@Column(nullable = false)
 	private String name;
-	
+	@NonNull
 	private String email;
-	@ColumnDefault("sysdate")
+	
+	@NonNull
+	@Column(nullable=false,updatable = false)
 	private Date createdAt;
 	
-	@ColumnDefault("sysdate")
+	@NonNull
+	@Column(nullable=false)
 	private LocalDateTime updatedAt;
 }
