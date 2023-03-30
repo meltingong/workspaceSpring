@@ -1,6 +1,5 @@
 package com.itwill.jpa.entity;
 
-
 import java.time.LocalDateTime;
 import java.util.Date;
 
@@ -9,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 
 import org.hibernate.annotations.ColumnDefault;
 
@@ -19,20 +19,22 @@ import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
-
-
+@RequiredArgsConstructor
 @Data
-@RequiredArgsConstructor  // null이 아닌 것들에 대해 생성자 생성
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
 @ToString
 @Entity(name = "users")
+@SequenceGenerator(	name = "users_id_SEQ_gen",
+					sequenceName ="users_id_SEQ",
+					initialValue = 1 ,
+					allocationSize = 1)
 public class User {
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
-	@Column(name="id")
-	private Long userId;
+	@GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "users_id_SEQ_gen")
+	@Column(name = "id")
+	private Long id;
 	
 	@NonNull
 	@Column(nullable = false)
@@ -41,10 +43,11 @@ public class User {
 	private String email;
 	
 	@NonNull
-	@Column(nullable=false,updatable = false)
-	private Date createdAt;
+	@Column(nullable = false,updatable = false)
+	private LocalDateTime createdAt;
 	
 	@NonNull
-	@Column(nullable=false)
+	@Column(nullable = false)
 	private LocalDateTime updatedAt;
+	
 }
