@@ -52,6 +52,7 @@ public class Product extends BaseEntity{
 	
 	@ManyToOne
 	@JoinColumn(name = "provider_id")
+	@ToString.Exclude
 	private Provider provider;
 }
 	

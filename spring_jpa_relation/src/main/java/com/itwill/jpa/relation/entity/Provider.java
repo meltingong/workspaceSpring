@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import lombok.Data;
@@ -33,6 +34,7 @@ public class Provider extends BaseEntity {
 	@Column(nullable = false)
 	private String name;
 	
+	@OneToMany(mappedBy = "provider")
 	List<Product> productList = new ArrayList<>();
 	
 	
