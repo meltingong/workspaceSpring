@@ -33,8 +33,8 @@ class ProductDetailRepositoryTest extends SpringJpaRelationApplicationTests {
 		 System.out.println("-----------------read------------------");
 		 ProductDetail productDetail2 = productDetailRepository.findById(2L).get();
 		 Product product2 = productDetailRepository.findById(2L).get().getProduct();
-		 System.out.println(">>"+productDetail2);
-		 System.out.println(">>"+product2);
+		 System.out.println(">>productDetail:"+productDetail2);
+		 System.out.println(">>product:"+product2);
 		
 	}
 	
