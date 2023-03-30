@@ -17,7 +17,7 @@ import lombok.ToString;
 @ToString
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
-public class BaseEntitiy {
+public class BaseEntity {
 	@CreatedDate
 	@Column(updatable = false)
 	private LocalDateTime createAt;
