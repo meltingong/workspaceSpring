@@ -9,12 +9,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.itwill.jpa.relation.SpringJpaRelationApplicationTests;
 import com.itwill.jpa.relation.entity.Product;
 import com.itwill.jpa.relation.entity.ProductDetail;
+import com.itwill.jpa.relation.entity.Provider;
 
 class ProductRepositoryTest extends SpringJpaRelationApplicationTests {
 	@Autowired
 	ProductRepository productRepository;
 	@Autowired
 	ProductDetailRepository productDetailRepository;
+	@Autowired
+	ProviderRepository providerRepository;
+	
+	//@Test
 	void productSaveAndUpdate() {
 		Product product = Product.builder().name("JPA일주일만하면")
 							.price(3000)
@@ -25,7 +30,7 @@ class ProductRepositoryTest extends SpringJpaRelationApplicationTests {
 		productRepository.save(product);
 	}
 	
-	@Test
+	//@Test
 	void productProductDetailSaveRead() {
 		Product product = new Product();
 		product.setName("스프링 시큐리티");
@@ -46,4 +51,25 @@ class ProductRepositoryTest extends SpringJpaRelationApplicationTests {
 		 System.out.println(">>productDetail:"+productDetail2);
 		 System.out.println(">>product:"+product2);
 	}
+	
+	@Test
+	void productProviderSaveRead() {
+		
+		Provider provider = new Provider();
+		provider.setName("삼성출판사");
+		providerRepository.save(provider);
+		
+		Product product = new Product();
+		product.setName("삼성책");
+		product.setPrice(9000);
+		product.setStock(100);
+		product.setProvider(provider);
+		productRepository.save(product);
+		
+		System.out.println(">>>>Product:"+productRepository.findById(2L).get());
+		System.out.println(">>>>Product --- > Provider:"+productRepository.findById(2L).get().getProvider());
+		
+		
+	}
+	
 }
