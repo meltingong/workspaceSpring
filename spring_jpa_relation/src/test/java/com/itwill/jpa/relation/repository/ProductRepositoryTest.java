@@ -2,6 +2,7 @@ package com.itwill.jpa.relation.repository;
 
 
 import java.time.LocalDateTime;
+import java.util.Arrays;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,15 +60,33 @@ class ProductRepositoryTest extends SpringJpaRelationApplicationTests {
 		provider.setName("삼성출판사");
 		providerRepository.save(provider);
 		
-		Product product = new Product();
-		product.setName("삼성책");
-		product.setPrice(9000);
-		product.setStock(100);
-		product.setProvider(provider);
-		productRepository.save(product);
+		Product product1 = new Product();
+		product1.setName("삼성책");
+		product1.setPrice(9000);
+		product1.setStock(100);
+		
+		
+		Product product2 = new Product();
+		product2.setName("수학책");
+		product2.setPrice(15000);
+		product2.setStock(12);
+		
+		/******연관설정 product --> provider*/
+		product1.setProvider(provider);
+		product2.setProvider(provider);
+		/************************************/
+		productRepository.save(product1);
+		productRepository.save(product2);
+		
+		/******연관설정 provider --> product *****/
+		//Provider provider2 = providerRepository.findById(1L).get();
+		//provider2.getProductList().addAll(Arrays.asList(product1,product2));
+		
+		providerRepository.save(provider);
 		
 		System.out.println(">>>>Product:"+productRepository.findById(2L).get());
 		System.out.println(">>>>Product --- > Provider:"+productRepository.findById(2L).get().getProvider());
+		System.out.println(">>>>Product --- > Provider --> productList:"+productRepository.findById(2L).get().getProvider().getProductList());
 		
 		
 	}
