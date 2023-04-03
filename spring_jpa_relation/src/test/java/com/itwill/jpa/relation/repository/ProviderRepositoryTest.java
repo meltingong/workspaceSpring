@@ -2,6 +2,8 @@ package com.itwill.jpa.relation.repository;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.List;
+
 import javax.transaction.Transactional;
 
 import org.assertj.core.util.Lists;
@@ -93,7 +95,8 @@ class ProviderRepositoryTest extends SpringJpaRelationApplicationTests {
 		//providerRepository.delete(findProvider);
 		/****************************************************/
 		/************* 자식삭제[orphanRemoval = true] ******************/
-		findProvider.getProductList().clear();
+		List<Product> productList = findProvider.getProductList();
+		productList.clear();
 		/****************************************************/
 		System.out.println(">>> ProductList[CascadeType.DELETE]:"+productRepository.findAll());
 		
