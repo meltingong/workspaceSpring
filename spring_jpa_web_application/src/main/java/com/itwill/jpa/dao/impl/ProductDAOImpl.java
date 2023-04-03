@@ -5,12 +5,13 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import com.itwill.jpa.dao.ProductDAO;
 import com.itwill.jpa.entity.Product;
 import com.itwill.jpa.repository.ProductRepository;
 
-@Component
+@Repository
 public class ProductDAOImpl implements ProductDAO {
 
     private ProductRepository productRepository;
