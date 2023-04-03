@@ -49,7 +49,7 @@ public class UserRestController {
 	}
 	@ApiOperation("회원로그인")
 	@PostMapping(value ="/user/login", produces = "application/json;charset=UTF-8")
-	public Response user_login_action(@RequestBody User user, @ApiIgnore HttpSession session) throws Exception {
+	public Response user_login_action(@RequestBody User user,@ApiIgnore HttpSession session) throws Exception {
 		Response response = new Response();
 		userService.login(user.getUserId(), user.getPassword());
 		session.setAttribute("sUserId", user.getUserId());
@@ -105,23 +105,27 @@ public class UserRestController {
 
 		response.setStatus(ResponseStatusCode.DELETE_USER);
 		response.setMessage(ResponseMessage.DELETE_USER);
-		response.setData(new Object());
+		response.setData(new HashMap<>());
 		return response;
 	}
 
 	@LoginCheck
 	@GetMapping(value="user/logout", produces = "application/json;charset=UTF-8")
-	public Response user_logout_action( @ApiIgnore  HttpSession session) {
+	public Response user_logout_action( @ApiIgnore  HttpSession session) throws  Exception {
+		String sUserId = (String) session.getAttribute("sUserId");
+		if (sUserId==null)
+			throw new UnauthorizedUserException("");
+		
 		Response response = new Response();
 		session.invalidate();
 		response.setStatus(ResponseStatusCode.LOGOUT_USER);
 		response.setMessage(ResponseMessage.LOGOUT_USER);
-		response.setData(new Object());
+		response.setData(new HashMap<>());
 		return response;
 	}
 
-	@ResponseStatus(code = HttpStatus.METHOD_NOT_ALLOWED)
-	@GetMapping(value={ "/user" },produces = "application/json;charset=UTF-8")
+	//@ResponseStatus(code = HttpStatus.METHOD_NOT_ALLOWED)
+	//@GetMapping(value={ "/user" },produces = "application/json;charset=UTF-8")
 	public Response user_get() throws Exception {
 		Response response = new Response();
 		response.setStatus(HttpStatus.METHOD_NOT_ALLOWED.value());
@@ -134,7 +138,7 @@ public class UserRestController {
 	@ExceptionHandler(value = {UserNotFoundException.class})
 	public Response user_not_found_exception_handler(UserNotFoundException e) throws Exception {
 		Response response = new Response();
-		response.setStatus(ResponseStatusCode.LOGIN_FAIL);
+		response.setStatus(ResponseStatusCode.LOGIN_FAIL_NOT_FOUND_USER);
 		response.setMessage(e.getMessage());
 		response.setData(e.getData());
 		return response;
@@ -142,7 +146,7 @@ public class UserRestController {
 	@ExceptionHandler(value = {ExistedUserException.class})
 	public Response user_existed_exception_handler(ExistedUserException e) throws Exception {
 		Response response = new Response();
-		response.setStatus(ResponseStatusCode.EXISTED_USER);
+		response.setStatus(ResponseStatusCode.CREATE_FAIL_EXISTED_USER);
 		response.setMessage(e.getMessage());
 		response.setData(e.getData());
 		return response;
@@ -150,7 +154,7 @@ public class UserRestController {
 	@ExceptionHandler(value = {PasswordMismatchException.class})
 	public Response user_password_misnatch_handler(PasswordMismatchException e) throws Exception {
 		Response response = new Response();
-		response.setStatus(ResponseStatusCode.LOGIN_FAIL);
+		response.setStatus(ResponseStatusCode.LOGIN_FAIL_PASSWORD_MISMATCH_USER);
 		response.setMessage(e.getMessage());
 		response.setData(e.getData());
 		return response;

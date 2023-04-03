@@ -56,22 +56,25 @@ public class UserServiceImpl implements UserService{
 	 */
 	@Override
 	public int login(String userId,String password) throws Exception,UserNotFoundException,PasswordMismatchException {
-		int result=1;
+		
 		
 		User user = userDao.findUser(userId);
+		User fUser=new User(userId, password, "", "");
 		if(user==null) {
+			
 			UserNotFoundException exception = 
 					new UserNotFoundException(userId+" 는 존재하지않는 아이디입니다.");
-			exception.setData(user);
+			exception.setData(fUser);
 			throw exception;
 		}
 		if(!user.isMatchPassword(password)){
 			//패쓰워드불일치
 			PasswordMismatchException exception=
 				new PasswordMismatchException("패쓰워드가 일치하지않습니다.");
+			exception.setData(fUser);
 			throw exception;
 		}
-		return result;
+		return 0;
 	}
 	/*
 	 * 회원로그아웃

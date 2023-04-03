@@ -14,6 +14,7 @@ import com.itwill.user.exception.UnauthorizedUserException;
 
 @RestControllerAdvice
 public class UserRestControllerAdvice {
+	
 	@ExceptionHandler(UnauthorizedUserException.class)
 	public ResponseEntity<Response> method_exception_handler(UnauthorizedUserException e) {
 		HttpHeaders headers = new HttpHeaders();
