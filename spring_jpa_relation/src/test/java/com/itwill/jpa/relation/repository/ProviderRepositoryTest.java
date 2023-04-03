@@ -13,6 +13,8 @@ import com.itwill.jpa.relation.SpringJpaRelationApplicationTests;
 import com.itwill.jpa.relation.entity.Product;
 import com.itwill.jpa.relation.entity.Provider;
 
+@Transactional
+@Rollback(false)
 class ProviderRepositoryTest extends SpringJpaRelationApplicationTests {
 	@Autowired
 	ProviderRepository providerRepository;
@@ -37,7 +39,7 @@ class ProviderRepositoryTest extends SpringJpaRelationApplicationTests {
 		
 		productRepository.save(product1);
 		productRepository.save(product2);
-		productRepository.save(product2);
+		productRepository.save(product3);
 		
 		System.out.println("Provider:"+providerRepository.findById(1L).get());
 		System.out.println("Provider --> ProductList:"+providerRepository.findById(1L).get().getProductList());
@@ -62,6 +64,8 @@ class ProviderRepositoryTest extends SpringJpaRelationApplicationTests {
 		
 		providerRepository.save(provider);
 		
+		//providerRepository.delete(provider);
+		
 		System.out.println(">>> ProductList[CascadeType.PERSIST]:"+providerRepository.findById(1L).get().getProductList());
 	
 	}
@@ -81,15 +85,15 @@ class ProviderRepositoryTest extends SpringJpaRelationApplicationTests {
 		product2.setProvider(provider);
 		product3.setProvider(provider);
 		provider.getProductList().addAll(Lists.newArrayList(product1,product2,product3));
-		providerRepository.saveAndFlush(provider);
+		providerRepository.save(provider);
 		
 		System.out.println(">>> ProductList[CascadeType.PERSIST]:"+providerRepository.findById(1L).get().getProductList());
 		Provider findProvider= providerRepository.findById(1L).get();
-		/*************부모삭제[ CascadeType.DELETE ] ******************
-		providerRepository.delete(findProvider);
+		/*************부모삭제[ CascadeType.DELETE ] ******************/
+		//providerRepository.delete(findProvider);
 		/****************************************************/
-		/************* 자식삭제[ CascadeType.DELETE ] ******************/
-		findProvider.getProductList().remove(0);
+		/************* 자식삭제[orphanRemoval = true] ******************/
+		findProvider.getProductList().clear();
 		/****************************************************/
 		System.out.println(">>> ProductList[CascadeType.DELETE]:"+productRepository.findAll());
 		
