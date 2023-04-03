@@ -1,5 +1,9 @@
 package com.itwill.jpa.controller;
 
+import java.util.List;
+
+import javax.websocket.server.PathParam;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,9 +31,15 @@ public class ProductController {
     public ProductController(ProductService productService) {
         this.productService = productService;
     }
-
+    
     @GetMapping()
-    public ResponseEntity<ProductResponseDto> getProduct(Long number) {
+    public ResponseEntity<List<ProductResponseDto>> getProductList(){
+    	List<ProductResponseDto> productList = productService.products();
+    	return ResponseEntity.status(HttpStatus.OK).body(productList);
+    }
+    
+    @GetMapping("/{no}")
+    public ResponseEntity<ProductResponseDto> getProduct(@PathParam(value = "no") Long number) {
         ProductResponseDto productResponseDto = productService.getProduct(number);
 
         return ResponseEntity.status(HttpStatus.OK).body(productResponseDto);

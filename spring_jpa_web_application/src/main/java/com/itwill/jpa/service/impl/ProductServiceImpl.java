@@ -1,6 +1,8 @@
 package com.itwill.jpa.service.impl;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,7 +23,17 @@ public class ProductServiceImpl implements ProductService {
     public ProductServiceImpl(ProductDAO productDAO) {
         this.productDAO = productDAO;
     }
-
+    
+	@Override
+	public List<ProductResponseDto> products() {
+		// TODO Auto-generated method stub
+		List<Product> productList = productDAO.selectList();
+		List<ProductResponseDto> productDtoList = new ArrayList<ProductResponseDto>();
+		for (Product product : productList) {
+			productDtoList.add(new ProductResponseDto(product.getId(),product.getName(),product.getPrice(),product.getStock()));
+		}
+		return productDtoList;
+	}
    
     @Override
     public ProductResponseDto getProduct(Long number) {
@@ -76,4 +88,7 @@ public class ProductServiceImpl implements ProductService {
     public void deleteProduct(Long number) throws Exception {
         productDAO.deleteProduct(number);
     }
+
+
+
 }

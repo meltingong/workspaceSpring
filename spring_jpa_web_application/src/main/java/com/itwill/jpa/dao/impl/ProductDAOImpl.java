@@ -1,6 +1,7 @@
 package com.itwill.jpa.dao.impl;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
 import com.itwill.jpa.dao.ProductDAO;
+import com.itwill.jpa.dto.ProductResponseDto;
 import com.itwill.jpa.entity.Product;
 import com.itwill.jpa.repository.ProductRepository;
 
@@ -21,7 +23,12 @@ public class ProductDAOImpl implements ProductDAO {
         this.productRepository = productRepository;
     }
 
-  
+	@Override
+	public List<Product> selectList() {
+		// TODO Auto-generated method stub
+		return productRepository.findAll();
+	}
+    
     @Override
     public Product insertProduct(Product product) {
         Product savedProduct = productRepository.save(product);
@@ -70,4 +77,7 @@ public class ProductDAOImpl implements ProductDAO {
             throw new Exception();
         }
     }
+
+
+
 }
