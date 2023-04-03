@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.itwill.jpa.relation.SpringJpaRelationApplicationTests;
+import com.itwill.jpa.relation.entity.Category;
 import com.itwill.jpa.relation.entity.Product;
 import com.itwill.jpa.relation.entity.ProductDetail;
 import com.itwill.jpa.relation.entity.Provider;
@@ -19,6 +20,8 @@ class ProductRepositoryTest extends SpringJpaRelationApplicationTests {
 	ProductDetailRepository productDetailRepository;
 	@Autowired
 	ProviderRepository providerRepository;
+	@Autowired
+	CategoryRepository categoryRepository;
 	
 	//@Test
 	void productSaveAndUpdate() {
@@ -53,7 +56,7 @@ class ProductRepositoryTest extends SpringJpaRelationApplicationTests {
 		 System.out.println(">>product:"+product2);
 	}
 	
-	@Test
+	//@Test
 	void productProviderSaveRead() {
 		
 		Provider provider = new Provider();
@@ -90,5 +93,32 @@ class ProductRepositoryTest extends SpringJpaRelationApplicationTests {
 		
 		
 	}
+	
+	@Test
+	void categoryProductSaveRead() {
+		/*****************************************
+		Category category = new Category("C1","컴퓨터");
+		categoryRepository.save(category);
+		
+		Product product1 =  Product.builder().name("Excel").price(5000000).stock(100).build();
+		Product product2 =  Product.builder().name("Word").price(5000000).stock(100).build();
+		Product product3 =  Product.builder().name("PowerPoint").price(5000000).stock(100).build();
+		
+		product1.setCategory(category);
+		product2.setCategory(category);
+		product3.setCategory(category);
+		
+		productRepository.save(product1);
+		productRepository.save(product2);
+		productRepository.save(product3);
+		
+		System.out.println("-------------------read-------------------");
+		System.out.println("product:"+productRepository.findById(3L).get());
+		System.out.println("product --> category:"+productRepository.findById(3L).get().getCategory());
+		********************************************/
+	}
+	
+	
+	
 	
 }
