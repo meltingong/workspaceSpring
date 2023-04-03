@@ -55,14 +55,14 @@ public class Product extends BaseEntity{
 	@ToString.Exclude
 	private Provider provider;
 	
-	/**********case1[@ManyToOne]********/
+	/**************case1[@ManyToOne]************/
 	@ManyToOne
 	@JoinColumn(name = "category_id")
 	private Category category;
-	/**************************/
+	/********************************************/
 	
-	/****************case2[@OneToMany]**********
-	 product 테이블에 category_id Fk 컬럼생성
+	/**************case2[@OneToMany]************
+	product테이블에 category_id FK컬럼생성	
 	*/
 	
 	
