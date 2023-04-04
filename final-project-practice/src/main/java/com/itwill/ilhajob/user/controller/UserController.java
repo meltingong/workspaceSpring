@@ -60,8 +60,9 @@ public class UserController {
 	@RequestMapping("/candidate-dashboard")
 	public String dashboard(HttpServletRequest request) throws Exception {
 		String sUserId = (String)request.getSession().getAttribute("sUserId");
-		User loginUser = userService.findUser(sUserId);
-		request.setAttribute("loginUser", loginUser);
+		System.out.println(">>>>>>>>"+sUserId);
+		//User loginUser = userService.findUser(sUserId);
+		//request.setAttribute("loginUser", loginUser);
 		String forwardPath = "candidate-dashboard";
 		return forwardPath;
 	}
@@ -89,6 +90,17 @@ public class UserController {
 		forwardPath = "candidate-dashboard-profile";
 		return forwardPath;
 	}
+	
+	// 회원 정보수정
+	@LoginCheck
+	@RequestMapping("/modify_action")
+	public String modify_action(@ModelAttribute User user, HttpServletRequest request) throws Exception {
+		String forwardPath = "";
+		userService.update(user);
+		forwardPath = "candidate-dashboard-profile";
+		return forwardPath;
+	}
+	
 	
 	//회원 로그인 폼
 	@RequestMapping("/login")
