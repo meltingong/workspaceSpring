@@ -120,75 +120,59 @@
                       <!-- Input -->
                       <div class="form-group col-lg-6 col-md-12">
                         <label>Phone</label>
-                        <input type="text" name="name" placeholder="0 123 456 7890">
+                        <input type="text" th:value="${fuser?.userPhone}" name="userPhone" th:placeholder="${loginUser.userPhone}">
                       </div>
 
                       <!-- Input -->
                       <div class="form-group col-lg-6 col-md-12">
                         <label>Email address</label>
-                        <input type="text" name="name" placeholder="creativelayers">
+                        <input type="text" th:value="${fuser?.userEmail}" name="userEmail" th:placeholder="${loginUser.userEmail}">
                       </div>
 
                       <!-- Input -->
                       <div class="form-group col-lg-6 col-md-12">
-                        <label>Website</label>
-                        <input type="text" name="name" placeholder="www.jerome.com">
+                        <label>Sex</label>
+                        <input type="text" th:value="${fuser?.userSex}" name="userSex" th:placeholder="${loginUser.userSex}">
                       </div>
 
                       <!-- Input -->
                       <div class="form-group col-lg-3 col-md-12">
-                        <label>Current Salary($)</label>
-                        <select class="chosen-select">
-                          <option>40-70 K</option>
-                          <option>50-80 K</option>
-                          <option>60-90 K</option>
-                          <option>70-100 K</option>
-                          <option>100-150 K</option>
-                        </select>
+                        <label>Address</label>
+                       <input type="text" th:value="${fuser?.userAddress}" name="userAddress" th:placeholder="${loginUser.userAddress}">
                       </div>
 
                       <!-- Input -->
                       <div class="form-group col-lg-3 col-md-12">
-                        <label>Expected Salary($)</label>
-                        <select class="chosen-select">
-                          <option>120-350 K</option>
-                          <option>40-70 K</option>
-                          <option>50-80 K</option>
-                          <option>60-90 K</option>
-                          <option>70-100 K</option>
-                          <option>100-150 K</option>
-                        </select>
-                      </div>
-
-                      <!-- Input -->
-                      <div class="form-group col-lg-6 col-md-12">
-                        <label>Experience</label>
-                        <input type="text" name="name" placeholder="5-10 Years">
+                        <label>Career</label>
+                        <input type="text" th:value="${fuser?.userCareer}" name="userCareer" th:placeholder="${loginUser.userCareer}">
                       </div>
 
                       <!-- Input -->
                       <div class="form-group col-lg-6 col-md-12">
                         <label>Age</label>
-                        <select class="chosen-select">
-                          <option>23 - 27 Years</option>
-                          <option>24 - 28 Years</option>
-                          <option>25 - 29 Years</option>
-                          <option>26 - 30 Years</option>
-                        </select>
+                        <input type="text" th:value="${fuser?.userAge}" name="userAge" th:placeholder="${loginUser.userAge}">
                       </div>
 
                       <!-- Input -->
                       <div class="form-group col-lg-6 col-md-12">
-                        <label>Education Levels</label>
-                        <input type="text" name="name" placeholder="Certificate">
+                        <label>Final Education</label>
+                        <input type="text" th:value="${fuser?.userFinalEducation}" name="userFinalEducation" th:placeholder="${loginUser.userFinalEducation}">
                       </div>
 
-                      <!-- Input -->
+  					   <!-- Input -->
                       <div class="form-group col-lg-6 col-md-12">
                         <label>Languages</label>
-                        <input type="text" name="name" placeholder="English, Turkish">
+                        <input type="text" th:value="${fuser?.userLanguage}" name="userLanguage" th:placeholder="${loginUser.userLanguage}">
                       </div>
 
+
+                      <!-- Input -->
+                      <div class="form-group col-lg-6 col-md-12">
+                        <label>Skills</label>
+                        <input type="text" th:value="${fuser?.userSkills}" name="userSkills" th:placeholder="${loginUser.userSkills}">
+                      </div>
+
+                 
                       <!-- Search Select -->
                       <div class="form-group col-lg-6 col-md-12">
                         <label>Categories </label>

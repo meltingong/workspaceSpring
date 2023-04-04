@@ -47,6 +47,7 @@ public class UserController {
 	 * 회원 정보 수정
 	 * 회원 탈퇴
 	 * 회원 정보 보기
+	 * ++ 메시지 알림
 	 */
 	
 	//메인 페이지
