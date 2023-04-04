@@ -44,19 +44,19 @@
 
       <div class="sidebar-inner">
         <ul class="navigation">
-          <li><a href="candidate-dashboard.html"> <i class="la la-home"></i> Dashboard</a></li>
-          <li class="active"><a href="candidate-dashboard-profile.html"><i class="la la-user-tie"></i>My Profile</a></li>
-          <li><a href="candidate-dashboard-resume.html"><i class="la la-file-invoice"></i>My Resume</a></li>
-          <li><a href="candidate-dashboard-applied-job.html"><i class="la la-briefcase"></i> Applied Jobs </a></li>
-          <li><a href="candidate-dashboard-job-alerts.html"><i class="la la-bell"></i>Job Alerts</a></li>
-          <li><a href="candidate-dashboard-shortlisted-resume.html"><i class="la la-bookmark-o"></i>Shortlisted Jobs</a></li>
-          <li><a href="candidate-dashboard-cv-manager.html"><i class="la la-file-invoice"></i> CV manager</a></li>
-          <li><a href="dashboard-packages.html"><i class="la la-box"></i>Packages</a></li>
-          <li><a href="dashboard-messages.html"><i class="la la-comment-o"></i>Messages</a></li>
-          <li><a href="dashboard-change-password.html"><i class="la la-lock"></i>Change Password</a></li>
-          <li><a href="dashboard-profile.html"><i class="la la-user-alt"></i>View Profile</a></li>
-          <li><a href="index.html"><i class="la la-sign-out"></i>Logout</a></li>
-          <li><a href="dashboard-delete.html"><i class="la la-trash"></i>Delete Profile</a></li>
+          <li><a href="candidate-dashboard"> <i class="la la-home"></i> Dashboard</a></li>
+          <li class="active"><a href="candidate-dashboard-profile"><i class="la la-user-tie"></i>My Profile</a></li>
+          <li><a href="candidate-dashboard-resume"><i class="la la-file-invoice"></i>My Resume</a></li>
+          <li><a href="candidate-dashboard-applied-job"><i class="la la-briefcase"></i> Applied Jobs </a></li>
+          <li><a href="candidate-dashboard-job-alerts"><i class="la la-bell"></i>Job Alerts</a></li>
+          <li><a href="candidate-dashboard-shortlisted-resume"><i class="la la-bookmark-o"></i>Shortlisted Jobs</a></li>
+          <li><a href="candidate-dashboard-cv-manager"><i class="la la-file-invoice"></i> CV manager</a></li>
+          <li><a href="dashboard-packages"><i class="la la-box"></i>Packages</a></li>
+          <li><a href="dashboard-messages"><i class="la la-comment-o"></i>Messages</a></li>
+          <li><a href="dashboard-change-password"><i class="la la-lock"></i>Change Password</a></li>
+          <li><a href="dashboard-profile"><i class="la la-user-alt"></i>View Profile</a></li>
+          <li><a href="index"><i class="la la-sign-out"></i>Logout</a></li>
+          <li><a href="dashboard-delete"><i class="la la-trash"></i>Delete Profile</a></li>
         </ul>
 
         <div class="skills-percentage">
@@ -108,13 +108,13 @@
                       <!-- Input -->
                       <div class="form-group col-lg-6 col-md-12">
                         <label>Full Name</label>
-                        <input type="text" name="name" placeholder="Jerome">
+                        <input type="text" th:value="${fuser?.userName}"  name="userName" th:placeholder="${loginUser.userName}">
                       </div>
 
                       <!-- Input -->
                       <div class="form-group col-lg-6 col-md-12">
                         <label>Job Title</label>
-                        <input type="text" name="name" placeholder="UI Designer">
+                        <input type="text" th:value="${fuser?.job}"  name="job" th:placeholder="${loginUser.job}"">
                       </div>
 
                       <!-- Input -->

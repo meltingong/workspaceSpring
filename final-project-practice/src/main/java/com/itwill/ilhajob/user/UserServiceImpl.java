@@ -56,7 +56,7 @@ public class UserServiceImpl implements UserService{
 		if(!user.isMatchPassword(userPassword)){
 			//패쓰워드불일치
 			PasswordMismatchException exception=
-				new PasswordMismatchException("패쓰워드가 일치하지않습니다.");
+				new PasswordMismatchException("패스워드가 일치하지않습니다.");
 			throw exception;
 		}
 		return result;

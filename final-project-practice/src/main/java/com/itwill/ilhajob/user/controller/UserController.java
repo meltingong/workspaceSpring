@@ -60,7 +60,7 @@ public class UserController {
 	@RequestMapping("/candidate-dashboard")
 	public String dashboard(HttpServletRequest request) throws Exception {
 		String sUserId = (String)request.getSession().getAttribute("sUserId");
-		System.out.println(">>>>>>>>"+sUserId);
+		//System.out.println(">>>>>>>>"+sUserId);
 		User loginUser = userService.findUser(sUserId);
 		request.setAttribute("loginUser", loginUser);
 		String forwardPath = "candidate-dashboard";
