@@ -43,11 +43,11 @@ public class UserServiceImpl implements UserService{
 	}
 
 	@Override
-	public int login(String userId, String userPassword, String snsType, String snsId) throws Exception {
+	public int login(String userId, String userPassword) throws Exception {
 		int result=1;
 		
 		User user = userDao.findUser(userId);
-		if(!userDao.existedUser(userId) || !userDao.findBySnsId(snsType,snsId)) {
+		if(!userDao.existedUser(userId)) {
 			UserNotFoundException exception = 
 					new UserNotFoundException(userId+" 는 존재하지않는 아이디입니다.");
 			exception.setData(user);

@@ -61,8 +61,8 @@ public class UserController {
 	public String dashboard(HttpServletRequest request) throws Exception {
 		String sUserId = (String)request.getSession().getAttribute("sUserId");
 		System.out.println(">>>>>>>>"+sUserId);
-		//User loginUser = userService.findUser(sUserId);
-		//request.setAttribute("loginUser", loginUser);
+		User loginUser = userService.findUser(sUserId);
+		request.setAttribute("loginUser", loginUser);
 		String forwardPath = "candidate-dashboard";
 		return forwardPath;
 	}
@@ -113,7 +113,7 @@ public class UserController {
 	public String user_login_action(@ModelAttribute("fuser")User user,Model model,HttpSession session) throws Exception{
 		String forwardPath = "";
 		try {
-			userService.login(user.getUserEmail(),user.getUserPassword(),user.getSnsType(),user.getSnsId());
+			userService.login(user.getUserEmail(),user.getUserPassword());
 			session.setAttribute("sUserId", user.getUserEmail());
 			forwardPath = "redirect:index";
 		}catch (UserNotFoundException e) {
