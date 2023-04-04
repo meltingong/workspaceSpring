@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.itwill.ilhajob.message.mapper.MessageMapper">
+
+	<select id="findMessageList" resultType="com.itwill.ilhajob.message.Message">
+		select * from message
+	</select>
+	
+	<select id="findMessage" parameterType="int" resultType="com.itwill.ilhajob.message.Message">
+		select * from message where message_seq=#{messageSeq}
+	</select>
+
+	<select id="findMessageOfUser" parameterType="int" resultType="com.itwill.ilhajob.message.Message">
+		select * from message where user_seq=#{userSeq}
+	</select>
+	
+	<insert id="createMessage" parameterType="com.itwill.ilhajob.message.Message">
+		<selectKey order="BEFORE" resultType="int" keyProperty="messageSeq">
+			select message_massage_seq_SEQ.nextval from dual
+		</selectKey>
+		insert into message(message_seq, message_title, message_contents, message_date, app_seq, user_seq)
+		values(#{messageSeq},#{messageTitle,jdbcType=VARCHAR},#{messageContents,jdbcType=VARCHAR},#{messageDate,jdbcType=DATE},#{appSeq},#{userSeq})
+	</insert>
+	
+	<update id="updateMessage" parameterType="com.itwill.ilhajob.message.Message">
+		update message
+		set message_title = #{messageTitle, jdbcType=VARCHAR},
+			message_contents=#{messageContents, jdbcType=VARCHAR},
+			message_date=#{messageDate,jdbcType=DATE}
+		where message_seq=#{messageSeq}
+	</update>
+	
+	<delete id="removeMessageBySeq" parameterType="int">
+		delete from message where message_seq=#{messageSeq}	
+	</delete>
+	
+	<delete id="removeMessageByUserSeq" parameterType="int">
+		delete from message where user_seq=#{userSeq}
+	</delete>
+	
+
+</mapper>

@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.itwill.ilhajob.blog.mapper.BlogMapper">
+
+
+	<resultMap id="BlogResultMap"
+			   type="com.itwill.ilhajob.blog.Blog" 
+			   autoMapping="true">
+			   <result column="blog_seq" property="blogSeq"/>
+		<collection property="blogCommentList"
+					javaType="java.util.ArrayList"
+					ofType="com.itwill.ilhajob.blogComment.BlogComment"
+					autoMapping="true">
+		</collection>	
+	</resultMap>
+	
+	<select id="findByBlogAndCommetAll" parameterType="int"
+			resultType ="java.util.Map"
+			resultMap="BlogResultMap">
+		select * from blog b
+		join blog_comment bc
+		on b.blog_seq=bc.blog_seq
+		where b.blog_seq=#{blogSeq}
+	</select>
+   
+   <!-- Blog blog_seq 게시물 1개 검색  -->
+    <select id="findBlog" parameterType="int" resultType="com.itwill.ilhajob.blog.Blog">
+        select * from blog where blog_seq = #{blogSeq}
+    </select>
+    
+    <!-- Blog 전체 리스트 -->
+    <select id="selectAll" resultType="com.itwill.ilhajob.blog.Blog">
+        select * from blog
+    </select>
+    
+    <!-- Blog 카테고리별 리스트 -->
+    <select id="selectByBlogCate" parameterType="int" resultType="com.itwill.ilhajob.blog.Blog">
+        select * from blog where blog_cate_seq = #{blogCateSeq}
+    </select>
+    
+    <!-- Blog user_seq 별 리스트 -->
+     <select id="findByUserSeqBlogList" parameterType="int" resultType="com.itwill.ilhajob.blog.Blog">
+        select * from blog where user_seq = #{userSeq}
+    </select>
+    
+    <!-- Blog 새 게시물 등록 -->
+    <insert id="insertBlog" parameterType="com.itwill.ilhajob.blog.Blog">
+        <selectKey order="BEFORE" resultType="int" keyProperty="blogSeq">
+            select blog_blog_seq_SEQ.nextval from dual
+        </selectKey>
+        insert into blog (blog_seq, blog_title, blog_content, blog_image, blog_date, blog_read_count, blog_like, user_seq, blog_cate_seq) 
+        values(#{blogSeq}, #{blogTitle}, #{blogContent}, #{blogImage}, #{blogDate}, #{blogReadCount}, #{blogLike}, #{userSeq}, #{blogCateSeq})
+    </insert>
+    
+    <!-- Blog 게시물 1개 수정 -->
+    <update id="updateBlog" parameterType="com.itwill.ilhajob.blog.Blog">
+        update blog set blog_seq = #{blogSeq}, blog_title=#{blogTitle}, blog_content=#{blogContent}, blog_image=#{blogImage}, blog_date=#{blogDate},
+        blog_read_count=#{blogReadCount}, blog_like=#{blogLike}, user_seq=#{userSeq}, blog_cate_seq=#{blogCateSeq} where blog_seq=#{blogSeq}
+    </update>
+    
+    <!-- Blog 게시물 1개 삭제 -->
+    <delete id="deleteBlog" parameterType="com.itwill.ilhajob.blog.Blog">
+        delete from blog where blog_seq = #{blogSeq}
+    </delete>
+    
+    <!-- Blog 조회수 증가 (blog_read_count) -->
+	<update id="updateBlogReadCount" parameterType="int">
+		update blog set blog_read_count = blog_read_count+1 where blog_seq=#{blogSeq}
+	</update>
+    
+    <!-- Blog 좋아요 수 증가 (blog_like) -->
+	<update id="updateBlogLikeCount" parameterType="int">
+		update blog set blog_like = blog_like+1 where blog_seq=#{blogSeq}
+	</update>
+   
+    <!-- Blog 좋아요 수 감소 (blog_like) -->
+	<update id="updateBlogLikeDiscount" parameterType="int">
+		update blog set blog_like = blog_like-1 where blog_seq=#{blogSeq}
+	</update>
+
+</mapper>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.itwill.ilhajob.manager.mapper.ManagerMapper">
+
+	<insert id="insertManager" parameterType="com.itwill.ilhajob.manager.Manager">
+		insert into manager(manager_email, manager_name, manager_position, manager_phone, corp_id)
+		values (#{managerEmail}, #{managerName}, #{managerPosition}, #{managerPhone}, #{corpId})
+	</insert>
+	
+	<update id="updateManager" parameterType="com.itwill.ilhajob.manager.Manager">
+		update manager
+		set manager_name=#{managerName}, manager_position=#{managerPosition}, manager_phone=#{managerPhone}, corp_id=#{corpId}
+		where manager_email=#{managerEmail}
+	</update>
+
+	<delete id="deleteManager" parameterType="java.lang.String">
+		delete manager where manager_email=#{managerEmail}
+	</delete>
+	
+	<select id="findManagerByEmail" parameterType="java.lang.String" resultType="com.itwill.ilhajob.manager.Manager">
+		select * from manager where manager_email=#{managerEmail}
+	</select>
+	
+	<select id="existedManager" parameterType="java.lang.String" resultType="java.lang.Integer">
+		select count(*) cnt from manager where manager_email=#{managerEmail}
+	</select>
+	
+	<!-- corp mapper에서 실시
+	<select id="selectListByCorpId" parameterType="java.lang.String" resultType="com.itwill.ilhajob.manager.Manager">
+		select * from manager where corp_id=#{corpId}
+	</select>
+	 -->
+	
+	
+</mapper>

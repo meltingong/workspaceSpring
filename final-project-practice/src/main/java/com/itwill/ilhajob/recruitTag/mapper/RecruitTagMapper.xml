@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.itwill.ilhajob.recruitTag.mapper.RecruitTagMapper">
+
+	<!-- 공고에서 공고태그생성 -->
+	<insert id = "insertRecruitTag" parameterType="com.itwill.ilhajob.recruitTag.RecruitTag">
+		insert into recruit_tag (rc_seq,tag_id)
+		values(#{rcSeq},#{tagId})
+	</insert>
+	<!-- 태그로 공고리스트 선택 -->
+	<select id="selectRecruitByTag" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+		select rc_seq from recruit_tag
+		where tag_id = #{tagId}
+	</select>
+	<!-- 공고에서 공고태그삭제-->
+	<delete id="deleteRecruitTag" parameterType="com.itwill.ilhajob.recruitTag.RecruitTag">
+		delete from recruit_tag
+		where tag_id = #{tagId}	and rc_seq = #{rcSeq}
+	</delete>
+	<!-- 공고태그 중복확인 -->
+	<select id="existedRecruitTag" resultType="java.lang.Integer" parameterType="com.itwill.ilhajob.recruitTag.RecruitTag">
+		select count(*) cnt from recruit_tag where rc_seq=#{rcSeq} and tag_id=#{tagId}
+	</select>
+</mapper>

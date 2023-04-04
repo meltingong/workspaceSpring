@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.itwill.ilhajob.exp.mapper.ExpMapper">
+	<select id="selectByExp" resultType="com.itwill.ilhajob.exp.Exp">
+		select * from experience where exp_seq = #{expSeq}
+	</select>
+	
+	<select id="selectAll" resultType="com.itwill.ilhajob.exp.Exp">
+		select * from experience
+	</select>
+	
+	<select id="selectByUser" resultType="com.itwill.ilhajob.exp.Exp">
+		select * from experience where user_seq = #{userSeq}
+	</select>
+	
+	<select id="selectByUserEmail" resultType="com.itwill.ilhajob.exp.Exp">
+		select * from experience where user_email = #{userEmail}
+	</select>
+	
+	<insert id="insertExp" parameterType="com.itwill.ilhajob.exp.Exp">
+		<selectKey order="BEFORE" resultType="int" keyProperty="expSeq">
+			select experience_exp_seq_seq.nextVal from dual
+		</selectKey>
+		insert into experience (exp_seq,exp_position,exp_corp_name,exp_start_date,exp_end_date,exp_content,
+		user_seq) values (#{expSeq},#{expPosition},#{expCorpName},#{expStartDate},#{expEndDate},#{expContent, jdbcType=VARCHAR},#{userSeq})
+	</insert>
+	
+	<update id="updateExp" parameterType="com.itwill.ilhajob.exp.Exp">
+		update experience set exp_seq = #{expSeq},exp_position = #{expPosition},exp_corp_name = #{expCorpName},exp_start_date = #{expStartDate},exp_end_date = #{expEndDate},exp_content = #{expContent}
+		where exp_seq = #{expSeq}
+	</update>
+	
+	<delete id="deleteExp" parameterType="com.itwill.ilhajob.exp.Exp">
+		delete from experience where exp_seq = #{expSeq}
+	</delete>
+	
+</mapper>

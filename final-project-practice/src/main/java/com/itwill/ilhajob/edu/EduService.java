@@ -1,0 +1,12 @@
+package com.itwill.ilhajob.edu;
+
+import java.util.List;
+
+
+public interface EduService {
+	int insertEdu(Edu edu);
+	List<Edu> selectEduByUserSeq(int userSeq);
+	List<Edu> selectAllEdu();
+    int deleteEduByEduSeq(int eduSeq);
+    int deleteAllEdu(int userSeq);
+}

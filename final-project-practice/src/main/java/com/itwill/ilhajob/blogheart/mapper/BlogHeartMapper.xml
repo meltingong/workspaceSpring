@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.itwill.ilhajob.blogheart.mapper.BlogHeartMapper">
+
+		
+	<!-- Blog 좋아요 -> new 데이터 insert -->
+	<insert id="insertHeart" parameterType="java.util.Map">
+	 <selectKey order="BEFORE" resultType="int" keyProperty="blogHeartNo">
+            select blog_heart_blog_heart_no_SEQ.nextval from dual
+            </selectKey>
+    insert into blog_heart(blog_heart_no, blog_heart_state ,blog_seq, user_seq) 
+    values (#{blogHeartNo}, 0 , #{blogSeq}, #{userSeq})
+	</insert>
+	
+	<!-- Blog 좋아요취소 -> 데이터 delete -->
+	<delete id="deleteHeart" >
+	delete from blog_heart
+	where blog_seq = #{blogSeq} and user_seq = #{userSeq}
+	</delete>
+	
+	<!-- Blog 좋아요 -> state 값 1로 변경-->
+	<update id="updateHeartCheck">
+	update blog_heart set blog_heart_state = 1
+	where blog_seq = #{blogSeq} and user_seq = #{userSeq}
+	</update>
+	
+	<!-- Blog 좋아요취소 -> state 값 0으로 변경  -->
+	<update id="updateHeartCheckCancel" >
+	update blog_heart set blog_heart_state = 0
+	where blog_seq = #{blogSeq} and user_seq = #{userSeq}
+	</update>
+	
+	<!-- Blog 좋아요 중복 카운트 -->
+	<select id="HeartCheck" resultType="int">
+	select count(*) from blog_heart 
+	where blog_seq = #{blogSeq} and user_seq = #{userSeq} 
+	</select>
+	
+	
+</mapper>

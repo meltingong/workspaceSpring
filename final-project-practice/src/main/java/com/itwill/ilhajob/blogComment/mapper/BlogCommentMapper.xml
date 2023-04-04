@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.itwill.ilhajob.blogComment.mapper.BlogCommentMapper" >
+    <select id="findBlogComment" parameterType="int" resultType="com.itwill.ilhajob.blogComment.BlogComment">
+        select * from blog_comment where comment_seq = #{commentSeq}
+    </select>
+    
+    <select id="selectAll" resultType="com.itwill.ilhajob.blogComment.BlogComment">
+        select * from blog_comment 
+    </select>
+    
+    <select id="selectByBlogComment" parameterType="int" resultType="com.itwill.ilhajob.blogComment.BlogComment">
+        select * from blog_comment where blog_seq = #{blogSeq}
+    </select>
+    
+     <!-- BlogComment user_seq 별 리스트 -->
+     <select id="findByUserSeqCommnt" parameterType="int" resultType="com.itwill.ilhajob.blog.Blog">
+        select * from blog_commnet where user_seq = #{userSeq}
+    </select>
+       
+    <insert id="insertBlogComment" parameterType="com.itwill.ilhajob.blogComment.BlogComment">
+        <selectKey order="BEFORE" resultType="int" keyProperty="commentSeq">
+            select blog_comment_comment_seq_SEQ.nextval from dual
+        </selectKey>
+        insert into blog_comment (comment_seq, comment_content, comment_date, user_seq, blog_seq)
+        values(#{commentSeq}, #{commentContent}, #{commentDate}, #{userSeq}, #{blogSeq})    
+    </insert>
+       
+    <update id="updateBlogComment" parameterType="com.itwill.ilhajob.blogComment.BlogComment">
+        update blog_comment set comment_seq=#{commentSeq}, comment_content=#{commentContent},
+        comment_date=#{commentDate}, user_seq=#{userSeq}, blog_seq=#{blogSeq} where comment_seq=#{commentSeq} 	
+    </update>
+    
+    <delete id="deleteBlogComment" parameterType="com.itwill.ilhajob.blog.Blog">
+        delete from blog_comment where comment_seq = #{commentSeq}
+    </delete> 
+
+</mapper>

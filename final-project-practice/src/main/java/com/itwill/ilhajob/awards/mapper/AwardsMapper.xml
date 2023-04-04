@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.itwill.ilhajob.awards.mapper.AwardsMapper">
+	
+	<select id="selectAll" resultType="com.itwill.ilhajob.awards.Awards">
+		select * from awards
+	</select>
+	
+	<select id="selectByAwards" parameterType="int" resultType="com.itwill.ilhajob.awards.Awards">
+		select * from awards where awards_seq=#{awardsSeq}
+	</select>
+	
+	<select id="selectByAwardsOfUser" parameterType="int" resultType="com.itwill.ilhajob.awards.Awards">
+		select * from awards where user_seq =#{userSeq}
+	</select>
+	
+	<insert id="insertAwards" parameterType="com.itwill.ilhajob.awards.Awards">
+		<selectKey order="BEFORE" resultType="int" keyProperty="awardsSeq">
+			select awards_awards_seq_SEQ.nextval from dual
+		</selectKey>
+		insert into awards(awards_seq, awards_name, awards_date, awards_content,user_seq)
+		values(#{awardsSeq},#{awardsName},#{awardsDate},#{awardsContent,jdbcType=VARCHAR},#{userSeq})
+	</insert>
+	
+	
+	
+	<update id="updateAwards" parameterType="com.itwill.ilhajob.awards.Awards">
+	
+	update awards
+	set awards_name = #{awardsName}, awards_date = #{awardsDate}, awards_content = #{awardsContent, jdbcType=VARCHAR}
+	where awards_seq=#{awardsSeq}
+	</update>	
+	
+	<delete id="removeAwardsBySeq" parameterType="int">
+		delete from awards where awards_seq=#{awardsSeq}
+	</delete>
+	
+	<delete id="removeAwardsByUserSeq" parameterType="int">
+		delete from awards where user_seq=#{userSeq}
+	</delete>
+	
+	
+	
+
+</mapper>

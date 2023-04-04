@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.itwill.ilhajob.app.mapper.AppMapper">
+	<resultMap id="appWithCvResultMap" type="com.itwill.ilhajob.app.App" autoMapping="true">
+		<association property="cv" javaType="com.itwill.ilhajob.cv.Cv" autoMapping="true">
+		</association>
+	</resultMap>
+	
+	<resultMap id="appWithRcResultMap" type="com.itwill.ilhajob.app.App" autoMapping="true">
+		<association property="rc" javaType="com.itwill.ilhajob.recruit.Recruit" autoMapping="true">
+		</association>
+	</resultMap>
+	
+	<select id="findAppByUserSeq" parameterType="java.lang.Integer"
+								  resultType="com.itwill.ilhajob.app.App"
+								  resultMap="appWithRcResultMap">
+		select * from app a 
+		left outer join recruit rc 
+		on a.rc_seq = rc.rc_seq
+        left outer join cv cv 
+		on a.cv_seq = cv.cv_seq
+		where cv.user_seq = #{userSeq}
+	</select>
+	
+	<select id="findAppByCorpId" parameterType="java.lang.Integer"
+								 resultType="com.itwill.ilhajob.app.App"
+								 resultMap="appWithCvResultMap">
+		select * from app a 
+		join recruit rc 
+		on a.rc_seq = rc.rc_seq
+		join cv cv 
+		on a.cv_seq = cv.cv_seq
+		where rc.corp_id = #{corpId}; 
+	</select>
+	
+	<insert id="insertApp" parameterType="com.itwill.ilhajob.app.App">
+		<selectKey keyProperty="appSeq" order="BEFORE" resultType="java.lang.Integer">
+			select app_app_seq_seq.nextVal from dual
+		</selectKey>
+		insert into app (app_seq, app_status, rc_seq, corp_seq)
+		values (#{appSeq},#{appStatus},#{rcSeq},#{corpSeq})
+	</insert>
+	
+	<delete id="deleteApp" parameterType="com.itwill.ilhajob.app.App">
+		delete from app where app_seq = #{appSeq} 
+	</delete>
+
+</mapper>

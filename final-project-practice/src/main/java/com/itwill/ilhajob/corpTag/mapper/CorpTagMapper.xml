@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.itwill.ilhajob.corpTag.mapper.CorpTagMapper">
+
+	
+	<!-- 기업에서 기업태그생성생성 -->
+	<insert id = "insertCorpTag" parameterType="com.itwill.ilhajob.corpTag.CorpTag">
+		insert into corp_tag(tag_id,corp_id)
+		values(#{tagId},#{corpId})
+	</insert>
+	<!-- 태그아이디로 기업들 선택 -->
+	<select id="selectCorpByTag" parameterType="java.lang.Integer" resultType="java.lang.String">
+		select corp_id from corp_tag
+		where tag_id = #{tagId}
+	</select>
+	<!-- 기업에서 기업태그삭제-->
+	<delete id="deleteCorpTag" parameterType="com.itwill.ilhajob.corpTag.CorpTag">
+		delete from corp_tag
+		where tag_id = #{tagId}	and corp_id = #{corpId}
+	</delete>
+	<!-- 기업태그 중복 -->
+	<select id="existedCorpTag" resultType="java.lang.Integer" parameterType="com.itwill.ilhajob.corpTag.CorpTag">
+		select count(*) cnt from corp_tag where corp_id=#{corpId} and tag_id=#{tagId}
+	</select>
+</mapper>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.itwill.ilhajob.tag.mapper.TagMapper">
+	
+	<insert id="insertTag" parameterType="com.itwill.ilhajob.tag.Tag">
+		<selectKey order="BEFORE"  resultType="java.lang.Integer"  keyProperty="tagId" >
+			select tag_tag_id_seq.nextval from dual
+		</selectKey>
+		insert into tag(tag_id, tag_name)
+		values(#{tagId}, #{tagName})
+	</insert>
+	
+	<select id="selectTagById" parameterType="java.lang.Integer" resultType="com.itwill.ilhajob.tag.Tag">
+		select tag_id, tag_name from tag
+		where tag_id = #{tagId}
+	</select>
+	
+	<select id="selectTagByName" parameterType="java.lang.String" resultType="com.itwill.ilhajob.tag.Tag">
+		select tag_id, tag_name from tag
+		where tag_name = #{tagName}
+	</select>
+	
+	<select id="selectAllTag" resultType="com.itwill.ilhajob.tag.Tag">
+		select * from tag
+	</select>
+	
+	<update id="updateTag" parameterType="com.itwill.ilhajob.tag.Tag">
+		update tag
+		set tag_name = #{tagName}
+		where tag_id = #{tagId}
+	</update>
+	
+	<delete id="deleteTag" parameterType="java.lang.Integer">
+		delete from tag
+		where tag_id = #{tagId}
+	</delete>
+
+</mapper>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.itwill.ilhajob.edu.mapper.EduMapper">
+
+    <insert id="insertEdu" parameterType="com.itwill.ilhajob.edu.Edu">
+        <selectKey order="BEFORE" resultType="int" keyProperty="eduSeq">
+            select education_edu_seq_SEQ.nextval from dual
+        </selectKey>
+        insert into education (edu_seq, edu_major, edu_name, edu_start_date, edu_end_date, edu_score, edu_content, user_SEQ)
+        values (#{eduSeq}, #{eduMajor}, #{eduName}, #{eduStartDate}, #{eduEndDate}, #{eduScore}, #{eduContent}, #{userSeq})
+    </insert>
+
+    <!-- 시퀀스로 찾기가 필요한가..? -->
+    <select id="selectEduByUserSeq" parameterType="java.lang.Integer" resultType="com.itwill.ilhajob.edu.Edu">
+        select * from education where user_seq = #{userSeq}
+    </select>
+
+    <select id="selectAllEdu" resultType="com.itwill.ilhajob.edu.Edu">
+        select * from education
+    </select>
+
+    <update id="updateEdu" parameterType="com.itwill.ilhajob.edu.Edu">
+        update education
+        set edu_major = #{eduMajor},
+            edu_name = #{eduName},
+            edu_start_date = #{eduStartDate},
+            edu_end_date = #{eduEndDate},
+            edu_score = #{eduScore},
+            edu_content = #{eduContent}
+        where edu_seq = #{eduSeq}
+    </update>
+
+    <delete id="deleteEduByEduSeq" parameterType="java.lang.Integer">
+        delete from education where edu_seq = #{eduSeq}
+    </delete>
+
+    <delete id="deleteAllEdu" parameterType="java.lang.Integer">
+        delete from education where user_seq = #{userSeq}
+    </delete>
+
+</mapper>
