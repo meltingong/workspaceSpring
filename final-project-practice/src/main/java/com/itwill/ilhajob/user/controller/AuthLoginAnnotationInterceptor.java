@@ -89,7 +89,7 @@ public class AuthLoginAnnotationInterceptor implements HandlerInterceptor {
 		String sUserId = (String) session.getAttribute("sUserId");
 		if (sUserId == null) {
 			// 로그인이 안되어 있는 상태임으로 로그인 폼으로 다시 돌려보냄(redirect)
-			response.sendRedirect("user_main");
+			response.sendRedirect("login");
 			return false; // 더이상 컨트롤러 요청으로 가지 않도록 false로 반환함
 		}
 		// preHandle의 return은 컨트롤러 요청 uri로 가도 되냐 안되냐를 허가하는 의미임

@@ -14,8 +14,8 @@ public class SpringBootUserDaoMain {
 				SpringApplication.run(SpringBootUserDaoMain.class, args);
 		UserDao userDao=(UserDao)appicationContext.getBean(UserDao.class);
 		//Awards tutorDao=(Awards)appicationContext.getBean(Awards.class);
-		System.out.println("---------findUserByIdWithReview------------------");
-		System.out.println(userDao.findUserByIdWithReview(1));
+		//System.out.println("---------findUserByIdWithReview------------------");
+		//System.out.println(userDao.findUserByIdWithReview(1));
 
 	}
 

@@ -28,7 +28,7 @@ public interface UserService {
 	/*
 	 * 회원상세보기
 	 */
-	User findUser(String userId) throws Exception;
+	User findUser(String userEmail) throws Exception;
 
 	/*
 	 * 회원수정
