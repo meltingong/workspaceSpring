@@ -6,8 +6,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@RestController
-public class HomeController {
+//@RestController
+public class HomeRestController {
 	@GetMapping("/")
 	public String index() {
 		return "홈페이지";
