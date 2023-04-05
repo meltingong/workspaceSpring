@@ -1,6 +1,12 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-
+<script type="text/javascript">
+function modifyAction(){
+	document.f.action = "modify_action";
+	document.method='POST';
+	document.f.submit(); 
+}
+</script>
 <head>
   <meta charset="utf-8">
   <title>Superio | Just another HTML Template | Candidate Dashboard Profile</title>
@@ -45,18 +51,18 @@
       <div class="sidebar-inner">
         <ul class="navigation">
           <li><a href="candidate-dashboard.html"> <i class="la la-home"></i> Dashboard</a></li>
-          <li class="active"><a href="candidate-dashboard-profile.html"><i class="la la-user-tie"></i>My Profile</a></li>
-          <li><a href="candidate-dashboard-resume.html"><i class="la la-file-invoice"></i>My Resume</a></li>
-          <li><a href="candidate-dashboard-applied-job.html"><i class="la la-briefcase"></i> Applied Jobs </a></li>
-          <li><a href="candidate-dashboard-job-alerts.html"><i class="la la-bell"></i>Job Alerts</a></li>
-          <li><a href="candidate-dashboard-shortlisted-resume.html"><i class="la la-bookmark-o"></i>Shortlisted Jobs</a></li>
-          <li><a href="candidate-dashboard-cv-manager.html"><i class="la la-file-invoice"></i> CV manager</a></li>
-          <li><a href="dashboard-packages.html"><i class="la la-box"></i>Packages</a></li>
-          <li><a href="dashboard-messages.html"><i class="la la-comment-o"></i>Messages</a></li>
-          <li><a href="dashboard-change-password.html"><i class="la la-lock"></i>Change Password</a></li>
-          <li><a href="dashboard-profile.html"><i class="la la-user-alt"></i>View Profile</a></li>
-          <li><a href="index.html"><i class="la la-sign-out"></i>Logout</a></li>
-          <li><a href="dashboard-delete.html"><i class="la la-trash"></i>Delete Profile</a></li>
+          <li class="active"><a href="candidate-dashboard-profile"><i class="la la-user-tie"></i>My Profile</a></li>
+          <li><a href="candidate-dashboard-resume"><i class="la la-file-invoice"></i>My Resume</a></li>
+          <li><a href="candidate-dashboard-applied-job"><i class="la la-briefcase"></i> Applied Jobs </a></li>
+          <li><a href="candidate-dashboard-job-alerts"><i class="la la-bell"></i>Job Alerts</a></li>
+          <li><a href="candidate-dashboard-shortlisted-resume"><i class="la la-bookmark-o"></i>Shortlisted Jobs</a></li>
+          <li><a href="candidate-dashboard-cv-manager"><i class="la la-file-invoice"></i> CV manager</a></li>
+          <li><a href="dashboard-packages"><i class="la la-box"></i>Packages</a></li>
+          <li><a href="dashboard-messages"><i class="la la-comment-o"></i>Messages</a></li>
+          <li><a href="dashboard-change-password"><i class="la la-lock"></i>Change Password</a></li>
+          <li><a href="dashboard-profile"><i class="la la-user-alt"></i>View Profile</a></li>
+          <li><a href="index"><i class="la la-sign-out"></i>Logout</a></li>
+          <li><a href="dashboard-delete"><i class="la la-trash"></i>Delete Profile</a></li>
         </ul>
 
         <div class="skills-percentage">
@@ -103,111 +109,72 @@
                     <div class="text">Max file size is 1MB, Minimum dimension: 330x300 And Suitable files are .jpg & .png</div>
                   </div>
 
-                  <form class="default-form">
+                  <form name="f" class="default-form" method ="POST">
                     <div class="row">
                       <!-- Input -->
                       <div class="form-group col-lg-6 col-md-12">
                         <label>Full Name</label>
-                        <input type="text" name="name" placeholder="Jerome">
+                        <input type="text" th:value="${fuser?.userName}"  name="userName" th:placeholder="${loginUser.userName}" >
                       </div>
 
                       <!-- Input -->
                       <div class="form-group col-lg-6 col-md-12">
                         <label>Job Title</label>
-                        <input type="text" name="name" placeholder="UI Designer">
+                       <input type="text" th:value="${fuser?.job}"  name="job" th:placeholder="${loginUser.job}">
                       </div>
 
                       <!-- Input -->
                       <div class="form-group col-lg-6 col-md-12">
                         <label>Phone</label>
-                        <input type="text" name="name" placeholder="0 123 456 7890">
+                       <input type="text" th:value="${fuser?.userPhone}" name="userPhone" th:placeholder="${loginUser.userPhone}">
                       </div>
 
                       <!-- Input -->
                       <div class="form-group col-lg-6 col-md-12">
                         <label>Email address</label>
-                        <input type="text" name="name" placeholder="creativelayers">
+                         <input type="text" th:value="${fuser?.userEmail}" name="userEmail" th:placeholder="${loginUser.userEmail}" >
                       </div>
 
-                      <!-- Input -->
-                      <div class="form-group col-lg-6 col-md-12">
-                        <label>Website</label>
-                        <input type="text" name="name" placeholder="www.jerome.com">
-                      </div>
-
-                      <!-- Input -->
-                      <div class="form-group col-lg-3 col-md-12">
-                        <label>Current Salary($)</label>
-                        <select class="chosen-select">
-                          <option>40-70 K</option>
-                          <option>50-80 K</option>
-                          <option>60-90 K</option>
-                          <option>70-100 K</option>
-                          <option>100-150 K</option>
-                        </select>
+                     <div class="form-group col-lg-6 col-md-12">
+                        <label>Sex</label>
+                        <input type="text" th:value="${fuser?.userSex}" name="userSex" th:placeholder="${loginUser.userSex}">
                       </div>
 
                       <!-- Input -->
                       <div class="form-group col-lg-3 col-md-12">
-                        <label>Expected Salary($)</label>
-                        <select class="chosen-select">
-                          <option>120-350 K</option>
-                          <option>40-70 K</option>
-                          <option>50-80 K</option>
-                          <option>60-90 K</option>
-                          <option>70-100 K</option>
-                          <option>100-150 K</option>
-                        </select>
+                        <label>Address</label>
+                       <input type="text" th:value="${fuser?.userAddress}" name="userAddress" th:placeholder="${loginUser.userAddress}">
                       </div>
 
                       <!-- Input -->
-                      <div class="form-group col-lg-6 col-md-12">
-                        <label>Experience</label>
-                        <input type="text" name="name" placeholder="5-10 Years">
+                      <div class="form-group col-lg-3 col-md-12">
+                        <label>Career</label>
+                        <input type="text" th:value="${fuser?.userCareer}" name="userCareer" th:placeholder="${loginUser.userCareer}">
                       </div>
 
                       <!-- Input -->
                       <div class="form-group col-lg-6 col-md-12">
                         <label>Age</label>
-                        <select class="chosen-select">
-                          <option>23 - 27 Years</option>
-                          <option>24 - 28 Years</option>
-                          <option>25 - 29 Years</option>
-                          <option>26 - 30 Years</option>
-                        </select>
+                        <input type="number" th:value="${fuser?.userAge}" name="userAge" th:placeholder="${loginUser.userAge}">
                       </div>
 
                       <!-- Input -->
                       <div class="form-group col-lg-6 col-md-12">
-                        <label>Education Levels</label>
-                        <input type="text" name="name" placeholder="Certificate">
+                        <label>Final Education</label>
+                        <input type="text" th:value="${fuser?.userFinalEducation}" name="userFinalEducation" th:placeholder="${loginUser.userFinalEducation}">
                       </div>
 
-                      <!-- Input -->
+  					   <!-- Input -->
                       <div class="form-group col-lg-6 col-md-12">
                         <label>Languages</label>
-                        <input type="text" name="name" placeholder="English, Turkish">
+                        <input type="text" th:value="${fuser?.userLanguage}" name="userLanguage" th:placeholder="${loginUser.userLanguage}">
                       </div>
 
-                      <!-- Search Select -->
-                      <div class="form-group col-lg-6 col-md-12">
-                        <label>Categories </label>
-                        <select data-placeholder="Categories" class="chosen-select multiple" multiple tabindex="4">
-                          <option value="Banking">Banking</option>
-                          <option value="Digital&Creative">Digital & Creative</option>
-                          <option value="Retail">Retail</option>
-                          <option value="Human Resources">Human Resources</option>
-                          <option value="Management">Management</option>
-                        </select>
-                      </div>
 
                       <!-- Input -->
                       <div class="form-group col-lg-6 col-md-12">
-                        <label>Allow In Search & Listing</label>
-                        <select class="chosen-select">
-                          <option>Yes</option>
-                          <option>No</option>
-                        </select>
+                        <label>Skills</label>
+                        <input type="text" th:value="${fuser?.userSkills}" name="userSkills" th:placeholder="${loginUser.userSkills}">
                       </div>
 
                       <!-- About Company -->
@@ -218,7 +185,7 @@
 
                       <!-- Input -->
                       <div class="form-group col-lg-6 col-md-12">
-                        <button class="theme-btn btn-style-one">Save</button>
+                         <button class="theme-btn btn-style-one" onClick ="modifyAction()">저장</button>
                       </div>
                     </div>
                   </form>

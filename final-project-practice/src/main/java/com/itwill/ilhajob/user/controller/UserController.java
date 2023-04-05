@@ -88,7 +88,7 @@ public class UserController {
 		String sUserId = (String)request.getSession().getAttribute("sUserId");
 		User loginUser = userService.findUser(sUserId);
 		request.setAttribute("loginUser", loginUser);
-		forwardPath = "candidate-dashboard-profile";
+		forwardPath = "candidate-dashboard-profile-modify-form";
 		return forwardPath;
 	}
 	
@@ -98,7 +98,7 @@ public class UserController {
 	public String modify_action(@ModelAttribute User user, HttpServletRequest request) throws Exception {
 		String forwardPath = "";
 		userService.update(user);
-		forwardPath = "candidate-dashboard-profile";
+		forwardPath = "redirect:candidate-dashboard-profile";
 		return forwardPath;
 	}
 	

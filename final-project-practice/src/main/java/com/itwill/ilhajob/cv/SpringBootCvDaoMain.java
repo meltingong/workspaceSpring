@@ -16,7 +16,7 @@ public class SpringBootCvDaoMain {
 		CvDao cvDao=(CvDao)applicationContext.getBean(CvDao.class);
 		System.out.println("---------findTutorByIdWithCourses------------------");
 		System.out.println(">>>>>delete ");
-		System.out.println(cvDao.remove(1));
+		System.out.println(cvDao.remove(2));
 
 	}
 

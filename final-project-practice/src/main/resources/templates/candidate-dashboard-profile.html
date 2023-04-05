@@ -1,6 +1,12 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-
+<script type="text/javascript">
+	function modifyForm(){
+		document.f.action = "candidate-dashboard-profile-modify-form";
+		document.method='POST';
+		document.f.submit(); 
+	}
+</script>
 <head>
   <meta charset="utf-8">
   <title>Superio | Just another HTML Template | Candidate Dashboard Profile</title>
@@ -103,106 +109,87 @@
                     <div class="text">Max file size is 1MB, Minimum dimension: 330x300 And Suitable files are .jpg & .png</div>
                   </div>
 
-                  <form class="default-form">
+                  <form name = "f" class="default-form">
                     <div class="row">
                       <!-- Input -->
                       <div class="form-group col-lg-6 col-md-12">
                         <label>Full Name</label>
-                        <input type="text" th:value="${fuser?.userName}"  name="userName" th:placeholder="${loginUser.userName}">
+                        <input type="text" th:value="${fuser?.userName}"  name="userName" th:placeholder ="${loginUser.userName}" disabled>
+                        
                       </div>
 
                       <!-- Input -->
                       <div class="form-group col-lg-6 col-md-12">
                         <label>Job Title</label>
-                        <input type="text" th:value="${fuser?.job}"  name="job" th:placeholder="${loginUser.job}">
+                        <input type="text" th:value="${fuser?.job}"  name="job" th:placeholder="${loginUser.job}" disabled>
                       </div>
 
                       <!-- Input -->
                       <div class="form-group col-lg-6 col-md-12">
                         <label>Phone</label>
-                        <input type="text" th:value="${fuser?.userPhone}" name="userPhone" th:placeholder="${loginUser.userPhone}">
+                        <input type="text" th:value="${fuser?.userPhone}" name="userPhone" th:placeholder="${loginUser.userPhone}" disabled>
                       </div>
 
                       <!-- Input -->
                       <div class="form-group col-lg-6 col-md-12">
                         <label>Email address</label>
-                        <input type="text" th:value="${fuser?.userEmail}" name="userEmail" th:placeholder="${loginUser.userEmail}">
+                        <input type="text" th:value="${fuser?.userEmail}" name="userEmail" th:placeholder="${loginUser.userEmail}" disabled>
                       </div>
 
                       <!-- Input -->
                       <div class="form-group col-lg-6 col-md-12">
                         <label>Sex</label>
-                        <input type="text" th:value="${fuser?.userSex}" name="userSex" th:placeholder="${loginUser.userSex}">
+                        <input type="text" th:value="${fuser?.userSex}" name="userSex" th:placeholder="${loginUser.userSex}" disabled>
                       </div>
 
                       <!-- Input -->
                       <div class="form-group col-lg-3 col-md-12">
                         <label>Address</label>
-                       <input type="text" th:value="${fuser?.userAddress}" name="userAddress" th:placeholder="${loginUser.userAddress}">
+                       <input type="text" th:value="${fuser?.userAddress}" name="userAddress" th:placeholder="${loginUser.userAddress}" disabled>
                       </div>
 
                       <!-- Input -->
                       <div class="form-group col-lg-3 col-md-12">
                         <label>Career</label>
-                        <input type="text" th:value="${fuser?.userCareer}" name="userCareer" th:placeholder="${loginUser.userCareer}">
+                        <input type="text" th:value="${fuser?.userCareer}" name="userCareer" th:placeholder="${loginUser.userCareer}" disabled>
                       </div>
 
                       <!-- Input -->
                       <div class="form-group col-lg-6 col-md-12">
                         <label>Age</label>
-                        <input type="text" th:value="${fuser?.userAge}" name="userAge" th:placeholder="${loginUser.userAge}">
+                        <input type="number" th:value="${fuser?.userAge}" name="userAge" th:placeholder="${loginUser.userAge}" disabled>
                       </div>
 
                       <!-- Input -->
                       <div class="form-group col-lg-6 col-md-12">
                         <label>Final Education</label>
-                        <input type="text" th:value="${fuser?.userFinalEducation}" name="userFinalEducation" th:placeholder="${loginUser.userFinalEducation}">
+                        <input type="text" th:value="${fuser?.userFinalEducation}" name="userFinalEducation" th:placeholder="${loginUser.userFinalEducation}" disabled>
                       </div>
 
   					   <!-- Input -->
                       <div class="form-group col-lg-6 col-md-12">
                         <label>Languages</label>
-                        <input type="text" th:value="${fuser?.userLanguage}" name="userLanguage" th:placeholder="${loginUser.userLanguage}">
+                        <input type="text" th:value="${fuser?.userLanguage}" name="userLanguage" th:placeholder="${loginUser.userLanguage}" disabled>
                       </div>
 
 
                       <!-- Input -->
                       <div class="form-group col-lg-6 col-md-12">
                         <label>Skills</label>
-                        <input type="text" th:value="${fuser?.userSkills}" name="userSkills" th:placeholder="${loginUser.userSkills}">
+                        <input type="text" th:value="${fuser?.userSkills}" name="userSkills" th:placeholder="${loginUser.userSkills}" disabled>
                       </div>
 
-                 
-                      <!-- Search Select -->
-                      <div class="form-group col-lg-6 col-md-12">
-                        <label>Categories </label>
-                        <select data-placeholder="Categories" class="chosen-select multiple" multiple tabindex="4">
-                          <option value="Banking">Banking</option>
-                          <option value="Digital&Creative">Digital & Creative</option>
-                          <option value="Retail">Retail</option>
-                          <option value="Human Resources">Human Resources</option>
-                          <option value="Management">Management</option>
-                        </select>
-                      </div>
-
-                      <!-- Input -->
-                      <div class="form-group col-lg-6 col-md-12">
-                        <label>Allow In Search & Listing</label>
-                        <select class="chosen-select">
-                          <option>Yes</option>
-                          <option>No</option>
-                        </select>
-                      </div>
 
                       <!-- About Company -->
                       <div class="form-group col-lg-12 col-md-12">
                         <label>Description</label>
-                        <textarea placeholder="Spent several years working on sheep on Wall Street. Had moderate success investing in Yugo's on Wall Street. Managed a small team buying and selling Pogo sticks for farmers. Spent several years licensing licorice in West Palm Beach, FL. Developed several new methods for working it banjos in the aftermarket. Spent a weekend importing banjos in West Palm Beach, FL.In this position, the Software Engineer collaborates with Evention's Development team to continuously enhance our current software solutions as well as create new solutions to eliminate the back-office operations and management challenges present"></textarea>
+                        <textarea placeholder="Spent several years working on sheep on Wall Street. Had moderate success investing in Yugo's on Wall Street. Managed a small team buying and selling Pogo sticks for farmers. Spent several years licensing licorice in West Palm Beach, FL. Developed several new methods for working it banjos in the aftermarket. Spent a weekend importing banjos in West Palm Beach, FL.In this position, the Software Engineer collaborates with Evention's Development team to continuously enhance our current software solutions as well as create new solutions to eliminate the back-office operations and management challenges present" disabled></textarea>
                       </div>
 
                       <!-- Input -->
                       <div class="form-group col-lg-6 col-md-12">
-                        <button class="theme-btn btn-style-one">Save</button>
+                        <!-- <button class="theme-btn btn-style-one" onClick ="modifyAction()">저장</button> -->
+                        <button class="theme-btn btn-style-one" onClick ="modifyForm()">수정</button>
                       </div>
                     </div>
                   </form>

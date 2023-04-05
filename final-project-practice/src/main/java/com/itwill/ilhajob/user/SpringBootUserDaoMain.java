@@ -16,7 +16,8 @@ public class SpringBootUserDaoMain {
 		//Awards tutorDao=(Awards)appicationContext.getBean(Awards.class);
 		//System.out.println("---------findUserByIdWithReview------------------");
 		//System.out.println(userDao.findUserByIdWithReview(1));
-
+		//userDao.update(new User(0,"test4@test.com","4444","김사원",null,null,null,null,35,null,null,null,null,null,null,null,null,1,null,null,null,null,null));
+		
 	}
 
 }
