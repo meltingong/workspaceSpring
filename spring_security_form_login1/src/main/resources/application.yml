@@ -1,0 +1,5 @@
+server:
+  port: 9050
+  #7c38a388-b60c-495c-b7c1-69cec888b135
+  
+spring:  security:    user:      name: 
