@@ -6,6 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 
 @SpringBootApplication
+//(scanBasePackages = {"com.itwill.ilhajob.user","com.itwill.ilhajob.app"})
 //@MapperScan(basePackages = "com.itiwll.ilhajob.Awards.mapper")
 public class SpringBootUserDaoMain {
 

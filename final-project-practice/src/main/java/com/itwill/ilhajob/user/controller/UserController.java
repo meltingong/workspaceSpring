@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.itwill.ilhajob.app.AppService;
 import com.itwill.ilhajob.user.User;
 import com.itwill.ilhajob.user.UserService;
 import com.itwill.ilhajob.user.exception.PasswordMismatchException;
@@ -139,6 +140,20 @@ public class UserController {
 		return forwardPath;
 	}
 
+	/*
+	@LoginCheck
+	@RequestMapping("/candidate-dashboard-applied-job")
+	public String user_applied_job(HttpServletRequest request, User user) throws Exception{
+		String forwardPath="";
+		int userSeq = user.getUserSeq();
+		String sUserId = (String)request.getSession().getAttribute("sUserId");
+		User loginUser = userService.findUser(sUserId);
+		userService.findAppList(userSeq);
+		request.setAttribute("loginUser", loginUser);
+		forwardPath = "candidate-dashboard-applied-job";
+		return forwardPath;
+	}
+	*/
 	
 	// my resume 이력서 작성 폼
 	

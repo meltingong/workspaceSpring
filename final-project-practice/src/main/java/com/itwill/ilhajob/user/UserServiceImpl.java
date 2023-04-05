@@ -43,20 +43,20 @@ public class UserServiceImpl implements UserService{
 	}
 
 	@Override
-	public int login(String userId, String userPassword) throws Exception {
+	public int login(String userEmail, String userPassword) throws Exception {
 		int result=1;
 		
-		User user = userDao.findUser(userId);
-		if(!userDao.existedUser(userId)) {
+		User user = userDao.findUser(userEmail);
+		if(!userDao.existedUser(userEmail)) {
 			UserNotFoundException exception = 
-					new UserNotFoundException(userId+" 는 존재하지않는 아이디입니다.");
+					new UserNotFoundException(userEmail+" 는 존재하지않는 아이디입니다.");
 			exception.setData(user);
 			throw exception;
 		}
 		if(!user.isMatchPassword(userPassword)){
 			//패쓰워드불일치
 			PasswordMismatchException exception=
-				new PasswordMismatchException("패스워드가 일치하지않습니다.");
+				new PasswordMismatchException("패쓰워드가 일치하지않습니다.");
 			throw exception;
 		}
 		return result;
@@ -85,6 +85,11 @@ public class UserServiceImpl implements UserService{
 		}else {
 			return false;
 		}
+	}
+
+	@Override
+	public User findAppList(int userSeq) throws Exception {
+		return userDao.findAppList(userSeq);
 	}
 
 	
