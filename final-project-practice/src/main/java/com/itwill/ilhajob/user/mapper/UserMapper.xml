@@ -64,7 +64,7 @@
 
 	<update id="update" parameterType="com.itwill.ilhajob.user.User">
     	update userinfo
-    	set user_phone = #{userPhone, jdbcType=VARCHAR}, user_sex = #{userSex, jdbcType=VARCHAR}, user_address = #{userAddress, jdbcType=VARCHAR},
+    	set user_name = #{userName, jdbcType=VARCHAR}, user_phone = #{userPhone, jdbcType=VARCHAR}, user_sex = #{userSex, jdbcType=VARCHAR}, user_address = #{userAddress, jdbcType=VARCHAR},
         	user_career = #{userCareer, jdbcType=VARCHAR}, user_age = #{userAge, jdbcType=NUMERIC}, user_final_education = #{userFinalEducation, jdbcType=VARCHAR},
         	user_language = #{userLanguage, jdbcType=VARCHAR}, user_skills = #{userSkills, jdbcType=VARCHAR}, user_image = #{userImage, jdbcType=VARCHAR},
         	sns_type = #{snsType, jdbcType=VARCHAR}, sns_id = #{snsId, jdbcType=VARCHAR}, job = #{job, jdbcType=VARCHAR}
