@@ -25,7 +25,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.authorizeHttpRequests().anyRequest().permitAll();
+		http.authorizeHttpRequests().anyRequest().permitAll(); //모든 request에 대해 허용함 (로그인x)
 	}
 	
 }
