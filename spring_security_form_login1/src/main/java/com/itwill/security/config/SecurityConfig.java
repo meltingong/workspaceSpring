@@ -2,6 +2,7 @@ package com.itwill.security.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -10,6 +11,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 @EnableWebSecurity(debug = true)
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	
 	@Override
@@ -25,7 +27,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.authorizeHttpRequests().anyRequest().permitAll(); //모든 request에 대해 허용함 (로그인x)
+		//http.authorizeHttpRequests().anyRequest().permitAll(); //모든 request에 대해 허용함 (로그인x)
+		http.authorizeHttpRequests().antMatchers("/").permitAll();
+		http.authorizeHttpRequests().anyRequest().authenticated();
+		http.formLogin();
+		http.httpBasic();
+		
+		
+		//http.formLogin().disable().httpBasic().disable();
 	}
 	
 }
