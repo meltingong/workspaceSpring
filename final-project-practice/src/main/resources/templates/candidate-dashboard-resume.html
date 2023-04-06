@@ -40,39 +40,7 @@
     <div class="sidebar-backdrop"></div>
 
     <!-- User Sidebar -->
-    <div class="user-sidebar">
-
-      <div class="sidebar-inner">
-        <ul class="navigation">
-          <li><a href="candidate-dashboard.html"> <i class="la la-home"></i> Dashboard</a></li>
-          <li><a href="candidate-dashboard-profile.html"><i class="la la-user-tie"></i>My Profile</a></li>
-          <li class="active"><a href="candidate-dashboard-resume.html"><i class="la la-file-invoice"></i>My Resume</a></li>
-          <li><a href="candidate-dashboard-applied-job.html"><i class="la la-briefcase"></i> Applied Jobs </a></li>
-          <li><a href="candidate-dashboard-job-alerts.html"><i class="la la-bell"></i>Job Alerts</a></li>
-          <li><a href="candidate-dashboard-shortlisted-resume.html"><i class="la la-bookmark-o"></i>Shortlisted Jobs</a></li>
-          <li><a href="candidate-dashboard-cv-manager.html"><i class="la la-file-invoice"></i> CV manager</a></li>
-          <li><a href="dashboard-packages.html"><i class="la la-box"></i>Packages</a></li>
-          <li><a href="dashboard-messages.html"><i class="la la-comment-o"></i>Messages</a></li>
-          <li><a href="dashboard-change-password.html"><i class="la la-lock"></i>Change Password</a></li>
-          <li><a href="dashboard-profile.html"><i class="la la-user-alt"></i>View Profile</a></li>
-          <li><a href="index.html"><i class="la la-sign-out"></i>Logout</a></li>
-          <li><a href="dashboard-delete.html"><i class="la la-trash"></i>Delete Profile</a></li>
-        </ul>
-
-        <div class="skills-percentage">
-          <h4>Skills Percentage</h4>
-          <p>Put value for "Cover Image" field to increase your skill up to "85%"</p>
-
-          <!-- Pie Graph -->
-          <div class="pie-graph">
-            <div class="graph-outer">
-              <input type="text" class="dial" data-fgColor="#7367F0" data-bgColor="transparent" data-width="234" data-height="234" data-linecap="normal" value="30">
-              <div class="inner-text count-box"><span class="count-text txt" data-stop="30" data-speed="2000"></span>%</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+   <div id="user-sidebar" th:include="user-sidebar::user-sidebar"></div>
     <!-- End User Sidebar -->
 
     <!-- Dashboard -->
@@ -92,69 +60,73 @@
                   <h4>My Profile</h4>
                 </div>
 
-                <div class="widget-content">
+                <div class="widget-content" th:object="${cvDetail}">
                   <form class="default-form">
                     <div class="row">
                       <!-- Input -->
                       <div class="form-group col-lg-6 col-md-12">
-                        <label>Select Your CV</label>
-                        <select class="chosen-select">
-                          <option>My CV</option>
+                        <label>이력서 선택</label>
+                        <!-- <<< 수정필 >>> : onchange() -> 해당 cvSeq로 전환 해당하는 데이터 비동기로 뿌려주기 -->
+                        <select class="chosen-select" onchange="">
+                          <option th:text="*{cvName}">My CV</option>
+                          <option th:each="cv:${cvList}" th:text="${cv.cvName}" th:value="${cv.cvSeq}">My CV</option>
                         </select>
                       </div>
 
                       <!-- About Company -->
                       <div class="form-group col-lg-12 col-md-12">
-                        <label>Description</label>
-                        <textarea placeholder="Spent several years working on sheep on Wall Street. Had moderate success investing in Yugo's on Wall Street. Managed a small team buying and selling Pogo sticks for farmers. Spent several years licensing licorice in West Palm Beach, FL. Developed several new methods for working it banjos in the aftermarket. Spent a weekend importing banjos in West Palm Beach, FL.In this position, the Software Engineer collaborates with Evention's Development team to continuously enhance our current software solutions as well as create new solutions to eliminate the back-office operations and management challenges present"></textarea>
+                        <label>자기소개</label>
+                        <textarea placeholder="이력서를 작성하세요." th:text="${cvDetail.cvDescription}"></textarea>
                       </div>
+
+                      <!-- 포트폴리오 -->
+                      <div class="form-group col-lg-12 col-md-12">
+                        <label>포트폴리오</label>
+                        <!-- <textarea placeholder="포트폴리오를 업로드 사이트를 입력하세요." th:text="${cvDetail.cvPortfolio}"></textarea> -->
+                        <input type="text" name="name" th:value="${cvDetail.cvPortfolio}" placeholder="포트폴리오를 업로드 사이트를 입력하세요.">
+                      </div>
+                      <!-- 포트폴리오 -->
 
                       <div class="form-group col-lg-12 col-md-12">
                         <!-- Resume / Education -->
-                        <div class="resume-outer">
+                        <div class="resume-outer" th:each="edu:${eduList}">
                           <div class="upper-title">
-                            <h4>Education</h4>
-                            <button class="add-info-btn"><span class="icon flaticon-plus"></span> Add Aducation</button>
+                            <h4>학력</h4>
+                            <button class="add-info-btn"><span class="icon flaticon-plus"></span> 학력 추가</button>
                           </div>
                           <!-- Resume BLock -->
                           <div class="resume-block">
                             <div class="inner">
-                              <span class="name">M</span>
+                              <span class="name"></span>
                               <div class="title-box">
                                 <div class="info-box">
-                                  <h3>Bachlors in Fine Arts</h3>
-                                  <span>Modern College</span>
+                                  <h3 th:text="${edu.eduMajor}">Bachlors in Fine Arts</h3>
+                                  <span th:text="${edu.eduName}">Modern College</span>
                                 </div>
                                 <div class="edit-box">
-                                  <span class="year">2012 - 2014</span>
+                                  <span class="year" th:text="${edu.eduStartDate}">2012 - 2014</span>
+                                  <span class="year" th:text="${edu.eduEndDate}">2012 - 2014</span>
                                   <div class="edit-btns">
-                                    <button><span class="la la-pencil"></span></button>
-                                    <button><span class="la la-trash"></span></button>
+                                  <!-- 버튼 클릭 펑션 추가필 -->
+                                    <button type="button" onclick=""><span class="la la-pencil"></span></button>
+                                    <button type="button" onclick=""><span class="la la-trash"></span></button>
                                   </div>
                                 </div>
                               </div>
-                              <div class="text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin a ipsum tellus. Interdum et malesuada fames ac ante<br> ipsum primis in faucibus.</div>
-                            </div>
-                          </div>
+                              <div class="text">
+		                      
+		                      <!-- Input eduScore -->
+		                      <div class="form-group col-lg-12 col-md-12">
+		                        <label>(임시)학점</label>
+		                        <input type="text" name="name" placeholder="학력 관련 추가 정보를 입력하세요." th:value="${edu.eduScore}">
+		                      </div>
 
-                          <!-- Resume BLock -->
-                          <div class="resume-block">
-                            <div class="inner">
-                              <span class="name">H</span>
-                              <div class="title-box">
-                                <div class="info-box">
-                                  <h3>Computer Science</h3>
-                                  <span>Harvard University</span>
-                                </div>
-                                <div class="edit-box">
-                                  <span class="year">2008 - 2012</span>
-                                  <div class="edit-btns">
-                                    <button><span class="la la-pencil"></span></button>
-                                    <button><span class="la la-trash"></span></button>
-                                  </div>
-                                </div>
+                               <!-- Input eduContent -->
+		                      <div class="form-group col-lg-12 col-md-12">
+		                        <label>추가 정보 입력</label>
+		                        <input type="text" name="name" placeholder="학력 관련 추가 정보를 입력하세요." th:value="${edu.eduContent}">
+		                      </div>
                               </div>
-                              <div class="text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin a ipsum tellus. Interdum et malesuada fames ac ante<br> ipsum primis in faucibus.</div>
                             </div>
                           </div>
                         </div>
@@ -162,7 +134,7 @@
                         <!-- Resume / Work & Experience -->
                         <div class="resume-outer theme-blue">
                           <div class="upper-title">
-                            <h4>Work & Experience</h4>
+                            <h4>경력 사항</h4>
                             <button class="add-info-btn"><span class="icon flaticon-plus"></span> Add Work</button>
                           </div>
                           <!-- Resume BLock -->
@@ -223,7 +195,7 @@
                         <!-- Resume / Awards -->
                         <div class="resume-outer theme-yellow">
                           <div class="upper-title">
-                            <h4>Awards</h4>
+                            <h4>수상</h4>
                             <button class="add-info-btn"><span class="icon flaticon-plus"></span> Awards</button>
                           </div>
                           <!-- Resume BLock -->
@@ -273,7 +245,7 @@
 
                       <!-- Search Select -->
                       <div class="form-group col-lg-6 col-md-12">
-                        <label>Skills </label>
+                        <label>기타 보유능력</label>
                         <select data-placeholder="Categories" class="chosen-select multiple" multiple tabindex="4">
                           <option value="Banking">Banking</option>
                           <option value="Digital&Creative">Digital & Creative</option>
@@ -286,6 +258,7 @@
                       <!-- Input -->
                       <div class="form-group col-lg-12 col-md-12">
                         <button class="theme-btn btn-style-one">Save</button>
+                        <button class="theme-btn btn-style-one">Apply</button>
                       </div>
                     </div>
                   </form>

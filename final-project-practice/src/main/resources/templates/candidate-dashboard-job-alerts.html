@@ -83,66 +83,15 @@
                       </thead>
 
                       <tbody>
-                        <tr th:each="${loginUser.messageList}">
-                          <td>
-                            <h6><a th:text="${messageTitle}"></a></h6>
+                        <tr th:each="message:${messageList}">
+                          <td colspan="2">
+                            <h6><a th:text="${message.messageTitle}"></a></h6>
                           </td>
-                          <td>Human Resources, Junior</td>
-                          <td>Nov 12, 2021 </td>
+                          <td th:text="${message.messageDate}"></td>
                           <td>
                             <div class="option-box">
                               <ul class="option-list">
-                                <li><button data-text="View Aplication"><span class="la la-eye"></span></button></li>
-                                <li><button data-text="Delete Aplication"><span class="la la-trash"></span></button></li>
-                              </ul>
-                            </div>
-                          </td>
-                        </tr>
-                        <tr>
-                        
-                          <td>
-                            <h6>Senior Product Designer</h6>
-                            <span class="info"><i class="icon flaticon-map-locator"></i> London, UK</span>
-                          </td>
-                          <td>Human Resources, Junior</td>
-                          <td>Nov 12, 2021 </td>
-                          <td>
-                            <div class="option-box">
-                              <ul class="option-list">
-                                <li><button data-text="View Aplication"><span class="la la-eye"></span></button></li>
-                                <li><button data-text="Delete Aplication"><span class="la la-trash"></span></button></li>
-                              </ul>
-                            </div>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>
-                            <h6>Sr. Full Stack Engineer</h6>
-                            <span class="info"><i class="icon flaticon-map-locator"></i> London, UK</span>
-                          </td>
-                          <td>Human Resources, Junior</td>
-                          <td>Nov 12, 2021 </td>
-                          <td>
-                            <div class="option-box">
-                              <ul class="option-list">
-                                <li><button data-text="View Aplication"><span class="la la-eye"></span></button></li>
-                                <li><button data-text="Delete Aplication"><span class="la la-trash"></span></button></li>
-                              </ul>
-                            </div>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>
-                            <h6>Product Manager, Studio</h6>
-                            <span class="info"><i class="icon flaticon-map-locator"></i> London, UK</span>
-                          </td>
-                          <td>Human Resources, Junior</td>
-                          <td>Nov 12, 2021 </td>
-                          <td>
-                            <div class="option-box">
-                              <ul class="option-list">
-                                <li><button data-text="View Aplication"><span class="la la-eye"></span></button></li>
-                                <li><button data-text="Delete Aplication"><span class="la la-trash"></span></button></li>
+                                <li><button data-text="Delete Aplication" th:href=""><span class="la la-trash"></span></button></li>
                               </ul>
                             </div>
                           </td>

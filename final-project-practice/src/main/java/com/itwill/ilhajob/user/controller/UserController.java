@@ -213,8 +213,15 @@ public class UserController {
 		forwardPath = "candidate-dashboard-job-alerts";
 		return forwardPath;
 	}
-
 	
+	// 알림 삭제
+	@RequestMapping("/alerts-remove")
+	public String user_alerts_remove(HttpServletRequest request) {
+		String forwardPath="";
+		
+		forwardPath="redirect:candidate-dashboard-job-alerts";
+		return forwardPath;
+	}
 	// my resume 이력서 작성 폼
 	
 	/*
