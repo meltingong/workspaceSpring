@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
   <meta charset="utf-8">
@@ -31,7 +31,7 @@
     <span class="header-span"></span>
 
     <!-- Main Header-->
-    <header class="main-header header-shaddow">
+   <header class="main-header header-shaddow">
       <div id="main-header" th:include="include_common_top_dashboard::include_common_top_dashboard"></div>
     </header>
     <!--End Main Header -->
@@ -40,39 +40,7 @@
     <div class="sidebar-backdrop"></div>
 
     <!-- User Sidebar -->
-    <div class="user-sidebar">
-
-      <div class="sidebar-inner">
-        <ul class="navigation">
-          <li><a href="candidate-dashboard.html"> <i class="la la-home"></i> Dashboard</a></li>
-          <li><a href="candidate-dashboard-profile.html"><i class="la la-user-tie"></i>My Profile</a></li>
-          <li><a href="candidate-dashboard-resume.html"><i class="la la-file-invoice"></i>My Resume</a></li>
-          <li class="active"><a href="candidate-dashboard-applied-job.html"><i class="la la-briefcase"></i> Applied Jobs </a></li>
-          <li><a href="candidate-dashboard-job-alerts.html"><i class="la la-bell"></i>Job Alerts</a></li>
-          <li><a href="candidate-dashboard-shortlisted-resume.html"><i class="la la-bookmark-o"></i>Shortlisted Jobs</a></li>
-          <li><a href="candidate-dashboard-cv-manager.html"><i class="la la-file-invoice"></i> CV manager</a></li>
-          <li><a href="dashboard-packages.html"><i class="la la-box"></i>Packages</a></li>
-          <li><a href="dashboard-messages.html"><i class="la la-comment-o"></i>Messages</a></li>
-          <li><a href="dashboard-change-password.html"><i class="la la-lock"></i>Change Password</a></li>
-          <li><a href="dashboard-profile.html"><i class="la la-user-alt"></i>View Profile</a></li>
-          <li><a href="index.html"><i class="la la-sign-out"></i>Logout</a></li>
-          <li><a href="dashboard-delete.html"><i class="la la-trash"></i>Delete Profile</a></li>
-        </ul>
-
-        <div class="skills-percentage">
-          <h4>Skills Percentage</h4>
-          <p>Put value for "Cover Image" field to increase your skill up to "85%"</p>
-
-          <!-- Pie Graph -->
-          <div class="pie-graph">
-            <div class="graph-outer">
-              <input type="text" class="dial" data-fgColor="#7367F0" data-bgColor="transparent" data-width="234" data-height="234" data-linecap="normal" value="30">
-              <div class="inner-text count-box"><span class="count-text txt" data-stop="30" data-speed="2000"></span>%</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+<div id="user-sidebar" th:include="corp-sidebar::corp-sidebar"></div>   
     <!-- End User Sidebar -->
 
     <!-- Dashboard -->
@@ -119,20 +87,23 @@
                         <tr>
                           <td>
                             <!-- Job Block -->
-                            <div class="job-block">
+                            <div th:each="recruit:${recruitList}" class="job-block">
                               <div class="inner-box">
                                 <div class="content">
                                   <span class="company-logo"><img src="images/resource/company-logo/1-1.png" alt=""></span>
-                                  <h4><a href="#">Senior Full Stack Engineer, Creator Success</a></h4>
+                                  <h4><a href="#" 
+                                  		th:href="@{recruit-detail(rcSeq=${recruit.rcSeq})}" 
+                      		 			th:text="${recruit.rcTitle}" >Senior Full Stack Engineer, Creator Success</a></h4>
                                   <ul class="job-info">
-                                    <li><span class="icon flaticon-briefcase"></span> Segment</li>
-                                    <li><span class="icon flaticon-map-locator"></span> London, UK</li>
+                                    <li th:text="${recruit.rcPosition}"><span class="icon flaticon-briefcase"></span> Segment</li>
+                                    <li th:text="${recruit.corp.corpAddress}"><span class="icon flaticon-map-locator"></span> London, UK</li>
+                                    
                                   </ul>
                                 </div>
                               </div>
                             </div>
                           </td>
-                          <td>Dec 5, 2020</td>
+                          <td th:text="${loginUser.userEmail}">Dec 5, 2020</td>
                           <td class="status">Active</td>
                           <td>
                             <div class="option-box">
