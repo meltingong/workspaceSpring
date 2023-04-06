@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-
 <head>
   <meta charset="utf-8">
   <title>Superio | Just another HTML Template | Candidate Dashboard Jobs Alerts</title>
@@ -72,6 +71,7 @@
                 </div>
 
                 <div class="widget-content" th:object="${messageList}">
+            <!--    <input type="hidden" name="messageSeq" th:value="${message.messageSeq}"> -->
                   <div class="table-outer">
                     <table class="default-table manage-job-table">
                       <thead>
@@ -82,7 +82,6 @@
                           <th>삭제</th>
                         </tr>
                       </thead>
-
                       <tbody>
                         <tr th:each="message:${messageList}">
                           <td th:text="${message.messageTitle}">
@@ -92,6 +91,7 @@
                           <td>
                             <div class="option-box">
                               <ul class="option-list">
+                              
                                 <li><button data-text="Delete Aplication"><span class="la la-trash"></span></button></li>
                               </ul>
                             </div>
