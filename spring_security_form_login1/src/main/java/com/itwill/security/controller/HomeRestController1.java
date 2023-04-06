@@ -6,7 +6,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@RestController
+//@RestController
 public class HomeRestController1 {
 	@PreAuthorize("hasAnyAuthority('ROLE_ANONYMOUS')")
 	@GetMapping("/")
