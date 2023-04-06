@@ -18,16 +18,24 @@
         <div class="link" sec:authorize="!authenticated">
             <a href="/login">  로그인 </a>
         </div>
-        <div class="link" sec:authorize="authenticated">
+        <div class="link" sec:authorize="hasAuthority('ROLE_USER')">
             <a href="/user-page">  유저 페이지  </a>
         </div>
-        <div class="link" sec:authorize="authenticated">
+        <div class="link" sec:authorize="hasAuthority('ROLE_ADMIN')">
             <a href="/admin-page">  관리자 페이지 </a>
         </div>
-        <div class="link" sec:authorize="authenticated">
+        <div class="link" sec:authorize="hasAnyAuthority('ROLE_ADMIN','ROLE_USER')">
             <form th:action="@{/logout}" method="post">
                 <button class="btn btn-info" type="submit">  로그아웃 </button>
             </form>
+        </div>
+        <div class="link" sec:authorize="authenticated">
+        	<ol>
+        		<li sec:authentication="principal"></li>
+        		<li sec:authentication="principal.username"></li>
+        		<li sec:authentication="principal.password"></li>
+        		<li sec:authentication="principal.authorities"></li>
+        	</ol>
         </div>
     </div>
 </div>

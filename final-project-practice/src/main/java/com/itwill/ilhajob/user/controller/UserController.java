@@ -16,8 +16,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.itwill.ilhajob.app.AppService;
 import com.itwill.ilhajob.user.User;
 import com.itwill.ilhajob.user.UserService;
+import com.itwill.ilhajob.user.exception.ExistedUserException;
 import com.itwill.ilhajob.user.exception.PasswordMismatchException;
 import com.itwill.ilhajob.user.exception.UserNotFoundException;
+
+import net.bytebuddy.dynamic.scaffold.MethodRegistry.Handler.ForAbstractMethod;
 
 /*
 /user_main 
@@ -144,9 +147,25 @@ public class UserController {
 	@RequestMapping("/register")
 	public String user_join() {
 		String forwardPath = "";
-		
+		forwardPath = "register";
 		return forwardPath;
 	}
+	
+	// 회원 가입 액션
+	@RequestMapping("/user_join_action")
+	public String user_join_action(@ModelAttribute("fuser")User user,Model model) throws Exception {
+		String forwardPath = "";
+		try {
+			userService.create(user);
+			forwardPath = "redirect:login";
+		}catch (ExistedUserException e) {
+			model.addAttribute("msg",e.getMessage());
+			forwardPath = "redirect:register";
+		}
+		return forwardPath;
+	}
+	
+	
 	
 	/*
 	@LoginCheck

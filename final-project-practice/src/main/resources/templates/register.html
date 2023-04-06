@@ -1,6 +1,12 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-
+<script type="text/javascript">
+	function join(){
+		document.f.action = "user_join_action";
+		document.method='POST';
+		document.f.submit(); 
+	}
+</script>
 <head>
   <meta charset="utf-8">
   <title>Superio | Just another HTML Template | Register</title>
@@ -43,7 +49,7 @@
             <h3>Create a Free Superio Account</h3>
 
             <!--Login Form-->
-            <form method="post" action="add-parcel.html">
+            <form name="f" method="post" action="add-parcel.html" th:object="${fuser}">
               <div class="form-group">
                 <div class="btn-box row">
                   <div class="col-lg-6 col-md-12">
@@ -57,16 +63,17 @@
 
               <div class="form-group">
                 <label>Email Address</label>
-                <input type="email" name="email" placeholder="Email" required>
+                <input th:value="${fuser?.userEmail}" type="text" name="userEmail" placeholder="Email" required><br>
+                <font color="red" th:text="${msg}"></font>
               </div>
 
               <div class="form-group">
                 <label>Password</label>
-                <input id="password-field" type="password" name="password" value="" placeholder="Password">
+                <input th:value="${fuser?.userPassword}" id="password-field" type="password" name="userPassword" value="" placeholder="Password">
               </div>
 
               <div class="form-group">
-                <button class="theme-btn btn-style-one " type="submit" name="Register">Register</button>
+                <button class="theme-btn btn-style-one " type="submit" name="Register" onClick="join()">Register</button>
               </div>
             </form>
 

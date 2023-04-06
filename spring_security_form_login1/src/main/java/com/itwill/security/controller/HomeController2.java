@@ -1,5 +1,7 @@
 package com.itwill.security.controller;
 
+import java.security.Principal;
+
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -10,7 +12,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 public class HomeController2 {
 	@GetMapping("/")
-	public String main() {
+	public String main(Authentication authentication,Principal principal) {
+		System.out.println(authentication.getPrincipal());
+		System.out.println(principal);
 		return "index";
 	}
 	
