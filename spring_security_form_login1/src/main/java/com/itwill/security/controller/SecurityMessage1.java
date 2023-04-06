@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class SecurityMessage {
+public class SecurityMessage1 {
 	
 	private Authentication authentication;
 	private String message;

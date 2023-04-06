@@ -15,9 +15,9 @@ public class HomeRestController1 {
 	
 	@PreAuthorize("hasAnyAuthority('ROLE_USER')")
 	@GetMapping("/user")
-	public SecurityMessage user() {
+	public SecurityMessage1 user() {
 		
-		return SecurityMessage.builder()
+		return SecurityMessage1.builder()
 							  .authentication(SecurityContextHolder.getContext().getAuthentication())
 							  .message("유저정보")
 							  .build();
@@ -25,9 +25,9 @@ public class HomeRestController1 {
 	
 	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
 	@GetMapping("/admin")
-	public SecurityMessage admin() {
+	public SecurityMessage1 admin() {
 		
-		return SecurityMessage.builder()
+		return SecurityMessage1.builder()
 				.authentication(SecurityContextHolder.getContext().getAuthentication())
 				.message("관리자정보")
 				.build();
