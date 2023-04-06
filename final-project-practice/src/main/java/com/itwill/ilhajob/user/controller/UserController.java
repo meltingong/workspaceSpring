@@ -213,15 +213,19 @@ public class UserController {
 		forwardPath = "candidate-dashboard-job-alerts";
 		return forwardPath;
 	}
-	
+	/*
 	// 알림 삭제
 	@RequestMapping("/alerts-remove")
-	public String user_alerts_remove(HttpServletRequest request) {
+	public String user_alerts_remove(HttpServletRequest request,User user) throws Exception {
 		String forwardPath="";
-		
+		String sUserId = (String)request.getSession().getAttribute("sUserId");
+		User loginUser = userService.findUser(sUserId);
+		request.setAttribute("loginUser", loginUser);
+		messageService.removeMessageBySeq(0);
 		forwardPath="redirect:candidate-dashboard-job-alerts";
 		return forwardPath;
 	}
+	*/
 	// my resume 이력서 작성 폼
 	
 	/*
