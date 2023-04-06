@@ -47,7 +47,7 @@
     <section class="user-dashboard">
       <div class="dashboard-outer">
         <div class="upper-title-box">
-          <h3>Job Alerts</h3>
+          <h3>알림</h3>
           <div class="text">Ready to jump back in?</div>
         </div>
 
@@ -57,7 +57,7 @@
             <div class="ls-widget">
               <div class="tabs-box">
                 <div class="widget-title">
-                  <h4>My Job Alerts</h4>
+                  <h4>나의 알림</h4>
 
                   <div class="chosen-outer">
                     <!--Tabs Box-->
@@ -71,15 +71,14 @@
                   </div>
                 </div>
 
-                <div class="widget-content">
+                <div class="widget-content" th:object="${messageList}">
                   <div class="table-outer">
                     <table class="default-table manage-job-table">
                       <thead>
                         <tr>
-                          <th>Title</th>
-                          <th>Criteria</th>
-                          <th>Created</th>
-                          <th>Action</th>
+                          <th colspan="2">내용</th>
+                          <th>날짜</th>
+                          <th>삭제</th>
                         </tr>
                       </thead>
 
@@ -101,6 +100,7 @@
                           </td>
                         </tr>
                         <tr>
+                        
                           <td>
                             <h6>Senior Product Designer</h6>
                             <span class="info"><i class="icon flaticon-map-locator"></i> London, UK</span>

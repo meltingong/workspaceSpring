@@ -40,7 +40,7 @@
     <div class="sidebar-backdrop"></div>
 
     <!-- User Sidebar -->
-<div id="user-sidebar" th:include="corp-sidebar::corp-sidebar"></div>   
+<div id="user-sidebar" th:include="user-sidebar::user-sidebar"></div>   
     <!-- End User Sidebar -->
 
     <!-- Dashboard -->
@@ -76,34 +76,35 @@
                     <table class="default-table manage-job-table">
                       <thead>
                         <tr>
-                          <th>Job Title</th>
-                          <th>Date Applied</th>
-                          <th>Status</th>
+                          <th>공고제목</th>
+                          <th>마감기한</th>
+                          <th>상황</th>
                           <th>Action</th>
                         </tr>
                       </thead>
 
                       <tbody>
-                        <tr>
+                        <tr th:each="app:${loginUser.appList}" >
                           <td>
                             <!-- Job Block -->
-                            <div th:each="recruit:${recruitList}" class="job-block">
+                            <div class="job-block">
                               <div class="inner-box">
                                 <div class="content">
                                   <span class="company-logo"><img src="images/resource/company-logo/1-1.png" alt=""></span>
                                   <h4><a href="#" 
-                                  		th:href="@{recruit-detail(rcSeq=${recruit.rcSeq})}" 
-                      		 			th:text="${recruit.rcTitle}" >Senior Full Stack Engineer, Creator Success</a></h4>
+                                  	th:href="@{recruit-detail(rcSeq=${app.rc.rcSeq})}"	
+                                  	th:text="${app.rc.rcTitle}">Senior Full Stack Engineer, Creator Success</a></h4>
                                   <ul class="job-info">
-                                    <li th:text="${recruit.rcPosition}"><span class="icon flaticon-briefcase"></span> Segment</li>
-                                    <li th:text="${recruit.corp.corpAddress}"><span class="icon flaticon-map-locator"></span> London, UK</li>
+                                    <li th:text="${app.rc.rcPosition}"><span class="icon flaticon-briefcase"></span> Segment</li>
+                                    <li ><span class="icon flaticon-map-locator"></span> London, UK</li>
                                     
                                   </ul>
                                 </div>
                               </div>
                             </div>
+                            
                           </td>
-                          <td th:text="${loginUser.userEmail}">Dec 5, 2020</td>
+                          <td th:text="${app.rc.rcDeadline}">Dec 5, 2020</td>
                           <td class="status">Active</td>
                           <td>
                             <div class="option-box">
@@ -115,88 +116,6 @@
                           </td>
                         </tr>
 
-                        <tr>
-                          <td>
-                            <!-- Job Block -->
-                            <div class="job-block">
-                              <div class="inner-box">
-                                <div class="content">
-                                  <span class="company-logo"><img src="images/resource/company-logo/1-2.png" alt=""></span>
-                                  <h4><a href="#">Senior Product Designer</a></h4>
-                                  <ul class="job-info">
-                                    <li><span class="icon flaticon-briefcase"></span> Segment</li>
-                                    <li><span class="icon flaticon-map-locator"></span> London, UK</li>
-                                  </ul>
-                                </div>
-                              </div>
-                            </div>
-                          </td>
-                          <td>Dec 5, 2020</td>
-                          <td class="status">Active</td>
-                          <td>
-                            <div class="option-box">
-                              <ul class="option-list">
-                                <li><button data-text="View Aplication"><span class="la la-eye"></span></button></li>
-                                <li><button data-text="Delete Aplication"><span class="la la-trash"></span></button></li>
-                              </ul>
-                            </div>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>
-                            <!-- Job Block -->
-                            <div class="job-block">
-                              <div class="inner-box">
-                                <div class="content">
-                                  <span class="company-logo"><img src="images/resource/company-logo/1-3.png" alt=""></span>
-                                  <h4><a href="#">Sr. Full Stack Engineer</a></h4>
-                                  <ul class="job-info">
-                                    <li><span class="icon flaticon-briefcase"></span> Segment</li>
-                                    <li><span class="icon flaticon-map-locator"></span> London, UK</li>
-                                  </ul>
-                                </div>
-                              </div>
-                            </div>
-                          </td>
-                          <td>Dec 5, 2020</td>
-                          <td class="status">Active</td>
-                          <td>
-                            <div class="option-box">
-                              <ul class="option-list">
-                                <li><button data-text="View Aplication"><span class="la la-eye"></span></button></li>
-                                <li><button data-text="Delete Aplication"><span class="la la-trash"></span></button></li>
-                              </ul>
-                            </div>
-                          </td>
-                        </tr>
-
-                        <tr>
-                          <td>
-                            <!-- Job Block -->
-                            <div class="job-block">
-                              <div class="inner-box">
-                                <div class="content">
-                                  <span class="company-logo"><img src="images/resource/company-logo/1-4.png" alt=""></span>
-                                  <h4><a href="#">Product Manager, Studio</a></h4>
-                                  <ul class="job-info">
-                                    <li><span class="icon flaticon-briefcase"></span> Segment</li>
-                                    <li><span class="icon flaticon-map-locator"></span> London, UK</li>
-                                  </ul>
-                                </div>
-                              </div>
-                            </div>
-                          </td>
-                          <td>Dec 5, 2020</td>
-                          <td class="status">Active</td>
-                          <td>
-                            <div class="option-box">
-                              <ul class="option-list">
-                                <li><button data-text="View Aplication"><span class="la la-eye"></span></button></li>
-                                <li><button data-text="Delete Aplication"><span class="la la-trash"></span></button></li>
-                              </ul>
-                            </div>
-                          </td>
-                        </tr>
                       </tbody>
                     </table>
                   </div>

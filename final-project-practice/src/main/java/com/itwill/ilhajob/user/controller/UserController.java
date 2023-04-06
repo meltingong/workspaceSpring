@@ -200,6 +200,13 @@ public class UserController {
 		return forwardPath;
 	}
 	
+	@LoginCheck
+	public String user_delete() throws Exception {
+		String forwardPath="";
+		userService.remove(forwardPath);
+		return forwardPath;
+	}
+	
 	// my resume 이력서 작성 폼
 	
 	/*
