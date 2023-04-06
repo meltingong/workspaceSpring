@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+  <link href="css/bootstrap.css" rel="stylesheet">
+  <link href="css/style.css" rel="stylesheet">
+
+</head>
+
+<div th:fragment="user-sidebar">
+<div class="user-sidebar">
+
+      <div class="sidebar-inner">
+        <ul class="navigation">
+          <li class="active"><a href="candidate-dashboard"> <i class="la la-home"></i> 대시보드</a></li>
+          <li><a href="candidate-dashboard-profile"><i class="la la-user-tie"></i>내 프로필</a></li>
+          <li><a href="cv-detail"><i class="la la-file-invoice"></i>내 이력서</a></li>
+      	  <li><a href="cv-list"><i class="la la-file-invoice"></i>이력서 관리</a></li>
+       	  <li><a href="candidate-dashboard-applied-job"><i class="la la-briefcase"></i> 신청한 공고 </a></li>
+      	  <li><a href="candidate-dashboard-job-alerts"><i class="la la-bell"></i>공고알림</a></li>
+          <li><a href="candidate-dashboard-shortlisted-resume"><i class="la la-bookmark-o"></i>북마크한 공고</a></li>
+          <li><a href="dashboard-packages"><i class="la la-box"></i>패키지</a></li>
+      <!--<li><a href="dashboard-messagesl"><i class="la la-comment-o"></i>Messages</a></li>--> 
+          <li><a href="dashboard-change-password"><i class="la la-lock"></i>비밀번호 변경</a></li>
+      <!--<li><a href="dashboard-profile"><i class="la la-user-alt"></i>View Profile</a></li>--> 
+          <li><a href="index"><i class="la la-sign-out"></i>로그아웃</a></li>
+          <li><a href="dashboard-delete"><i class="la la-trash"></i>회원탈퇴</a></li>
+        </ul>
+
+        <div class="skills-percentage">
+          <h4>Skills Percentage</h4>
+          <p>Put value for "Cover Image" field to increase your skill up to "85%"</p>
+
+          <!-- Pie Graph -->
+          <div class="pie-graph">
+            <div class="graph-outer">
+              <input type="text" class="dial" data-fgColor="#7367F0" data-bgColor="transparent" data-width="234" data-height="234" data-linecap="normal" value="30">
+              <div class="inner-text count-box"><span class="count-text txt" data-stop="30" data-speed="2000"></span>%</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+   
+   <script src="js/jquery.js"></script>
+  <script src="js/popper.min.js"></script>
+  <script src="js/chosen.min.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script src="js/jquery.fancybox.js"></script>
+  <script src="js/jquery.modal.min.js"></script>
+  <script src="js/mmenu.polyfills.js"></script>
+  <script src="js/mmenu.js"></script>
+  <script src="js/appear.js"></script>
+  <script src="js/anm.min.js"></script>
+  <script src="js/ScrollMagic.min.js"></script>
+  <script src="js/rellax.min.js"></script>
+  <script src="js/owl.js"></script>
+  <script src="js/wow.js"></script>
+  <script src="js/script.js"></script>
+  </div>
+   
