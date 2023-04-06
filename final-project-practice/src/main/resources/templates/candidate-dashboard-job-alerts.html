@@ -83,9 +83,9 @@
                       </thead>
 
                       <tbody>
-                        <tr>
+                        <tr th:each = "app:${loginUser.messageList}">
                           <td>
-                            <h6>Senior Full Stack Engineer, Creator Success</h6>
+                            <h6><a th:text="${}"></a></h6>
                             <span class="info"><i class="icon flaticon-map-locator"></i> London, UK</span>
                           </td>
                           <td>Human Resources, Junior</td>
