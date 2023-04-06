@@ -140,6 +140,14 @@ public class UserController {
 		return forwardPath;
 	}
 
+	// 회원 가입 폼
+	@RequestMapping("/")
+	public String user_join() {
+		String forwardPath = "";
+		
+		return forwardPath;
+	}
+	
 	/*
 	@LoginCheck
 	@RequestMapping("/candidate-dashboard-applied-job")
