@@ -141,7 +141,7 @@ public class UserController {
 	}
 
 	// 회원 가입 폼
-	@RequestMapping("/")
+	@RequestMapping("/register")
 	public String user_join() {
 		String forwardPath = "";
 		
