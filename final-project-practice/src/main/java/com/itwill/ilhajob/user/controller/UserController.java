@@ -215,13 +215,11 @@ public class UserController {
 	}
 	
 	// 알림 삭제
+	@LoginCheck
 	@RequestMapping("/alerts-remove")
-	public String user_alerts_remove(HttpServletRequest request,User user) throws Exception {
+	public String user_alerts_remove(HttpServletRequest request,int messageSeq) throws Exception {
 		String forwardPath="";
-		String sUserId = (String)request.getSession().getAttribute("sUserId");
-		User loginUser = userService.findUser(sUserId);
-		request.setAttribute("loginUser", loginUser);
-		messageService.removeMessageBySeq(0);
+		messageService.removeMessageBySeq(messageSeq);
 		forwardPath="redirect:candidate-dashboard-job-alerts";
 		return forwardPath;
 	}
