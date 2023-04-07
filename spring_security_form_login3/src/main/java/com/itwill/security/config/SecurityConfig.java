@@ -1,5 +1,6 @@
 package com.itwill.security.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.access.hierarchicalroles.RoleHierarchy;
@@ -19,8 +20,9 @@ import com.itwill.security.user.service.UsersService;
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private final UsersService userService;
-
+    private UsersService userService;
+    
+    @Autowired
     public SecurityConfig(UsersService userService) {
         this.userService = userService;
     }
