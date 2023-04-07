@@ -20,16 +20,23 @@
   <!--[if lt IE 9]><script src="js/respond.js"></script><![endif]-->
 
 <script type="text/javascript">
-	function cvUpdate() {
-		document.f.action = "cv-detail";
+/* 	function cvUpdate(cvSeq) {
+		location.href = "cv-detail";
 		document.f.submit();
+	} */
+	
+	function cvDelete() {
+		if (window.confirm("정말 삭제하시겠습니까?")) {
+			document.f.method='POST';
+			document.f.action = "cv-delete-action";
+			document.f.submit();
+		}
 	}
 </script>
 
 </head>
 
 <body>
-
   <div class="page-wrapper dashboard">
 
     <!-- Preloader -->
@@ -60,6 +67,8 @@
         </div>
         <div class="row">
 
+
+
           <div class="col-lg-12">
             <!-- CV Manager Widget -->
             <div class="cv-manager-widget ls-widget">
@@ -67,6 +76,8 @@
                 <h4>이력서 관리</h4>
               </div>
               <div class="widget-content">
+                
+                <!-- 
                 <div class="uploading-resume">
                   <div class="uploadButton">
                     <input class="uploadButton-input" type="file" name="attachments[]" accept="image/*, application/pdf" id="upload" multiple />
@@ -78,20 +89,24 @@
                     <span class="uploadButton-file-name"></span>
                   </div>
                 </div>
+                 -->
 
+		<!-- form start -->
+		<form name="f">
 			<!-- cv list -->
                 <div class="files-outer" >
                   <div class="file-edit-box" th:each="cv:${cvList}">
-                  	<input type="hidden" name="cvSeq" th:value="${cv.cvSeq}"/>
                     <span class="title" th:text="${cv.cvName}">Sample CV</span>
                     <div class="edit-btns">
-                      <button type="button" onclick="cvUpdate()"><span class="la la-pencil"></span></button>
-                      <button type="button" onclick="";><span class="la la-trash"></span></button>
+                  	<input type="hidden" name="cvSeq" th:value="${cv.cvSeq}"/>
+                      <a th:href="@{cv-detail(cvSeq=${cv.cvSeq})}"><button type="button" th:value="${cv.cvSeq}"><span class="la la-pencil"></span></button></a>
+                      <button type="button" onclick="cvDelete()" th:value="${cv.cvSeq}"><span class="la la-trash"></span></button>
                     </div>
                   </div>
-			<!-- cv list -->
-                
               </div>
+			<!-- cv list -->
+		</form>
+		<!-- form start -->
             </div>
           </div>
         </div>
