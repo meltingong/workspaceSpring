@@ -2,8 +2,9 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <script type="text/javascript">
 	function remove(){
-		
-		
+		document.f.action = "alerts-remove";
+		document.method='POST';
+		document.f.submit(); 
 	}
 </script>
 <head>
@@ -75,6 +76,7 @@
                     </select>
                   </div>
                 </div>
+                <form name="f">
                 
                 <div class="widget-content" th:object="${messageList}">
             <!--    <input type="hidden" name="messageSeq" th:value="${message.messageSeq}"> -->
@@ -97,8 +99,8 @@
                           <td>
                             <div class="option-box">
                               <ul class="option-list">
-                              
-                                <li><button data-text="Delete Aplication"><span class="la la-trash"></span></button></li>
+                               <input type="hidden" name="messageSeq" th:value="${message.messageSeq}"/>
+                                <li><button data-text="Delete Aplication" onClick="remove()" th:value="${message.messageSeq}"><span class="la la-trash"></span></button></li>
                               </ul>
                             </div>
                           </td>
@@ -107,6 +109,7 @@
                     </table>
                   </div>
                 </div>
+               </form>
               </div>
             </div>
           </div>

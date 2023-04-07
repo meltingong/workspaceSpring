@@ -33,26 +33,38 @@ public class BasicAuthenticationTest {
     @DisplayName("1. 인증 실패")
     @Test
     void test_1(){
-		
+		String message = client.getForObject(greetingUrl(),String.class);
+		System.out.println(message);
     }
 
 
     @DisplayName("2. 인증 성공")
     @Test
     void test_2() {
-       
+    	HttpHeaders headers = new HttpHeaders();
+    	headers.add(HttpHeaders.AUTHORIZATION, "Basic "
+    				+Base64.getEncoder().encodeToString("user1:1111".getBytes()));
+    	
+    	HttpEntity entity = new HttpEntity(null,headers);
+    	
+       ResponseEntity<String> responseEntity = client.exchange(greetingUrl(), HttpMethod.GET,entity,String.class);
+       System.out.println(">>>"+responseEntity.getBody());
     }
 
     @DisplayName("3. 인증성공2 ")
     @Test
     void test_3() {
-      
+      TestRestTemplate testRestTemplate = new TestRestTemplate("user1","1111");
+      String response = testRestTemplate.getForObject(greetingUrl(), String.class);
+      System.out.println(">>>"+response);
     }
 
     @DisplayName("4. POST 인증")
     @Test
     void test_4() {
-       
+    	  TestRestTemplate testRestTemplate = new TestRestTemplate("user1","1111");
+          ResponseEntity<String> responseEntity = testRestTemplate.postForEntity(greetingUrl(),"guard",String.class);
+          System.out.println(">>>"+responseEntity.getBody());
     }
     
 }
