@@ -19,15 +19,15 @@ import com.itwill.security.user.service.UsersService;
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private final UsersService spUserService;
+    private final UsersService userService;
 
-    public SecurityConfig(UsersService spUserService) {
-        this.spUserService = spUserService;
+    public SecurityConfig(UsersService userService) {
+        this.userService = userService;
     }
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(spUserService);
+        auth.userDetailsService(userService);
     }
 
     @Bean
