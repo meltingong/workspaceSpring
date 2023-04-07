@@ -46,10 +46,10 @@ public class UsersService implements UserDetailsService {
 				users.setAuthorities(authorities);
 				save(users);
 			} else if (!users.getAuthorities().contains(newRole)) {
-				HashSet<UsersAuthority> authorities = new HashSet<>();
-				authorities.addAll(users.getAuthorities());
-				authorities.add(newRole);
-				users.setAuthorities(authorities);
+				//HashSet<UsersAuthority> authorities = new HashSet<>();
+				//authorities.addAll(users.getAuthorities());
+				users.getAuthorities().add(newRole);
+				//users.setAuthorities(authorities);
 				save(users);
 			}
 		}
