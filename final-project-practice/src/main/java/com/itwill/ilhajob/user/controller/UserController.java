@@ -214,7 +214,7 @@ public class UserController {
 		return forwardPath;
 	}
 	
-	// 알림 삭제
+	// 알림 선택삭제
 	@LoginCheck
 	@RequestMapping("/alerts-remove")
 	public String user_alerts_remove(HttpServletRequest request,int messageSeq) throws Exception {
@@ -223,6 +223,18 @@ public class UserController {
 		forwardPath="redirect:candidate-dashboard-job-alerts";
 		return forwardPath;
 	}
+	
+	// 알림 전체삭제
+	/*
+	@LoginCheck
+	@RequestMapping("/alerts-removeAll")
+	public String user_alerts_removeAll(HttpServletRequest request, int userSeq) {
+		String forwardPath="";
+		messageService.removeMessageByUserSeq(userSeq);
+		forwardPath="redirect:candidate-dashboard-job-alerts";
+		return forwardPath;
+	}
+	*/
 	
 	// my resume 이력서 작성 폼
 	
