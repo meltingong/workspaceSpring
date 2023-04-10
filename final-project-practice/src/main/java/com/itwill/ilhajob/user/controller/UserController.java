@@ -10,15 +10,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.itwill.ilhajob.app.AppService;
-import com.itwill.ilhajob.corp.Corp;
 import com.itwill.ilhajob.message.Message;
 import com.itwill.ilhajob.message.MessageService;
 import com.itwill.ilhajob.review.Review;
@@ -29,7 +25,6 @@ import com.itwill.ilhajob.user.exception.ExistedUserException;
 import com.itwill.ilhajob.user.exception.PasswordMismatchException;
 import com.itwill.ilhajob.user.exception.UserNotFoundException;
 
-import net.bytebuddy.dynamic.scaffold.MethodRegistry.Handler.ForAbstractMethod;
 
 /*
 /user_main 
@@ -51,12 +46,12 @@ public class UserController {
 	@Autowired
 	private ReviewService reviewService;
 	
-	/**************Local Exception Handler**************/
+	/**************Local Exception Handler*************
 	@ExceptionHandler(Exception.class)
 	public String user_excetpion_handler(Exception e) {
 		return "user_error";
 	}
-	
+	*/
 	/*
 	 * <<유저 정보>> my profile 유저정보 업데이트 폼
 	 * 회원 로그인

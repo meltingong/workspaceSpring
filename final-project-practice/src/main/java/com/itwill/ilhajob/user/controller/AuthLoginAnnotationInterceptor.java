@@ -87,6 +87,7 @@ public class AuthLoginAnnotationInterceptor implements HandlerInterceptor {
 		HttpSession session = request.getSession();
 		//login처리를 담당하는 사용자 정보를 담고 있는 객체를 가져옴
 		String sUserId = (String) session.getAttribute("sUserId");
+		//System.out.println(">>>>>>>>"+sUserId);
 		if (sUserId == null) {
 			// 로그인이 안되어 있는 상태임으로 로그인 폼으로 다시 돌려보냄(redirect)
 			response.sendRedirect("login");
