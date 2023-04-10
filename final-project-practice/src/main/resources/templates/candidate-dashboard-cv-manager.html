@@ -19,21 +19,6 @@
   <!--[if lt IE 9]><script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script><![endif]-->
   <!--[if lt IE 9]><script src="js/respond.js"></script><![endif]-->
 
-<script type="text/javascript">
-/* 	function cvUpdate(cvSeq) {
-		location.href = "cv-detail";
-		document.f.submit();
-	} */
-	
-	function cvDelete() {
-		if (window.confirm("정말 삭제하시겠습니까?")) {
-			document.f.method='POST';
-			document.f.action = "cv-delete-action";
-			document.f.submit();
-		}
-	}
-</script>
-
 </head>
 
 <body>
@@ -100,6 +85,7 @@
                     <div class="edit-btns">
                   	<input type="hidden" name="cvSeq" th:value="${cv.cvSeq}"/>
                       <a th:href="@{cv-detail(cvSeq=${cv.cvSeq})}"><button type="button" th:value="${cv.cvSeq}"><span class="la la-pencil"></span></button></a>
+                      <!-- <button type="button" name="detail" th:value="${cv.cvSeq}" onclick="detail()"><span class="la la-pencil"></span></button> -->
                       <button type="button" onclick="cvDelete()" th:value="${cv.cvSeq}"><span class="la la-trash"></span></button>
                     </div>
                   </div>
@@ -138,6 +124,7 @@
   <script src="js/wow.js"></script>
   <script src="js/knob.js"></script>
   <script src="js/script.js"></script>
+  <script src="js/cv.js"></script>
 </body>
 
 </html>

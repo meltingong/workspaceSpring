@@ -12,7 +12,7 @@ public class RecruitController {
 
 	@Autowired
 	private RecruitService recruitService;
-	
+	/*
 	@RequestMapping("/index")
 	public String main(Model model) throws Exception{
 		List<Recruit> recruitList = recruitService.findRecruitListAll();
@@ -21,7 +21,7 @@ public class RecruitController {
 		String forward_path = "index";
 		return forward_path;
 	}
-	
+	*/
 	@RequestMapping("/recruit-list")
 	public String recruit_list(Model model) throws Exception{
 		List<Recruit> recruitList = recruitService.findRecruitListAll();

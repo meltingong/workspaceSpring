@@ -39,4 +39,7 @@ public interface CvService {
 	 *이력서 삭제 
 	 */
 	int remove(int cvSeq);
+	
+	//한 회사가 올린 공고 하나의 이력서 목록 불러오기
+	//List<Cv> findCvListByCorpId(String corpId);
 }

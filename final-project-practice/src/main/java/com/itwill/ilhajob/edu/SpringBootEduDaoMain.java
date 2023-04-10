@@ -13,7 +13,7 @@ public class SpringBootEduDaoMain {
 
 	public static void main(String[] args) {
 		ApplicationContext applicationContext = SpringApplication.run(SpringBootEduDaoMain.class, args);
-		EduDao eduDao = (EduDao)applicationContext.getBean(EduDao.class);
+		//EduDao eduDao = (EduDao)applicationContext.getBean(EduDao.class);
 //		System.out.println("------ EduDaoTest-----");
 //		System.out.println(eduDao.insertEdu(new Edu(0, "영문학과", "서울대학교", new Date(), new Date(), 3.45, "학력 설명", 3)));
 //		System.out.println(eduDao.selectAllEdu());

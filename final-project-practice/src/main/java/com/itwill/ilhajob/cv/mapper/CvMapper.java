@@ -26,4 +26,7 @@ public interface CvMapper {
 	public int updateCv(Cv cv);
 	
 	public int deleteCv(int cvSeq);
+	
+	//한 회사가 올린 공고 하나의 이력서 목록 불러오기
+	//public List<Cv> findCvListByCorpId(String corpId);
 }

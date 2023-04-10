@@ -7,6 +7,7 @@ public interface EduService {
 	int insertEdu(Edu edu);
 	List<Edu> selectEduByUserSeq(int userSeq);
 	List<Edu> selectAllEdu();
+	int updateEdu(Edu edu);
     int deleteEduByEduSeq(int eduSeq);
     int deleteAllEdu(int userSeq);
 }

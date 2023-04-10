@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="en"  xmlns:th="http://www.thymeleaf.org">
 <script type="text/javascript">
-	function submit(){
+	function reviewCreate(){
+		console.log(document.getElementById('review-form'));
 		document.f.action = "review_write_action";
-		document.method='POST';
+		document.f.method='POST';
 		document.f.submit();
 		
 	}
@@ -161,7 +162,8 @@
         <!-- Comment Form -->
         <div class="comment-form default-form">
           <h4>리뷰 등록</h4>
-          <form name ="f" method="post" th:object="${review}">
+          <form id ="review-form" name ="f" method="post" th:object="${review}">
+            <input th:value="${corp.corpId}" type="hidden" name="corpId" /> 
             <div class="row clearfix">
               <div class="col-lg-6 col-md-12 col-sm-12 form-group">
                 <label>이름</label>
@@ -176,10 +178,7 @@
                 <textarea th:value="${review?.reviewContent}"  name="reviewContent" placeholder="Write Comment"></textarea>
               </div>
               <div class="col-lg-12 col-md-12 col-sm-12 form-group">
-              	<input type="hidden" name="review" th:value="${review?.reviewSeq}"/> 
-              	<input type="hidden" name="corp" th:value="${corp?.corpId}"/>
-              	<input type="hidden" name="loginUser" th:value="${loginUser?.userSeq}"/>
-                <button class="theme-btn btn-style-one" type="submit" onClick="submit()" name="submit-form">등록하기</button>
+                <button class="theme-btn btn-style-one" type="button" onClick="reviewCreate();" name="submit-form">등록하기</button>
               </div>
             </div>
           </form>

@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.itwill.dto.Order;
 
-@Controller
+//@Controller
 public class SessionOrderController {
    @RequestMapping(value = "session_order_process1")
    public String session_order_process1(HttpSession session) {
@@ -27,7 +27,20 @@ public class SessionOrderController {
    @RequestMapping(value = "session_order_process3")
    public String session_order_process3(HttpSession session,@RequestParam String cardNo) {
 	   Order order = (Order)session.getAttribute("order"); 
-	   order.setName(cardNo);
+	   order.setCardNo(cardNo);
 	   return "session_order_process3";
+   }
+   @RequestMapping(value = "session_order_input_result")
+   public String session_order_process4(HttpSession session,@RequestParam String address) {
+	   Order order = (Order)session.getAttribute("order"); 
+	   order.setAddress(address);
+	   return "session_order_input_result";
+   }
+   @RequestMapping(value = "session_order_create")
+   public String session_order_process4(HttpSession session) {
+	   Order order = (Order)session.getAttribute("order"); 
+	   System.out.println(">>> 데이터베이스에 주문 insert[orderService.create(order)]"+order);
+	   session.removeAttribute("order");
+	   return "session_order_input_result";
    }
 }

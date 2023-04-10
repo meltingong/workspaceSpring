@@ -1,5 +1,9 @@
 package com.itwill.ilhajob.review;
 
-public class ReviewController {
+import org.springframework.beans.factory.annotation.Autowired;
 
+public class ReviewController {
+	
+	
+	
 }

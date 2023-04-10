@@ -12,18 +12,18 @@ public class ReviewDaoImpl implements ReviewDao{
 	@Autowired
 	private ReviewMapper reviewMapper;
 	
-	//getter
-	public ReviewMapper getReviewMapper() {
-		return reviewMapper;
-	}
-	//setter
-	public void setReviewMapper(ReviewMapper reviewMapper) {
-		this.reviewMapper = reviewMapper;
-	}
-	//constructor
-	public ReviewDaoImpl(ReviewMapper reviewMapper) {
-		this.reviewMapper=reviewMapper;
-	}
+//	//getter
+//	public ReviewMapper getReviewMapper() {
+//		return reviewMapper;
+//	}
+//	//setter
+//	public void setReviewMapper(ReviewMapper reviewMapper) {
+//		this.reviewMapper = reviewMapper;
+//	}
+//	//constructor
+//	public ReviewDaoImpl(ReviewMapper reviewMapper) {
+//		this.reviewMapper=reviewMapper;
+//	}
 
 	//insert review
 	@Override

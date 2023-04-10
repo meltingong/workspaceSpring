@@ -29,6 +29,11 @@ public class EduServiceImpl implements EduService {
 	public List<Edu> selectAllEdu() {
 		return eduDao.selectAllEdu();
 	}
+	
+	@Override
+	public int updateEdu(Edu edu) {
+		return eduDao.updateEdu(edu);
+	}
 
 	@Override
 	public int deleteEduByEduSeq(int eduSeq) {

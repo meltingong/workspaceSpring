@@ -16,7 +16,7 @@ public class SessionOrderAnnotationController {
 	}
 	
 	/*
-	- @SessionAttributes 파라미터로 지정된 이름과 같은 이름이 
+	- @SessionAttributes attribute로 지정된 이름과 같은 이름이 
 		@ModelAttribute에 지정되어 있을 경우 메소드가 반환되는 값은 세션에 저장된다
 	- 아래의 setUpOrder메쏘드 세션에 값을 초기화하는 목적으로 사용되었다
 	 */

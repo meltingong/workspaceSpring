@@ -57,6 +57,16 @@ public class CvServiceImpl implements CvService{
 	public Cv detailCv(int cvSeq) {
 		return cvDao.detailCv(cvSeq);
 	}
-
+	
+	//한 회사가 올린 공고 하나의 이력서 목록 불러오기
+//	@Override
+//	public List<Cv> findCvListByCorpId(String corpId) {
+//		return cvDao.findCvListByCorpId(corpId);
+//	}
+	
+	
+	
+	
+	
 
 }
