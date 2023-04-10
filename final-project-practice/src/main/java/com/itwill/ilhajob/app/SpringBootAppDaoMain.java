@@ -10,7 +10,7 @@ import com.itwill.ilhajob.recruit.Recruit;
 
 @SpringBootApplication
 //@SpringBootApplication(scanBasePackages = {"com.itwill.ilhajob.app","com.itwill.ilhajob.user"})
-//@MapperScan(basePackages = "com.itwill.ilhajob.app.mapper")
+@MapperScan(basePackages = "com.itwill.ilhajob.app.mapper")
 public class SpringBootAppDaoMain {
 
 	public static void main(String[] args) {

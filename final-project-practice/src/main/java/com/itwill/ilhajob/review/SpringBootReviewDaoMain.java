@@ -6,7 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 
 @SpringBootApplication
-//@MapperScan(basePackages = "com.itiwll.ilhajob.Awards.mapper")
+@MapperScan(basePackages = "com.itiwll.ilhajob.review.mapper")
 public class SpringBootReviewDaoMain {
 
 	public static void main(String[] args) throws Exception {

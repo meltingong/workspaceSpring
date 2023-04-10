@@ -9,7 +9,7 @@ import com.itwill.ilhajob.message.mapper.MessageMapper;
 
 @Repository
 public class MessageDaoImpl implements MessageDao{
-	@Autowired
+	@Autowired(required = true)
 	private MessageMapper messageMapper;
 
 	@Override
