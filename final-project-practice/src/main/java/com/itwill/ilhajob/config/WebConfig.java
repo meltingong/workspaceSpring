@@ -23,19 +23,7 @@ public class WebConfig implements WebMvcConfigurer{
 	 */
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
-		/*
-		AuthLoginInterceptor authLoginInterceptor=new AuthLoginInterceptor();
-		registry.addInterceptor(authLoginInterceptor)
-		.addPathPatterns("/**")
-		.excludePathPatterns("/css/**")
-		.excludePathPatterns("/js/**")
-		.excludePathPatterns("/image/**")
-		.excludePathPatterns("/user_main")
-		.excludePathPatterns("/user_login_form")
-		.excludePathPatterns("/user_login_action")
-		.excludePathPatterns("/user_write_form")
-		.excludePathPatterns("/user_write_action");
-		*/
+	
 		AuthLoginAnnotationInterceptor authLoginAnnotationInterceptor=
 				new AuthLoginAnnotationInterceptor();
 		registry.addInterceptor(authLoginAnnotationInterceptor)

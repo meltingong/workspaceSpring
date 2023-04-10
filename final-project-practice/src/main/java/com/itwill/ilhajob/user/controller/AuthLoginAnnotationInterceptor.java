@@ -4,6 +4,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.stereotype.Component;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 
@@ -22,16 +23,14 @@ import org.springframework.web.servlet.HandlerInterceptor;
 
 public class AuthLoginAnnotationInterceptor implements HandlerInterceptor {
 	public AuthLoginAnnotationInterceptor() {
-		System.out.println("### AuthLoginAnnotationInterceptor()생성자");
 	}
-
 	// preHandle() : 컨트롤러보다 먼저 수행되는 메서드
 	@Override
 	public boolean preHandle(HttpServletRequest request, 
 			HttpServletResponse response, 
 			Object handler)
 			throws Exception {
-		System.out.println("### AuthLoginAnnotationInterceptor.preHandle()메써드");
+		System.out.println(">>확인<<");
 		/*
 		[ 핸들러 메소드(HandlerMethod)란? ]
 			HandlerMethod는 @RequestMapping이 붙은 메소드의 정보를 추상화한 객체이다. 
@@ -75,14 +74,12 @@ public class AuthLoginAnnotationInterceptor implements HandlerInterceptor {
 		   즉 인증이 필요 없는 요청
 		***************************/
 		if (loginCheck == null) {
-			System.out.println("### AuthLoginAnnotationInterceptor.preHandle()메써드 @LoginCheck 없는경우");
 			return true;
 		}
 		/***************************
 		4. HandlerMethod객체에 @LoginCheck어노테이션 이있는 경우, 
 		   세션이 있는지 체크
 		***************************/
-		System.out.println("### AuthLoginAnnotationInterceptor.preHandle()메써드 @LoginCheck있 는경우");
 		//session 객체를 가져옴
 		HttpSession session = request.getSession();
 		//login처리를 담당하는 사용자 정보를 담고 있는 객체를 가져옴
@@ -90,9 +87,10 @@ public class AuthLoginAnnotationInterceptor implements HandlerInterceptor {
 		//System.out.println(">>>>>>>>"+sUserId);
 		if (sUserId == null) {
 			// 로그인이 안되어 있는 상태임으로 로그인 폼으로 다시 돌려보냄(redirect)
-			response.sendRedirect("login");
+			response.sendRedirect("/login");
 			return false; // 더이상 컨트롤러 요청으로 가지 않도록 false로 반환함
 		}
+		
 		// preHandle의 return은 컨트롤러 요청 uri로 가도 되냐 안되냐를 허가하는 의미임
 		// 따라서 true로하면 컨트롤러 uri로 가게 됨.
 		return true;
