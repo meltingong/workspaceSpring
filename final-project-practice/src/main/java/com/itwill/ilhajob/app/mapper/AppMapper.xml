@@ -12,7 +12,6 @@
 	</resultMap>
 	
 	<select id="findAppByUserSeq" parameterType="java.lang.Integer"
-								  resultType="com.itwill.ilhajob.app.App"
 								  resultMap="appWithRcResultMap">
 		select * from app a 
 		left outer join recruit rc 
@@ -22,24 +21,47 @@
 		where cv.user_seq = #{userSeq}
 	</select>
 	
-	<select id="findAppByCorpId" parameterType="java.lang.Integer"
-								 resultType="com.itwill.ilhajob.app.App"
+	<select id="findAppByCorpId" parameterType="java.lang.String"
 								 resultMap="appWithCvResultMap">
 		select * from app a 
 		join recruit rc 
 		on a.rc_seq = rc.rc_seq
 		join cv cv 
 		on a.cv_seq = cv.cv_seq
-		where rc.corp_id = #{corpId}; 
+		where rc.corp_id = #{corpId}
 	</select>
+	
+	<select id="findAppCountByCorpId" parameterType="java.lang.String" resultType="java.lang.Integer">
+		select count(*) from app a
+        where a.corp_id=#{corpId} 
+	</select>
+	
+	<!-- corp_01의 공고(a.rc_seq=2)에 지원한 사람들의 이력서 목록 불러오기 -->
+	<resultMap id="selectCvListResultMap" 
+			   type="com.itwill.ilhajob.app.App"
+			   autoMapping="true">
+			   <result column="rc_seq" property="rcSeq"/>
+		<collection property="cvList"
+					ofType="com.itwill.ilhajob.cv.Cv"
+					autoMapping="true">
+		</collection>
+	</resultMap>
+	<select id="findCvListByRcSeq"
+			parameterType="java.lang.Integer"
+			resultMap="selectCvListResultMap">
+		select * from app a
+		join cv c
+		on a.cv_seq=c.cv_seq
+		where a.rc_seq=#{rcSeq}
+	</select>	
 	
 	<insert id="insertApp" parameterType="com.itwill.ilhajob.app.App">
 		<selectKey keyProperty="appSeq" order="BEFORE" resultType="java.lang.Integer">
-			select app_app_seq_seq.nextVal from dual
+			select app_app_seq_SEQ.nextVal from dual
 		</selectKey>
-		insert into app (app_seq, app_status, rc_seq, corp_seq)
-		values (#{appSeq},#{appStatus},#{rcSeq},#{corpSeq})
-	</insert>
+		insert into app(app_seq, app_status, rc_seq, cv_seq, user_seq, corp_id)
+		values (#{appSeq},#{appStatus},#{rc.rcSeq},#{cv.cvSeq},#{userSeq},#{corpId})
+		</insert>
 	
 	<delete id="deleteApp" parameterType="com.itwill.ilhajob.app.App">
 		delete from app where app_seq = #{appSeq} 

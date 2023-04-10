@@ -41,54 +41,55 @@
       <div class="auto-container">
         <!-- Job Search Form -->
         <div class="job-search-form">
-          <form method="post" action="job-list-v10.html">
+          <form method="post" action="job-list-v8">
             <div class="row">
               <!-- Form Group -->
-              <div class="form-group col-lg-4 col-md-12 col-sm-12">
+              <div class="form-group col-lg-5 col-md-12 col-sm-12">
                 <span class="icon flaticon-search-1"></span>
-                <input type="text" name="field_name" placeholder="Job title, keywords, or company">
+                <input type="text" name="field_name" placeholder="회사명">
               </div>
 
               <!-- Form Group -->
+              <!--  
               <div class="form-group col-lg-3 col-md-12 col-sm-12 location">
                 <span class="icon flaticon-map-locator"></span>
-                <input type="text" name="field_name" placeholder="City or postcode">
+                <input type="text" name="field_name" placeholder="지역">
               </div>
-
-              <!-- Form Group -->
-              <div class="form-group col-lg-3 col-md-12 col-sm-12 location">
+              -->
+			<!--Form Group--> 
+              
+              <div class="form-group col-lg-5 col-md-12 col-sm-12 location">
                 <span class="icon flaticon-briefcase"></span>
                 <select class="chosen-select">
                   <option value="">카테고리</option>
-                  <option value="44">Accounting / Finance</option>
-                  <option value="106">Automotive Jobs</option>
-                  <option value="46">Customer</option>
-                  <option value="48">Design</option>
-                  <option value="47">Development</option>
-                  <option value="45">Health and Care</option>
-                  <option value="105">Marketing</option>
-                  <option value="107">Project Management</option>
+                  <option value="44">웹프로그래머</option>
+                  <option value="106">응용프로그램</option>
+                  <option value="46">네트워크</option>
+                  <option value="48">웹 퍼블리싱</option>
+                  <option value="47">게임</option>
+                  <option value="45">디자인/ 컴퓨터 강사</option>
+                  <option value="105">빅데이터 ai</option>
+                  <option value="107">소프트웨어 하드웨어</option>
                 </select>
               </div>
-
+			 
+			  
               <!-- Form Group -->
               <div class="form-group col-lg-2 col-md-12 col-sm-12 text-right">
-                <button type="submit" class="theme-btn btn-style-one">Find Jobs</button>
+                <button type="submit" class="theme-btn btn-style-one">기업 찾기</button>
               </div>
             </div>
           </form>
         </div>
         <!-- Job Search Form -->
-
+		<!--  
         <div class="top-filters">
           <div class="form-group">
             <select class="chosen-select">
-              <option>Company Size</option>
-              <option>New Jobs</option>
-              <option>Freelance</option>
-              <option>Full Time</option>
-              <option>Internship</option>
-              <option>Part Time</option>
+              <option>회사원규모순</option>
+              <option>신규순</option>
+              <option>이름순</option>
+              <option>매출순</option>
               <option>Temporary</option>
             </select>
           </div>
@@ -106,7 +107,9 @@
           </div>
         </div>
       </div>
+       -->
     </section>
+   
     <!--End Page Title-->
 
     <!-- Listing Section -->
@@ -123,16 +126,15 @@
               <!-- ls Switcher -->
               <div class="ls-switcher">
                 <div class="showing-result">
-                  <div class="text">Showing <strong>41-60</strong> of <strong>944</strong> employer</div>
+                  <div class="text">Showing <!-- <strong>41-60</strong> of  --><strong th:text = "${corpList.size()}"></strong> employer</div>
                 </div>
                 <div class="sort-by">
                   <select class="chosen-select">
-                    <option>New Jobs</option>
-                    <option>Freelance</option>
-                    <option>Full Time</option>
-                    <option>Internship</option>
-                    <option>Part Time</option>
-                    <option>Temporary</option>
+                    <option>필터</option>
+                    <option>회사원규모</option>
+                    <option>신규등록순</option>
+                    <option>회사명순</option>
+                    <option>매출크기</option>
                   </select>
 
                   <select class="chosen-select">
@@ -154,16 +156,15 @@
                     <button class="bookmark-btn"><span class="flaticon-bookmark"></span></button>
                     <span class="featured">Featured</span>
                     <span class="company-logo"><img src="images/resource/company-logo/6-1.png" alt=""></span>
-                    <h4><a href="corp-detail" th:value ="${corp.corpId}" th:text="${corp.corpName}"></a></h4>
+                    <h4><a th:href="@{/corp-detail(corpId=${corp.corpId})}" th:text="${corp.corpName}"></a></h4>
                     <ul class="job-info">
                       <li><span class="icon flaticon-map-locator" ></span>
                       	  <span th:text="${corp.corpAddress}"><br/>
                       	  </span>
                       </li>
-                      <li><div class="icon flaticon-briefcase" >
+                      <li><span class="icon flaticon-briefcase" ></span>
                      	  <span th:text="${corp.job}">
                      	  </span>
-                     	  </div>
                       </li>
                     </ul>
                     <div class="job-type">Open Jobs – 2</div>

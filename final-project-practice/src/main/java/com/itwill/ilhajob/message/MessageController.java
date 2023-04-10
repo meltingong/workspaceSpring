@@ -7,10 +7,10 @@ import org.springframework.web.bind.annotation.RestController;
 //@RestController
 //@Controller
 public class MessageController {
-	
+	/*
 	@Autowired
 	private MessageService messageService;
-	
+	*/
 	/*
 	 * dashboard-resume-alerts.html
 	 * <<유저 알림>>

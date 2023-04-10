@@ -2,15 +2,26 @@ package com.itwill.ilhajob.app;
 
 import java.util.List;
 
-import com.itwill.ilhajob.app.mapper.AppMapper;
+import org.springframework.stereotype.Repository;
 
+import com.itwill.ilhajob.app.mapper.AppMapper;
+import com.itwill.ilhajob.cv.Cv;
+import com.itwill.ilhajob.user.User;
+@Repository
 public interface AppDao {
 	
-	int insertApp();
+	int insertApp(App app);
 	
-	int deleteApp();
+	int deleteApp(int appSeq);
 	
-	List<App> findAppByUserSeq(int userSeq);
+	int findAppCountByCorpId(String corpId);
 	
-	List<App> findAppByCorpId(String coprId);
+	//공고(a.rc_seq=2)에 지원한 사람들의 이력서 목록 불러오기
+	List<Cv> findCvListByRcSeq(int rcSeq);
+	
+	//List<App> findAppByUserSeq(int userSeq);
+	
+	//List<App> findAppByCorpId(String coprId);
+
+	
 }

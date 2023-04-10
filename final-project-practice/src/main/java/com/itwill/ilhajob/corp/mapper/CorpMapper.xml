@@ -24,6 +24,7 @@
 					autoMapping="true">
 		</collection>
 	</resultMap>
+	
 	<select id="findCorpByIdWithAll" 
 			parameterType="java.lang.String"
 			resultMap="corpWithAllResultMap">

@@ -7,10 +7,10 @@ import org.springframework.stereotype.Repository;
 
 import com.itwill.ilhajob.user.mapper.UserMapper;
 
-@Repository(value = "userDaoImplMyBatisMapperInterface")
+@Repository
 public class UserDaoImpl implements UserDao {
 	
-	@Autowired(required = false)
+	@Autowired
 	private UserMapper userMapper;
 
 	public UserDaoImpl(UserMapper userMapper) {
