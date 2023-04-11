@@ -141,7 +141,7 @@ public class UserController {
 	public String user_logout_action(HttpServletRequest request) {
 		String forwardPath = "";
 		request.getSession().invalidate();
-		forwardPath = "redirect:index";
+		//forwardPath = "redirect:index";
 		return forwardPath;
 	}
 	
