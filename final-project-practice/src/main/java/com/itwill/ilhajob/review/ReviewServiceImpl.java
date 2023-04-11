@@ -29,8 +29,8 @@ public class ReviewServiceImpl implements ReviewService{
 	
 	//delete review
 	@Override
-	public int deleteReview(Review review) throws Exception {
-		return reviewDao.deleteReview(review);
+	public int deleteReview(int reviewSeq) throws Exception {
+		return reviewDao.deleteReview(reviewSeq);
 	}
 	
 	/*

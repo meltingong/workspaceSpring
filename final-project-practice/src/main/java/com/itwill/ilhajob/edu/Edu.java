@@ -27,7 +27,7 @@ public class Edu {
 	USER_SEQ                NUMBER(20)
 	 */
 
-	private int eduSeq;
+	private Integer eduSeq;
 	private String eduMajor;
 	private String eduName;
 	private Date eduStartDate;

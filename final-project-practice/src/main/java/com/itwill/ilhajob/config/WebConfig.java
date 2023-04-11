@@ -7,7 +7,6 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import com.itwill.ilhajob.user.controller.AuthLoginAnnotationInterceptor;
 
 
-
 @Configuration
 public class WebConfig implements WebMvcConfigurer{
 	/********************WebMvcConfigurer재정의*********************
@@ -16,21 +15,17 @@ public class WebConfig implements WebMvcConfigurer{
 		registry.addViewController("/").setViewName("forward:/index.jsp");
 	}
 	*************************************************************/
-	/*
-	 * 인터셉터등록
-	 */
+
+	
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
-	
-		AuthLoginAnnotationInterceptor authLoginAnnotationInterceptor=
-				new AuthLoginAnnotationInterceptor();
-		registry.addInterceptor(authLoginAnnotationInterceptor)
+		AuthLoginAnnotationInterceptor annotationInterceptor = new AuthLoginAnnotationInterceptor();
+		registry.addInterceptor(annotationInterceptor)
 		.addPathPatterns("/**")
 		.excludePathPatterns("/css/**")
 		.excludePathPatterns("/js/**")
-		.excludePathPatterns("/image/**");
+		.excludePathPatterns("/images/**");
 		
 	}
 	/*********************Spring MVC 빈객체등록*********************/
-
 }

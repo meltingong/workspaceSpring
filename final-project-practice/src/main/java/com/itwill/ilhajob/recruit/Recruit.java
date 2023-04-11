@@ -1,20 +1,29 @@
 package com.itwill.ilhajob.recruit;
 
 import java.util.Date;
+import java.util.List;
 
+import com.itwill.ilhajob.awards.Awards;
 import com.itwill.ilhajob.corp.Corp;
+import com.itwill.ilhajob.cv.Cv;
+import com.itwill.ilhajob.edu.Edu;
+import com.itwill.ilhajob.exp.Exp;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 import lombok.ToString;
 
+
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
+//@AllArgsConstructor
 @ToString
-@Builder
 public class Recruit {
 	/*
 	이름               널?       유형            
@@ -39,5 +48,5 @@ public class Recruit {
 	private Date rcDate;
 	private Date rcDeadline;
 	private int rcReadCount;
-	private String corpId;
+	private Corp corp;
 }

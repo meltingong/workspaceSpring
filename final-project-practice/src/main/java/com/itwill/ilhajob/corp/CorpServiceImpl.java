@@ -1,5 +1,6 @@
 package com.itwill.ilhajob.corp;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -90,6 +91,16 @@ public class CorpServiceImpl implements CorpService{
 	@Override
 	public List<Corp> findCorpAll() throws Exception {
 		return corpDao.selectAll();
+	}
+	
+	public List<Corp> searchCorpList(String query) throws Exception{
+		List<Corp> result = new ArrayList<Corp>();
+		for(Corp corp:corpDao.selectAll()) {
+			if((corp.getCorpName().toLowerCase()).contains(query.toLowerCase())) {
+				result.add(corp);
+			}
+		}
+		return result;
 	}
 	
 }

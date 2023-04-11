@@ -11,12 +11,15 @@
  	   select recruit_rc_seq_seq.nextval from dual
 	 </selectKey>
 	 insert into recruit (rc_seq, rc_title, rc_position, rc_content,rc_qualification, rc_salary, rc_deadline, corp_id)
-	 values (#{rcSeq},#{rcTitle},#{rcPosition},#{rcContent},#{rcQualification},#{rcSalary},#{rcDeadline},#{corpId})
+	 values (#{rcSeq},#{rcTitle},#{rcPosition},#{rcContent},#{rcQualification},#{rcSalary},#{rcDeadline},#{corp.corpId})
 	</insert>
 	
-	<select id="findAll"
-			resultType="com.itwill.ilhajob.recruit.Recruit">
-		select * from recruit
+	<select id="findAllWithCorp"
+			resultType="com.itwill.ilhajob.recruit.Recruit"
+			resultMap="recruitWithCorpResultMap">
+		select * from recruit rc
+		join corp c
+		on rc.corp_id = c.corp_id
 	</select>
 	
 	<select id="findByCorpId" 

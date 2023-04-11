@@ -3,10 +3,8 @@ package com.itwill.ilhajob.app;
 
 import java.util.List;
 
-import com.itwill.ilhajob.corp.Corp;
 import com.itwill.ilhajob.cv.Cv;
 import com.itwill.ilhajob.recruit.Recruit;
-import com.itwill.ilhajob.user.User;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -33,6 +31,17 @@ public class App {
 	private int rcSeq;
 	
 	private List<Cv> cvList;
+
+	public App(int appSeq, char appStatus, Recruit rc, Cv cv, int userSeq, String corpId, int rcSeq) {
+		super();
+		this.appSeq = appSeq;
+		this.appStatus = appStatus;
+		this.rc = rc;
+		this.cv = cv;
+		this.userSeq = userSeq;
+		this.corpId = corpId;
+		this.rcSeq = rcSeq;
+	}
 	
 	
 	

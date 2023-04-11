@@ -11,7 +11,7 @@ public interface ReviewService {
 	int updateReview(Review review) throws Exception;	
 	
 	//delete review
-	int deleteReview(Review review) throws Exception;
+	int deleteReview(int reviewSeq) throws Exception;
 	
 	//user_seq로 작성된 리뷰 리스트 불러오기 ->user mapper에서 실시할거임 
 	//List<Review> selectListByUserSeq(int userSeq) throws Exception;

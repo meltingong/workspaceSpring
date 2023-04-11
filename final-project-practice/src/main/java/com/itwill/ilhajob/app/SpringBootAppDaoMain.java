@@ -17,15 +17,22 @@ public class SpringBootAppDaoMain {
 		ApplicationContext applicationContext=
 				SpringApplication.run(SpringBootAppDaoMain.class, args);
 		AppDao appDao=(AppDao)applicationContext.getBean(AppDao.class);
-	//	System.out.println("-----test----");
+			System.out.println("-----test----");
+			System.out.println("--findCvListByRcSeq--");
+			System.out.println(appDao.findCvListByRcSeq(2));
 		//Recruit rc = new Recruit();
-		//rc.setRcSeq(3);
+		//rc.setRcSeq(10);
 		//Cv cv = new Cv();
 		//cv.setCvSeq(3);
 		
+		
 		//App app = new App(0, 'u', rc, cv, 3, "corp_02");
 		//appDao.insertApp(app);
-		//appDao.deleteApp(16);
+		
+		//appDao.deleteApp(24);
+	
+		//System.out.println(appDao.findAppCountByCorpId("corp_03")); 
+		
 		//System.out.println(appDao.findAppByCorpId("corp_03"));
 
 		//System.out.println(appDao.findAppByUserSeq(3));

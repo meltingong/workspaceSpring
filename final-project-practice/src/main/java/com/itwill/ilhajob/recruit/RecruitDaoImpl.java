@@ -7,6 +7,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.itwill.ilhajob.corp.Corp;
 import com.itwill.ilhajob.recruit.mapper.RecruitMapper;
 
 @Repository
@@ -25,13 +26,13 @@ public class RecruitDaoImpl implements RecruitDao {
     }
 
     @Override
-    public List<Recruit> findAll() throws Exception {
-    	return recruitMapper.findAll();
+    public List<Recruit> findAllWithCorp() throws Exception {
+    	return recruitMapper.findAllWithCorp();
     }
     
     @Override
-    public List<Recruit> findByCorpId(String corpId) throws Exception {
-        return recruitMapper.findByCorpId(corpId);
+    public List<Recruit> findByCorpId(Corp corp) throws Exception {
+        return recruitMapper.findByCorpId(corp);
     }
 
     @Override

@@ -87,5 +87,11 @@ public class UserServiceImpl implements UserService{
 	public boolean isDuplicateEmail(String userEmail) throws Exception {
 		return userRepository.existsByUserEmail(userEmail);
 	}
-
+	
+	@Override
+	public UserDto findAppList(Long id) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
 }

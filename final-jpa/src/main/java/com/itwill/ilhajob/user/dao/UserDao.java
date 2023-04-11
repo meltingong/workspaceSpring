@@ -16,15 +16,16 @@ public interface UserDao {
 	 * 기존의 사용자정보를 수정
 	 */
 	int update(UserDto user) throws Exception;
-
 	/*
 	 * 사용자아이디에해당하는 사용자를 삭제
 	 */
+	
 	int remove(String userEmail) throws Exception;
-
+	
 	/*
 	 * 사용자아이디에해당하는 정보를 데이타베이스에서 찾아서 User 도메인클래스에 저장하여 반환
 	 */
+	
 	UserDto findUser(String userEmail) throws Exception;
 	
 	UserDto findExpAwardsEduList(int userSeq) throws Exception;
@@ -39,6 +40,6 @@ public interface UserDao {
 	boolean existedUser(String userId) throws Exception;
 	
 	//sns로그인 가입 판별
-	boolean findBySnsId(UserDto user) throws Exception;
+	boolean findBySnsId(String snsType, String snsId) throws Exception;
 
 }

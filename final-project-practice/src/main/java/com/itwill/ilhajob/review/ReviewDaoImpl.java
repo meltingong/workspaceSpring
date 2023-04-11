@@ -37,8 +37,8 @@ public class ReviewDaoImpl implements ReviewDao{
 	}
 	//delete review By userSeq
 	@Override
-	public int deleteReview(Review review) throws Exception {
-		return reviewMapper.deleteByUserSeq(review);
+	public int deleteReview(int reviewSeq) throws Exception {
+		return reviewMapper.deleteByUserSeq(reviewSeq);
 	}
 	
 	/*

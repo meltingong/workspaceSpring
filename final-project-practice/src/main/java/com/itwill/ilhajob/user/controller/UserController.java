@@ -63,7 +63,7 @@ public class UserController {
 	 */
 	
 	//메인 페이지
-	@RequestMapping("/index")
+	@RequestMapping(value = "/index")
 	public String main() {
 		return "index";
 	}

@@ -1,5 +1,52 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+<script type="text/javascript">
+	/*
+	function deadLine(){
+		var deadLine=new Date(document.getElementById(deadLine).value);
+		var now=new Date();
+		if(deadLine<now){
+			document.getElementById("status").innerHTML="마감";
+		}
+			document.getElementById("status").innerHTML="진행중"
+		
+	}
+		window.onload=deadLine();
+		
+		
+		function recruitModifyForm(){
+			document.f.mehod='POST';
+			document.f.action="recruit_modify_form";
+			document.f.submit();
+		}
+
+		function recruitModifyAction(){
+			//수정 중 
+			if(){
+				
+			}
+			
+
+			document.f.method='POST';
+			document.f.action = "recruit_modify_action";
+			document.f.submit();
+		}
+
+		function recruitRemove(){
+			if(window.confirm("정말 삭제하시겠습니까?")){
+				document.f.mehod='POST';
+				document.f.action="recruit_remove_action";
+				document.f.submit();
+			}
+		}
+		*/
+		
+		
+		
+
+</script>
+
+
 
 <head>
   <meta charset="utf-8">
@@ -40,34 +87,15 @@
     <div class="sidebar-backdrop"></div>
 
     <!-- User Sidebar -->
-    <div class="user-sidebar">
-
-      <div class="sidebar-inner">
-        <ul class="navigation">
-          <li><a href="dashboard.html"> <i class="la la-home"></i> Dashboard</a></li>
-          <li><a href="dashboard-company-profile.html"><i class="la la-user-tie"></i>Company Profile</a></li>
-          <li><a href="dashboard-post-job.html"><i class="la la-paper-plane"></i>Post a New Job</a></li>
-          <li class="active"><a href="dashboard-manage-job.html"><i class="la la-briefcase"></i> Manage Jobs </a></li>
-          <li><a href="dashboard-applicants.html"><i class="la la-file-invoice"></i> All Applicants</a></li>
-          <li><a href="dashboard-resumes.html"><i class="la la-bookmark-o"></i>Shortlisted Resumes</a></li>
-          <li><a href="dashboard-packages.html"><i class="la la-box"></i>Packages</a></li>
-          <li><a href="dashboard-messages.html"><i class="la la-comment-o"></i>Messages</a></li>
-          <li><a href="dashboard-resume-alerts.html"><i class="la la-bell"></i>Resume Alerts</a></li>
-          <li><a href="dashboard-change-password.html"><i class="la la-lock"></i>Change Password</a></li>
-          <li><a href="dashboard-company-profile.html"><i class="la la-user-alt"></i>View Profile</a></li>
-          <li><a href="index.html"><i class="la la-sign-out"></i>Logout</a></li>
-          <li><a href="index.html"><i class="la la-trash"></i>Delete Profile</a></li>
-        </ul>
-      </div>
-    </div>
+    <div id="user-sidebar" th:include="corp-sidebar::corp-sidebar"></div>
     <!-- End User Sidebar -->
 
     <!-- Dashboard -->
     <section class="user-dashboard">
       <div class="dashboard-outer">
         <div class="upper-title-box">
-          <h3>Manage Jobs</h3>
-          <div class="text">Ready to jump back in?</div>
+          <h3>공고 리스트</h3>
+          <div class="text">귀사의 작성된 공고 목록입니다</div>
         </div>
 
         <div class="row">
@@ -76,7 +104,7 @@
             <div class="ls-widget">
               <div class="tabs-box">
                 <div class="widget-title">
-                  <h4>My Job Listings</h4>
+                  <h4>Recruit Listings</h4>
 
                   <div class="chosen-outer">
                     <!--Tabs Box-->
@@ -102,82 +130,36 @@
                           <th>Action</th>
                         </tr>
                       </thead>
-
+			
+			
+					<form name="f" method="post">
                       <tbody>
-                        <tr>
+                        <tr th:each="recruit:${corp.recruitList}">
                           <td>
-                            <h6>Senior Full Stack Engineer, Creator Success</h6>
-                            <span class="info"><i class="icon flaticon-map-locator"></i> London, UK</span>
+                            <a th:href="@{recruit-detail(rcSeq=${recruit.rcSeq})}" href="#"><h6 th:text="${recruit.rcTitle}">Senior Full Stack Engineer, Creator Success</h6></a>
+                            <span th:text="${corp.corpAddress}" class="info"><i class="icon flaticon-map-locator"></i> London, UK</span>
                           </td>
-                          <td class="applied"><a href="#">3+ Applied</a></td>
-                          <td>October 27, 2017 <br>April 25, 2011</td>
+                          <!-- <td class="applied"><a href="dashboard-applicants"><span th:text="|Applied: ${appCount}명|">3+ Applied</span></a></td> -->
+                          <td class="applied"><a th:href="@{dashboard-applicants(rcSeq=${recruit.rcSeq})}" href="#"><span th:text="|Applied: ${appCount}명|">3+ Applied</span></a></td>
+                          <td>
+						      <ul>
+						        <li th:text="|created:${#dates.format(recruit.rcDate,'yyyy-MM-dd')}|"></li>
+						        <li th:text="|expired:${#dates.format(recruit.rcDeadline,'yyyy-MM-dd')}|"> </li>
+						      </ul>
+						    </td>
                           <td class="status">Active</td>
                           <td>
                             <div class="option-box">
                               <ul class="option-list">
-                                <li><button data-text="View Aplication"><span class="la la-eye"></span></button></li>
-                                <li><button data-text="Reject Aplication"><span class="la la-pencil"></span></button></li>
-                                <li><button data-text="Delete Aplication"><span class="la la-trash"></span></button></li>
-                              </ul>
-                            </div>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>
-                            <h6>Senior Product Designer</h6>
-                            <span class="info"><i class="icon flaticon-map-locator"></i> London, UK</span>
-                          </td>
-                          <td class="applied"><a href="#">3+ Applied</a></td>
-                          <td>October 27, 2017 <br>April 25, 2011</td>
-                          <td class="status">Active</td>
-                          <td>
-                            <div class="option-box">
-                              <ul class="option-list">
-                                <li><button data-text="View Aplication"><span class="la la-eye"></span></button></li>
-                                <li><button data-text="Reject Aplication"><span class="la la-pencil"></span></button></li>
-                                <li><button data-text="Delete Aplication"><span class="la la-trash"></span></button></li>
-                              </ul>
-                            </div>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>
-                            <h6>Sr. Full Stack Engineer</h6>
-                            <span class="info"><i class="icon flaticon-map-locator"></i> London, UK</span>
-                          </td>
-                          <td class="applied"><a href="#">3+ Applied</a></td>
-                          <td>October 27, 2017 <br>April 25, 2011</td>
-                          <td class="status">Active</td>
-                          <td>
-                            <div class="option-box">
-                              <ul class="option-list">
-                                <li><button data-text="View Aplication"><span class="la la-eye"></span></button></li>
-                                <li><button data-text="Reject Aplication"><span class="la la-pencil"></span></button></li>
-                                <li><button data-text="Delete Aplication"><span class="la la-trash"></span></button></li>
-                              </ul>
-                            </div>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>
-                            <h6>Product Manager, Studio</h6>
-                            <span class="info"><i class="icon flaticon-map-locator"></i> London, UK</span>
-                          </td>
-                          <td class="applied"><a href="#">3+ Applied</a></td>
-                          <td>October 27, 2017 <br>April 25, 2011</td>
-                          <td class="status">Active</td>
-                          <td>
-                            <div class="option-box">
-                              <ul class="option-list">
-                                <li><button data-text="View Aplication"><span class="la la-eye"></span></button></li>
-                                <li><button data-text="Reject Aplication"><span class="la la-pencil"></span></button></li>
-                                <li><button data-text="Delete Aplication"><span class="la la-trash"></span></button></li>
+                                 <li><button data-text="Modify Recruit" value="수정" onClick="recruitModifyForm()"><span class="la la-pencil"></span></button></li>
+                                <li><button data-text="Delete Recruit" value="삭제" onClick="recruitRemove()"><span class="la la-trash"></span></button></li>
                               </ul>
                             </div>
                           </td>
                         </tr>
                       </tbody>
-                    </table>
+                      </form>
+                      </table>
                   </div>
                 </div>
               </div>

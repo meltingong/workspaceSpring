@@ -24,7 +24,7 @@
 	-->
 	
 	<delete id="deleteByUserSeq" parameterType="com.itwill.ilhajob.review.Review">
-		delete from review where user_seq=#{userSeq} and review_seq=#{reviewSeq}
+		delete from review where review_seq=#{reviewSeq}
 	</delete>
 	
 	<!-- user_seq로 리뷰 목록 불러오기-> user mapper에서 실시할거임 

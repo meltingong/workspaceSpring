@@ -9,6 +9,13 @@
 		
 	}
 
+	function reviewDelete(){
+			document.d.action = "review_delete";
+			document.d.method='POST';
+			document.d.submit();
+	}
+	
+	
 
 </script>
 
@@ -155,9 +162,18 @@
                 <div th:text="|Review Grade(5점 만점): ${review.reviewGrade} 점|" class="title" >Beautiful courses</div>
               </div>
               <div th:text="|Review Content: ${review.reviewContent}|" class="text" >Far much that one rank beheld bluebird after outside ignobly allegedly more when oh arrogantly vehement tantaneously eel valiantly petted this along across highhandedly much.</div>
+      	 
+ 			 	<form name="d">
+   				 	<!-- <input type="hidden"  th:value="${#session.getAttribute('loginUserSeq')}"/> -->
+   				 	
+    					<input th:value="${review.corpId}" type="hidden" name="corpId" /> 
+    					<th:block th:if="${session.loginUserSeq==review.userSeq}">
+    						<li><button data-text="Delete Aplication" onclick="reviewDelete()" th:value="${review.reviewSeq}"><span class="la la-trash"></span></button></li>
+  						</th:block>
+  					</form>
+			
             </div>
           </div>
-		
 
         <!-- Comment Form -->
         <div class="comment-form default-form">

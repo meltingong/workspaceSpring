@@ -16,8 +16,8 @@ spring:
     mode: HTML
   datasource:
     url: jdbc:oracle:thin:@182.237.126.19:1521:XE
-    username: jdeveloper48
-    password: jdeveloper48
+    username: jdeveloper34
+    password: jdeveloper34
   jpa:
     show-sql: true
     generate-ddl: true
@@ -30,14 +30,14 @@ spring:
       ddl-auto: update
     #defer-datasource-initialization: true   
   # sql초기화  
-  sql:
-    init:
-      mode: always
-      schema-locations:
-      - classpath:ilhajob.ddl  
-      data-locations:
-      - classpath:ilhajob-insert.sql
-      continue-on-error: true
+#  sql:
+#    init:
+#      mode: always
+#      schema-locations:
+#      - classpath:ilhajob.ddl  
+#      data-locations:
+#      - classpath:ilhajob-insert.sql
+#      continue-on-error: true
 
 server:  port: 80  servlet:    context-path: /final-jpa
     encoding:      charset: UTF-8

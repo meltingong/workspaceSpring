@@ -11,12 +11,14 @@ import javax.servlet.http.HttpServletRequest;
 import org.hibernate.internal.build.AllowSysOut;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -143,7 +145,7 @@ public class CvController {
 		System.out.println(userSeq);
 		/* user cv list */
 //		List<Cv> cvList = cvService.findCvListByUserSeq(user.getUserSeq());
-		List<Cv> cvList = cvService.selectAll(); // test
+		List<Cv> cvList = cvService.findCvListByUserSeq(userSeq); // test
 		System.out.println(cvList);
 		model.addAttribute("cvList", cvList);
 		
@@ -152,9 +154,9 @@ public class CvController {
 		model.addAttribute("cvDetail", cvDetail);
 		
 		/* eduList */
-		List<Edu> eduList = eduService.selectEduByUserSeq(userSeq);
+		List<Edu> eduList = cvDetail.getEduList();
 		model.addAttribute("eduList", eduList);
-		//request.getSession().setAttribute("eduList", eduList);
+		request.getSession().setAttribute("eduList", eduList);
 		
 		/* expList */
 		List<Exp> expList = cvDetail.getExpList();
@@ -219,7 +221,7 @@ public class CvController {
 //	@LoginCheck
 //	@PostMapping(value = "/cv-delete-action")
 	@RequestMapping(value = "/cv-delete-action")
-	public String cv_delete_action(HttpServletRequest request,@RequestParam int cvSeq) throws Exception{
+	public String cv_delete_action(HttpServletRequest request, @RequestParam int cvSeq) throws Exception{
 		cvService.remove(cvSeq);
 		return "redirect:cv-list";
 	}
@@ -232,10 +234,10 @@ public class CvController {
 		System.out.println(rc);
 		Recruit recruit = (Recruit)model.getAttribute("recruit");
 		System.out.println("model.getAttribute('recruit')" + recruit);
-		//App app = new App(0, 'T', recruit, cv, cv.getUserSeq(), recruit.getCorp().getCorpId(), recruit.getRcSeq());
-		//System.out.println("##### before insert" + app);
-		//appService.insertApp(app);
-		//System.out.println("#### after insert" + app);
+		App app = new App(0, 'T', recruit, cv, cv.getUserSeq(), recruit.getCorp().getCorpId(), recruit.getRcSeq());
+		System.out.println("##### before insert" + app);
+		appService.insertApp(app);
+		System.out.println("#### after insert" + app);
 		return "redirect:candidate-dashboard-applied-job";
 	}
 	
@@ -246,12 +248,6 @@ public class CvController {
 		return "redirect:cv-list";
 	}
 	 **************/
-	
-	
-	
-	
-	
-	
 	
 	
 
@@ -266,43 +262,26 @@ public class CvController {
 	}
 	
 	/** 일단 동기방식으로 테스트 */
-	@RequestMapping(value = "/info-delete-action")
-	public String cv_info_delete_action(HttpServletRequest request,@ModelAttribute("eduSeq") int eduSeq, Model model, RedirectAttributes redirectAttributes) {
-		//System.out.println(eduSeq);
-		//model.addAttribute("eduSeq",eduSeq);
-		System.out.println(">>>>>"+eduSeq); 
-		//eduService.deleteEduByEduSeq(eduSeq);
+	@RequestMapping(value = "/edu-delete-action")
+	public String cv_info_delete_action(HttpServletRequest request, @ModelAttribute Edu edu, @RequestParam("eduSeq") String eduSeq, Model model, RedirectAttributes redirectAttributes) {
+		System.out.println("======== eduSeq : " + eduSeq);
+		System.out.println(eduSeq.replace(',', ' ').trim());
+//		System.out.println(edu.getEduSeq());
+		eduService.deleteEduByEduSeq(Integer.parseInt(eduSeq.replace(',', ' ').trim()));
 		
-//		Map<String, Object> map = new HashMap<String, Object>();
-//		if(model.getClass() == Edu.class) {
-//			System.out.println(model.getClass());
-//			int eduSeq = (int)request.getSession().getAttribute("eduSeq");
-//			System.out.println(eduSeq);
-//			eduService.deleteEduByEduSeq(eduSeq);
-//		} else if(model.getClass() == Exp.class) {
-//			System.out.println(model.getClass());
-//			int expSeq = (int)request.getSession().getAttribute("expSeq");
-//			expService.deleteExp(expSeq);
-//		} else if(model.getClass() == Awards.class) {
-//			System.out.println(model.getClass());
-//			int awardsSeq = (int)request.getSession().getAttribute("awardsSeq");
-//			awardsService.removeAwardsBySeq(awardsSeq);
-//		}
+		int userSeq = (int)request.getSession().getAttribute("userSeq");
+		int cvSeq = cvService.findCvListByUserSeq(userSeq).get(2).getCvSeq();
 		
-		//int userSeq = (int)request.getSession().getAttribute("userSeq");
-		//int cvSeq = cvService.findCvListByUserSeq(userSeq).get(2).getCvSeq();
-		
-		//redirectAttributes.addAttribute("cvSeq", cvSeq);
+		redirectAttributes.addAttribute("cvSeq", cvSeq);
 		
 		return "redirect:cv-detail";
 	}
 	
-	
-	
-	
-	
-	
-	
-	
+	@RequestMapping(value = "/exp-delete-action")
+	public String cv_exp_delete_action(HttpServletRequest request, @RequestParam int expSeq) {
+		System.out.println("############### expSeq : " + expSeq);
+		expService.deleteExp(expSeq);
+		return "redirect:cv-detail";
+	}
 	
 }

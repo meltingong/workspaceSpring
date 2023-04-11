@@ -31,7 +31,7 @@ public class AppServiceImpl implements AppService {
 	
 	//공고(a.rc_seq=2)에 지원한 사람들의 이력서 목록 불러오기
 	@Override
-	public List<Cv> findCvListByRcSeq(int rcSeq) {
+	public App findCvListByRcSeq(int rcSeq) {
 		return appDao.findCvListByRcSeq(rcSeq);
 	}
 	

@@ -13,7 +13,7 @@ public interface AppService {
 	int findAppCountByCorpId(String corpId);
 	
 	//공고(a.rc_seq=2)에 지원한 사람들의 이력서 목록 불러오기
-	List<Cv> findCvListByRcSeq(int rcSeq);
+	App findCvListByRcSeq(int rcSeq);
 
 	
 }

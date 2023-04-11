@@ -161,8 +161,8 @@
                       		  th:href="@{recruit-detail(rcSeq=${recruit.rcSeq})}" 
                       		  th:text="${recruit.rcTitle}" >Software Engineer</a></h4>
                       <ul class="job-info">
-                        <li><span class="icon flaticon-briefcase"></span> Segment</li>
-                        <li><span class="icon flaticon-map-locator"></span> London, UK</li>
+                        <li th:text="${recruit.rcPosition}"><span class="icon flaticon-briefcase"></span> Segment</li>
+                        <li th:text="${recruit.corp.corpAddress}"><span class="icon flaticon-map-locator"></span> London, UK</li>
                       </ul>
                       <ul class="job-other-info">
                         <li class="required">Urgent</li>
@@ -189,8 +189,8 @@
                       		  th:href="@{recruit-detail(rcSeq=${recruit.rcSeq})}" 
                       		  th:text="${recruit.rcTitle}" >Software Engineer</a></h4>
                       <ul class="job-info">
-                        <li><span class="icon flaticon-briefcase"></span> Segment</li>
-                        <li><span class="icon flaticon-map-locator"></span> London, UK</li>
+                        <li th:text="${recruit.rcPosition}"><span class="icon flaticon-briefcase"></span> Segment</li>
+                        <li th:text="${recruit.corp.corpAddress}"><span class="icon flaticon-map-locator"></span> London, UK</li>
                       </ul>
                       <ul class="job-other-info">
                         <li class="required">Urgent</li>
@@ -200,27 +200,7 @@
                     </div>
                   </div>
                 </div>
-				<table border="0" cellpadding="0" cellspacing="1" width="590"
-					bgcolor="BBBBBB">
-					<tr>
-						<td width=50 align=center bgcolor="E6ECDE" height="22">번호</td>
-						<td width=300 align=center bgcolor="E6ECDE">제목</td>
-						<td width=120 align=center bgcolor="E6ECDE">이름</td>
-						<td width=120 align=center bgcolor="E6ECDE">날짜</td>
-					</tr>
-					<tr th:each="recruit:${recruitList}">
-						<td th:text="${recruit.rcSeq}" width=50 align=center bgcolor="ffffff" height="20">158</td>
-						<td width=300 bgcolor="ffffff" style="padding-left: 10">
-							<a th:text="${recruit.rcTitle}" 
-								th:href="@{recruit-detail(rcSeq=${recruit.rcSeq})}" 
-								href="guest_view?guest_no=158" 
-								class="user">제목</a>
-						</td>
-						<td th:text="${recruit.rcSalary}" width=120 align=center bgcolor="ffffff">테스트</td>
-						<td th:text="${recruit.rcDeadline}" width=120 align=center bgcolor="ffffff">2023-02-15</td>
-					</tr>
-	
-				</table>
+                
               </div>
             </div>
 
@@ -237,8 +217,8 @@
                       		  th:href="@{recruit-detail(rcSeq=${recruit.rcSeq})}" 
                       		  th:text="${recruit.rcTitle}" >Software Engineer</a></h4>
                       <ul class="job-info">
-                        <li><span class="icon flaticon-briefcase"></span> Segment</li>
-                        <li><span class="icon flaticon-map-locator"></span> London, UK</li>
+                        <li th:text="${recruit.rcPosition}"><span class="icon flaticon-briefcase"></span> Segment</li>
+                        <li th:text="${recruit.corp.corpAddress}"><span class="icon flaticon-map-locator"></span> London, UK</li>
                       </ul>
                       <ul class="job-other-info">
                         <li class="required">Urgent</li>
@@ -265,8 +245,8 @@
                       		  th:href="@{recruit-detail(rcSeq=${recruit.rcSeq})}" 
                       		  th:text="${recruit.rcTitle}" >Software Engineer</a></h4>
                       <ul class="job-info">
-                        <li><span class="icon flaticon-briefcase"></span> Segment</li>
-                        <li><span class="icon flaticon-map-locator"></span> London, UK</li>
+                        <li th:text="${recruit.rcPosition}"><span class="icon flaticon-briefcase"></span> Segment</li>
+                        <li th:text="${recruit.corp.corpAddress}"><span class="icon flaticon-map-locator"></span> London, UK</li>
                       </ul>
                       <ul class="job-other-info">
                         <li class="required">Urgent</li>
@@ -293,8 +273,8 @@
                       		  th:href="@{recruit-detail(rcSeq=${recruit.rcSeq})}" 
                       		  th:text="${recruit.rcTitle}" >Software Engineer</a></h4>
                       <ul class="job-info">
-                        <li><span class="icon flaticon-briefcase"></span> Segment</li>
-                        <li><span class="icon flaticon-map-locator"></span> London, UK</li>
+                        <li th:text="${recruit.rcPosition}"><span class="icon flaticon-briefcase"></span> Segment</li>
+                        <li th:text="${recruit.corp.corpAddress}"><span class="icon flaticon-map-locator"></span> London, UK</li>
                       </ul>
                       <ul class="job-other-info">
                         <li class="required">Urgent</li>

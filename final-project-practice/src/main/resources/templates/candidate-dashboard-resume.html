@@ -68,7 +68,6 @@
                       <!-- Input -->
                       <div class="form-group col-lg-6 col-md-12">
                         <label>이력서 선택</label>
-                        <!-- <<< 수정필 >>> : onclick="changeCv()" -->
                         <select class="chosen-select" onchange="changeCv()" name="cvSeq">
                           <option th:text="*{cvName}">My CV</option>
                           <option th:each="cv:${cvList}" th:text="${cv.cvName}" th:value="${cv.cvSeq}">My CV</option>
@@ -94,52 +93,50 @@
 
                       <div class="form-group col-lg-12 col-md-12">
                         <!-- Resume / Education -->
-                        <div class="resume-outer">
+                        <div class="resume-outer" th:object="${eduList}" th:each="edu:${eduList}">
                           <div class="upper-title">
                             <h4>학력</h4>
                             <button class="add-info-btn" onclick="addEdu()"><span class="icon flaticon-plus"></span> 학력 추가</button>
                           </div>
                           <!-- Resume BLock -->
-                          <div class="resume-block" th:object="${eduList}">
-                            <div class="inner" th:each="edu:${eduList}" >
+                          <div class="resume-block">
+                            <div class="inner">
+		                        <!-- <input type="hidden" name="eduSeq" th:value="${edu.eduSeq}"/> -->
                               <span class="name">E</span>
                               <div class="title-box">
                                 <div class="info-box">
                                 <input type="hidden" name="eduMajor" th:value="${edu.eduMajor}"/>
                                   <h3 th:text="${edu.eduMajor}">Bachlors in Fine Arts</h3>
                                 <input type="hidden" name="eduName" th:value="${edu.eduName}"/>
-                                  <span th:text="${edu.eduName}" th:value="${edu.eduName}">Modern College</span>
+                                  <span th:text="${edu.eduName}">Modern College</span>
                                 </div>
                                 <div class="edit-box">
-                                <input type="hidden" name="eduStartDate" th:value="${edu.eduStartDate}"/>
+                                <!-- <input type="hidden" name="eduStartDate" th:value="${edu.eduStartDate}"/> -->
 								<span class="year" th:text="${edu.eduStartDate}">2012 - 2014</span>
-								<input type="hidden" name="eduEndDate" th:value="${edu.eduEndDate}"/>
+								<!-- <input type="hidden" name="eduEndDate" th:value="${edu.eduEndDate}"/> -->
 								<span class="year" th:text="${edu.eduEndDate}">2012 - 2014</span>
+                                  <div class="edit-btns">
                                   <!-- 버튼 클릭 펑션 추가필 -->
-                                <div class="edit-btns">
-                                   <button type="button" onclick="updateEdu()"><span class="la la-pencil"></span></button>
-     	     				        <input type="hidden" name="eduSeq" th:value="${edu.eduSeq}"/>
-                                  <button name="deleteEduBtn" type="button" onclick="deleteEdu()" th:value="${edu.eduSeq}"><span class="la la-trash"></span></button>
-                              
-                                 	 </div>
+     	                             <input type="hidden" th:id="'eduSeq(' + ${edu.eduSeq} + ')'" name="eduSeq" th:value="${edu.eduSeq}">
+                                    <button type="button" onclick="updateEdu()"><span class="la la-pencil"></span></button>
+                                    <button type="button" th:id="'deleteEdu(' + ${edu.eduSeq} + ')'" th:onclick="'deleteEdu(' + ${edu.eduSeq} + ')'"  th:value="${edu.eduSeq}"><span class="la la-trash"></span></button>
+                                  </div>
                                 </div>
                               </div>
                               <div class="text">
-		                      
 		                      <!-- Input eduScore -->
 		                      <div class="form-group col-lg-12 col-md-12">
 		                        <label>(임시)학점</label>
 		                        <input type="text" name="name" placeholder="학력 관련 추가 정보를 입력하세요." th:value="${edu.eduScore}">
 		                      </div>
-
                                <!-- Input eduContent -->
 		                      <div class="form-group col-lg-12 col-md-12">
 		                        <label>추가 정보 입력</label>
 		                         <input type="text" name="name" placeholder="학력 관련 추가 정보를 입력하세요." th:value="${edu.eduContent}">
 		                      </div>
+                              </div>
                             </div>
                           </div>
-                              </div>
                         </div>
 
                         <!-- Resume / Work & Experience -->
@@ -150,19 +147,20 @@
                           </div>
                           <!-- Resume BLock -->
                           <div class="resume-block" th:each="exp:${expList}">
+                          <input type="hidden" name="expSeq" th:value="${exp.expSeq}">
                             <div class="inner">
                               <span class="name">S</span>
                               <div class="title-box">
                                 <div class="info-box">
-                                  <h3 th:text="${exp.expPosition}">Product Designer</h3>
-                                  <span th:text="${exp.expCorpName}">Spotify Inc.</span>
+                                  <h3 th:text="${exp.expPosition}" th:value="${exp.expPosition}">Product Designer</h3>
+                                  <span th:text="${exp.expCorpName}" th:value="${exp.expCorpName}">Spotify Inc.</span>
                                 </div>
                                 <div class="edit-box">
-                                  <span class="year" th:text="${exp.expStartDate}">2012 - 2014</span>
-                                  <span class="year" th:text="${exp.expEndDate}">2012 - 2014</span>
+                                  <span class="year" th:value="${exp.expStartDate}" th:text="${exp.expStartDate}">2012 - 2014</span>
+                                  <span class="year" th:value="${exp.expEndDate}" th:text="${exp.expEndDate}">2012 - 2014</span>
                                   <div class="edit-btns">
                                     <button><span class="la la-pencil" onclick=""></span></button>
-                                    <button><span class="la la-trash" onclick=""></span></button>
+                                    <button><span class="la la-trash" th:value="${exp.expSeq}" onclick="deleteExp()"></span></button>
                                   </div>
                                 </div>
                               </div>

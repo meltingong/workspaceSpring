@@ -25,7 +25,7 @@ public interface UserService {
 	/*
 	 * 회원로그아웃
 	 */
-
+	
 	/*
 	 * 회원상세보기
 	 */
@@ -45,5 +45,10 @@ public interface UserService {
 	 * 아이디중복체크
 	 */
 	boolean isDuplicateEmail(String userEmail) throws Exception;
-
+	
+	/*
+	 *  회원의 지원리스트
+	 */
+	UserDto findAppList(Long id) throws Exception;
+	
 }
