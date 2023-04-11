@@ -49,6 +49,6 @@ public interface UserService {
 	/*
 	 *  회원의 지원리스트
 	 */
-	//UserDto findAppList(Long id) throws Exception;
+	UserDto findAppListById(Long id) throws Exception;
 	
 }

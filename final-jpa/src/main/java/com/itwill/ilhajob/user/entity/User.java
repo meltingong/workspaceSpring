@@ -129,11 +129,11 @@ public class User {
     private List<BlogComment> blogCommentList = new ArrayList<BlogComment>();
    
     @OneToMany( mappedBy = "user",
-			cascade = CascadeType.ALL)
+			cascade = CascadeType.PERSIST)
     private List<Message> messageList = new ArrayList<Message>();
    
     @OneToMany( mappedBy = "user",
-			cascade = CascadeType.ALL)
+			cascade = CascadeType.PERSIST)
     private List<Payment> paymentList = new ArrayList<Payment>();
     
     @PrePersist
