@@ -90,7 +90,9 @@ public class UserServiceImpl implements UserService{
 	
 	@Override
 	public UserDto findAppList(Long id) throws Exception {
-		// TODO Auto-generated method stub
+		User user = userRepository.findById(id).orElseThrow(()
+				-> new UserNotFoundException("User not found for id: "+id));
+		user = userRepository.findAppList(id);
 		return null;
 	}
 	
