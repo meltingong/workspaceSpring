@@ -87,7 +87,7 @@ public class UserServiceImpl implements UserService{
 	public boolean isDuplicateEmail(String userEmail) throws Exception {
 		return userRepository.existsByUserEmail(userEmail);
 	}
-	
+	/*
 	@Override
 	public UserDto findAppList(Long id) throws Exception {
 		User user = userRepository.findById(id).orElseThrow(()
@@ -95,5 +95,5 @@ public class UserServiceImpl implements UserService{
 		user = userRepository.findAppList(id);
 		return null;
 	}
-	
+	*/
 }

@@ -180,6 +180,20 @@ public class UserController {
 			return forwardPath;
 		}
 		
+		@LoginCheck
+		@RequestMapping("/candidate-dashboard-applied-job")
+		public String user_applied_job(HttpServletRequest request) throws Exception{
+			String forwardPath="";
+			//request.getSession().setAttribute("sUserId", "test3@test.com");
+			String sUserId = (String)request.getSession().getAttribute("sUserId");
+			UserDto loginUser = userService.findUser(sUserId);
+			System.out.println(loginUser);
+	 		request.setAttribute("loginUser", loginUser);
+			forwardPath = "/candidate-dashboard-applied-job";
+			return forwardPath;
+		}
+		
+		/*
 		// 지원한 목록 보기
 		@LoginCheck
 		@RequestMapping("/candidate-dashboard-applied-job")
@@ -194,6 +208,7 @@ public class UserController {
 			forwardPath = "/candidate-dashboard-applied-job";
 			return forwardPath;
 		}
+		*/
 		/*
 		// 회원 알림 전체보기
 		@LoginCheck
