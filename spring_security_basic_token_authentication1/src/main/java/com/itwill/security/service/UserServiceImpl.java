@@ -72,7 +72,7 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public UserDto update(UserDto userDto) throws RuntimeException {
 		User user=userRepository.findByUserid(userDto.getUserid());
-		if (userDto.getRole() !=null || userDto.getRole().equalsIgnoreCase("admin")) {
+		if (userDto.getRole() !=null && userDto.getRole().equalsIgnoreCase("admin")) {
 			Set<String> roleSet=  new HashSet<>();
 			roleSet.add("ROLE_ADMIN");
 			//user.setId(userDto.getId());

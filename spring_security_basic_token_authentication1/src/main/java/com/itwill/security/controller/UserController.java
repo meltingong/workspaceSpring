@@ -93,6 +93,7 @@ public class UserController {
 		}
 		return responseDto;
 	}
+	/*
 	@GetMapping("/logout")
 	public  void logout(@ApiIgnore HttpServletRequest request) {
 		HttpSession session= request.getSession(false);
@@ -108,7 +109,7 @@ public class UserController {
 		responseDto.setData(null);
 		
 	}
-	
+	*/
 	@PutMapping(value = "/user")
 	public ResponseDto user(
 			@ApiParam(value = "비밀번호", required = true) @RequestParam String password,
@@ -165,7 +166,8 @@ public class UserController {
 	
 	protected Authentication createNewAuthentication(Authentication currentAuth, String username) {
 		UserDetails newPrincipal = userDetailService.loadUserByUsername(username);
-		UsernamePasswordAuthenticationToken newAuth = new UsernamePasswordAuthenticationToken(newPrincipal,
+		UsernamePasswordAuthenticationToken newAuth = 
+				new UsernamePasswordAuthenticationToken(newPrincipal,
 				currentAuth.getCredentials(), newPrincipal.getAuthorities());
 		newAuth.setDetails(currentAuth.getDetails());
 		return newAuth;

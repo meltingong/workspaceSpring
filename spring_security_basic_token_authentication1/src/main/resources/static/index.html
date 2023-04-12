@@ -47,7 +47,7 @@ a, a:visited {
 	cursor: pointer;
 }
 
-button {
+input[type=button] {
 	margin-left: 2.5em; 
 	margin-top : 1em;
 	width: 80px;
@@ -114,10 +114,11 @@ input {
 		<form id="loginForm">
 			아이디&nbsp;&nbsp;&nbsp;<input type="text" name="userId"><br>
 			패쓰워드<input type="text" name="password"><br>
-			<button id="loginBtn">로그인</button>
-			<button id="logoutBtn">로그아웃</button>
+			<input type="button" id="loginBtn" value="로그인">
+			<input type="button" id="logoutBtn" value="로그아웃">
 		</form>
-
+			
+			
 
 
 		</br>Response:
@@ -153,8 +154,8 @@ input {
 								.val();
 						console.log(username);
 						console.log(password);
-						username = "guard1";
-						password = "1111";
+						//username = "guard1";
+						//password = "1111";
 						$.ajax({
 							type : 'POST',
 							url : 'http://localhost:9053/login',

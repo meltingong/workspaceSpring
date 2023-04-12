@@ -54,8 +54,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	 @Override
 	    protected void configure(HttpSecurity httpSecurity) throws Exception {
-	        httpSecurity.formLogin().disable(); // REST API는 UI를 사용하지 않으므로 기본설정을 비활성화
-	        
+	        //httpSecurity.formLogin().disable(); // REST API는 UI를 사용하지 않으므로 기본설정을 비활성화
 	        httpSecurity.csrf().disable(); // REST API는 csrf 보안이 필요 없으므로 비활성화
 	        httpSecurity.authorizeRequests() // 리퀘스트에 대한 사용권한 체크
 	            .antMatchers("/create","/exception","/auth","/","/logout_result").permitAll() // 가입 및 로그인 주소는 허용

@@ -52,6 +52,10 @@ public class User implements UserDetails {
     @ElementCollection(fetch = FetchType.EAGER)
     @Builder.Default
     private Set<String> roles = new HashSet<>();
+    
+    @ElementCollection(fetch = FetchType.EAGER)
+    @Builder.Default
+    private List<String> hobby = new ArrayList<>();
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
