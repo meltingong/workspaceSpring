@@ -11,5 +11,7 @@ public interface AppService {
 	void deleteApp(Long id);
 	
 	List<AppDto> findAllByRecruitId(long id);
+	List<AppDto> findAllByUserId(long id);
+	
 	List<AppDto> findAllByCvId(long id);
 }

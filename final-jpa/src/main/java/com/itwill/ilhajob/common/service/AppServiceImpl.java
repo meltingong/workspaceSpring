@@ -57,7 +57,18 @@ public class AppServiceImpl implements AppService {
 				.map(app ->modelMapper.map(app, AppDto.class))
 				.collect(Collectors.toList());
 	}
-	
+	@Transactional
+	@Override
+	public List<AppDto> findAllByUserId(long id) {
+		List<App> appList = appRepository.findAppsByUserId(id);
+		return appList.stream()
+				.map(app ->modelMapper.map(app, AppDto.class))
+				.collect(Collectors.toList());
+	}
+	/*
+	 * 이력서리스트에서 특정이력서 클릭시 지원한 공고들 출력
+	 * but, 구직자가 지원한 공고리스트 필요
+	 */
 	@Transactional
 	@Override
 	public List<AppDto> findAllByCvId(long id) {

@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.itwill.ilhajob.common.dto.AppDto;
+import com.itwill.ilhajob.common.service.AppService;
 import com.itwill.ilhajob.corp.dto.CorpDto;
 import com.itwill.ilhajob.corp.entity.Corp;
 import com.itwill.ilhajob.user.dto.MessageDto;
@@ -45,8 +47,8 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 	
-	//@Autowired
-	//private AppService appService;
+	@Autowired
+	private AppService appService;
 
 	@Autowired
 	private ReviewService reviewService;
@@ -221,21 +223,21 @@ public class UserController {
 		return forwardPath;
 	}
 	
-	/*
+	
 	// 지원한 목록 보기
 	@LoginCheck
 	@RequestMapping("/candidate-dashboard-applied-job")
-	public String user_applied_job(HttpServletRequest request) throws Exception{
+	public String user_applied_job(HttpServletRequest request, Model model) throws Exception{
 		String forwardPath="";
 		String sUserId = (String)request.getSession().getAttribute("sUserId");
 		UserDto loginUser = userService.findUser(sUserId);
- 		UserDto user = userService.findAppListById(loginUser.getId());
-		System.out.println(user);
- 		request.setAttribute("loginUser", user);
+		request.setAttribute("loginUser", loginUser);
+ 		List<AppDto> appList = appService.findAllByUserId(loginUser.getId());
+ 		model.addAttribute("appList",appList);
 		forwardPath = "/candidate-dashboard-applied-job";
 		return forwardPath;
 	}
-	*/
+	
 	@LoginCheck
 	@RequestMapping(value = "/remove-applied-job")                             //appSeq-> appDto의 id로 들어가야함
 	public String remove_applied_job(HttpServletRequest request, @RequestParam int appSeq) throws Exception{

@@ -16,8 +16,11 @@ public interface AppRepository extends JpaRepository<App, Long> {
 	Long countByCorp(Corp corp);
 */
 	Long countByRecruitId(long id);
-	//
+	//기업대쉬보드에서 사용
 	List<App> findAppsByRecruitId(long id);
+	//유저대쉬보드에서 사용
+	List<App> findAppsByUserId(long id);
+	
 	List<App> findAppsByCvId(long id);
 	
 }
