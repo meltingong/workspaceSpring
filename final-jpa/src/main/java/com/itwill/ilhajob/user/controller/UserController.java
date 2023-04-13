@@ -214,9 +214,9 @@ public class UserController {
 	// 알림 선택삭제
 	@LoginCheck
 	@RequestMapping("/alerts-remove")
-	public String user_alerts_remove(HttpServletRequest request,Long messageSeq) throws Exception {
+	public String user_alerts_remove(HttpServletRequest request,Long messageId) throws Exception {
 		String forwardPath="";
-		userService.removeMessageBySeq(messageSeq);
+		userService.removeMessageBySeq(messageId);
 		forwardPath="redirect:candidate-dashboard-job-alerts";
 		return forwardPath;
 	}
