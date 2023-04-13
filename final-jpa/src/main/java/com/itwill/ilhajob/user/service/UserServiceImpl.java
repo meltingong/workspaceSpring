@@ -1,6 +1,10 @@
 package com.itwill.ilhajob.user.service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.NamingConventions;
@@ -8,11 +12,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.itwill.ilhajob.user.dto.MessageDto;
+import com.itwill.ilhajob.user.dto.ReviewDto;
 import com.itwill.ilhajob.user.dto.UserDto;
+import com.itwill.ilhajob.user.entity.Message;
+import com.itwill.ilhajob.user.entity.Review;
 import com.itwill.ilhajob.user.entity.User;
+import com.itwill.ilhajob.user.exception.ExistedReviewException;
 import com.itwill.ilhajob.user.exception.ExistedUserException;
 import com.itwill.ilhajob.user.exception.PasswordMismatchException;
 import com.itwill.ilhajob.user.exception.UserNotFoundException;
+import com.itwill.ilhajob.user.repository.MessageRepository;
+import com.itwill.ilhajob.user.repository.ReviewRepository;
 import com.itwill.ilhajob.user.repository.UserRepository;
 
 @Service
@@ -20,12 +31,18 @@ import com.itwill.ilhajob.user.repository.UserRepository;
 public class UserServiceImpl implements UserService{
 	
 	private final UserRepository userRepository;
+	private final MessageRepository messageRepository;
+	private final ReviewRepository reviewRepository;
+	
+	
 	private final ModelMapper modelMapper;
 	
 	@Autowired
-	public UserServiceImpl(UserRepository userRepository, ModelMapper modelMapper) {
+	public UserServiceImpl(UserRepository userRepository, ReviewRepository reviewRepository, ModelMapper modelMapper, MessageRepository messageRepository) {
 		this.userRepository = userRepository;
+		this.reviewRepository = reviewRepository;
 		this.modelMapper = modelMapper;
+		this.messageRepository = messageRepository;
 	}
 	
 	@Override
@@ -40,6 +57,7 @@ public class UserServiceImpl implements UserService{
         }
         User user = modelMapper.map(userDto, User.class);
         user = userRepository.save(user);
+        
         return modelMapper.map(user, UserDto.class);
 	}
 
@@ -87,12 +105,81 @@ public class UserServiceImpl implements UserService{
 	public boolean isDuplicateEmail(String userEmail) throws Exception {
 		return userRepository.existsByUserEmail(userEmail);
 	}
-	
+	/*
 	@Override
 	public UserDto findAppListById(Long id) throws Exception {
 		Optional<User> OptionalUser = userRepository.findAppListById(id);
 		User user = OptionalUser.get();
 		return modelMapper.map(user,UserDto.class);
 	}
+
+	*/
 	
+	@Override
+	public List<MessageDto> findMessageList(Long userId) {
+		List<Message> messageList = messageRepository.findAll();
+		List<Message> findMessageList = new ArrayList<Message>();
+		for(int i = 0; i < messageList.size(); i++) {
+			if(messageList.get(i).getUser().getId() == userId) {
+				findMessageList.add(messageList.get(i));
+			}
+		}
+		System.out.println(findMessageList);
+		List<MessageDto> messageDtoList = findMessageList.stream().map(message-> new MessageDto(message.getId(),message.getMessageTitle(),message.getMessageContents(),message.getMessageDate())).collect(Collectors.toList());
+		
+//		Optional<User> optionalUser = userRepository.findById(userId);
+//		List<Message> messageList = optionalUser.get().getMessageList();
+//		List<MessageDto> messageDtoList = messageList.stream()
+//													.map(message-> modelMapper.map(messageList, MessageDto.class))
+//													.collect(Collectors.toList());
+//		return messageDtoList;
+		return messageDtoList;
+	}
+
+	@Override
+	public void removeMessageBySeq(Long messageSeq) {
+		messageRepository.deleteById(messageSeq);
+	}
+	
+	//리뷰 작성
+	
+	@Override
+	public ReviewDto insertReview(ReviewDto reviewDto) throws Exception {
+		boolean exists = reviewRepository.existsByUserAndCorp(reviewDto.getUser().getUserEmail(), reviewDto.getCorp().getCorpLoginId());
+		if (exists) {
+			ExistedReviewException exception = 
+					new ExistedReviewException(reviewDto.getUser().getUserEmail()+"회원님이 작성한 리뷰가 존재합니다."); //getUserEmail() -> getUserName으로 변경될예정~
+			exception.setData(reviewDto);
+			throw exception;
+		    // 특정 유저 + 기업 -> 조건에 맞는 리뷰가 이미 작성되어 있는 경우
+		} else {
+		    // 특정 유저 + 기업 -> 조건에 맞는 리뷰가 작성이 안되어 있는 경우
+			Review review = modelMapper.map(reviewDto, Review.class);
+			review = reviewRepository.save(review);
+			return modelMapper.map(review, ReviewDto.class);
+		}
+	}
+	
+	
+	//리뷰 수정
+	
+	@Override
+	public ReviewDto updateReview(ReviewDto reviewDto) throws Exception {
+		Review review = reviewRepository.findById(reviewDto.getId()).orElse(null); //null이 반환될수도 있음.
+		reviewDto.setReviewTitle(review.getReviewTitle());
+		reviewDto.setReviewContent(review.getReviewContent());
+		reviewDto.setReviewGrade(review.getReviewGrade());
+		modelMapper.map(reviewDto, review);
+		review = reviewRepository.save(review);
+		return modelMapper.map(review, ReviewDto.class);
+	}
+	
+	//리뷰 삭제
+	
+	@Override
+	public void deleteReview(Long reviewId) throws Exception {
+		reviewRepository.deleteById(reviewId);
+	}
+
+
 }

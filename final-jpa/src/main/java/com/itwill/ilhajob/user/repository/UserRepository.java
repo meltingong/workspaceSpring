@@ -8,8 +8,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import com.itwill.ilhajob.common.entity.App;
-import com.itwill.ilhajob.user.dto.UserDto;
 import com.itwill.ilhajob.user.entity.User;
 
 @Repository
@@ -17,5 +15,5 @@ public interface UserRepository extends JpaRepository<User, Long> {
 	
     Optional<User> findByUserEmail(String userEmail);
     boolean existsByUserEmail(String userEmail);
-    Optional<User> findAppListById(Long id);
+    //Optional<User> findAppListById(Long id);
 }

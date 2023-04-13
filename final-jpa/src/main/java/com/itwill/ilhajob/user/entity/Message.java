@@ -1,6 +1,6 @@
 package com.itwill.ilhajob.user.entity;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -13,7 +13,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
-import com.itwill.ilhajob.common.entity.App;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -41,12 +40,7 @@ public class Message {
 	@Column(length = 1000)
 	private String messageContents;
 	
-	private Date messageDate;
-	
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "app_id")
-	@ToString.Exclude
-	private App app;
+	private LocalDateTime messageDate;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "user_id")

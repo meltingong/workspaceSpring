@@ -1,5 +1,6 @@
 package com.itwill.ilhajob.common.dto;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -37,7 +38,7 @@ public class BlogDto {
 	private String blogTitle;
 	private String blogContent;
 	private String blogImage;
-	private Date blogDate;
+	private LocalDateTime blogDate;
 	private int blogReadCount;
 	private int blogLike;
 	private int userSeq;

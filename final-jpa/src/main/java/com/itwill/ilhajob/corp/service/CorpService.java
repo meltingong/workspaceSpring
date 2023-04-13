@@ -3,6 +3,8 @@ package com.itwill.ilhajob.corp.service;
 import java.util.List;
 
 import com.itwill.ilhajob.corp.dto.CorpDto;
+import com.itwill.ilhajob.corp.entity.Corp;
+import com.itwill.ilhajob.user.dto.ReviewDto;
 
 
 public interface CorpService {
@@ -51,8 +53,10 @@ public interface CorpService {
 	public CorpDto findCorpWithRecruits(String corpLoginId) throws Exception;
 	
 	//회사 리뷰 목록 가져오기
-	public CorpDto findCorpWithReviews(String corpLoginId) throws Exception;
+	List<ReviewDto> findReviewList(Long corpId) throws Exception;
 	
 	//회사 리스트
 	public List<CorpDto> findCorpAll() throws Exception;
+
+	List<CorpDto> searchCorpList(String query) throws Exception;
 }

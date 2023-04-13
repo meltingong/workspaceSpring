@@ -17,7 +17,7 @@ import lombok.ToString;
 @ToString
 @Builder
 public class CorpImageDto {
-	int corpImageSeq;
+	long id;
 	String corpImage;
-	String corpId;
+	CorpDto corp;
 }

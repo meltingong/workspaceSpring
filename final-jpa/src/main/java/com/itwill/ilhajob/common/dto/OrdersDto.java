@@ -1,6 +1,10 @@
 package com.itwill.ilhajob.common.dto;
 
+import java.time.LocalDateTime;
 import java.util.Date;
+
+import com.itwill.ilhajob.corp.dto.CorpDto;
+import com.itwill.ilhajob.user.dto.UserDto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -15,13 +19,14 @@ import lombok.ToString;
 @Builder
 public class OrdersDto {
 	private int orderNo;
-	private Date orderEndDate;
+	private LocalDateTime orderStartDate;
+	private LocalDateTime orderEndDate;
 	//상품구매 목록 확인시 order_valid로 만료 표시
-	private char orderValid;
+	private int orderValid;
 	
 	private ProductDto product;
-	private String corpId;
-	private int userSeq;
+	private CorpDto corp;
+	private UserDto user;
 	
 	
 }

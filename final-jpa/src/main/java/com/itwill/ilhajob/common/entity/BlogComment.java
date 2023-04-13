@@ -1,5 +1,6 @@
 package com.itwill.ilhajob.common.entity;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -37,7 +38,7 @@ public class BlogComment {
 	@Column(nullable = false, length = 1000)
 	private String commentContent;
 	
-	private Date commentDate;
+	private LocalDateTime commentDate;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "user_id")

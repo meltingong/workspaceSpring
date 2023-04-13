@@ -16,10 +16,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.itwill.ilhajob.corp.dto.CorpDto;
+import com.itwill.ilhajob.corp.entity.Corp;
+import com.itwill.ilhajob.user.dto.MessageDto;
+import com.itwill.ilhajob.user.dto.ReviewDto;
 import com.itwill.ilhajob.user.dto.UserDto;
 import com.itwill.ilhajob.user.exception.ExistedUserException;
 import com.itwill.ilhajob.user.exception.PasswordMismatchException;
 import com.itwill.ilhajob.user.exception.UserNotFoundException;
+import com.itwill.ilhajob.user.service.MessageService;
+import com.itwill.ilhajob.user.service.ReviewService;
 import com.itwill.ilhajob.user.service.UserService;
 
 /*
@@ -35,15 +41,23 @@ import com.itwill.ilhajob.user.service.UserService;
 */
 @Controller
 public class UserController {
+	
 	@Autowired
 	private UserService userService;
+	
+	//@Autowired
+	//private AppService appService;
 
-	/**************Local Exception Handler************
+	@Autowired
+	private ReviewService reviewService;
+
+
+	/**************Local Exception Handler*************
 	@ExceptionHandler(Exception.class)
 	public String user_excetpion_handler(Exception e) {
 		return "user_error";
 	}
-	**/
+	*/
 	/*
 	 * <<유저 정보>> my profile 유저정보 업데이트 폼
 	 * 회원 로그인
@@ -54,11 +68,11 @@ public class UserController {
 	 * ++ 메시지 알림
 	 */
 	
-	//메인 페이지
-	@RequestMapping("/index")
-	public String main() {
-		return "index";
-	}
+//	//메인 페이지
+//	@RequestMapping("/index")
+//	public String main() {
+//		return "index";
+//	}
 	
 	//회원 대시보드 보기
 	@LoginCheck
@@ -169,75 +183,68 @@ public class UserController {
 	}
 	
 	// 회원 탈퇴
-		@LoginCheck
-		@RequestMapping("/delete-action")
-		public String user_delete(HttpServletRequest request) throws Exception {
-			String forwardPath="";
-			Long id = (Long)request.getSession().getAttribute("id");
-			userService.remove(id);
-			request.getSession().invalidate();
-			forwardPath = "redirect:index";
-			return forwardPath;
-		}
-
-		
-		// 지원한 목록 보기
-		@LoginCheck
-		@RequestMapping("/candidate-dashboard-applied-job")
-		public String user_applied_job(HttpServletRequest request) throws Exception{
-			String forwardPath="";
-			//request.getSession().setAttribute("sUserId", "test3@test.com");
-			String sUserId = (String)request.getSession().getAttribute("sUserId");
-			UserDto loginUser = userService.findUser(sUserId);
-	 		UserDto user = userService.findAppListById(loginUser.getId());
-			System.out.println(user);
-	 		request.setAttribute("loginUser", user);
-			forwardPath = "/candidate-dashboard-applied-job";
-			return forwardPath;
-		}
-		
-		/*
-		// 회원 알림 전체보기
-		@LoginCheck
-		@RequestMapping("/candidate-dashboard-job-alerts")
-		public String user_alerts(HttpServletRequest request,UserDto user,Model model) throws Exception {
-			String forwardPath="";
-			String sUserId = (String)request.getSession().getAttribute("sUserId");
-			UserDto loginUser = userService.findUser(sUserId);
-			request.setAttribute("loginUser", loginUser);
-			List<Message> messageList = messageService.fineMessageOfUser(loginUser.getId());
-			model.addAttribute("messageList",messageList);
-			forwardPath = "candidate-dashboard-job-alerts";
-			return forwardPath;
-		}
-		
-		// 알림 선택삭제
-		@LoginCheck
-		@RequestMapping("/alerts-remove")
-		public String user_alerts_remove(HttpServletRequest request,int messageSeq) throws Exception {
-			String forwardPath="";
-			messageService.removeMessageBySeq(messageSeq);
-			forwardPath="redirect:candidate-dashboard-job-alerts";
-			return forwardPath;
-		}
-		
-		//리뷰 작성
-			//corpSeq필요 -> delete할떄 appseq처럼 input hidden corpseq필요(redirect용)
-			@RequestMapping("/review_write_action")
-			public String review_write_action(@ModelAttribute Review review, @RequestParam("corpId") String corpId, Model model,HttpServletRequest request) throws Exception{
-				request.getSession().setAttribute("sUserId", "test3@test.com");
-				String sUserId = (String)request.getSession().getAttribute("sUserId");
-				User loginUser = userService.findUser(sUserId);
-				review.setCorpId(corpId);
-				review.setUserSeq(loginUser.getUserSeq());
-				System.out.println(review);
-				request.setAttribute("loginUser", loginUser);	
-			    reviewService.insertReview(review);
-				String forwardPath = "redirect:corp-detail?corpId="+corpId;
-				return forwardPath;
-				
-			}
+	@LoginCheck
+	@RequestMapping("/delete-action")
+	public String user_delete(HttpServletRequest request) throws Exception {
+		String forwardPath="";
+		Long id = (Long)request.getSession().getAttribute("id");
+		userService.remove(id);
+		request.getSession().invalidate();
+		forwardPath = "redirect:index";
+		return forwardPath;
+	}
+			
+	
+	// 회원 알림 전체보기
+	@LoginCheck
+	@RequestMapping("/candidate-dashboard-job-alerts")
+	public String user_alerts(HttpServletRequest request,UserDto user,Model model) throws Exception {
+		String forwardPath="";
+		String sUserId = (String)request.getSession().getAttribute("sUserId");
+		UserDto loginUser = userService.findUser(sUserId);
+		request.setAttribute("loginUser", loginUser);
+		List<MessageDto> messageList = userService.findMessageList(loginUser.getId());
+		//System.out.println(loginUser.getId());
+		//System.out.println(messageList);
+		model.addAttribute("messageList",messageList);
+		forwardPath = "candidate-dashboard-job-alerts";
+		return forwardPath;
+	}
+	
+	// 알림 선택삭제
+	@LoginCheck
+	@RequestMapping("/alerts-remove")
+	public String user_alerts_remove(HttpServletRequest request,Long messageSeq) throws Exception {
+		String forwardPath="";
+		userService.removeMessageBySeq(messageSeq);
+		forwardPath="redirect:candidate-dashboard-job-alerts";
+		return forwardPath;
+	}
+	
+			
+	/*
+	// 지원한 목록 보기
+	@LoginCheck
+	@RequestMapping("/candidate-dashboard-applied-job")
+	public String user_applied_job(HttpServletRequest request) throws Exception{
+		String forwardPath="";
+		//request.getSession().setAttribute("sUserId", "test3@test.com");
+		String sUserId = (String)request.getSession().getAttribute("sUserId");
+		UserDto loginUser = userService.findUser(sUserId);
+ 		UserDto user = userService.findAppListById(loginUser.getId());
+		System.out.println(user);
+ 		request.setAttribute("loginUser", user);
+		forwardPath = "/candidate-dashboard-applied-job";
+		return forwardPath;
+	}
 	*/
+	@LoginCheck
+	@RequestMapping(value = "/remove-applied-job")                             //appSeq-> appDto의 id로 들어가야함
+	public String remove_applied_job(HttpServletRequest request, @RequestParam int appSeq) throws Exception{
+		//appService.deleteApp(appSeq);
+		return "redirect:candidate-dashboard-applied-job";
+	}
+	
 	
 	// my resume 이력서 작성 폼
 	
@@ -246,9 +253,37 @@ public class UserController {
 	 * 회사에 이력서 지원 하기
 	 * 이력서 지원한 회사 목록 보기
 	 */
+	//회원이 지원한 공고
+
+	
 	
 	/*
 	 * 리뷰(기업에 대한 리뷰) -- > 템플릿 페이지 만들 필요 있음
-	 * 리뷰 작성 , 삭제 , 수정 
+	 * 리뷰 작성 , 삭제 , --수정 
 	 */
+	
+	//리뷰 작성
+		//corpSeq필요 -> delete할떄 appseq처럼 input hidden corpseq필요(redirect용)
+		@RequestMapping("/review_write_action")
+		public String review_write_action(@ModelAttribute ReviewDto reviewDto, @RequestParam("corpId") String corpId, Model model,HttpServletRequest request) throws Exception{
+			request.getSession().setAttribute("sUserId", "test3@test.com");
+			String sUserId = (String)request.getSession().getAttribute("sUserId");
+			UserDto loginUser = userService.findUser(sUserId);
+			CorpDto corpDto = CorpDto.builder().corpLoginId(corpId).build();
+			reviewDto.setCorp(corpDto);
+			reviewDto.setUser(loginUser);
+			System.out.println(reviewDto);
+			request.setAttribute("loginUser", loginUser);	
+		    userService.insertReview(reviewDto);
+			String forwardPath = "redirect:corp-detail?corpId="+corpDto.getCorpLoginId();
+			return forwardPath;
+			
+		}
+		
+		@RequestMapping("/review_delete")
+		public String review_delete(@ModelAttribute ReviewDto reviewDto, HttpServletRequest request, @RequestParam Long id,@RequestParam("corpId") CorpDto corp) throws Exception{
+			userService.deleteReview(id);
+			return "redirect:corp-detail?corpId="+corp.getId();
+		}
+
 }

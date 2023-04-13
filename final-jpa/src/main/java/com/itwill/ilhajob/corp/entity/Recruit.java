@@ -1,5 +1,6 @@
 package com.itwill.ilhajob.corp.entity;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -18,7 +19,6 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import com.itwill.ilhajob.common.entity.App;
-import com.itwill.ilhajob.common.entity.BaseEntity;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -59,10 +59,10 @@ public class Recruit {
 	
 	private int rcSalary;
 	
-	private Date rcDate;
+	private LocalDateTime rcDate;
 	
 	@NonNull
-	private Date rcDeadline;
+	private LocalDateTime rcDeadline;
 	
 	@Column(columnDefinition = "NUMBER(19) DEFAULT 0")
 	private int rcReadCount;
@@ -72,8 +72,5 @@ public class Recruit {
 	@ToString.Exclude
 	private Corp corp;
 	
-	@OneToMany(mappedBy = "recruit",
-			   cascade = CascadeType.ALL)
-	private List<App> appList = new ArrayList<App>();
 }
 

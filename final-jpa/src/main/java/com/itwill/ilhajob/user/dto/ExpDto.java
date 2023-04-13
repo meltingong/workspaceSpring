@@ -1,10 +1,13 @@
 package com.itwill.ilhajob.user.dto;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 
 @Data
@@ -13,12 +16,15 @@ import lombok.ToString;
 @ToString
 public class ExpDto {
 	
-	private int expSeq;
+	private Long id;
 	private String expPosition;
 	private String expCorpName;
-	private Date expStartDate;
-	private Date expEndDate;
+	private LocalDateTime expStartDate;
+	private LocalDateTime expEndDate;
 	private String expContent;
-	private int userSeq;
+	
+	@ToString.Exclude
+	private UserDto user;
+	private Long cvId;
 	
 }

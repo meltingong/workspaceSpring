@@ -43,6 +43,4 @@ public class Product {
 	
 	private String pDiv;
 	
-	@OneToMany(mappedBy = "product")
-	private List<Orders> orderList;
 }

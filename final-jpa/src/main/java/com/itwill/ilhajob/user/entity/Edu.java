@@ -1,6 +1,6 @@
 package com.itwill.ilhajob.user.entity;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -26,39 +26,42 @@ import lombok.ToString;
 @AllArgsConstructor
 @Builder
 @Entity
-@SequenceGenerator(name = "edu_id_SEQ_gen",
-				   sequenceName = "edu_id_SEQ",
-				   allocationSize = 1)
+@SequenceGenerator(name = "edu_id_SEQ_gen", sequenceName = "edu_id_SEQ", allocationSize = 1)
 @Table(name = "edu")
 public class Edu {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "edu_id_SEQ_gen")
 	private Long id;
-	
+
 	@NonNull
 	@Column(nullable = false)
 	private String eduMajor;
-	
+
 	@NonNull
 	@Column(nullable = false)
 	private String eduName;
-	
+
 	@NonNull
 	@Column(nullable = false)
-	private Date eduStartDate;
-	
+	private LocalDateTime eduStartDate;
+
 	@NonNull
 	@Column(nullable = false)
-	private Date eduEndDate;
-	
+	private LocalDateTime eduEndDate;
+
 	private String eduScore;
-	
+
 	@Column(length = 1000)
 	private String eduContent;
-	
-	@ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinColumn(name = "user_id")
 	@ToString.Exclude
 	private User user;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "cv_id")
+	@ToString.Exclude
+	private Cv cv;
 }

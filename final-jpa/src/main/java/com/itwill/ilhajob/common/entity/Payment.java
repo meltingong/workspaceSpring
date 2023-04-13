@@ -1,5 +1,6 @@
 package com.itwill.ilhajob.common.entity;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 import javax.persistence.Entity;
@@ -40,7 +41,7 @@ public class Payment {
 	
 	private int payment_price;
 	
-	private Date payment_date;
+	private LocalDateTime payment_date;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "orders_id")

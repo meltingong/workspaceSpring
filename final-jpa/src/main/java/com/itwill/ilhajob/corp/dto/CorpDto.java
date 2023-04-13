@@ -1,20 +1,13 @@
 package com.itwill.ilhajob.corp.dto;
 
 
-import java.util.Date;
-import java.util.List;
+import java.time.LocalDateTime;
 
-import com.itwill.ilhajob.common.dto.BlogDto;
-import com.itwill.ilhajob.common.dto.OrdersDto;
-import com.itwill.ilhajob.user.dto.ReviewDto;
-
-import java.util.Date;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
 
 @Data
 @AllArgsConstructor
@@ -28,21 +21,14 @@ public class CorpDto {
 	private String corpPhone;
 	private String corpBusinessNo;
 	private String corpWebsite;
-	private Date corpEst;
+	private LocalDateTime corpEst;
 	private String corpSize;
 	private String corpSales;
 	private String corpComment;
 	private String corpWelfare;
 	private String corpAddress;
-	private char corpStatus;
 	private String job;
 	private int role;
-	
-	private OrdersDto orders;
-	private List<RecruitDto> recruitList;
-	private List<ReviewDto> reviewList;
-	private List<CorpImageDto> corpImageList;
-	private List<ManagerDto> managerList;
 	
 	/*
 	 *패쓰워드 일치여부 검사 

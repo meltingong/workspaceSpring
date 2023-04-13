@@ -32,31 +32,34 @@ import lombok.ToString;
 @RequiredArgsConstructor
 @Builder
 @Entity
-@SequenceGenerator(name = "cv_id_SEQ_gen",
-				   sequenceName = "cv_id_SEQ",
-				   allocationSize = 1)
+@SequenceGenerator(name = "cv_id_SEQ_gen", sequenceName = "cv_id_SEQ", allocationSize = 1)
 @Table(name = "cv")
 public class Cv {
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "cv_id_SEQ_gen")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "cv_id_SEQ_gen")
 	private Long id;
-	
+
 	@Column(columnDefinition = "VARCHAR2(90) DEFAULT 'my resume'")
 	private String cvName;
-	
+
 	@NonNull
 	@Column(nullable = false, length = 1000)
 	private String cvDescription;
 	
 	private String cvPortfolio;
-		
-	@ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinColumn(name = "user_id")
 	@ToString.Exclude
 	private User user;
+
+	@OneToMany(mappedBy = "cv", cascade = CascadeType.PERSIST)
+	private List<Awards> awardslist = new ArrayList<Awards>();
 	
-	@OneToMany(mappedBy = "cv",
-			   cascade = CascadeType.PERSIST)
-	private List<App> applist = new ArrayList<App>();
+	@OneToMany(mappedBy = "cv", cascade = CascadeType.PERSIST)
+	private List<Edu> edulist = new ArrayList<Edu>();
+	
+	@OneToMany(mappedBy = "cv", cascade = CascadeType.PERSIST)
+	private List<Exp> explist = new ArrayList<Exp>();
 	
 }

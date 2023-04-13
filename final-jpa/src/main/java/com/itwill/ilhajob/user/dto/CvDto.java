@@ -5,32 +5,33 @@ import java.util.List;
 import org.springframework.lang.Nullable;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
 @ToString
+@Builder
 public class CvDto {
 
-	private int cvSeq;
+	private Long id;
 	private String cvName;
 	private String cvDescription;
 	private String cvPortfolio;
-	private int userSeq;
 	private List<EduDto> eduList;
 	private List<ExpDto> expList;
 	private List<AwardsDto> awardsList;
-	
-	public CvDto(int cvSeq, String cvName, String cvDescription, String cvPortfolio, int userSeq) {
-		this.cvSeq = cvSeq;
+	@ToString.Exclude
+	private UserDto user;
+
+	public CvDto(Long id, String cvName, String cvDescription, String cvPortfolio, UserDto user) {
+		this.id = id;
 		this.cvName = cvName;
 		this.cvDescription = cvDescription;
 		this.cvPortfolio = cvPortfolio;
-		this.userSeq = userSeq;
+		this.user = user;
 	}
-	
-	
-	
 }

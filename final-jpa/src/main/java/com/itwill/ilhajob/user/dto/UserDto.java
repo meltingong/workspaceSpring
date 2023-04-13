@@ -1,5 +1,6 @@
 package com.itwill.ilhajob.user.dto;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import com.itwill.ilhajob.common.entity.App;
@@ -35,6 +36,7 @@ public class UserDto {
     private String userPassword;
     private String userName;
     private String userPhone;
+    private LocalDateTime userCreateDate;
     private String userSex;
     private String userAddress;
     private String userCareer;
@@ -43,23 +45,10 @@ public class UserDto {
     private String userLanguage;
     private String userSkills;
     private String userImage;
-    private char userStatus;
     private String snsType;
     private String snsId;
     private String job;
     private int role;
-    private List<App> appList;
-    private List<Cv> cvList;
-    private List<Exp> expList;
-    private List<Edu> eduList;
-    private List<Awards> awardsList;
-    private List<Review> reviewList;
-    private List<CorpBookmark> corpBookmarkList;
-    private List<Blog> blogList;
-    private List<BlogComment> blogCommentList;
-    private List<Message> messageList;
-    private List<Payment> paymentList;
-	
 }
 
 

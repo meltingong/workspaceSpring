@@ -14,7 +14,7 @@ import com.itwill.ilhajob.user.repository.ReviewRepository;
 @Service
 @Transactional
 public class ReviewServiceImpl implements ReviewService {
-	
+	/*
 	private final ReviewRepository reviewRepository;
 	private final ModelMapper modelMapper;
 
@@ -22,16 +22,18 @@ public class ReviewServiceImpl implements ReviewService {
 		this.reviewRepository = reviewRepository;
 		this.modelMapper = modelMapper;
 	}
-	
+	*/
 	//insert review
+	/*
 	@Override
 	public ReviewDto insertReview(ReviewDto reviewDto) throws Exception {
 		Review review = modelMapper.map(reviewDto, Review.class);
 		review = reviewRepository.save(review);
 		return modelMapper.map(review, ReviewDto.class);
-	}
+	} */
 	
 	//update review
+	/*
 	@Override
 	public ReviewDto updateReview(ReviewDto reviewDto) throws Exception {
 		Review review = new Review();
@@ -41,8 +43,6 @@ public class ReviewServiceImpl implements ReviewService {
 		reviewDto.setReviewGrade(review.getReviewGrade());
 		modelMapper.map(reviewDto, review);
 		return modelMapper.map(review, ReviewDto.class);
-		
-		
 	}
 	
 	//delete review
@@ -51,5 +51,5 @@ public class ReviewServiceImpl implements ReviewService {
 		reviewRepository.deleteById(id);
 	}
 	
-	
+	*/
 }

@@ -1,5 +1,6 @@
 package com.itwill.ilhajob.common.entity;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -37,11 +38,13 @@ public class Orders {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "orders_id_SEQ_gen")
 	private Long id;
+		
+	private LocalDateTime orderStartDate;
 	
-	private Date orderEndDate;
+	private LocalDateTime orderEndDate;
 	//상품구매 목록 확인시 order_valid로 만료 표시
 	
-	private char orderValid;
+	private int orderValid;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "product_id")
@@ -58,6 +61,4 @@ public class Orders {
 	@ToString.Exclude
 	private User user;
 	
-	@OneToMany(mappedBy = "orders")
-	private List<Payment> paymentList = new ArrayList<Payment>();
 }

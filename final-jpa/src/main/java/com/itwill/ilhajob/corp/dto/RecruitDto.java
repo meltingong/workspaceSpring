@@ -1,5 +1,6 @@
 package com.itwill.ilhajob.corp.dto;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 import lombok.AllArgsConstructor;
@@ -27,16 +28,15 @@ public class RecruitDto {
 	CORP_ID          NOT NULL VARCHAR2(30)  
 	*/
 	
-	private int rcSeq;
+	private long id;
 	private String rcTitle; 
 	private String rcPosition;
 	private String rcContent;
 	private String rcQualification;
 	private int rcSalary;
-	private Date rcDate;
-	private Date rcDeadline;
+	private LocalDateTime rcDate;
+	private LocalDateTime rcDeadline;
 	private int rcReadCount;
-	private String corpId;
 	@ToString.Exclude
 	private CorpDto corp;
 	

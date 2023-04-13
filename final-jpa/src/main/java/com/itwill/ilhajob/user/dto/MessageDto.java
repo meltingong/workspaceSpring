@@ -1,11 +1,15 @@
 package com.itwill.ilhajob.user.dto;
 
+import java.time.LocalDateTime;
 import java.util.Date;
+
+import com.itwill.ilhajob.common.dto.AppDto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 
 /*
@@ -27,7 +31,19 @@ public class MessageDto {
 	private Long id;
 	private String messageTitle;
 	private String messageContents;
-	private Date messageDate;
-	private int appSeq;
-	private int userSeq;
+	private LocalDateTime messageDate;
+	
+	@ToString.Exclude
+	private AppDto app;
+	@ToString.Exclude
+	private UserDto user;
+	public MessageDto(Long id, String messageTitle, String messageContents, LocalDateTime messageDate) {
+		this.id = id;
+		this.messageTitle = messageTitle;
+		this.messageContents = messageContents;
+		this.messageDate = messageDate;
+	}
+	
+	
+	
 }

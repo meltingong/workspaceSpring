@@ -1,5 +1,6 @@
 package com.itwill.ilhajob.common.dto;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 import lombok.AllArgsConstructor;
@@ -24,9 +25,9 @@ CREATE TABLE blog_comment(
 @ToString
 @Builder
 public class BlogCommentDto {
-	private int commentSeq;
+	private long id;
 	private String commentContent;
-	private Date commentDate;
+	private LocalDateTime commentDate;
 	private int userSeq;
 	private int blogSeq;
 }

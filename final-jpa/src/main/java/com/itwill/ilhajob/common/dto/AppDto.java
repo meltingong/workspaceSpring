@@ -1,10 +1,14 @@
 package com.itwill.ilhajob.common.dto;
 
 
+import java.time.LocalDateTime;
 import java.util.List;
 
+import com.itwill.ilhajob.corp.dto.CorpDto;
 import com.itwill.ilhajob.corp.dto.RecruitDto;
 import com.itwill.ilhajob.user.dto.CvDto;
+import com.itwill.ilhajob.user.dto.UserDto;
+import com.itwill.ilhajob.user.entity.Message;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -20,12 +24,11 @@ import lombok.ToString;
 @Builder
 public class AppDto {
 	
-	private int app_seq;
-	private char app_status;
-	
-	private RecruitDto rc;
+	private long id;
+	private int appStatus;
+	private LocalDateTime appCreateDate;
+	@ToString.Exclude
+	private RecruitDto recruit;
+	@ToString.Exclude
 	private CvDto cv;
-	
-	
-
 }

@@ -8,5 +8,5 @@ public interface AppService {
 	
 	void deleteApp(Long id);
 	
-	Long findAppCountByCorpId(String corpLoginId);
+	Long findAppCountByCorpId(long id);
 }

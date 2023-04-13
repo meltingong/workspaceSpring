@@ -9,12 +9,12 @@ import com.itwill.ilhajob.user.entity.Review;
 public interface ReviewService {
 	
 	//insert review
-	ReviewDto insertReview(ReviewDto reviewDto) throws Exception;
+	//ReviewDto insertReview(ReviewDto reviewDto) throws Exception;
 	
 	//update review
-	ReviewDto updateReview(ReviewDto reviewDto) throws Exception;
+	//ReviewDto updateReview(ReviewDto reviewDto) throws Exception;
 	
 	//delete review
-	void deleteReview(Long id) throws Exception;
+	//void deleteReview(Long id) throws Exception;
 	
 }

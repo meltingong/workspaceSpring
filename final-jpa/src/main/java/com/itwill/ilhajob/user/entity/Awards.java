@@ -26,30 +26,34 @@ import lombok.ToString;
 @AllArgsConstructor
 @Builder
 @Entity
-@SequenceGenerator(name = "awards_id_SEQ_gen",
-				   sequenceName = "awards_id_SEQ",
-				   allocationSize = 1)
+@SequenceGenerator(name = "awards_id_SEQ_gen", sequenceName = "awards_id_SEQ", allocationSize = 1)
 @Table(name = "awards")
 public class Awards {
-	
+
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE ,generator = "awards_id_SEQ_gen")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "awards_id_SEQ_gen")
 	private Long id;
-	
+
 	@NonNull
 	@Column(nullable = false)
 	private String awardsName;
-	
+
 	@NonNull
 	@Column(nullable = false)
 	private LocalDateTime awardsDate;
-	
+
 	@Column(length = 1000)
 	private String awardsContent;
-	
-	@ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinColumn(name = "user_id")
 	@ToString.Exclude
 	private User user;
-
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "cv_id")
+	@ToString.Exclude
+	private Cv cv;
+	
+	
 }

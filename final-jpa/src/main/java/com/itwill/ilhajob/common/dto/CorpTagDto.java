@@ -13,6 +13,7 @@ import lombok.ToString;
 @ToString
 @Builder
 public class CorpTagDto {
+	private long id;
 	private String corpId;
 	private int tagId;
 }

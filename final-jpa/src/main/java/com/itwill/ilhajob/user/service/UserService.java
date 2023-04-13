@@ -3,10 +3,14 @@ package com.itwill.ilhajob.user.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
+import com.itwill.ilhajob.user.dto.MessageDto;
+import com.itwill.ilhajob.user.dto.ReviewDto;
 import com.itwill.ilhajob.user.dto.UserDto;
 
 public interface UserService {
-
+	
 	/*
 	 * 회원가입
 	 */
@@ -25,7 +29,7 @@ public interface UserService {
 	/*
 	 * 회원로그아웃
 	 */
-	
+
 	/*
 	 * 회원상세보기
 	 */
@@ -45,10 +49,40 @@ public interface UserService {
 	 * 아이디중복체크
 	 */
 	boolean isDuplicateEmail(String userEmail) throws Exception;
-	
 	/*
 	 *  회원의 지원리스트
 	 */
-	UserDto findAppListById(Long id) throws Exception;
+	//UserDto findAppListById(Long id) throws Exception;
 	
+	/*
+	 * 유저 알림 list 
+	 */
+	List<MessageDto> findMessageList(Long messageId);
+	
+	/*
+	 * 유저 알림 선택삭제
+	 */
+	void removeMessageBySeq(Long messageId);
+	
+	//리뷰 select는 Corp에서 담당
+	/*
+	 * 리뷰 작성하기
+	 */
+
+	ReviewDto insertReview(ReviewDto reviewDto) throws Exception;
+	
+	/*
+	 * 
+	 * 리뷰 수정하기
+	 */
+	ReviewDto updateReview(ReviewDto reviewDto) throws Exception;
+	
+	/*
+	 * 리뷰 삭제하기
+	 */
+	void deleteReview(Long reviewId) throws Exception;
+	
+
+	
+
 }
