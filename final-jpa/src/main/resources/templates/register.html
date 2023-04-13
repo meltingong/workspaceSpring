@@ -2,6 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <script type="text/javascript">
 	function join(){
+		
 		var email = f.userEmail.value
 		var exptext = /^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/;
 		
@@ -9,7 +10,7 @@
 		
 				//이메일 형식이 알파벳+숫자@알파벳+숫자.알파벳+숫자 형식이 아닐경우			
 			
-				alert("이메일형식이 올바르지 않습니다.");
+				$('p').text("이메일 형식이 올바르지 않습니다.");
 			
 				f.userEmail.focus();
 			
@@ -92,8 +93,9 @@
 
               <div class="form-group">
                 <label>Email Address</label>
-                <input th:value="${fuser?.userEmail}" type="text" name="userEmail" placeholder="email@email.com" required><br>
-                <font color="red" th:text="${msg}"></font>
+                <input th:value="${fuser?.userEmail}" type="text" name="userEmail" placeholder="Email" required><br>
+               	<p></p>
+              		<font color="red" th:text="${msg}"></font>
               </div>
 
               <div class="form-group">

@@ -1,5 +1,7 @@
 package com.itwill.ilhajob.common.service;
 
+import java.util.List;
+
 import com.itwill.ilhajob.common.dto.AppDto;
 
 public interface AppService {
@@ -8,5 +10,6 @@ public interface AppService {
 	
 	void deleteApp(Long id);
 	
-	Long findAppCountByCorpId(long id);
+	List<AppDto> findAllByRecruitId(long id);
+	List<AppDto> findAllByCvId(long id);
 }

@@ -51,8 +51,8 @@ public class UserServiceImpl implements UserService{
         if (found.isPresent()) {
         	//아이디중복
 			ExistedUserException exception=
-					new ExistedUserException(userDto.getUserEmail()+" 는 이미 존재하는아이디입니다.");
-			exception.setData(userDto);
+					new ExistedUserException("이미 존재하는아이디입니다.");
+			//exception.setData(userDto);
 			throw exception;
         }
         User user = modelMapper.map(userDto, User.class);
@@ -64,7 +64,7 @@ public class UserServiceImpl implements UserService{
 	@Override
 	public UserDto login(String userEmail, String userPassword) throws Exception {
 		User user = userRepository.findByUserEmail(userEmail).orElseThrow(() 
-				-> new UserNotFoundException(userEmail+"와 일치하는 email이 존재하지 않습니다."));
+				-> new UserNotFoundException("email이 존재하지 않습니다."));
         if (!user.getUserPassword().equals(userPassword)) {
         	//패쓰워드불일치
 			PasswordMismatchException exception=
@@ -117,6 +117,12 @@ public class UserServiceImpl implements UserService{
 	
 	@Override
 	public List<MessageDto> findMessageList(Long userId) {
+		List<Message> findMsgList = messageRepository.findByUserId(userId);
+		List<MessageDto> msgDtoList = findMsgList.stream()
+				.map(message -> modelMapper.map(message, MessageDto.class))
+				.collect(Collectors.toList());
+		return msgDtoList;
+		/*
 		List<Message> messageList = messageRepository.findAll();
 		List<Message> findMessageList = new ArrayList<Message>();
 		for(int i = 0; i < messageList.size(); i++) {
@@ -126,14 +132,9 @@ public class UserServiceImpl implements UserService{
 		}
 		System.out.println(findMessageList);
 		List<MessageDto> messageDtoList = findMessageList.stream().map(message-> new MessageDto(message.getId(),message.getMessageTitle(),message.getMessageContents(),message.getMessageDate())).collect(Collectors.toList());
-		
-//		Optional<User> optionalUser = userRepository.findById(userId);
-//		List<Message> messageList = optionalUser.get().getMessageList();
-//		List<MessageDto> messageDtoList = messageList.stream()
-//													.map(message-> modelMapper.map(messageList, MessageDto.class))
-//													.collect(Collectors.toList());
-//		return messageDtoList;
-		return messageDtoList;
+		*/
+
+		//return messageDtoList;
 	}
 
 	@Override

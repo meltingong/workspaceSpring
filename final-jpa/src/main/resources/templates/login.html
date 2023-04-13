@@ -95,10 +95,10 @@
           <div class="form-inner">
             <h3>Login to Superio</h3>
             <!--Login Form-->
-            <form name="f" th:object="${fuser}" method="post" action="add-parcel.html">
+            <form name="f" th:object="${fuser}" method="post">
               <div class="form-group">
                 <label>Username</label>
-                <input type="text" th:value="${fuser?.userEmail}" name="userEmail" placeholder="Username" required><br>
+                <input type="text" th:value="${fuser?.userEmail}" name="userEmail" placeholder="UserEmail" required><br>
 	                <font color="red" th:text="${msg1}"></font>
               </div>
 

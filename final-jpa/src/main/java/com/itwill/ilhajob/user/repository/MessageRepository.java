@@ -13,5 +13,5 @@ public interface MessageRepository extends JpaRepository<Message, Long> {
 	/*
 	 * 유저 알림 list 
 	 */
-	
+	List<Message> findByUserId(Long id);
 }

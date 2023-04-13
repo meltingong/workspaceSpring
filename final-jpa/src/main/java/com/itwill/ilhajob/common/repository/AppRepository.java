@@ -14,13 +14,10 @@ public interface AppRepository extends JpaRepository<App, Long> {
 /*	
 	Long countByCorpId(long id);
 	Long countByCorp(Corp corp);
-	
+*/
+	Long countByRecruitId(long id);
 	//
 	List<App> findAppsByRecruitId(long id);
 	List<App> findAppsByCvId(long id);
-	//
-	List<App> findAppsByUserId(long id);
-//	List<App> findAppsByUserEmail(String userEmail);
-	List<App> findAppsByCorpId(long id);
-//	List<App> findAppsByCorpLoginId(String corpLoginId);*/
+	
 }
