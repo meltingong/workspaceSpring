@@ -1,5 +1,29 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+<script type="text/javascript">
+	function beforeAscList(a,b){
+		var LocalDateTimeA=new LocalDateTime(a['']);
+	}
+	
+	
+	function ascList(){
+		
+	}
+	
+	
+	function beforeDescList(){
+			
+		}
+	
+	function descList(){
+		
+	}
+
+
+
+</script>
+
+
 
 <head>
   <meta charset="utf-8">
@@ -62,8 +86,8 @@
                   <div class="chosen-outer">
                     <!--Tabs Box-->
                     <select class="chosen-select">
-                      <option>Last 6 Months</option>
-                      <option>Last 12 Months</option>
+                      <option onclick="ascList()">날짜 오름차순</option>
+                      <option onclick="descList()">날짜 내림차순</option>
                       <option>Last 16 Months</option>
                       <option>Last 24 Months</option>
                       <option>Last 5 year</option>
@@ -85,18 +109,20 @@
                       </thead>
 
                       <tbody>
-                        <tr th:each="recruit:${corp.recruitList}">
-                          <td>
-                            <a th:href="@{recruit-detail(rcSeq=${recruit.rcSeq})}" href="#"><h6 th:text="${recruit.rcTitle}">Senior Full Stack Engineer, Creator Success</h6></a>
-                            <span th:text="${corp.corpAddress}" class="info"><i class="icon flaticon-map-locator"></i> London, UK</span>
+                        <tr th:each="recruit:${recruitList}">
+                        <!-- form자리 버튼 포스트로 넘길용도 -->
+                          <td >
+                            <a th:text="${recruit.rcTitle}" th:href="@{recruit-detail(id=${recruit.id})}" href="#"><h6 >Senior Full Stack Engineer, Creator Success</h6></a>
+                            <!-- span class="info"><i class="icon flaticon-map-locator"></i> London, UK</span-->
                           </td>
-                          <td class="applied"><a href="#">3+ Applied</a></td>
+                          <td class="applied"><a th:href="@{dashboard-applicants(id=${recruit.id})}" href="#">지원자 이력서 보기</a></td>
                           <td>
 						      <ul>
-						        <li th:text="|created:${#dates.format(recruit.rcDate,'yyyy-MM-dd')}|"></li>
-						        <li th:text="|expired:${#dates.format(recruit.rcDeadline,'yyyy-MM-dd')}|"> </li>
+						        <li th:text="|Created:${recruit.rcDate}|"></li>
+						        <li th:text="|Expired:${recruit.rcDeadline}|"></li>
 						      </ul>
 						    </td>
+                         
                           <td class="status">Active</td>
                           <td>
                             <div class="option-box">
@@ -106,6 +132,7 @@
                               </ul>
                             </div>
                           </td>
+            
                         </tr>
                       </tbody>
                     </table>

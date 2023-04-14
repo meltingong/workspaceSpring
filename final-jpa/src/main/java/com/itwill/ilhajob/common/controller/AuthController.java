@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.itwill.ilhajob.common.dto.LoginRequestDto;
@@ -43,9 +44,9 @@ public class AuthController {
 				session.setAttribute("sUserId", loginRequest.getEmail());
 				return ResponseEntity.ok().body("{\"success\": true, \"message\": \"로그인 성공\"}");
 			}catch (UserNotFoundException e) {
-				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(e.getMessage());
+				return ResponseEntity.status(ResponseStatusCode.NOT_FOUND_USER).body(e.getMessage());
 			}catch (PasswordMismatchException e) {
-				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(e.getMessage());
+				return ResponseEntity.status(ResponseStatusCode.PASSWORD_MISMATCH_USER).body(e.getMessage());
 			}
 	    }else if(loginRequest.getSeparate().equals("corp")) {
 	    	String id = loginRequest.getId();
@@ -56,9 +57,9 @@ public class AuthController {
 				session.setAttribute("sCorpId", id);
 				return ResponseEntity.ok().body("{\"success\": true, \"message\": \"로그인 성공\"}");
 			} catch (CorpNotFoundException e) {
-				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(e.getMessage());
+				return ResponseEntity.status(ResponseStatusCode.NOT_FOUND_CORP).body(e.getMessage());
 			} catch (PasswordMismatchException e) {
-				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(e.getMessage());
+				return ResponseEntity.status(ResponseStatusCode.PASSWORD_MISMATCH_CORP).body(e.getMessage());
 			}
 	    }
 	    return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("{\"success\": false, \"message\": \"잘못된 형식입니다.\", \"location\": \"/final-project-team1-ilhajob\"}");

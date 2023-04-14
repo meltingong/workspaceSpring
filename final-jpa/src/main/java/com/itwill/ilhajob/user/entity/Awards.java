@@ -49,11 +49,4 @@ public class Awards {
 	@JoinColumn(name = "user_id")
 	@ToString.Exclude
 	private User user;
-	
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "cv_id")
-	@ToString.Exclude
-	private Cv cv;
-	
-	
 }

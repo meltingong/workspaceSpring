@@ -20,6 +20,20 @@
   <!--[if lt IE 9]><script src="js/respond.js"></script><![endif]-->
 </head>
 
+	<script>
+	 $(document).on('click','#search-button',function(){
+				var query = $("#query").val();
+				$.ajax({
+					type: "POST",
+					url: "/search",
+					data: {query: query},
+					success: function(resultMap) {
+						var corpList = resultMap.corpList;
+						console.log(corpList)
+					}
+				});
+			});
+	</script>
 <body>
 
   <div class="page-wrapper">
@@ -46,7 +60,7 @@
               <!-- Form Group -->
               <div class="form-group col-lg-5 col-md-12 col-sm-12">
                 <span class="icon flaticon-search-1"></span>
-                <input type="text" name="field_name" placeholder="회사명">
+                <input type="text" name="query" id="query" placeholder="회사명">
               </div>
 
               <!-- Form Group -->
@@ -76,7 +90,7 @@
 			  
               <!-- Form Group -->
               <div class="form-group col-lg-2 col-md-12 col-sm-12 text-right">
-                <button type="submit" class="theme-btn btn-style-one">기업 찾기</button>
+                <button type="button" id = "search-button" class="theme-btn btn-style-one">기업 찾기</button>
               </div>
             </div>
           </form>
@@ -156,18 +170,18 @@
                     <button class="bookmark-btn"><span class="flaticon-bookmark"></span></button>
                     <span class="featured">Featured</span>
                     <span class="company-logo"><img src="images/resource/company-logo/6-1.png" alt=""></span>
-                    <h4><a th:href="@{/corp-detail(corpId=${corp.corpLoginId})}" th:text="${corp.corpName}"></a></h4>
+                    <h4><a th:href="@{/corp-detail(corpLoginId=${corp.corpLoginId})}" th:text="${corp.corpName}"></a></h4>
                     <ul class="job-info">
                       <li><span class="icon flaticon-map-locator" ></span>
                       	  <span th:text="${corp.corpAddress}"><br/>
                       	  </span>
                       </li>
                       <li><span class="icon flaticon-briefcase" ></span>
-                     	  <span th:text="${corp.job}">
+                     	  <span th:text="${corp.corpWelfare}">
                      	  </span>
                       </li>
                     </ul>
-                    <div class="job-type">Open Jobs – 2</div>
+                    <div class="job-type" th:text="${corp.job}">Open Jobs – 2</div>
                   </div>
                 </div>
               </div>

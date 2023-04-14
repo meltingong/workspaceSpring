@@ -79,7 +79,6 @@ public class CorpServiceImpl implements CorpService{
 	}
 
 	@Override
-	@Transactional
 	public CorpDto findCorp(String corpLoginId) throws Exception {
 		Optional<Corp> optionalCorp = corpRepository.findByCorpLoginId(corpLoginId);
 		Corp findCorp = optionalCorp.get();
@@ -93,7 +92,7 @@ public class CorpServiceImpl implements CorpService{
 		corpDto.setId(id);
 		corpDto.setCorpLoginId(corp.getCorpLoginId());
 		corpDto.setCorpPassword(corp.getCorpPassword());
-		corpDto.setCorpEst((corpDto.getCorpEst()));
+		
 		modelMapper.map(corpDto, corp);
 		corp = corpRepository.save(corp);
 		return modelMapper.map(corp, CorpDto.class);
@@ -127,26 +126,12 @@ public class CorpServiceImpl implements CorpService{
 	//회사의 리뷰목록 가져오기
 	@Override
 	public List<ReviewDto> findReviewList(Long corpId) {
-				
-				Optional<Review> OptionalReview = reviewRepository.findByCorpId(corpId);
-				List<Review> reviewList = new ArrayList<>();
-			
-				
-				
-				
-				System.out.println(reviewList);
-				List<ReviewDto> reviewDtoList = reviewList.stream()
-						.map(review-> new ReviewDto(review.getId(),review.getReviewGrade(),review.getReviewTitle(),review.getReviewContent()))
-						.collect(Collectors.toList());
-			return reviewDtoList;	
-//				return reviewDtoList;
-//		Optional<Corp> optionalCorp = corpRepository.findById(corpId);
-//		List<Review> reviewList = optionalCorp.get().getReviewList();
-//		List<ReviewDto> reviewDtoList = reviewList.stream()
-//				.map(review-> new ReviewDto(review.getId(),review.getReviewGrade(),review.getReviewTitle(),review.getReviewContent()))
-//				.collect(Collectors.toList());
-//		return reviewDtoList;
-		//return null;
+			List<Review> findReviewList = reviewRepository.findByCorpId(corpId);
+			List<ReviewDto> ReviewDtoList = findReviewList.stream()
+					.map(review -> modelMapper.map(review, ReviewDto.class))
+					.collect(Collectors.toList());
+			return ReviewDtoList;	
+
 	}
 	
 	

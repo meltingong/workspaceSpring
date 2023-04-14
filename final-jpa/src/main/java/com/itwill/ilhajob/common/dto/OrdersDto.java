@@ -18,15 +18,15 @@ import lombok.ToString;
 @ToString
 @Builder
 public class OrdersDto {
-	private int orderNo;
+	private Long id;
 	private LocalDateTime orderStartDate;
 	private LocalDateTime orderEndDate;
 	//상품구매 목록 확인시 order_valid로 만료 표시
 	private int orderValid;
 	
-	private ProductDto product;
-	private CorpDto corp;
-	private UserDto user;
+	private Long productId;
+	private Long corpId;
+	private Long userId;
 	
 	
 }

@@ -18,9 +18,14 @@ public interface RecruitService {
 	
 	List<RecruitDto> findRecruitAll() throws Exception;
 	
+	List<RecruitDto> findAllByCorpId(long id) throws Exception;
+	
 	//공고 상세
 	RecruitDto findRecruit(long id) throws Exception;
 	
+	//corpId(Long id)로 현재활성화중인 공고갯수 불러오기
+	Long countByCorpId(Long id) throws Exception;
+		
 	//마감 지났는지 여부 확인
 	//boolean isDeadLine(Date rcDeadline) throws Exception;
 	
@@ -29,4 +34,7 @@ public interface RecruitService {
 	
 	//마감일 상태변화
 	String getStatus(Date rcDeadLine)throws Exception;
+	
+	//corpId로 recruitList 불러오기
+	//List<RecruitDto> recruitList(Long corpId)throws Exception; 
 }

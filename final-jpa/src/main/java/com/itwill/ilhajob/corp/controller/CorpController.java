@@ -11,11 +11,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.hibernate.type.LocalDateType;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -27,15 +29,26 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.itwill.ilhajob.common.dto.AppDto;
 import com.itwill.ilhajob.common.service.AppService;
 import com.itwill.ilhajob.corp.dto.CorpDto;
 import com.itwill.ilhajob.corp.dto.CorpImageDto;
+import com.itwill.ilhajob.corp.dto.ManagerDto;
+import com.itwill.ilhajob.corp.dto.RecruitDto;
 import com.itwill.ilhajob.corp.entity.Corp;
 import com.itwill.ilhajob.corp.entity.CorpImage;
+import com.itwill.ilhajob.corp.entity.Manager;
 import com.itwill.ilhajob.corp.exception.CorpNotFoundException;
+import com.itwill.ilhajob.corp.repository.ManagerRepository;
 import com.itwill.ilhajob.corp.service.CorpImageService;
 import com.itwill.ilhajob.corp.service.CorpService;
+import com.itwill.ilhajob.corp.service.ManagerService;
+import com.itwill.ilhajob.corp.service.RecruitService;
+import com.itwill.ilhajob.user.controller.LoginCheck;
+import com.itwill.ilhajob.user.dto.ReviewDto;
+import com.itwill.ilhajob.user.dto.UserDto;
 import com.itwill.ilhajob.user.exception.PasswordMismatchException;
+import com.itwill.ilhajob.user.service.UserService;
 
 
 @Controller
@@ -45,6 +58,19 @@ public class CorpController {
 	private CorpService corpService;
 	@Autowired
 	private CorpImageService corpImageService;
+	@Autowired
+	private RecruitService recruitService;
+
+	@Autowired
+	private ManagerService managerService;
+	
+	@Autowired
+	private UserService userService;
+
+	@Autowired
+	private AppService appService;
+
+	
 //	@RequestMapping("/index")
 //	public String main() {
 //		String forward_path = "index";
@@ -57,16 +83,54 @@ public class CorpController {
 		List<CorpDto> corpList = corpService.findCorpAll();
 		model.addAttribute("corpList", corpList);
 		String forward_path = "corp-list";
-
+			
 		return forward_path;
 
 	}
-
+	
 	@RequestMapping("corp-detail")
-	public String corp_detail_view(@RequestParam("corpLoginId") String corpLoginId,Model model) throws Exception {
-		CorpDto corpDto=corpService.findCorp(corpLoginId);
-		System.out.println(corpDto);
-		model.addAttribute("corp", corpDto);
+	public String corp_detail_view(@RequestParam("corpLoginId") String corpLoginId, HttpServletRequest request,Model model) throws Exception {
+		String sUserId = (String)request.getSession().getAttribute("sUserId");
+		if(sUserId ==null) {
+			CorpDto corpDto=corpService.findCorp(corpLoginId);
+			model.addAttribute("corp", corpDto);
+			
+			//공고 목록 뿌리기
+			List<RecruitDto> recruitList=recruitService.findRecruitAll();
+			List<RecruitDto> recruitList1=new ArrayList<>();
+			for(RecruitDto recruitDto: recruitList) {
+				if(recruitDto.getCorp().getId()==corpDto.getId()) {
+					recruitList1.add(recruitDto);
+				}
+			}
+			model.addAttribute("recruitList",recruitList1);
+			//리뷰 목록 뿌리기
+			
+			List<ReviewDto> reviewList = corpService.findReviewList(corpDto.getId());
+			model.addAttribute("reviewList",reviewList);
+		}else {
+			CorpDto corpDto=corpService.findCorp(corpLoginId);
+			model.addAttribute("corp", corpDto);
+			
+			//공고 목록 뿌리기
+			List<RecruitDto> recruitList=recruitService.findRecruitAll();
+			List<RecruitDto> recruitList1=new ArrayList<>();
+			for(RecruitDto recruitDto: recruitList) {
+				if(recruitDto.getCorp().getId()==corpDto.getId()) {
+					recruitList1.add(recruitDto);
+				}
+			}
+			model.addAttribute("recruitList",recruitList1);
+			//String sUserId = (String)request.getSession().getAttribute("sUserId");
+			UserDto loginUser = userService.findUser(sUserId);
+			request.setAttribute("loginUser", loginUser);
+			
+			//리뷰 목록 뿌리기
+			
+			List<ReviewDto> reviewList = corpService.findReviewList(corpDto.getId());
+			model.addAttribute("reviewList",reviewList);
+		}
+		
 		return "corp-detail";
 
 	}
@@ -144,19 +208,21 @@ public class CorpController {
 
 	@PostMapping("/corp-update-action")
 	public String corp_update_action(@ModelAttribute("corp") CorpDto corpDto,
-			@RequestParam("corpEst") String corpEst, HttpServletRequest request)throws Exception {
+			 HttpServletRequest request)throws Exception {
 		Long id = corpDto.getId();
-		System.out.println(corpEst);
+		System.out.println(corpDto);
 		corpService.update(id, corpDto);
-		request.setAttribute("corLoginId", corpDto.getCorpLoginId());
+		request.setAttribute("corpLoginId", corpDto.getCorpLoginId());
 		return "corp-detail";
 	}
 
 	@RequestMapping("/dashboard-manage-job")
-	public String corp_dashboard_manage_job(HttpServletRequest request, Model model) throws Exception {
+	public String corp_dashboard_manage_job(HttpServletRequest request,Model model) throws Exception {
+		//회사의 작성 공고 띄우기
 		String sCorpId = (String) request.getSession().getAttribute("sCorpId");
-		CorpDto corpDto = corpService.findCorp(sCorpId);
-		model.addAttribute("corp", corpDto);
+		CorpDto corpDto=corpService.findCorp(sCorpId);
+		List<RecruitDto> recruitList=recruitService.findAllByCorpId(corpDto.getId());
+		model.addAttribute("recruitList",recruitList);
 		
 		// 지원자 숫자 보여주기->일단 보류
 		//List<Integer> countList = new ArrayList<>();
@@ -164,14 +230,39 @@ public class CorpController {
 		//System.out.println(appCount);
 		//model.addAttribute("appCount", appCount);
 		
-		//마감,진행 status도 일단 보류
+		//공고 마감,진행 여부 보여주는 status도 일단 보류
 
 		return "dashboard-manage-job";
 	}
 	
+	//매니저리스트
+	
+	@RequestMapping("/dashboard-manager-list")
+	public String corp_dashboard_manager_list(HttpServletRequest request,Model model) throws Exception{
+		String sCorpId = (String) request.getSession().getAttribute("sCorpId");
+		CorpDto corpDto=corpService.findCorp(sCorpId);
+		List<ManagerDto> managerList = managerService.findManagerByCorpID(corpDto.getId());
+		System.out.println(managerList);
+		model.addAttribute("managerList",managerList);
+		
+		return "dashboard-manager-list";
+	}
+	
 	//지원자 보기
 	@RequestMapping("/dashboard-applicants")
-	public String corp_dashboard_applicants() {
+	public String corp_dashboard_applicants(@RequestParam("id")int id, Model model) throws Exception {
+		//지원자 이력서 리스트 불러오기
+		List<AppDto> appList=appService.findAllByRecruitId(id);
+		model.addAttribute("appList",appList);
+		
+		//이력서의 회원 정보 가져오기
+		List<AppDto> userList=appService.findAllByUserId(id);
+		model.addAttribute("userList",userList);
+		
+		//해당 공고 디테일 뿌리기
+		RecruitDto recruit=recruitService.findRecruit(id);
+		model.addAttribute("recruit", recruit);
+		
 		return "dashboard-applicants";
 	}
 
@@ -233,10 +324,8 @@ public class CorpController {
         }
     }
     
+    
+    
 }
-//	@ExceptionHandler(Exception.class)
-//	public String corp_exception_handler(Exception e) {
-//		System.out.println("에러..");
-//		return "shop-checkout";
-//	}
+
 

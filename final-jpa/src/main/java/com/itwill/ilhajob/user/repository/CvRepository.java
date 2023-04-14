@@ -10,5 +10,5 @@ import com.itwill.ilhajob.user.entity.Cv;
 
 @Repository
 public interface CvRepository extends JpaRepository<Cv, Long> {
-	List<CvDto> findCvByUser(Long userId);
+	List<Cv> findByUserId(Long userId);
 }

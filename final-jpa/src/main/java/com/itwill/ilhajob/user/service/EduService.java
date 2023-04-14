@@ -2,12 +2,16 @@ package com.itwill.ilhajob.user.service;
 
 import java.util.List;
 
+import com.itwill.ilhajob.user.dto.EduDto;
 
 public interface EduService {
-//	int insertEdu(Edu edu);
-//	List<Edu> selectEduByUserSeq(int userSeq);
-//	List<Edu> selectAllEdu();
-//	int updateEdu(Edu edu);
-//    int deleteEduByEduSeq(int eduSeq);
-//    int deleteAllEdu(int userSeq);
+	EduDto createEdu(EduDto eduDto);
+
+	EduDto updateEdu(Long id, EduDto eduDto);
+
+	void deleteEdu(Long id);
+
+	List<EduDto> findEduListByUserId(Long userId);
+
+	List<EduDto> findAll();
 }

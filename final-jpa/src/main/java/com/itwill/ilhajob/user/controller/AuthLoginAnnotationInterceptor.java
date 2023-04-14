@@ -22,7 +22,6 @@ import org.springframework.web.servlet.HandlerInterceptor;
 
 public class AuthLoginAnnotationInterceptor implements HandlerInterceptor {
 	public AuthLoginAnnotationInterceptor() {
-		System.out.println("### AuthLoginAnnotationInterceptor()생성자");
 	}
 
 	// preHandle() : 컨트롤러보다 먼저 수행되는 메서드
@@ -31,8 +30,6 @@ public class AuthLoginAnnotationInterceptor implements HandlerInterceptor {
 			HttpServletResponse response, 
 			Object handler)
 			throws Exception {
-		System.out.println("### AuthLoginAnnotationInterceptor.preHandle()메써드");
-		
 		if (handler instanceof HandlerMethod == false) {
 			
 			return true;
@@ -45,10 +42,8 @@ public class AuthLoginAnnotationInterceptor implements HandlerInterceptor {
 		LoginCheck loginCheck = handlerMethod.getMethodAnnotation(LoginCheck.class);
 		
 		if (loginCheck == null) {
-			System.out.println("### AuthLoginAnnotationInterceptor.preHandle()메써드 @LoginCheck 없는경우");
 			return true;
 		}
-		System.out.println("### AuthLoginAnnotationInterceptor.preHandle()메써드 @LoginCheck있 는경우");
 		HttpSession session = request.getSession();
 		String sUserId = (String) session.getAttribute("sUserId");
 		if (sUserId == null) {

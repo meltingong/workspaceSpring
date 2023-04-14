@@ -1,11 +1,40 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <script type="text/javascript">
-	function modifyAction(){
-		document.f.action = "corp-update-action";
-		document.method='POST';
-		document.f.submit(); 
-	}
+//회사정보 수정(LocalDate 오류)
+function update(){
+    document.f.action = "corp-update-action";
+    document.method="POST"
+    document.f.submit();
+ }
+ //이미지 업로드(업로드 실패..)
+function uploadImage() {
+    var fileInput = document.getElementById('upload');
+    var file = fileInput.files[0];
+    var formData = new FormData();
+    formData.append('file', file);
+	console.log("파일",file);
+    
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', '/imageUpload', true);
+    xhr.onload = function() {
+        if (xhr.status === 200) {
+            // 업로드 성공 시 처리
+            console.log('업로드 성공');
+            // 페이지 리로드 등 업로드 성공 후 처리할 로직 추가
+        } else {
+            // 업로드 실패 시 처리
+            console.error('업로드 실패');
+            // 에러 처리 로직 추가
+        }
+    };
+    xhr.onerror = function() {
+        // 에러 발생 시 처리
+        console.error('업로드 에러');
+        // 에러 처리 로직 추가
+    };
+    xhr.send(formData);
+}
 </script>
 <head>
   <meta charset="utf-8">
@@ -68,6 +97,17 @@
 
                 <div class="widget-content">
                 
+                  <form class="image-form" name ="image-f" method="post" action="/imageUpload">
+                  <div class="uploading-outer">
+                    <div class="uploadButton">
+                      <input class="uploadButton-input" type="file" name="attachments[]" accept="image/*, application/pdf" id="upload" multiple />
+                      <label class="uploadButton-button ripple-effect" for="upload">회사 로고</label>
+                      <span class="uploadButton-file-name"></span>
+                      <button type="button" onclick="uploadImage()">업로드</button>
+                    </div>
+                   <div class="text">최대 파일 크기는 1MB이고 최소 치수는 330x300이며 적합한 파일은 .jpg 및 .png입니다</div>
+                  </div>
+                  </form>
 					<!-- 
                   <div class="uploading-outer">
                     <div class="uploadButton">
@@ -80,26 +120,42 @@
 -->
                   <div class="uploading-outer">
                     <div class="uploadButton">
-                    	<div th:each = "CorpImage : ${corp.corpImageList}">
+                    	<div th:each = "corpImage : ${corpImageList}">
                     		<!-- <img class = "uploadButton-input" src="${corp.corpImageList.corpImage.corpImage}">-->
-                    		<div th:text = "${CorpImage.corpImage}"></div>
+                    		<div th:text = "${corpImage.corpImage}"></div>
                     	</div>
                    <!-- <input class="uploadButton-input" type="file" name="attachments[]" accept="image/*, application/pdf" id="upload_cover" multiple />
                        <label class="uploadButton-button ripple-effect" for="upload">Browse Cover</label>
                       <span class="uploadButton-file-name"></span>
                     -->
                     </div>
-                    <div class="text">최대 파일 크기는 1MB이고 최소 치수는 330x300이며 적합한 파일은 .jpg 및 .png입니다</div>
+                    
                   </div>
 
-                  <form class="default-form" method="post" action="/corp-update-action">
+                  <form class="default-form" name = "f" method="post">
                     <div class="row">
                       <!-- Input -->
+                      <input type="hidden" name="id" th:value = "${corp.id}">
+                      <input type="hidden" name="corpLoginId" th:value = "${corp.corpLoginId}">
+                      <input type="hidden" name="corpPassword" th:value = "${corp.corpPassword}">
+                      <input type="hidden" name="job" th:value = "${corp.job}">
+                      <!--  
+                      <input type="hidden" name="orders" th:value = "${corp.orders}">
+                      <input type="hidden" name="recruitList" th:value = "${corp.recruitList}">
+                      <input type="hidden" name="reviewList" th:value = "${corp.reviewList}">
+                      <input type="hidden" name="corpImageList" th:value = "${corp.corpImageList}">
+                      <input type="hidden" name="managerList" th:value = "${corp.managerList}">
+                      -->
                       <div class="form-group col-lg-6 col-md-12">
                         <label >회사 이름</label>
                         <input type="text" name="corpName" th:value = "${corp.corpName}">
                       </div>
-
+                      
+                      <div class="form-group col-lg-6 col-md-12">
+                        <label >사업자 번호</label>
+                        <input type="text" name="corpBusinessNo" th:value = "${corp.corpBusinessNo}">
+                      </div>
+						
                       <!-- Input -->
                       <div class="form-group col-lg-6 col-md-12">
                         <label>주소</label>
@@ -121,7 +177,8 @@
                       <!-- Input -->
                       <div class="form-group col-lg-6 col-md-12">
                         <label>회사설립일</label>
-                        <input type="text" name="corpEst" th:value="${#dates.format(corp.corpEst,'yyyy-MM-dd')}">
+                        <input type="date" name="corpEst" th:value="${corp.corpEst}">
+                        <input type="text" th:value="${corp.corpEst}">
                       </div>
 
                       <!-- Input -->
@@ -129,7 +186,18 @@
                         <label>직원수</label>
                         <input type="text" name="corpSize" th:value="${corp.corpSize}">
                       </div>
-
+					  
+                     <div class="form-group col-lg-6 col-md-12">
+                        <label>연매출</label>
+                        <input type="text" name="corpSales" th:value="${corp.corpSales}">
+                      </div>
+                      
+                     <div class="form-group col-lg-6 col-md-12">
+                        <label>산업</label>
+                        <input type="text" name="job" th:value="${corp.job}">
+                      </div>
+					  
+					  
                       <!-- Search Select -->
                       <div class="form-group col-lg-6 col-md-12">
                         <label>업종 </label>
@@ -151,12 +219,12 @@
                       <!-- About Company -->
                       <div class="form-group col-lg-12 col-md-12">
                         <label>회사소개</label>
-                        <textarea th:value="${corp.corpComment}"></textarea>
+                        <input type="text" name="corpComment" th:value="${corp.corpComment}">
                       </div>
 
                       <!-- Input -->
                       <div class="form-group col-lg-6 col-md-12">
-                        <button class="theme-btn btn-style-one" onClick ="modifyAction()">저장</button>
+                        <button class="theme-btn btn-style-one" type="button" onClick ="update();" >저장</button>
                       </div>
                     </div>
                   </form>

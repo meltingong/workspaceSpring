@@ -17,4 +17,10 @@ public interface ReviewService {
 	//delete review
 	//void deleteReview(Long id) throws Exception;
 	
+	/*
+	 * 리뷰 삭제하기
+	 */
+	void remove(Long reviewId) throws Exception;
+	
+	
 }

@@ -15,8 +15,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.itwill.ilhajob.corp.dto.CorpDto;
+import com.itwill.ilhajob.corp.dto.ManagerDto;
 import com.itwill.ilhajob.corp.dto.RecruitDto;
 import com.itwill.ilhajob.corp.service.CorpService;
+import com.itwill.ilhajob.corp.service.ManagerService;
 import com.itwill.ilhajob.corp.service.RecruitService;
 
 
@@ -24,6 +26,8 @@ import com.itwill.ilhajob.corp.service.RecruitService;
 public class RecruitController {
 	@Autowired
 	private CorpService corpService;
+	@Autowired
+	private ManagerService managerService;
 	@Autowired
 	private RecruitService recruitService;
 	
@@ -51,6 +55,8 @@ public class RecruitController {
 	public String recruit_detail(@RequestParam long id, Model model) throws Exception{
 		RecruitDto recruit = recruitService.findRecruit(id);
 		model.addAttribute("recruit", recruit);
+		List<ManagerDto> managerList = managerService.findManagerByCorpID(recruit.getCorp().getId());
+		model.addAttribute("managerList", managerList);
 		String forward_path = "recruit-detail";
 		return forward_path;
 	}

@@ -48,18 +48,9 @@ public class Cv {
 	
 	private String cvPortfolio;
 
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
 	@JoinColumn(name = "user_id")
 	@ToString.Exclude
 	private User user;
 
-	@OneToMany(mappedBy = "cv", cascade = CascadeType.PERSIST)
-	private List<Awards> awardslist = new ArrayList<Awards>();
-	
-	@OneToMany(mappedBy = "cv", cascade = CascadeType.PERSIST)
-	private List<Edu> edulist = new ArrayList<Edu>();
-	
-	@OneToMany(mappedBy = "cv", cascade = CascadeType.PERSIST)
-	private List<Exp> explist = new ArrayList<Exp>();
-	
 }

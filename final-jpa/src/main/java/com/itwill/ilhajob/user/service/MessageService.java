@@ -13,6 +13,6 @@ public interface MessageService {
 	//int removeMessageByUserSeq(Long userId);
 	//MessageDto findMessageDetail(Long id);
 	//List<MessageDto> findMessageList();
-	//List<MessageDto> fineMessageOfUser(Long userId);
+	List<MessageDto> fineMessageOfUser(Long userId);
 	
 }

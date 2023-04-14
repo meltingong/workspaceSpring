@@ -22,5 +22,4 @@ public class EduDto {
 	private String eduContent;
 	@ToString.Exclude
 	private UserDto user;
-	private Long cvId;
 }

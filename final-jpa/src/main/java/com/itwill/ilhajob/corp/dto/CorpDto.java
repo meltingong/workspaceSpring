@@ -28,7 +28,7 @@ public class CorpDto {
 	private String corpWelfare;
 	private String corpAddress;
 	private String job;
-	private int role;
+	private Integer role;
 	
 	/*
 	 *패쓰워드 일치여부 검사 

@@ -3,6 +3,7 @@ package com.itwill.ilhajob.user.service;
 import java.util.Optional;
 
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,6 +15,15 @@ import com.itwill.ilhajob.user.repository.ReviewRepository;
 @Service
 @Transactional
 public class ReviewServiceImpl implements ReviewService {
+	
+	@Autowired
+	ReviewRepository reviewRepository;
+
+	@Override
+	public void remove(Long reviewId) throws Exception {
+		reviewRepository.deleteById(reviewId);
+		
+	}
 	/*
 	private final ReviewRepository reviewRepository;
 	private final ModelMapper modelMapper;
@@ -52,4 +62,9 @@ public class ReviewServiceImpl implements ReviewService {
 	}
 	
 	*/
+	
+	
+	
+	
+	
 }

@@ -15,16 +15,12 @@ import lombok.ToString;
 @NoArgsConstructor
 @ToString
 public class ExpDto {
-	
 	private Long id;
 	private String expPosition;
 	private String expCorpName;
 	private LocalDateTime expStartDate;
 	private LocalDateTime expEndDate;
 	private String expContent;
-	
 	@ToString.Exclude
 	private UserDto user;
-	private Long cvId;
-	
 }

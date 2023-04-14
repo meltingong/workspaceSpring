@@ -1,6 +1,12 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-
+<script type="text/javascript">
+	function create_recruit() {
+		document.f.action = "dashboard-post-job-action";
+		document.method='POST';
+		document.f.submit();
+	}
+</script>
 <head>
   <meta charset="utf-8">
   <title>Superio | Just another HTML Template | Post New Job</title>
@@ -79,12 +85,12 @@
                     </div>
                   </div>
 
-                  <form class="default-form" action = "dashboard-post-job-action">
+                  <form name="f" class="default-form" method="post">
                     <div class="row">
                       <!-- Input -->
                       <div class="form-group col-lg-12 col-md-12">
-                        <label name = "rcTitle">공고 제목</label>
-                        <input type="text" name="제목을 작성해주세요" placeholder="Title">
+                        <label>공고 제목</label>
+                        <input type="text" name="rcTitle" placeholder="제목을 작성해주세요">
                       </div>
 
                       <!-- About Company -->
@@ -92,24 +98,18 @@
                         <label>공고 내용</label>
                         <textarea name = "rcContent" placeholder="내용을 작성해주세요"></textarea>
                       </div>
-
-
-                      <!-- Input -->
-                      <div class="form-group col-lg-6 col-md-12">
-                        <label>매니저 이메일</label>
-                        <input type="text" name="rcEmail" placeholder="">
-                      </div>
-
+						
                       <!-- Input -->
                       <div class="form-group col-lg-6 col-md-12">
                         <label>회사명</label>
-                        <input type="text" name="name" placeholder="">
+                        <input type="text" name="corpName" th:value = "${corp.corpName}">
                       </div>
+                      
 
                       <!-- Search Select -->
                       <div class="form-group col-lg-6 col-md-12">
                         <label>업종 </label>
-                        <select data-placeholder="Categories" class="chosen-select multiple" multiple tabindex="4">
+                        <select data-placeholder="카테고리" class="chosen-select multiple" multiple tabindex="4" >
                           <option value="Banking"></option>
                           <option value="Digital&Creative">Digital & Creative</option>
                           <option value="Retail">Retail</option>
@@ -117,7 +117,7 @@
                           <option value="Management">Management</option>
                         </select>
                       </div>
-						<!--
+                  <!--
                       <div class="form-group col-lg-6 col-md-12">
                         <label>Job Type</label>
                         <select class="chosen-select">
@@ -129,10 +129,12 @@
                           <option>Management</option>
                         </select>
                       </div>
-						-->
+                  -->
                       <!-- Input -->
                       <div class="form-group col-lg-6 col-md-12">
                         <label>급여</label>
+                        <input type="text" name="rcSalary" placeholder="">
+                        <!-- 
                         <select class="chosen-select">
                           <option>Select</option>
                           <option>3000</option>
@@ -142,38 +144,44 @@
                           <option>5000</option>
                           <option>6000</option>
                         </select>
+                         -->
                       </div>
 
                       <div class="form-group col-lg-6 col-md-12">
                         <label>자격조건</label>
-						<input type="text" name="name" placeholder="">
+                  		<input type="text" name="rcQualification" placeholder="">
+                      </div>
+                      
+                      <div class="form-group col-lg-6 col-md-12">
+                        <label>복리후생</label>
+                  		<input type="text" name="corpWelfare" th:value="${corp.corpWelfare}">
                       </div>
 
                       <div class="form-group col-lg-6 col-md-12">
                         <label>구인직급</label>
-                        <select class="chosen-select">
+                        <select class="chosen-select" name = "rcPosition">
                           <option>신입</option>
                           <option>경력</option>
                           <option>신입/경력</option>
                         </select>
                       </div>
-
+					<!-- 					
                       <div class="form-group col-lg-6 col-md-12">
                         <label>모집시작일</label>
-                    	<input type="date"/>
+                       <input name = "rcDate" type="date"/>
                       </div>
                       
                       <div class="form-group col-lg-6 col-md-12">
                         <label>모집마감일</label>
-                    	<input type="date"/>
+                       <input name = "rcDeadLine" type="date"/>
                       </div>
-
+                    -->
                       <!-- Input 
                       <div class="form-group col-lg-12 col-md-12">
                         <label>Application Deadline Date</label>
                         <input type="text" name="name" placeholder="06.04.2020">
                       </div>
-						-->
+                  -->
                       <!-- Input 
                       <div class="form-group col-lg-6 col-md-12">
                         <label>Country</label>
@@ -185,7 +193,7 @@
                           <option>India</option>
                         </select>
                       </div>
-						-->
+                  -->
                       <!-- Input 
                       <div class="form-group col-lg-6 col-md-12">
                         <label>City</label>
@@ -197,36 +205,36 @@
                           <option>India</option>
                         </select>
                       </div>
-						-->
+                  -->
                       <!-- Input 
                       <div class="form-group col-lg-12 col-md-12">
                         <label>Complete Address</label>
                         <input type="text" name="name" placeholder="329 Queensberry Street, North Melbourne VIC 3051, Australia.">
                       </div>
-						-->
+                  -->
                       <!-- Input 
                       <div class="form-group col-lg-6 col-md-12">
                         <label>Find On Map</label>
                         <input type="text" name="name" placeholder="329 Queensberry Street, North Melbourne VIC 3051, Australia.">
                       </div>
-						-->
+                  -->
                       <!-- Input 
                       <div class="form-group col-lg-3 col-md-12">
                         <label>Latitude</label>
                         <input type="text" name="name" placeholder="Melbourne">
                       </div>
-						-->
+                  -->
                       <!-- Input 
                       <div class="form-group col-lg-3 col-md-12">
                         <label>Longitude</label>
                         <input type="text" name="name" placeholder="Melbourne">
-                      </div>	
-						-->
+                      </div>   
+                  -->
                       <!-- Input 
                       <div class="form-group col-lg-12 col-md-12">
                         <button class="theme-btn btn-style-three">Search Location</button>
                       </div>
-						-->
+                  -->
 
                       <div class="form-group col-lg-12 col-md-12">
                         <div class="map-outer">
@@ -237,7 +245,7 @@
 
                       <!-- Input -->
                       <div class="form-group col-lg-12 col-md-12 text-right">
-                        <button class="theme-btn btn-style-one">공고등록</button>
+                        <button class="theme-btn btn-style-one" type = "button" onClick="create_recruit();">공고등록</button>
                       </div>
                     </div>
                   </form>

@@ -57,7 +57,7 @@ public class Recruit {
 	
 	private String rcQualification;
 	
-	private int rcSalary;
+	private Integer rcSalary;
 	
 	private LocalDateTime rcDate;
 	
@@ -65,7 +65,7 @@ public class Recruit {
 	private LocalDateTime rcDeadline;
 	
 	@Column(columnDefinition = "NUMBER(19) DEFAULT 0")
-	private int rcReadCount;
+	private Long rcReadCount;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "corp_id")
