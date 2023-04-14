@@ -115,14 +115,13 @@ public class UserController {
 	// 회원 정보수정
 	@LoginCheck
 	@RequestMapping("/modify_action")
-	public String modify_action(@ModelAttribute UserDto userDto, HttpServletRequest request) throws Exception {
+	public String modify_action(Model model,@ModelAttribute UserDto userDto, HttpServletRequest request) throws Exception {
 		String forwardPath = "";
 		Long id = (Long)request.getSession().getAttribute("id");
 		userService.update(id,userDto);
 		forwardPath = "redirect:candidate-dashboard-profile";
 		return forwardPath;
 	}
-	
 	
 	//회원 로그인 폼
 	@RequestMapping("/login")
