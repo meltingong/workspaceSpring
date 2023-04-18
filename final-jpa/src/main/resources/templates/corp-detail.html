@@ -1,6 +1,14 @@
 <!DOCTYPE html>
 <html lang="en"  xmlns:th="http://www.thymeleaf.org">
 <script type="text/javascript">
+function reviewCreate(){
+	console.log(document.getElementById('review-form'));
+	document.f.action = "review_write_action";
+	document.f.method='POST';
+	document.f.submit();
+	
+}
+
 function reviewDelete(){
 	document.d.action = "review_delete";
 	document.d.method='POST';
@@ -54,19 +62,24 @@ function reviewDelete(){
             <div class="inner-box">
               <div class="content">
                 <span class="company-logo"><img src="images/resource/company-logo/5-1.png" alt=""></span>
-                <h4><a th:text="${corp.corpName}" href="#">Invision</a></h4>
+                <h4><a th:text="${corp.corpName}" href="#" th:href="@{__${corp.corpWebsite}__}" target="_blank" th:if="${corp.corpWebsite != null}">Invision</a></h4>
                 <ul class="job-info">
                   <li class="icon flaticon-map-locator"><span th:text="${corp.corpAddress}"></span></li>
                   <li class="icon flaticon-telephone-1"><span th:text="${corp.corpPhone}"></span></li>
                   <li class="icon flaticon-mail"><span th:text="${corp.corpWebsite}"></span></li>
                 </ul>
                 <ul class="job-other-info">
-                  <li class="time">Open Jobs – 3</li>
+                  <li th:text="|★현재 진행중인 구직공고: ${recruitCount}개★|" class="time">
+                  Open Jobs – 3
+                  </li>
+                   <li th:each ="str : ${corpTagNameList}" class="time">
+                   		<span th:text = "${str}"></span>
+                  </li>
                 </ul>
               </div>
 
               <div class="btn-box">
-                <a href="#" class="theme-btn btn-style-one">Apply For Job</a>
+                <a  href="#" class="theme-btn btn-style-one">Apply For Job</a>
                 <button class="bookmark-btn"><i class="flaticon-bookmark"></i></button>
               </div>
             </div>
@@ -132,9 +145,12 @@ function reviewDelete(){
                 </div> 
 
               </div>
-               	<form name="d">
-              <!-- 여기 리뷰 삽입 -->
-	                <h3>Review [리뷰]</h3>
+              
+	        
+		        
+		         	<form name="d">
+              <!-- 여기 리뷰 LIST -->
+	                <h3>Review [리뷰]</h3><br>
 	                  <div class="text">해당 기업의 리뷰 리스트를 제공합니다.</div>
 	               <!-- Comments area -->
 			        <div class="comments-area">
@@ -153,46 +169,54 @@ function reviewDelete(){
 			          
 	    					<th:block th:if = "${loginUser!=null}">
     							 <th:block th:if="${loginUser.id==review.user.id}">  
-	    						<input th:value="${review.corp.corpLoginId}" type="hidden" name="corpLoginId" /> 
+	    						<input th:value="${review.corp.id}" type="hidden" name="corpId" /> 
 	    						<input th:value="${review.id}" type="hidden" name="id" /> 
     							<li><button data-text="Delete Aplication" onclick="reviewDelete()" th:value="${review.id}"><span class="la la-trash"></span></button></li>
   							</th:block>  
   						</th:block>  
-  					
-  						
-  						
-  					
-		           
 		           
 		            </div>
 		          </div>
 
 			</div>
 		        </form>  
-	        <!-- Comment Form -->
+		        
+		        <!-- Comment Form -->
+	        <th:block th:if = "${loginUser!=null}">
+               <th:block th:if="${count==0}"> <!--  -->
 		        <div class="comment-form default-form">
-		          <h4>Leave your thought here</h4>
-		          <form>
+		          <h4>리뷰 등록</h4>
+		         <form id ="review-form" name ="f" method="post" >
+		         	<input th:value="${corp.id}" type="hidden" name="corpId" />
+		         	
 		            <div class="row clearfix">
 		              <div class="col-lg-6 col-md-12 col-sm-12 form-group">
-		                <label>Your Name</label>
-		                <input type="text" name="username" placeholder="Name" required>
+		                <label>제목</label>
+		                <input type="text" name="reviewTitle" placeholder="리뷰제목" required>
 		              </div>
 		              <div class="col-lg-6 col-md-12 col-sm-12 form-group">
-		                <label>Your Email</label>
-		                <input type="email" name="email" placeholder="Email" required>
+		                <label>평점</label>
+		                <input type="text" name="reviewGrade" placeholder="평점" required>
 		              </div>
 		              <div class="col-lg-12 col-md-12 col-sm-12 form-group">
-		                <label>Your Comment</label>
-		                <textarea name="message" placeholder="Write Comment"></textarea>
+		                <label>댓글내용</label>
+		                <textarea name="reviewContent" placeholder="내용"></textarea>
 		              </div>
 		              <div class="col-lg-12 col-md-12 col-sm-12 form-group">
-		                <button class="theme-btn btn-style-one" type="submit" name="submit-form">Post Comment</button>
+		                <button class="theme-btn btn-style-one" type="button" onClick="reviewCreate();" name="submit-form">리뷰 등록</button>
 		              </div>
 		            </div>
 		          </form>
 		        </div>
+			        </th:block> <!--  -->
+			        
+		        </th:block>  
 		        <!--End Comment Form -->
+		        
+		        
+		        
+		        
+		        
             </div>
 
             <div class="sidebar-column col-lg-4 col-md-12 col-sm-12">
@@ -216,8 +240,13 @@ function reviewDelete(){
                         </div>
                       </li>
                     </ul>
-
-                    <div class="btn-box"><a href="#"  onclick="location.href='${corpWebsite}'" class="theme-btn btn-style-three" th:text="${corp.corpWebsite}"><button>www.www.com</button></a></div>
+					<div class="btn-box">
+					<a th:href="@{__${corp.corpWebsite}__}" class="theme-btn btn-style-three" th:text="${corp.corpWebsite}" target="_blank" th:if="${corp.corpWebsite != null}">
+					    <button>www.www.com</button>
+					  </a>
+					</div>
+					                    
+                    <!-- div class="btn-box"><a href="#"  onclick="location.href='${corpWebsite}'" class="theme-btn btn-style-three" th:text="${corp.corpWebsite}"><button>www.www.com</button></a></div-->
                   </div>
                 </div>
 

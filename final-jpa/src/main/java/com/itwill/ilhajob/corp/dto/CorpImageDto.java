@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
 import lombok.ToString;
 /*
 		corp_image_seq                		NUMBER(20)		 NULL ,
@@ -18,6 +19,8 @@ import lombok.ToString;
 @Builder
 public class CorpImageDto {
 	long id;
-	String corpImage;
+    private String originalFileName;
+    private String storedFileName;
+	@ToString.Exclude
 	CorpDto corp;
 }

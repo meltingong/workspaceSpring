@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import javax.transaction.Transactional;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
@@ -23,15 +25,11 @@ public class CorpImageServiceImpl implements CorpImageService{
 		this.corpImageRepository = corpImageRepository;
 		this.modelMapper = modelMapper;
 	}
+	@Transactional
 	@Override
 	public CorpImageDto insertCorpImage(CorpImageDto corpImageDto) {
-		Optional<CorpImage> found = corpImageRepository.findById(corpImageDto.getCorp().getId());
-		if(!found.isPresent()) {
-			ExistedCorpException exception = 
-					new ExistedCorpException("아이디가 없습니다 돌아가세요.");
-		}
-		CorpImage corpImage = corpImageRepository.save(found.get());
-		
+		CorpImage corpImage = modelMapper.map(corpImageDto, CorpImage.class);
+		corpImage = corpImageRepository.save(corpImage);
 		return modelMapper.map(corpImage, CorpImageDto.class);
 	}
 
@@ -45,6 +43,14 @@ public class CorpImageServiceImpl implements CorpImageService{
 	@Override
 	public List<CorpImageDto> selectAll() {
 		List<CorpImage> corpImageList = corpImageRepository.findAll();
+		return corpImageList.stream()
+				.map(corpImage -> modelMapper.map(corpImage, CorpImageDto.class))
+				.collect(Collectors.toList());
+	}
+	@Transactional
+	@Override
+	public List<CorpImageDto> findAllByCorpId(Long id) {
+		List<CorpImage> corpImageList = corpImageRepository.findByCorpId(id);
 		return corpImageList.stream()
 				.map(corpImage -> modelMapper.map(corpImage, CorpImageDto.class))
 				.collect(Collectors.toList());

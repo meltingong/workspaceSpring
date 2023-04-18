@@ -28,16 +28,18 @@ public class RecruitDto {
 	CORP_ID          NOT NULL VARCHAR2(30)  
 	*/
 	
-	private long id;
+	private Long id;
 	private String rcTitle; 
 	private String rcPosition;
 	private String rcContent;
 	private String rcQualification;
-	private int rcSalary;
+	private Integer rcSalary;
 	private LocalDateTime rcDate;
 	private LocalDateTime rcDeadline;
-	private int rcReadCount;
-	@ToString.Exclude
+	private Integer rcStatus;
+	private Integer rcAppCount;
+	private Integer rcReadCount;
+	//@ToString.Exclude
 	private CorpDto corp;
 	
 }

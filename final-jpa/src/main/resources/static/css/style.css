@@ -2042,10 +2042,7 @@ Buttons Styles
   padding: 15px 35px;
 }
 
-.btn-style-seven:hover {
-  color: #34A853;
-  background-color: #E1F2E5;
-}
+
 
 /* Btn Style Seven */
 .btn-style-eight {
@@ -7752,6 +7749,29 @@ Login Popup
   background: rgba(32, 33, 36, 0.5);
 }
 
+#email-error{
+	color: red;
+}
+
+#password-error{
+	color: red;
+}
+
+#register-modal {
+  max-width: 500px;
+  padding: 30px 40px 20px;
+  overflow: visible;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: none;
+}
+
+#register-modal .social-btn-two {
+  padding: 10px 20px;
+}
+
+
+
 #login-modal {
   max-width: 500px;
   padding: 30px 40px 20px;
@@ -7760,6 +7780,7 @@ Login Popup
   border-radius: 8px;
   box-shadow: none;
 }
+
 
 #login-modal .social-btn-two {
   padding: 10px 20px;
@@ -9289,6 +9310,9 @@ Registeration Banners
 
 .manage-job-table .status {
   color: #34A853;
+}
+.manage-job-table .status-end {
+  color: red;
 }
 
 .aplicants-upper-bar {
@@ -15055,6 +15079,124 @@ CheckOut Page
 ====================================================================
 
 ***/
+
+.order-model.modal {
+  height: auto;
+  padding: 0;
+  max-width: 800px;
+  overflow: visible;
+  background: none;
+  box-shadow: 0px 6px 15px rgba(64, 79, 104, 0.05);
+  border-radius: 8px;
+}
+
+#order-modal {
+  max-width: 800px;
+  padding: 30px 40px 20px;
+  overflow: visible;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: none;
+}
+
+.order-form h3 {
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 33px;
+  color: #202124;
+  margin-bottom: 32px;
+}
+
+.order-form .field-outer {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 32px;
+  margin-bottom: 32px;
+}
+
+.order-form .field-outer label {
+  margin-bottom: 0;
+}
+
+.order-form .field-outer .pwd {
+  position: relative;
+  display: block;
+  font-size: 14px;
+  line-height: 19px;
+  color: #202124;
+  white-space: nowrap;
+}
+
+.order-form .form-group .theme-btn {
+  display: block;
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.order-form .bottom-box {
+  position: relative;
+  padding-top: 12px;
+  text-align: center;
+}
+
+.order-form .text {
+  position: relative;
+  font-size: 14px;
+  line-height: 19px;
+  color: #696969;
+  text-align: center;
+  margin-top: 5px;
+}
+
+.order-form .text a {
+  color: #696969;
+  font-weight: 500;
+}
+
+.order-form .bottom-box .divider {
+  position: relative;
+  display: block;
+  font-size: 15px;
+  line-height: 20px;
+  color: #696969;
+  background: #ffffff;
+  margin: 10px 0 25px;
+}
+
+.order-form .bottom-box .divider span {
+  position: relative;
+  z-index: 9;
+}
+
+.order-form .bottom-box .divider:before {
+  position: absolute;
+  left: 0;
+  top: 10px;
+  height: 1px;
+  width: 100%;
+  background: #ECEDF2;
+  border-radius: 8px;
+  content: "";
+}
+
+.order-form .bottom-box .divider:after {
+  position: absolute;
+  left: 50%;
+  top: 0px;
+  height: 20px;
+  width: 60px;
+  background: #fff;
+  margin-left: -30px;
+  content: "";
+}
+
+.order-form .bottom-box .btn-box {
+  position: relative;
+}
+
+
 .checkout-page {
   position: relative;
   padding: 60px 0px 10px;
@@ -15099,7 +15241,7 @@ CheckOut Page
   color: #1b2032;
 }
 
-.checkout-form .coupen-outer .form-grou {
+.checkout-form .coupen-outer .form-group {
   position: relative;
   display: flex;
   justify-content: center;
@@ -15205,6 +15347,28 @@ CheckOut Page
   line-height: 22px;
   color: #202124;
   padding-top: 15px;
+}
+
+.radio-option label[for="label_order_bankList"]{
+  display: inline-block !important;
+  vertical-align: middle;
+  position: relative;
+  padding-left: 5px;
+  font-weight: 500;
+  font-size: 14px !important;
+  line-height: 15px;
+  margin-bottom: 0 !important
+}
+
+.line-data, .radio-box #label_order_bankList {
+  display: inline-block !important;
+  vertical-align: middle;
+  position: relative;
+  padding-left: 5px;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 15px;
+  margin-bottom: 0 !important
 }
 
 .payment-box {

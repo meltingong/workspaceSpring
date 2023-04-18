@@ -8,6 +8,9 @@ import com.itwill.ilhajob.corp.entity.Corp;
 public interface CorpImageService {
 
 	List<CorpImageDto> selectAll();
+	
+	//기업이 갖고있는 이미지리스트
+	List<CorpImageDto> findAllByCorpId(Long id);
 
 	void deleteCorpImageByCorpId(Long corpId);
 

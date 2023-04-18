@@ -138,8 +138,16 @@
           <div class="outer-box">
             <!-- Login/Register -->
             <div class="btn-box">
+            <th:block th:if = "${session.sUserId == null} and ${session.sCorpId == null}">
               <a href="login-popup" class="theme-btn btn-style-six call-modal">로그인 / 회원가입</a>
               <a href="dashboard-post-job" class="theme-btn btn-style-five">채용 공고</a>
+            </th:block>
+            <th:block th:if = "${session.sUserId != null and session.sCorpId == null}">
+            	<a href = "candidate-dashboard-profile" class="theme-btn btn-style-five" th:text="${session.sUserId+'님'}"></a>
+            </th:block>
+            <th:block th:if = "${session.sCorpId != null and session.sUserId == null}">
+            	<a href = "dashboard-company-profile" class="theme-btn btn-style-five" th:text="${session.sCorpId+'님'}"></a>
+            </th:block>
             </div>
           </div>
         </div>

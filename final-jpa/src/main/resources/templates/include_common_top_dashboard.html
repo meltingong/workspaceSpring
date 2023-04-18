@@ -153,7 +153,7 @@
             <div class="dropdown dashboard-option">
               <a class="dropdown-toggle" role="button" data-toggle="dropdown" aria-expanded="false">
                 <img src="images/resource/company-6.png" alt="avatar" class="thumb">
-                <span class="name">My Account</span>
+                <span th:text="${session.sCorpId}" class="name">My Account</span>
               </a>
               <ul class="dropdown-menu">
                 <li class="active"><a href="candidate-dashboard"> <i class="la la-home"></i> Dashboard</a></li>

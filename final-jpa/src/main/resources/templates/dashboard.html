@@ -329,26 +329,26 @@
     </section>
     <!-- End Dashboard -->
 	<form name="g" method="post">
-		<input th:value="${loginCorp?.id}" type="hidden" name="corpId" value="guard" />
+		<input th:value="${corp?.id}" type="hidden" name="corpId" value="guard" />
 		<table border="0" cellpadding="0" cellspacing="1" width="590"
 			bgcolor="BBBBBB">
 			<tr>
 				<td width=100 align=center bgcolor="E6ECDE" height="22">사용자
 					아이디</td>
-				<td th:text="${loginCorp?.id}" width=490 bgcolor="ffffff" style="padding-left: 10">
+				<td th:text="${corp?.id}" width=490 bgcolor="ffffff" style="padding-left: 10">
 					guard1
 				</td>
 			</tr>
 			<tr>
 				<td width=100 align=center bgcolor="E6ECDE" height="22">이름</td>
-				<td th:text="${loginCorp?.corpName}" width=490 bgcolor="ffffff" style="padding-left: 10">
+				<td th:text="${corp?.corpName}" width=490 bgcolor="ffffff" style="padding-left: 10">
 					가이드1
 				</td>
 			</tr>
 			<tr>
 				<td width=100 align=center bgcolor="E6ECDE" height="22">이메일
 					주소</td>
-				<td th:text="${loginCorp?.corpWebsite}" width=490 bgcolor="ffffff" style="padding-left: 10">
+				<td th:text="${corp?.corpWebsite}" width=490 bgcolor="ffffff" style="padding-left: 10">
 					guard1@gmail.com
 				</td>
 			</tr>

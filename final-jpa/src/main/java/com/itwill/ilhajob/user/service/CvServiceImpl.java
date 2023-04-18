@@ -71,7 +71,6 @@ public class CvServiceImpl implements CvService{
 	@Override
 	public List<CvDto> findByUserId(Long userId) {
 		List<Cv> cvList = cvRepository.findByUserId(userId);
-		System.out.println("@@@@@@" + cvList);
 		return cvList.stream().map(cv -> modelMapper.map(cv, CvDto.class)).collect(Collectors.toList());
 	}
 	 

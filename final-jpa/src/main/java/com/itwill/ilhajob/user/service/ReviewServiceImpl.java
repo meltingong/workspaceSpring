@@ -41,6 +41,13 @@ public class ReviewServiceImpl implements ReviewService {
 		review = reviewRepository.save(review);
 		return modelMapper.map(review, ReviewDto.class);
 	} */
+
+	@Override
+	public Long isReviewDuplicate(Long id, Long Corpid) throws Exception {
+		
+		Long count = reviewRepository.countByUserIdAndCorpId(id, Corpid);
+		return count;
+	}
 	
 	//update review
 	/*

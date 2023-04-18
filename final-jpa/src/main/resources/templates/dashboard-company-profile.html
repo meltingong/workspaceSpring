@@ -122,7 +122,7 @@ function uploadImage() {
                     <div class="uploadButton">
                     	<div th:each = "corpImage : ${corpImageList}">
                     		<!-- <img class = "uploadButton-input" src="${corp.corpImageList.corpImage.corpImage}">-->
-                    		<div th:text = "${corpImage.corpImage}"></div>
+                    		<div th:text = "${corpImage.originalFileName}"></div>
                     	</div>
                    <!-- <input class="uploadButton-input" type="file" name="attachments[]" accept="image/*, application/pdf" id="upload_cover" multiple />
                        <label class="uploadButton-button ripple-effect" for="upload">Browse Cover</label>

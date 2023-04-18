@@ -55,7 +55,7 @@ public class Edu {
 	@Column(length = 1000)
 	private String eduContent;
 
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "user_id")
 	@ToString.Exclude
 	private User user;

@@ -6,6 +6,7 @@ import java.util.Optional;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
+import org.hibernate.internal.build.AllowSysOut;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.NamingConventions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,8 +52,8 @@ public class UserServiceImpl implements UserService{
         if (found.isPresent()) {
         	//아이디중복
 			ExistedUserException exception=
-					new ExistedUserException("이미 존재하는아이디입니다.");
-			//exception.setData(userDto);
+					new ExistedUserException(userDto.getUserEmail()+" 는 이미 존재하는아이디입니다.");
+			exception.setData(userDto);
 			throw exception;
         }
         User user = modelMapper.map(userDto, User.class);
@@ -64,7 +65,7 @@ public class UserServiceImpl implements UserService{
 	@Override
 	public UserDto login(String userEmail, String userPassword) throws Exception {
 		User user = userRepository.findByUserEmail(userEmail).orElseThrow(() 
-				-> new UserNotFoundException("email이 존재하지 않습니다."));
+				-> new UserNotFoundException(userEmail+"와 일치하는 email이 존재하지 않습니다."));
         if (!user.getUserPassword().equals(userPassword)) {
         	//패쓰워드불일치
 			PasswordMismatchException exception=
@@ -88,7 +89,7 @@ public class UserServiceImpl implements UserService{
         		-> new UserNotFoundException("존재하지 않습니다."));
         userDto.setId(id);
         userDto.setUserEmail(user.getUserEmail());
-        userDto.setUserPassword(user.getUserPassword());
+        //userDto.setUserPassword(user.getUserPassword());
         modelMapper.map(userDto, user);
         user = userRepository.save(user);
         return modelMapper.map(user, UserDto.class);
@@ -146,16 +147,18 @@ public class UserServiceImpl implements UserService{
 	
 	@Override
 	public ReviewDto insertReview(ReviewDto reviewDto) throws Exception {
-		boolean exists = reviewRepository.existsByUserAndCorp(reviewDto.getUser().getUserEmail(), reviewDto.getCorp().getCorpLoginId());
-		if (exists) {
+		Long count = reviewRepository.countByUserIdAndCorpId(reviewDto.getUser().getId(), reviewDto.getCorp().getId());
+		System.out.println(">>>>>>>>>>>>>>>>>"+count);
+		if (count != 0) {
 			ExistedReviewException exception = 
-					new ExistedReviewException(reviewDto.getUser().getUserEmail()+"회원님이 작성한 리뷰가 존재합니다."); //getUserEmail() -> getUserName으로 변경될예정~
+				new ExistedReviewException(reviewDto.getUser().getUserEmail()+"회원님이 작성한 리뷰가 존재합니다."); //getUserEmail() -> getUserName으로 변경될예정~
 			exception.setData(reviewDto);
 			throw exception;
-		    // 특정 유저 + 기업 -> 조건에 맞는 리뷰가 이미 작성되어 있는 경우
+	    // 특정 유저 + 기업 -> 조건에 맞는 리뷰가 이미 작성되어 있는 경우
 		} else {
 		    // 특정 유저 + 기업 -> 조건에 맞는 리뷰가 작성이 안되어 있는 경우
 			Review review = modelMapper.map(reviewDto, Review.class);
+			
 			review = reviewRepository.save(review);
 			return modelMapper.map(review, ReviewDto.class);
 		}
@@ -175,12 +178,6 @@ public class UserServiceImpl implements UserService{
 		return modelMapper.map(review, ReviewDto.class);
 	}
 	
-	//리뷰 삭제
 	
-	@Override
-	public void deleteReview(Long reviewId) throws Exception {
-		reviewRepository.deleteById(reviewId);
-	}
-
 
 }

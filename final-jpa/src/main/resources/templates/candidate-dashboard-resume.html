@@ -48,7 +48,7 @@
     <section class="user-dashboard">
       <div class="dashboard-outer">
         <div class="upper-title-box">
-          <h3>나의 이력서</h3>
+          <h3>이력서 관리</h3>
           <div class="text">Ready to jump back in?</div>
         </div>
 
@@ -58,7 +58,7 @@
             <div class="ls-widget">
               <div class="tabs-box">
                 <div class="widget-title">
-                  <h4>My Profile</h4>
+                  <h4>내 이력서</h4>
                 </div>
 
                 <div class="widget-content" th:object="${cvDetail}">
@@ -67,14 +67,15 @@
                     <div class="row">
                       <!-- Input -->
                       <div class="form-group col-lg-6 col-md-12">
-                        <label>이력서 선택</label>
-                        <select class="chosen-select" onchange="changeCv()">
-                          <option th:text="*{cvName}">My CV</option> <!-- 선택된 이력서 제목 -->
-                          <option th:each="cv:${cvList}" th:id="cvId" th:text="${cv.cvName}" th:value="${cv.id}">My CV</option>
-                        </select>
-                      </div>
+					  <label>이력서 선택</label>
+					  <select class="chosen-select" onchange="changeCv()">
+					    <option th:text="*{cvName}">My CV</option> <!-- 선택된 이력서 제목 -->
+					    <option th:each="cv:${cvList}" th:id="'cvId('+${cv.id}+')'" th:text="${cv.cvName}" th:value="${cv.id}">My CV</option>
+					  </select>
+					  <input type="hidden" name="cvId" id="cvId" value="">
+					</div>
                       
-                      <input type="hidden" name="cvId" th:value="*{id}"/>
+                      <input type="hidden" name="id" th:value="*{id}"/>
                       <input type="hidden" name="userId" th:value="${userId}"/>
                       
                       <!-- Cv Name -->
@@ -99,10 +100,10 @@
 
                       <div class="form-group col-lg-12 col-md-12">
                         <!-- Resume / Education -->
-                        <div class="resume-outer">
+                        <div class="resume-outer" id="edu-block">
                           <div class="upper-title">
                             <h4>학력</h4>
-                            <button class="add-info-btn" onclick="addEdu()"><span class="icon flaticon-plus"></span> 학력 추가</button>
+                            <button type="button" class="add-info-btn" onclick="addEdu()"><span class="icon flaticon-plus"></span> 학력 추가</button>
                           </div>
                           <!-- Resume BLock -->
                           <div class="resume-block" th:object="${eduList}" th:each="edu:${eduList}">
@@ -245,9 +246,10 @@
 
                       <!-- Input -->
                       <div class="form-group col-lg-12 col-md-12">
+                        <input type="hidden" name="update_apply_delete_id" th:value="*{id}"/>
                         <button class="theme-btn btn-style-one" onclick="updateCv()">저장하기</button>
                         <button class="theme-btn btn-style-one" onclick="apply()">지원하기</button>
-                        <button class="theme-btn btn-style-one" onclick="deleteCv()">(임시)삭제하기</button>
+                        <button class="theme-btn btn-style-one" onclick="deleteCv()">삭제하기</button>
                       </div>
                     </div>
                   </form>

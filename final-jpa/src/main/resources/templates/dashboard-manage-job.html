@@ -1,28 +1,39 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <script type="text/javascript">
-	function beforeAscList(a,b){
-		var LocalDateTimeA=new LocalDateTime(a['']);
+	function recruitModifyForm(form){
+		form.action="recruit-modify-form";
+		form.method='POST';
+		form.submit();
 	}
 	
-	
-	function ascList(){
-		
-	}
-	
-	
-	function beforeDescList(){
+	function recruitDelete(form){
+		if(window.confirm("해당 공고를 삭제하시겠습니까?")){
+			//const id=document.getElementById("id").value;
+			//console.log(id);
+			//console.log(document.recruitForm.id.value);
+			form.action="recruit-delete-action";
+			form.method='POST';
+			form.submit();
 			
 		}
-	
-	function descList(){
 		
 	}
-
-
-
+ 
 </script>
 
+
+<script th:inline="javascript">
+/*
+	function getMessage(){
+		var message=sessionStorage.getItem('message');
+		if(message){
+			alert(message);
+			sessionStorage.removeItem('message');
+		}
+	}
+	*/
+</script>
 
 
 <head>
@@ -85,19 +96,17 @@
 
                   <div class="chosen-outer">
                     <!--Tabs Box-->
-                    <select class="chosen-select">
-                      <option onclick="ascList()">날짜 오름차순</option>
-                      <option onclick="descList()">날짜 내림차순</option>
-                      <option>Last 16 Months</option>
-                      <option>Last 24 Months</option>
-                      <option>Last 5 year</option>
-                    </select>
+		         <select class="chosen-select" onchange="location.href='dashboard-manage-job?sortType='+this.value;">
+				  <option value="">Select an Option</option>
+				  <option value="rcDeadlineasc">마감일 오름차순</option>
+				  <option value="rcDeadlinedesc">마감일 내림차순</option>
+				</select>
                   </div>
                 </div>
 
                 <div class="widget-content">
                   <div class="table-outer">
-                    <table class="default-table manage-job-table">
+                    <table class="default-table manage-job-table" id="recruitList-table">
                       <thead>
                         <tr>
                           <th>Title</th>
@@ -110,29 +119,44 @@
 
                       <tbody>
                         <tr th:each="recruit:${recruitList}">
+                        <form class="default-form" name="recruitForm" method="post">
                         <!-- form자리 버튼 포스트로 넘길용도 -->
                           <td >
                             <a th:text="${recruit.rcTitle}" th:href="@{recruit-detail(id=${recruit.id})}" href="#"><h6 >Senior Full Stack Engineer, Creator Success</h6></a>
                             <!-- span class="info"><i class="icon flaticon-map-locator"></i> London, UK</span-->
                           </td>
-                          <td class="applied"><a th:href="@{dashboard-applicants(id=${recruit.id})}" href="#">지원자 이력서 보기</a></td>
+                          <th:block th:if = "${recruit.rcAppCount>0}">
+	                          <td class="applied"><a th:href="@{dashboard-applicants(id=${recruit.id})}" 
+	                          						 th:text="|지원자 ${recruit.rcAppCount} 명|"	href="#" >지원자 이력서 보기</a></td>
+	                      </th:block>
+	                      <th:block th:unless="${recruit.rcAppCount>0}">
+		                      <td>지원자 없음</td>
+	                      </th:block>
                           <td>
 						      <ul>
-						        <li th:text="|Created:${recruit.rcDate}|"></li>
-						        <li th:text="|Expired:${recruit.rcDeadline}|"></li>
+						        <li th:text="|등록일: ${#temporals.format(recruit.rcDate, 'yyyy-MM-dd')}|"></li>
+						        <li th:text="|미감일: ${#temporals.format(recruit.rcDeadline, 'yyyy-MM-dd')}|"></li>
 						      </ul>
-						    </td>
-                         
-                          <td class="status">Active</td>
+						  </td>
+						  
+						  <!-- 0:승인 , 1:게시중 , 2:만료 예상중... 결정필요-->
+                          <th:block th:if="${recruit.rcStatus==0}">
+                          	<td class="status">게시중</td>
+                          </th:block>
+                          <th:block th:if="${recruit.rcStatus==1}">
+                          	<td class="status-end">만료</td>
+                          </th:block>
                           <td>
                             <div class="option-box">
+                              	<input type="hidden" name="id" th:value="${recruit.id}"/>
                               <ul class="option-list">
-                                <li><button data-text="Modify Recruit"><span class="la la-pencil"></span></button></li>
-                                <li><button data-text="Delete Recruit"><span class="la la-trash"></span></button></li>
+                                <li><button data-text="Modify Recruit" type="button" onClick="recruitModifyForm(this.form)"><span class="la la-pencil"></span></button></li>
+                                <!-- li><button data-text="Modify Recruit" value="수정" onClick="recruitModifyForm();"><span class="la la-pencil"></span></button></li-->
+                                <li><button data-text="Delete Recruit" type="button" onClick="recruitDelete(this.form)"><span class="la la-trash"></span></button></li>
                               </ul>
                             </div>
                           </td>
-            
+            			</form>
                         </tr>
                       </tbody>
                     </table>

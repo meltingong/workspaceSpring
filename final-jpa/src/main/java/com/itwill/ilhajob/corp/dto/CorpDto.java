@@ -30,6 +30,8 @@ public class CorpDto {
 	private String job;
 	private Integer role;
 	
+	
+	
 	/*
 	 *패쓰워드 일치여부 검사 
 	 */
@@ -39,6 +41,14 @@ public class CorpDto {
 			isMatch=true;
 		}
 		return isMatch;
+	}
+
+
+
+	public CorpDto(Long id, String corpLoginId, String corpPassword) {
+		this.id = id;
+		this.corpLoginId = corpLoginId;
+		this.corpPassword = corpPassword;
 	}
 }
 /*

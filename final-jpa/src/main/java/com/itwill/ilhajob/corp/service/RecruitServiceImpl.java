@@ -22,75 +22,75 @@ import com.itwill.ilhajob.corp.repository.RecruitRepository;
 
 @Service
 public class RecruitServiceImpl implements RecruitService {
-	
+
 	private RecruitRepository recruitRepository;
 	private ModelMapper modelMapper;
-	
+
 	@Autowired
 	public RecruitServiceImpl(RecruitRepository recruitRepository, ModelMapper modelMapper) {
 		this.recruitRepository = recruitRepository;
 		this.modelMapper = modelMapper;
 	}
+
 	@Override
 	public List<RecruitDto> findRecruitAll() throws Exception {
 		List<Recruit> recruitList = recruitRepository.findAll();
-		return recruitList.stream()
-				.map(recruit ->modelMapper.map(recruit, RecruitDto.class))
+		return recruitList.stream().map(recruit -> modelMapper.map(recruit, RecruitDto.class))
 				.collect(Collectors.toList());
 	}
-	
+
 	@Transactional
 	@Override
 	public List<RecruitDto> findAllByCorpId(long id) throws Exception {
 		List<Recruit> recruitList = recruitRepository.findByCorpId(id);
-		return recruitList.stream()
-				.map(recruit ->modelMapper.map(recruit, RecruitDto.class))
+		return recruitList.stream().map(recruit -> modelMapper.map(recruit, RecruitDto.class))
 				.collect(Collectors.toList());
 	}
-	
-	
+
 	@Override
 	public RecruitDto findRecruit(long id) throws Exception {
 		Optional<Recruit> optionalRecurit = recruitRepository.findById(id);
 		Recruit findRecruit = optionalRecurit.get();
 		return modelMapper.map(findRecruit, RecruitDto.class);
 	}
-	
+
 	@Override
 	public RecruitDto create(RecruitDto recruitDto) throws Exception {
 		Recruit recruit = modelMapper.map(recruitDto, Recruit.class);
 		recruit = recruitRepository.save(recruit);
 		return modelMapper.map(recruit, RecruitDto.class);
 	}
+
+	@Transactional
 	@Override
-	public RecruitDto update(long id, RecruitDto recruitDto) throws Exception {
-		Optional<Recruit> optionalRecurit = recruitRepository.findById(id);
-		Recruit recruit = optionalRecurit.get();
-		recruitDto.setId(id);
-		recruitDto.setRcTitle(recruit.getRcTitle());
-		recruitDto.setRcContent(recruit.getRcContent());
-		recruitDto.setRcSalary(recruit.getRcSalary());
-        modelMapper.map(recruitDto, recruit);
-        recruit = recruitRepository.save(recruit);
-        return modelMapper.map(recruit, RecruitDto.class);
+	public RecruitDto update(RecruitDto recruitDto) throws Exception {
+		Optional<Recruit> optionalRecruit = recruitRepository.findById(recruitDto.getId());
+		Recruit recruit = optionalRecruit.get();
+		recruitDto.setId(recruit.getId());
+		modelMapper.map(recruitDto, recruit);
+		recruit = recruitRepository.save(recruit);
+		return modelMapper.map(recruit, RecruitDto.class);
 	}
+
+	@Transactional
 	@Override
 	public void remove(long id) throws Exception {
 		recruitRepository.deleteById(id);
+		recruitRepository.flush();
 	}
-	
-	//open jobs -3 부분에 넣기
+
+	// open jobs -3: 공고 개수 불러오기
 	@Override
 	public Long countByCorpId(Long id) throws Exception {
 		return recruitRepository.countByCorpId(id);
 	}
-	//마감일 됐는지 여부 확인
+	// 마감일 됐는지 여부 확인
 //	@Override
 //	public boolean isDeadLine(Date rcDeadline) throws Exception {
 //		Date now=new Date();
 //		return now.after(rcDeadline);
 //	}
-	
+
 //	//마감일 설정
 //	@Override
 //	public Date addDay(Date date, int day) throws Exception {
@@ -99,44 +99,21 @@ public class RecruitServiceImpl implements RecruitService {
 //		return new Date(time);
 //	}
 
-	//마감일 
+	// 마감일
 	@Override
 	public String getStatus(Date rcDeadLine) throws Exception {
-		//현재 시간으로 초기화
-		LocalDate today=LocalDate.now();
-		LocalDate deadLineLocalDate=rcDeadLine.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-		long daysUntilDeadLine=ChronoUnit.DAYS.between(today, deadLineLocalDate);
-		
+		// 현재 시간으로 초기화
+		LocalDate today = LocalDate.now();
+		LocalDate deadLineLocalDate = rcDeadLine.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+		long daysUntilDeadLine = ChronoUnit.DAYS.between(today, deadLineLocalDate);
+
 		if (daysUntilDeadLine < 0) {
-            return "마감";
-        } else if (daysUntilDeadLine == 0) {
-            return "마감 예정";
-        } else {
-            return "D-" + daysUntilDeadLine;
-        }
+			return "마감";
+		} else if (daysUntilDeadLine == 0) {
+			return "마감 예정";
+		} else {
+			return "D-" + daysUntilDeadLine;
+		}
 	}
-	
-	//corpId로 recruitList 불러오기
-//	@Override
-//	public List<RecruitDto> recruitList(Long corpId) throws Exception {
-//		//List<Recruit> recrList1=recruitRepository.findByCorpId(1L);
-//		
-//		List<Recruit> recruitList=recruitRepository.findByCorpId(corpId);
-//		
-//		System.out.println(recruitList);
-//		return recruitList.stream()
-//				.map(recruit ->modelMapper.map(recruit, RecruitDto.class))
-//				.collect(Collectors.toList());
-//		
-//		List<Recruit> recruitList=recruitRepository.findByCorpId(corpId);
-//		List<RecruitDto> recruitDtos=new ArrayList<>();
-//		for(Recruit recruit: recruitList) {
-//			RecruitDto recruitDto= modelMapper.map(recruit, RecruitDto.class);
-//			recruitDtos.add(recruitDto);
-//		}
-//			return recruitDtos;
-//	}
-//	
-	
-	
+
 }

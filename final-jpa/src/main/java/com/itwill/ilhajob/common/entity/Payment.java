@@ -37,11 +37,11 @@ public class Payment {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "payment_id_SEQ_gen")
 	private Long id;
 	
-	private String payment_method;
+	private String paymentMethod;
 	
-	private int payment_price;
+	private int paymentPrice;
 	
-	private LocalDateTime payment_date;
+	private LocalDateTime paymentDate;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "orders_id")

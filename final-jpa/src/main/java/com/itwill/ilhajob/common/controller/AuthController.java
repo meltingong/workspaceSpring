@@ -41,6 +41,7 @@ public class AuthController {
 	    	try {
 				UserDto loginUser = userService.login(id,password);
 				session.setAttribute("id", loginUser.getId());
+				session.setAttribute("role", "user");
 				session.setAttribute("sUserId", loginRequest.getEmail());
 				return ResponseEntity.ok().body("{\"success\": true, \"message\": \"로그인 성공\"}");
 			}catch (UserNotFoundException e) {
@@ -54,6 +55,7 @@ public class AuthController {
 	    	try {
 				CorpDto loginCorp =  corpService.login(id, password);
 				session.setAttribute("id", loginCorp.getId());
+				session.setAttribute("role", "corp");
 				session.setAttribute("sCorpId", id);
 				return ResponseEntity.ok().body("{\"success\": true, \"message\": \"로그인 성공\"}");
 			} catch (CorpNotFoundException e) {

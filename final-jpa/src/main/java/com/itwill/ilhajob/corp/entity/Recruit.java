@@ -33,7 +33,7 @@ import lombok.ToString;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@RequiredArgsConstructor
+//@RequiredArgsConstructor
 @Entity
 @SequenceGenerator(name = "recruit_id_SEQ_gen",
 				   sequenceName = "recruit_id_SEQ",
@@ -45,14 +45,14 @@ public class Recruit {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "recruit_id_SEQ_gen")
 	private Long id;
 	
-	@NonNull
-	@Column(nullable = false, length = 600)
+	//@NonNull
+	@Column(/*nullable = false,*/ length = 600)
 	private String rcTitle; 
 	
 	private String rcPosition;
 	
-	@NonNull
-	@Column(nullable = false, length = 1000)
+	//@NonNull
+	@Column(/*nullable = false,*/ length = 1000)
 	private String rcContent;
 	
 	private String rcQualification;
@@ -61,15 +61,21 @@ public class Recruit {
 	
 	private LocalDateTime rcDate;
 	
-	@NonNull
+	//@NonNull
 	private LocalDateTime rcDeadline;
+	
+	@Column(columnDefinition = "NUMBER(1) DEFAUlT 0")
+	private Integer rcStatus;
+	
+	@Column(columnDefinition = "NUMBER(1) DEFAUlT 0")
+	private Integer rcAppCount;
 	
 	@Column(columnDefinition = "NUMBER(19) DEFAULT 0")
 	private Long rcReadCount;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "corp_id")
-	@ToString.Exclude
+	//@ToString.Exclude
 	private Corp corp;
 	
 }

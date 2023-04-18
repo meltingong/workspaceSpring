@@ -19,7 +19,6 @@ import lombok.ToString;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 @Entity
 @SequenceGenerator(name = "manager_id_SEQ_gen",
 				   sequenceName = "manager_id_SEQ",
@@ -27,7 +26,7 @@ import lombok.ToString;
 @Table(name = "manager")
 public class Manager {
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "manager_id_SEQ_gen")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "manager_id_SEQ_gen")
 	private Long id;
 	
 	private String managerEmail;

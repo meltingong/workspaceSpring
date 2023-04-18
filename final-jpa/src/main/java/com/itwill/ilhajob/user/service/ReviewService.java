@@ -22,5 +22,7 @@ public interface ReviewService {
 	 */
 	void remove(Long reviewId) throws Exception;
 	
+	Long isReviewDuplicate(Long id, Long Corpid) throws Exception;
+	
 	
 }

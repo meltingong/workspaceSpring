@@ -19,12 +19,13 @@ import lombok.ToString;
 @NoArgsConstructor
 @Builder
 public class ManagerDto {
-	long id;
-	String managerEmail;
-	String managerName;
-	String managerPosition;
-	String managerPhone;
-	CorpDto corp;
+	private Long id;
+	private String managerEmail;
+	private String managerName;
+	private String managerPosition;
+	private String managerPhone;
+	@ToString.Exclude
+	private CorpDto corp;
 	
 	
 	//Manager 이메일/이름 일치하는지 확인해야함? user password 확인처럼?

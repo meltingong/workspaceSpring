@@ -18,18 +18,10 @@ public class ReviewDto {
 	private int reviewGrade;
 	private String reviewTitle;
 	private String reviewContent;
-	@ToString.Exclude
-	private CorpDto corp;
-	@ToString.Exclude
 	private UserDto user;
+	private CorpDto corp;
 	
-	public ReviewDto(Long id, int reviewGrade, String reviewTitle, String reviewContent) {
-		super();
-		this.id = id;
-		this.reviewGrade = reviewGrade;
-		this.reviewTitle = reviewTitle;
-		this.reviewContent = reviewContent;
-	}
+
 	
 	
 	

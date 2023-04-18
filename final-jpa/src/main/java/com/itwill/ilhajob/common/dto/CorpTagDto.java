@@ -14,6 +14,6 @@ import lombok.ToString;
 @Builder
 public class CorpTagDto {
 	private long id;
-	private String corpId;
-	private int tagId;
+	private long corpId;
+	private long tagId;
 }

@@ -31,7 +31,9 @@ public interface ReviewRepository extends JpaRepository<Review, Long> {
 	//Optional<List<Review>> findByCorp(String corpLoginId);
 	
 	
-	boolean existsByUserAndCorp(String userEmail, String corpLoginId);
+	//boolean existsByUserAndCorp(Long id, String CorpLoginId);
+	
+	Long countByUserIdAndCorpId(Long id, Long Corpid);
 
 	
  }

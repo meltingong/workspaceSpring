@@ -2,7 +2,6 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <script type="text/javascript">
 	function join(){
-		
 		var email = f.userEmail.value
 		var exptext = /^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/;
 		
@@ -10,7 +9,7 @@
 		
 				//이메일 형식이 알파벳+숫자@알파벳+숫자.알파벳+숫자 형식이 아닐경우			
 			
-				$('p').text("이메일 형식이 올바르지 않습니다.");
+				alert("이메일형식이 올바르지 않습니다.");
 			
 				f.userEmail.focus();
 			
@@ -79,7 +78,7 @@
             <h3>Create a Free Superio Account</h3>
 
             <!--Login Form-->
-            <form name="f" method="post" th:object="${fuser}">
+            <form name="f" method="post" action="add-parcel.html" th:object="${fuser}">
               <div class="form-group">
                 <div class="btn-box row">
                   <div class="col-lg-6 col-md-12">
@@ -94,8 +93,7 @@
               <div class="form-group">
                 <label>Email Address</label>
                 <input th:value="${fuser?.userEmail}" type="text" name="userEmail" placeholder="Email" required><br>
-               	<p></p>
-              		<font color="red" th:text="${msg}"></font>
+                <font color="red" th:text="${msg}"></font>
               </div>
 
               <div class="form-group">

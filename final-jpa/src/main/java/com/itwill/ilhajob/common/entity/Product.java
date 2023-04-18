@@ -31,16 +31,12 @@ public class Product {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "product_id_SEQ_gen")
 	private Long id;
 	
-	private int pNo;
+	private String productName;
 	
-	private String pName;
+	private int productPrice;
 	
-	private int pPrice;
+	private int productPeriod;
 	
-	private int pEndMonth;
-	
-	private String pImage;
-	
-	private String pDiv;
+	private String productDiv;
 	
 }

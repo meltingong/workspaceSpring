@@ -79,7 +79,13 @@ public class CorpServiceImpl implements CorpService{
 	}
 
 	@Override
-	public CorpDto findCorp(String corpLoginId) throws Exception {
+	public CorpDto findByCorpId(Long id) throws Exception {
+		Optional<Corp> optionalCorp = corpRepository.findById(id);
+		Corp findCorp = optionalCorp.get();
+		return modelMapper.map(findCorp, CorpDto.class);
+	}
+	@Override
+	public CorpDto findByCorpLoginId(String corpLoginId) throws Exception {
 		Optional<Corp> optionalCorp = corpRepository.findByCorpLoginId(corpLoginId);
 		Corp findCorp = optionalCorp.get();
 		return modelMapper.map(findCorp, CorpDto.class);

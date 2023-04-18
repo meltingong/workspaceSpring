@@ -29,7 +29,7 @@ public class AppDto {
 	private LocalDateTime appCreateDate;
 	
 	private RecruitDto recruit;
-	@ToString.Exclude
+	//@ToString.Exclude
 	private CvDto cv;
 	@ToString.Exclude
 	private UserDto user;

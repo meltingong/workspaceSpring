@@ -4,7 +4,9 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.sound.sampled.ReverbType;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,9 +22,12 @@ import com.itwill.ilhajob.common.dto.AppDto;
 import com.itwill.ilhajob.common.service.AppService;
 import com.itwill.ilhajob.corp.dto.CorpDto;
 import com.itwill.ilhajob.corp.entity.Corp;
+import com.itwill.ilhajob.corp.service.CorpService;
 import com.itwill.ilhajob.user.dto.MessageDto;
 import com.itwill.ilhajob.user.dto.ReviewDto;
 import com.itwill.ilhajob.user.dto.UserDto;
+import com.itwill.ilhajob.user.entity.Review;
+import com.itwill.ilhajob.user.exception.ExistedReviewException;
 import com.itwill.ilhajob.user.exception.ExistedUserException;
 import com.itwill.ilhajob.user.exception.PasswordMismatchException;
 import com.itwill.ilhajob.user.exception.UserNotFoundException;
@@ -52,6 +57,11 @@ public class UserController {
 
 	@Autowired
 	private ReviewService reviewService;
+	
+	@Autowired
+	private CorpService corpService;
+	
+	
 
 
 	/**************Local Exception Handler*************
@@ -115,13 +125,18 @@ public class UserController {
 	// 회원 정보수정
 	@LoginCheck
 	@RequestMapping("/modify_action")
-	public String modify_action(Model model,@ModelAttribute UserDto userDto, HttpServletRequest request) throws Exception {
+	public String modify_action(@ModelAttribute UserDto userDto, HttpServletRequest request,String userPassword,String userPasswordConfirm) throws Exception {
 		String forwardPath = "";
 		Long id = (Long)request.getSession().getAttribute("id");
-		userService.update(id,userDto);
+		
+		if(userPassword.equals(userPasswordConfirm)) {
+			userService.update(id,userDto);
+		}
 		forwardPath = "redirect:candidate-dashboard-profile";
+		
 		return forwardPath;
 	}
+	
 	
 	//회원 로그인 폼
 	@RequestMapping("/login")
@@ -217,11 +232,12 @@ public class UserController {
 	@RequestMapping("/alerts-remove")
 	public String user_alerts_remove(HttpServletRequest request,Long messageId) throws Exception {
 		String forwardPath="";
+
 		userService.removeMessageBySeq(messageId);
+
 		forwardPath="redirect:candidate-dashboard-job-alerts";
 		return forwardPath;
 	}
-	
 	
 	// 지원한 목록 보기
 	@LoginCheck
@@ -236,7 +252,23 @@ public class UserController {
 		forwardPath = "/candidate-dashboard-applied-job";
 		return forwardPath;
 	}
-	
+			
+	/*
+	// 지원한 목록 보기
+	@LoginCheck
+	@RequestMapping("/candidate-dashboard-applied-job")
+	public String user_applied_job(HttpServletRequest request) throws Exception{
+		String forwardPath="";
+		//request.getSession().setAttribute("sUserId", "test3@test.com");
+		String sUserId = (String)request.getSession().getAttribute("sUserId");
+		UserDto loginUser = userService.findUser(sUserId);
+ 		UserDto user = userService.findAppListById(loginUser.getId());
+		System.out.println(user);
+ 		request.setAttribute("loginUser", user);
+		forwardPath = "/candidate-dashboard-applied-job";
+		return forwardPath;
+	}
+	*/
 	@LoginCheck
 	@RequestMapping(value = "/remove-applied-job")                             //appSeq-> appDto의 id로 들어가야함
 	public String remove_applied_job(HttpServletRequest request, @RequestParam int appSeq) throws Exception{
@@ -263,7 +295,7 @@ public class UserController {
 	
 	//리뷰 작성
 		//corpSeq필요 -> delete할떄 appseq처럼 input hidden corpseq필요(redirect용)
-		@RequestMapping("/review_write_action")
+	/*	@RequestMapping("/review_write_action")
 		public String review_write_action(@ModelAttribute ReviewDto reviewDto, @RequestParam("corpId") String corpId, Model model,HttpServletRequest request) throws Exception{
 			request.getSession().setAttribute("sUserId", "test3@test.com");
 			String sUserId = (String)request.getSession().getAttribute("sUserId");
@@ -277,12 +309,49 @@ public class UserController {
 			String forwardPath = "redirect:corp-detail?corpId="+corpDto.getCorpLoginId();
 			return forwardPath;
 			
-		}
+		} */
+	
 		
+		@LoginCheck
+		@RequestMapping("/review_write_action")
+		public String review_write_action(@ModelAttribute ReviewDto reviewDto,@ModelAttribute UserDto userDto ,HttpServletRequest request,@RequestParam("corpId") Long corpId,Model model) throws Exception{
+			String forwardPath="";
+			try {	
+			String sUserId = (String)request.getSession().getAttribute("sUserId");
+			UserDto loginUser = userService.findUser(sUserId);
+			CorpDto corpDto = corpService.findByCorpId(corpId);
+		
+
+			reviewDto.setCorp(corpDto);
+			reviewDto.setUser(loginUser);
+			
+			
+			
+			
+			//request.setAttribute("loginUser", loginUser);
+			userService.insertReview(reviewDto);
+			
+			
+			forwardPath="redirect:corp-detail?corpId="+corpId;
+			return forwardPath;
+		}catch (ExistedReviewException e) {
+			
+			model.addAttribute("msg",e.getMessage());
+			forwardPath = "redirect:corp-detail?corpId="+corpId;
+			return forwardPath;
+		}
+			
+	}
+	
+	
+	
+		
+		
+		@LoginCheck
 		@RequestMapping("/review_delete")
-		public String review_delete(@ModelAttribute ReviewDto reviewDto, HttpServletRequest request, @RequestParam Long id,@RequestParam("corpId") CorpDto corp) throws Exception{
-			userService.deleteReview(id);
-			return "redirect:corp-detail?corpId="+corp.getId();
+		public String review_delete(Long id,Long corpId) throws Exception{
+			reviewService.remove(id);
+			return "redirect:corp-detail?corpId="+corpId;
 		}
 
 }

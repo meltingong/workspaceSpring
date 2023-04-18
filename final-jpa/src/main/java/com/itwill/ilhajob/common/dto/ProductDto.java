@@ -13,10 +13,8 @@ import lombok.NoArgsConstructor;
 @Builder
 public class ProductDto {
 	private long id;
-	private int pNo;
-	private String pName;
-	private int pPrice;
-	private int pEndMonth;
-	private String pImage;
-	private String pDiv;
+	private String productName;
+	private int productPrice;
+	private long productPeriod;
+	private String productDiv;
 }

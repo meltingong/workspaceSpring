@@ -49,6 +49,13 @@ public class UserDto {
     private String snsId;
     private String job;
     private int role;
+	public UserDto(Long id, String userEmail, String userPassword) {
+		this.id = id;
+		this.userEmail = userEmail;
+		this.userPassword = userPassword;
+	}
+    
+    
 }
 
 

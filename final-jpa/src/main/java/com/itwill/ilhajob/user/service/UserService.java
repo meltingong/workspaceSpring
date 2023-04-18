@@ -77,10 +77,6 @@ public interface UserService {
 	 */
 	ReviewDto updateReview(ReviewDto reviewDto) throws Exception;
 	
-	/*
-	 * 리뷰 삭제하기
-	 */
-	void deleteReview(Long reviewId) throws Exception;
 	
 
 	

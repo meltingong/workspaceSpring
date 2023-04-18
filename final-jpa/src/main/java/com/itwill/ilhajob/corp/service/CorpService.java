@@ -26,7 +26,8 @@ public interface CorpService {
 	/*
 	 * 기업 기본정보상세보기
 	 */
-	CorpDto findCorp(String corpLoginId) throws Exception;
+	CorpDto findByCorpId(Long id) throws Exception;
+	CorpDto findByCorpLoginId(String corpLoginId) throws Exception;
 
 	/*
 	 * 기업 추가정보등록 및 수정

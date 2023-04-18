@@ -53,6 +53,7 @@
     <!--Page Title-->
     <section class="page-title">
       <div class="auto-container">
+      
         <!-- Job Search Form -->
         <div class="job-search-form">
           <form method="post" action="job-list-v8">
@@ -151,13 +152,11 @@
                     <option>매출크기</option>
                   </select>
 
-                  <select class="chosen-select">
-                    <option>Show 10</option>
-                    <option>Show 20</option>
-                    <option>Show 30</option>
-                    <option>Show 40</option>
-                    <option>Show 50</option>
-                    <option>Show 60</option>
+                  <select class="chosen-select" >
+                 	<option name="all">전체</option>
+                  	<div th:each="tag: ${tagList}">
+                    <option name="tagName" th:if="${tag.tagId}>3" th:text="${tag.tagName}" >코프태그</option>
+                    </div>
                   </select>
                 </div>
               </div>
@@ -170,7 +169,7 @@
                     <button class="bookmark-btn"><span class="flaticon-bookmark"></span></button>
                     <span class="featured">Featured</span>
                     <span class="company-logo"><img src="images/resource/company-logo/6-1.png" alt=""></span>
-                    <h4><a th:href="@{/corp-detail(corpLoginId=${corp.corpLoginId})}" th:text="${corp.corpName}"></a></h4>
+                    <h4><a th:href="@{/corp-detail(corpId=${corp.id})}" th:text="${corp.corpName}"></a></h4>
                     <ul class="job-info">
                       <li><span class="icon flaticon-map-locator" ></span>
                       	  <span th:text="${corp.corpAddress}"><br/>
@@ -181,8 +180,12 @@
                      	  </span>
                       </li>
                     </ul>
-                    <div class="job-type" th:text="${corp.job}">Open Jobs – 2</div>
-                  </div>
+                     <span th:each="corpTag:${corpTagList}">
+                		<span th:each="tag:${tagList}">
+                    <span class="job-type" style ="margin-right:1px; margin-bottom: 5px" th:if="${corpTag.corpId}==${corp.id} and ${tag.tagId}==${corpTag.tagId}" th:text="${tag.tagName}">Open Jobs – 2</span>
+                  </span>
+                </span>
+                </div>
                 </div>
               </div>
 

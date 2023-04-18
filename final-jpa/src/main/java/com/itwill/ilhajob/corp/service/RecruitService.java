@@ -12,7 +12,7 @@ public interface RecruitService {
 	//공고등록
 	RecruitDto create(RecruitDto recruitDto) throws Exception;
 	//공고수정
-	RecruitDto update(long id, RecruitDto recruitDto) throws Exception;
+	RecruitDto update(RecruitDto recruitDto) throws Exception;
 	//공고삭제
 	void remove(long id) throws Exception;
 	

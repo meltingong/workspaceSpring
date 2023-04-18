@@ -9,7 +9,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface OrdersRepository extends JpaRepository<Orders, Long>{
-	
 	List<Orders> findByUserId(long id);
 	List<Orders> findByCorpId(long id);
 }
