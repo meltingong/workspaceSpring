@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.springboot.security.oauth.domain.dto.MemberDTO;
-import com.springboot.security.oauth.service.MemberService;
+import com.itwill.ilhajob.user.dto.UserDto;
+import com.springboot.security.oauth.service.UserSecurityService;
 import com.springboot.security.oauth.util.aop.ReturnBindingResultError;
 import com.springboot.security.oauth.util.validation.annotation.Email;
 import com.springboot.security.oauth.util.validation.annotation.Nickname;
@@ -27,17 +27,17 @@ import lombok.RequiredArgsConstructor;
 @Validated  //requestparam, pathvariable의 경우는 클래스레벨에 붙여서 검증해야한다. //메서드레벨에 붙여서 검증하는건 modelattribute, requestbody이다.
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/member")
-public class MemberApiController {
-    private final MemberService memberService;
+@RequestMapping("/api/user")
+public class UserApiController {
+    private final UserSecurityService userSecurityService;
 
     /**
      * 회원가입 - 저장
      */
     @PostMapping("")
     @ReturnBindingResultError
-    public ResponseEntity join(@Validated @RequestBody MemberDTO.Join memberDTO, BindingResult bindingResult){
-        Long memberId = memberService.join(memberDTO);
+    public ResponseEntity join(@Validated @RequestBody UserDto.Join userDto, BindingResult bindingResult){
+        Long memberId = userSecurityService.join(userDto);
         return ResponseEntity.status(HttpStatus.OK).body(memberId);
     }
 
@@ -46,7 +46,7 @@ public class MemberApiController {
      */
     @PostMapping("/email/check/{email}")
     public boolean joinEmailCheck(@PathVariable @Email String email){
-        return memberService.joinEmailDuplicatedCheck(email);
+        return userSecurityService.joinEmailDuplicatedCheck(email);
     }
 
     /**
@@ -54,7 +54,7 @@ public class MemberApiController {
      */
     @PostMapping("/nickname/check/{nickname}")
     public boolean joinNicknameCheck(@PathVariable @Nickname String nickname){
-        return memberService.joinNicknameDuplicatedCheck(nickname);
+        return userSecurityService.joinNicknameDuplicatedCheck(nickname);
     }
 
     /**
@@ -69,22 +69,22 @@ public class MemberApiController {
     /**
      * 닉네임 수정
      */
-    @PutMapping("/{memberId}/nickname/{updateNickname}")
-    public ResponseEntity updateNickname(@PathVariable Long memberId, @PathVariable @Nickname String updateNickname){
-        memberService.updateNickname(memberId, updateNickname);
+    @PutMapping("/{userId}/nickname/{updateNickname}")
+    public ResponseEntity updateNickname(@PathVariable Long userId, @PathVariable @Nickname String updateNickname){
+    	userSecurityService.updateNickname(userId, updateNickname);
         return ResponseEntity.status(HttpStatus.OK).body("ok");
     }
 
     /**
      * 비밀번호 수정
      */
-    @PutMapping("/{memberId}/password")
+    @PutMapping("/{userId}/password")
     @ReturnBindingResultError
     public ResponseEntity updatePassword(
-            @PathVariable Long memberId,
-            @Validated @RequestBody MemberDTO.UpdatePassword memberDTO, BindingResult bindingResult
+            @PathVariable Long userId,
+            @Validated @RequestBody UserDto.UpdatePassword userDto, BindingResult bindingResult
     ){
-        memberService.updatePassword(memberId, memberDTO);
+    	userSecurityService.updatePassword(userId, userDto);
         return ResponseEntity.status(HttpStatus.OK).body("ok");
     }
 
@@ -93,17 +93,17 @@ public class MemberApiController {
      */
     @PostMapping("/findPassword")
     @ReturnBindingResultError
-    public ResponseEntity findPassword(@Validated @RequestBody MemberDTO.findPassword memberDTO, BindingResult bindingResult){
-        memberService.findPassword(memberDTO);
+    public ResponseEntity findPassword(@Validated @RequestBody UserDto.findPassword userDto, BindingResult bindingResult){
+    	userSecurityService.findPassword(userDto);
         return ResponseEntity.status(HttpStatus.OK).body("ok");
     }
 
     /**
      * 회원조회
      */
-    @GetMapping("/{memberId}")
-    public ResponseEntity detail(@PathVariable Long memberId){
-        MemberDTO.Response response = memberService.detail(memberId);
+    @GetMapping("/{userId}")
+    public ResponseEntity detail(@PathVariable Long userId){
+        UserDto.Response response = userSecurityService.detail(userId);
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 

@@ -10,18 +10,18 @@ import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 
+import com.itwill.ilhajob.user.entity.User;
+import com.itwill.ilhajob.user.repository.UserRepository;
 import com.springboot.security.oauth.auth.userinfo.KakaoUserInfo;
 import com.springboot.security.oauth.auth.userinfo.NaverUserInfo;
 import com.springboot.security.oauth.auth.userinfo.Oauth2UserInfo;
-import com.springboot.security.oauth.domain.entity.Member;
-import com.springboot.security.oauth.repository.MemberRepository;
 
 import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
 public class PrincipalOauth2UserService extends DefaultOAuth2UserService {
-    private final MemberRepository memberRepository;
+    private final UserRepository userRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Override
@@ -49,16 +49,16 @@ public class PrincipalOauth2UserService extends DefaultOAuth2UserService {
         String password = bCryptPasswordEncoder.encode("password" + UUID.randomUUID().toString().substring(0, 6));
         // 비밀번호. 사용자가 입력한 적은 없지만 만들어준다.
 
-        Member findMember = memberRepository.findByEmail(email).orElse(null);
+        User findMember = userRepository.findByUserEmail(email).orElse(null);
 
         //DB에 없는 사용자라면 회원가입처리
         if(findMember == null){
-            findMember = Member.JoinOAuth2()
+            findMember = User.JoinOAuth2()
                     .nickname(defaultNickname)
-                    .password(password)
-                    .email(email)
+                    .userPassword(password)
+                    .userEmail(email)
                     .provider(provider).build();
-            memberRepository.save(findMember);
+            userRepository.save(findMember);
         }
 
         return new PrincipalDetails(findMember, oauth2UserInfo);

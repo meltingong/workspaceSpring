@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Component;
 
-import com.springboot.security.oauth.domain.dto.MemberDTO;
+import com.itwill.ilhajob.user.dto.UserDto;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -47,14 +47,14 @@ public class CustomMailSender {
         }
     }
 
-    public void sendFindPasswordMail(MemberDTO.findPassword memberDTO, String tempPassword) {
+    public void sendFindPasswordMail(UserDto.findPassword userDto, String tempPassword) {
         String htmlMessage =
         "<div>" +
-            memberDTO.getNickname()+"님의 임시 비밀번호는 <span style='font-weight:bold; color:blue;'>"+tempPassword+"</span> 입니다." +
+        		userDto.getNickname()+"님의 임시 비밀번호는 <span style='font-weight:bold; color:blue;'>"+tempPassword+"</span> 입니다." +
         "</div>";
 
         Mail mail = new Mail();
-        mail.setAddress(memberDTO.getEmail());
+        mail.setAddress(userDto.getUserEmail());
         mail.setTitle("[used book] 임시 비밀번호 안내 메일입니다.");
         mail.setMessage(htmlMessage);
 

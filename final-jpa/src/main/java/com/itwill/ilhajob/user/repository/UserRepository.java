@@ -12,7 +12,7 @@ import com.itwill.ilhajob.user.entity.User;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
-	
+	Optional<User> findByNickname(String nickname);
     Optional<User> findByUserEmail(String userEmail);
     boolean existsByUserEmail(String userEmail);
     //Optional<User> findAppListById(Long id);

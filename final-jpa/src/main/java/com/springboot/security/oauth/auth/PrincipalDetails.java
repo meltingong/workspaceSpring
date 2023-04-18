@@ -10,8 +10,8 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 
+import com.itwill.ilhajob.user.entity.User;
 import com.springboot.security.oauth.auth.userinfo.Oauth2UserInfo;
-import com.springboot.security.oauth.domain.entity.Member;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -23,19 +23,19 @@ import lombok.ToString;
 @EqualsAndHashCode
 public class PrincipalDetails implements UserDetails, OAuth2User {
 
-    private Member member;
+    private User user;
     private Oauth2UserInfo oauth2UserInfo;
     @Setter
     private List<Long> itemIdList = null;
 
     //form로그인 시 사용
-    public PrincipalDetails(Member member) {
-        this.member = member;
+    public PrincipalDetails(User user) {
+        this.user = user;
     }
 
     //Oauth2로그인 시 사용
-    public PrincipalDetails(Member member, Oauth2UserInfo oauth2UserInfo){
-        this.member = member;
+    public PrincipalDetails(User user, Oauth2UserInfo oauth2UserInfo){
+        this.user = user;
         this.oauth2UserInfo = oauth2UserInfo;
     }
 
@@ -50,7 +50,7 @@ public class PrincipalDetails implements UserDetails, OAuth2User {
         collect.add(new GrantedAuthority() {
             @Override
             public String getAuthority() {
-                return member.getRole().toString();
+                return String.valueOf(user.getRole());
             }
         });
         return collect;
@@ -63,7 +63,7 @@ public class PrincipalDetails implements UserDetails, OAuth2User {
      */
     @Override
     public String getPassword() {
-        return member.getPassword();
+        return user.getUserPassword();
     }
 
 
@@ -73,7 +73,7 @@ public class PrincipalDetails implements UserDetails, OAuth2User {
      */
     @Override
     public String getUsername() {
-        return member.getEmail();
+        return user.getUserEmail();
     }
 
 

@@ -3,6 +3,7 @@ package com.springboot.security.oauth.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.FilterChainBeanDefinitionParser;
@@ -75,36 +76,34 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private final FormLoginFailureHandler formLoginFailureHandler;
     private final String[] whitelist = {
             "/resources/**", "/css/**", "/js/**", "/images/**",
-            "/oauth2", "/api/**",
-            "/","/index",
-            "/login"
+            "/oauth2",
+            "/","/index","/login","/login**"
     };
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         //post요청 forbiddon에러 방지
         http.csrf().disable();
-        http.authorizeRequests()
-                .antMatchers(whitelist).permitAll()
-                .anyRequest().authenticated()
-            .and()
-            .formLogin()
-                .loginPage("/login")
-                .usernameParameter("email")
-                .passwordParameter("password")
-                .loginProcessingUrl("/loginProcessing")
-                .defaultSuccessUrl("/dashboard/myInfo")
-                .failureHandler(formLoginFailureHandler)
-            .and()
-            .logout()
-                .logoutUrl("/logout")
-                .logoutSuccessUrl("/login")
-            .and()
-            .oauth2Login()
-                .loginPage("/login")
-                .defaultSuccessUrl("/dashboard/myInfo")
-                .userInfoEndpoint()
-                .userService(principalOauth2UserService);
+        http.authorizeRequests().antMatchers(whitelist).permitAll()
+	                .anyRequest().authenticated()
+	                .and()
+		            .formLogin()
+		                .loginPage("/login")
+		                .usernameParameter("email")
+		                .passwordParameter("password")
+		                .loginProcessingUrl("/login-popup")
+		                .defaultSuccessUrl("/")
+		                .failureHandler(formLoginFailureHandler)
+		            .and()
+		            .logout()
+		                .logoutUrl("/logout")
+		                .logoutSuccessUrl("/")
+		            .and()
+		            .oauth2Login()
+		                .loginPage("/login")
+		                .defaultSuccessUrl("/")
+		                .userInfoEndpoint()
+		                .userService(principalOauth2UserService);
 		/*
 		http
 		        .sessionManagement()
