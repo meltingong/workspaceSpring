@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Component;
 
-import com.itwill.ilhajob.user.dto.UserDto;
+import com.springboot.security.oauth.user.dto.UserDto;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

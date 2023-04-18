@@ -6,8 +6,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.itwill.ilhajob.user.entity.User;
-import com.itwill.ilhajob.user.repository.UserRepository;
+import com.springboot.security.oauth.user.entity.User;
+import com.springboot.security.oauth.user.repository.UserRepository;
 
 import lombok.RequiredArgsConstructor;
 

@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.itwill.ilhajob.FinalProjectTeam1IlhajobApplicationTests;
+import com.springboot.security.oauth.corp.service.CorpService;
 
 class CorpServiceImplTest extends FinalProjectTeam1IlhajobApplicationTests{
 

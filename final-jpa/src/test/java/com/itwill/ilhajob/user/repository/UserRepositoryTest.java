@@ -16,12 +16,15 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.itwill.ilhajob.FinalProjectTeam1IlhajobApplicationTests;
-import com.itwill.ilhajob.common.entity.App;
-import com.itwill.ilhajob.common.repository.AppRepository;
-import com.itwill.ilhajob.user.entity.Awards;
-import com.itwill.ilhajob.user.entity.Edu;
-import com.itwill.ilhajob.user.entity.Exp;
-import com.itwill.ilhajob.user.entity.User;
+import com.springboot.security.oauth.common.repository.AppRepository;
+import com.springboot.security.oauth.user.entity.User;
+import com.springboot.security.oauth.user.repository.AwardsRepository;
+import com.springboot.security.oauth.user.repository.CvRepository;
+import com.springboot.security.oauth.user.repository.EduRepository;
+import com.springboot.security.oauth.user.repository.ExpRepository;
+import com.springboot.security.oauth.user.repository.MessageRepository;
+import com.springboot.security.oauth.user.repository.ReviewRepository;
+import com.springboot.security.oauth.user.repository.UserRepository;
 
 class UserRepositoryTest extends FinalProjectTeam1IlhajobApplicationTests{
 

@@ -6,9 +6,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.itwill.ilhajob.user.dto.UserDto;
-import com.itwill.ilhajob.user.entity.User;
-import com.itwill.ilhajob.user.repository.UserRepository;
+import com.springboot.security.oauth.user.dto.UserDto;
+import com.springboot.security.oauth.user.entity.User;
+import com.springboot.security.oauth.user.repository.UserRepository;
 import com.springboot.security.oauth.util.CustomMailSender;
 import com.springboot.security.oauth.util.exception.CustomException;
 import com.springboot.security.oauth.util.exception.ErrorCode;

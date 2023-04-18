@@ -1,6 +1,7 @@
 package com.springboot.security.oauth.config;
 
 
+import org.springframework.boot.autoconfigure.security.reactive.PathRequest;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
@@ -75,55 +76,41 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private final PrincipalOauth2UserService principalOauth2UserService;
     private final FormLoginFailureHandler formLoginFailureHandler;
     private final String[] whitelist = {
-            "/resources/**", "/css/**", "/js/**", "/images/**",
             "/oauth2",
             "/","/index","/login","/login**"
     };
-
+    
+    @Override
+    public void configure(WebSecurity web) throws Exception {
+    	web.ignoring().antMatchers( "/css/**", "/js/**", "/img/**","/","/index","/login","/login**");
+    }
+    
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         //post요청 forbiddon에러 방지
         http.csrf().disable();
         http.authorizeRequests().antMatchers(whitelist).permitAll()
-	                .anyRequest().authenticated()
-	                .and()
-		            .formLogin()
-		                .loginPage("/login")
-		                .usernameParameter("email")
-		                .passwordParameter("password")
-		                .loginProcessingUrl("/login-popup")
-		                .defaultSuccessUrl("/")
-		                .failureHandler(formLoginFailureHandler)
-		            .and()
-		            .logout()
-		                .logoutUrl("/logout")
-		                .logoutSuccessUrl("/")
-		            .and()
-		            .oauth2Login()
-		                .loginPage("/login")
-		                .defaultSuccessUrl("/")
-		                .userInfoEndpoint()
-		                .userService(principalOauth2UserService);
-		/*
-		http
-		        .sessionManagement()
-		        .sessionFixation().changeSessionId()
-		        .maximumSessions(1)
-		        .maxSessionsPreventsLogin(true)
-		;
-		http.logout()
-		        .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-		        .invalidateHttpSession(true)
-		        .clearAuthentication(true)
-		        .deleteCookies("JSESSIONID", "remember-me");*/
+            .anyRequest().authenticated()
+            .and()
+            .formLogin()
+                .loginPage("/login")
+                .usernameParameter("email")
+                .passwordParameter("password")
+                .loginProcessingUrl("/ajaxLogin")
+                .defaultSuccessUrl("/index")
+                .failureHandler(formLoginFailureHandler)
+            .and()
+            .logout()
+                .logoutUrl("/logout")
+                .logoutSuccessUrl("/index")
+            .and()
+            .oauth2Login()
+                .loginPage("/login")
+                .defaultSuccessUrl("/index")
+                .userInfoEndpoint()
+                .userService(principalOauth2UserService);
+
     }
 
 
-    
-    /*
-    @Bean
-    public ServletListenerRegistrationBean<HttpSessionEventPublisher> httpSessionEventPublisher() {
-        return new ServletListenerRegistrationBean<>(new HttpSessionEventPublisher());
-    }
-    */
 }

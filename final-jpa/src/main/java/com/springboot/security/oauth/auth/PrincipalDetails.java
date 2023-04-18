@@ -10,8 +10,8 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 
-import com.itwill.ilhajob.user.entity.User;
 import com.springboot.security.oauth.auth.userinfo.Oauth2UserInfo;
+import com.springboot.security.oauth.user.entity.User;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;

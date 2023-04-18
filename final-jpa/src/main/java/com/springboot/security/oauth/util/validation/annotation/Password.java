@@ -15,10 +15,10 @@ import java.lang.annotation.Target;
 import javax.validation.Constraint;
 import javax.validation.Payload;
 
-import com.springboot.security.oauth.util.validation.validator.MemberPasswordValidator;
+import com.springboot.security.oauth.util.validation.validator.UserPasswordValidator;
 
 @Documented                                                                     //애노테이션 정보를 문서에 같이 보여줌
-@Constraint(validatedBy = MemberPasswordValidator.class)                              //하단 설명 참고
+@Constraint(validatedBy = UserPasswordValidator.class)                              //하단 설명 참고
 @Target({ METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER, TYPE_USE })   //해당 어노테이션이 어디에 사용될 수 있는지
 @Retention(RUNTIME)                                                             //해당 어노테이션을 언제까지 유지할지
 public @interface Password {

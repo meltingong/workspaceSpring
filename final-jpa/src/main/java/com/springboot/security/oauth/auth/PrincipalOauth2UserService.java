@@ -10,11 +10,11 @@ import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 
-import com.itwill.ilhajob.user.entity.User;
-import com.itwill.ilhajob.user.repository.UserRepository;
 import com.springboot.security.oauth.auth.userinfo.KakaoUserInfo;
 import com.springboot.security.oauth.auth.userinfo.NaverUserInfo;
 import com.springboot.security.oauth.auth.userinfo.Oauth2UserInfo;
+import com.springboot.security.oauth.user.entity.User;
+import com.springboot.security.oauth.user.repository.UserRepository;
 
 import lombok.RequiredArgsConstructor;
 

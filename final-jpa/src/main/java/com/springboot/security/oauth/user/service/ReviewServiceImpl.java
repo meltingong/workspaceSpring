@@ -1,0 +1,75 @@
+package com.springboot.security.oauth.user.service;
+
+import java.util.Optional;
+
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.springboot.security.oauth.user.repository.ReviewRepository;
+
+
+@Service
+@Transactional
+public class ReviewServiceImpl implements ReviewService {
+	
+	@Autowired
+	ReviewRepository reviewRepository;
+
+	@Override
+	public void remove(Long reviewId) throws Exception {
+		reviewRepository.deleteById(reviewId);
+		
+	}
+	/*
+	private final ReviewRepository reviewRepository;
+	private final ModelMapper modelMapper;
+
+	public ReviewServiceImpl(ReviewRepository reviewRepository, ModelMapper modelMapper) {
+		this.reviewRepository = reviewRepository;
+		this.modelMapper = modelMapper;
+	}
+	*/
+	//insert review
+	/*
+	@Override
+	public ReviewDto insertReview(ReviewDto reviewDto) throws Exception {
+		Review review = modelMapper.map(reviewDto, Review.class);
+		review = reviewRepository.save(review);
+		return modelMapper.map(review, ReviewDto.class);
+	} */
+
+	@Override
+	public Long isReviewDuplicate(Long id, Long Corpid) throws Exception {
+		
+		Long count = reviewRepository.countByUserIdAndCorpId(id, Corpid);
+		return count;
+	}
+	
+	//update review
+	/*
+	@Override
+	public ReviewDto updateReview(ReviewDto reviewDto) throws Exception {
+		Review review = new Review();
+		reviewDto.setId(review.getId());
+		reviewDto.setReviewTitle(review.getReviewTitle());
+		reviewDto.setReviewContent(review.getReviewContent());
+		reviewDto.setReviewGrade(review.getReviewGrade());
+		modelMapper.map(reviewDto, review);
+		return modelMapper.map(review, ReviewDto.class);
+	}
+	
+	//delete review
+	@Override
+	public void deleteReview(Long id) throws Exception {
+		reviewRepository.deleteById(id);
+	}
+	
+	*/
+	
+	
+	
+	
+	
+}

@@ -9,8 +9,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.itwill.ilhajob.FinalProjectTeam1IlhajobApplicationTests;
-import com.itwill.ilhajob.user.dto.UserDto;
-
+import com.springboot.security.oauth.user.dto.UserDto;
+import com.springboot.security.oauth.user.service.UserService;
 
 class UserServiceImplTest extends FinalProjectTeam1IlhajobApplicationTests{
 

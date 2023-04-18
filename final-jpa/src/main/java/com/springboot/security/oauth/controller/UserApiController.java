@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.itwill.ilhajob.user.dto.UserDto;
 import com.springboot.security.oauth.service.UserSecurityService;
+import com.springboot.security.oauth.user.dto.UserDto;
 import com.springboot.security.oauth.util.aop.ReturnBindingResultError;
 import com.springboot.security.oauth.util.validation.annotation.Email;
 import com.springboot.security.oauth.util.validation.annotation.Nickname;
@@ -34,19 +34,20 @@ public class UserApiController {
     /**
      * 회원가입 - 저장
      */
+    /*
     @PostMapping("")
     @ReturnBindingResultError
     public ResponseEntity join(@Validated @RequestBody UserDto.Join userDto, BindingResult bindingResult){
         Long memberId = userSecurityService.join(userDto);
         return ResponseEntity.status(HttpStatus.OK).body(memberId);
     }
-
+	*/
     /**
      * 회원가입 - 이메일 검증 및 중복체크
      */
-    @PostMapping("/email/check/{email}")
-    public boolean joinEmailCheck(@PathVariable @Email String email){
-        return userSecurityService.joinEmailDuplicatedCheck(email);
+    @PostMapping("/userEmail/check/{userEmail}")
+    public boolean joinEmailCheck(@PathVariable @Email String userEmail){
+        return userSecurityService.joinEmailDuplicatedCheck(userEmail);
     }
 
     /**
