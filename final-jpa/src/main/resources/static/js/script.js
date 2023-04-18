@@ -1159,6 +1159,7 @@
 		let passwordError = $('#password-error');
 		let regPassword = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@!%*#?&])[A-Za-z\d$@!%*#?&]{8,}$/;
 		
+	
 		if (!regEmail.test(emailInput.val())) {
 		  emailError.text('올바른 이메일 주소를 입력해주세요.');
 		  emailError.show();
