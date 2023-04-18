@@ -97,4 +97,8 @@ public class User {
     public void prePersist() {
         this.role = this.role == 0 ? 1 : this.role;
     }
+
+
+
+
 }

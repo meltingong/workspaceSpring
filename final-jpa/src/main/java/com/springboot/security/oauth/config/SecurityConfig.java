@@ -74,11 +74,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private final PrincipalOauth2UserService principalOauth2UserService;
     private final FormLoginFailureHandler formLoginFailureHandler;
     private final String[] whitelist = {
-            "/resources/**", "/css/**", "/js/**", "/img/**",
+            "/resources/**", "/css/**", "/js/**", "/images/**",
             "/oauth2", "/api/**",
-            "/",
-            "/login", "/join", "/joinOk", "/findPassword", "/findPasswordEmailSend",
-            "/item/list", "/item/list/**", "/item/{itemId}"
+            "/","/index",
+            "/login"
     };
 
     @Override
