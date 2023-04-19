@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta charset="utf-8">
+<title>Superio | Just another HTML Template | Candidate
+	Dashboard Resume</title>
+
+<!-- Stylesheets -->
+<link href="css/bootstrap.css" rel="stylesheet">
+<link href="css/style.css" rel="stylesheet">
+
+
+<link rel="shortcut icon" href="images/favicon.png" type="image/x-icon">
+<link rel="icon" href="images/favicon.png" type="image/x-icon">
+
+<!-- Responsive -->
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+<!--[if lt IE 9]><script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script><![endif]-->
+<!--[if lt IE 9]><script src="js/respond.js"></script><![endif]-->
+
+</head>
+
+<body>
+
+	<div class="page-wrapper dashboard">
+
+		<!-- Preloader -->
+		<div class="preloader"></div>
+
+		<!-- Header Span -->
+		<span class="header-span"></span>
+
+		<!-- Main Header-->
+		<header class="main-header header-shaddow">
+			<div id="main-header"
+				th:include="include_common_top_dashboard::include_common_top_dashboard"></div>
+		</header>
+		<!--End Main Header -->
+
+		<!-- Sidebar Backdrop -->
+		<div class="sidebar-backdrop"></div>
+
+		<!-- User Sidebar -->
+		<div id="user-sidebar" th:include="user-sidebar::user-sidebar"></div>
+		<!-- End User Sidebar -->
+
+		<!-- Dashboard -->
+		<!-- Pricing Sectioin -->
+		<section class="pricing-section">
+			<div class="auto-container">
+				<div class="sec-title text-center">
+					<h2>Pricing Packages</h2>
+					<div class="text">Lorem ipsum dolor sit amet elit, sed do
+						eiusmod tempor.</div>
+				</div>
+				<!--Pricing Tabs-->
+				<div class="pricing-tabs tabs-box">
+
+
+					<!--Tabs Container-->
+					<div class="tabs-content">
+
+						<!--Tab / Active Tab-->
+						<div class="tab active-tab" id="monthly">
+							<div class="content">
+								<div class="row">
+									<!-- Pricing Table -->
+									<div class="pricing-table col-lg-4 col-md-6 col-sm-12" th:each="product:${productList}">
+										<div class="inner-box">
+											<div class="title" th:text="${product.productName}">Basic</div>
+											<div class="price" th:text="${product.productPrice}">
+												$199 <span class="duration">/ monthly</span>
+											</div>
+											<div class="table-content">
+												<ul>
+													<li><span>1 job posting</span></li>
+													<li><span>0 featured job</span></li>
+													<li><span th:text="${product.productPeriod+'일'}">Job displayed for 20 days</span></li>
+													<li><span>Premium Support 24/7 </span></li>
+												</ul>
+											</div>
+											<div class="table-footer">
+												<a href="order-popup" class="theme-btn btn-style-three call-order-modal"
+												th:data-product-id="${product.id}">구매</a>
+											</div>
+										</div>
+									</div>
+							<!-------------------------->
+								</div>
+							</div>
+						</div>
+
+		
+					</div>
+				</div>
+			</div>
+		</section>
+		<!-- End Pricing Section -->
+		<!-- End Dashboard -->
+
+		<!-- Copyright -->
+		<div class="copyright-text">
+			<p>© 2021 Superio. All Right Reserved.</p>
+		</div>
+
+	</div>
+	<!-- End Page Wrapper -->
+
+
+	<script src="js/jquery.js"></script>
+	<script src="js/popper.min.js"></script>
+	<script src="js/chosen.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/jquery-ui.min.js"></script>
+	<script src="js/jquery.fancybox.js"></script>
+	<script src="js/jquery.modal.min.js"></script>
+	<script src="js/mmenu.polyfills.js"></script>
+	<script src="js/mmenu.js"></script>
+	<script src="js/appear.js"></script>
+	<script src="js/ScrollMagic.min.js"></script>
+	<script src="js/rellax.min.js"></script>
+	<script src="js/owl.js"></script>
+	<script src="js/wow.js"></script>
+	<script src="js/knob.js"></script>
+	<script src="js/script.js"></script>
+	<script src="js/cv.js"></script>
+	<script src="js/order.js"></script>
+	
+	<!--Google Map APi Key-->
+	<script
+		src="http://maps.google.com/maps/api/js?key=AIzaSyDaaCBm4FEmgKs5cfVrh3JYue3Chj1kJMw&#038;ver=5.2.4"></script>
+	<script src="js/map-script.js"></script>
+	<!--End Google Map APi-->
+</body>
+
+</html>

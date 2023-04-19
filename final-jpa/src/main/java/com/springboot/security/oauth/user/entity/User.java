@@ -91,7 +91,7 @@ public class User {
 	private String job;
 	
 	private int role;
-	
+
    // @Enumerated(EnumType.STRING)
    // private Role role2 = Role.ROLE_USER;
 	@Builder(builderClassName = "JoinForm", builderMethodName = "JoinForm")
