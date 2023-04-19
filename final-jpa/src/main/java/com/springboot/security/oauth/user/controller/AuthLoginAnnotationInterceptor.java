@@ -47,7 +47,7 @@ public class AuthLoginAnnotationInterceptor implements HandlerInterceptor {
 		HttpSession session = request.getSession();
 		String sUserId = (String) session.getAttribute("sUserId");
 		if (sUserId == null) {
-			response.sendRedirect("login");
+			response.sendRedirect("/login");
 			return false; 
 		}
 	

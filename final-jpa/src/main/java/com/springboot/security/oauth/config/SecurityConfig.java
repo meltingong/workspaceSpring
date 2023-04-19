@@ -3,6 +3,7 @@ package com.springboot.security.oauth.config;
 
 import org.springframework.boot.autoconfigure.security.reactive.PathRequest;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -76,8 +77,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private final PrincipalOauth2UserService principalOauth2UserService;
     private final FormLoginFailureHandler formLoginFailureHandler;
     private final String[] whitelist = {
-            "/oauth2",
-            "/","/index","/login","/login**"
+    	      "/resources/**", "/css/**", "/js/**", "/img/**",
+              "/oauth2", "/api/**",
+              "/",
+              "/login","/login-popup", "/register", "/register-popup", "/findPassword", "/findPasswordEmailSend",
+              "/item/list", "/item/list/**", "/item/{itemId}"
     };
     
     @Override
@@ -88,29 +92,28 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         //post요청 forbiddon에러 방지
-        http.csrf().disable();
-        http.authorizeRequests().antMatchers(whitelist).permitAll()
-            .anyRequest().authenticated()
-            .and()
-            .formLogin()
-                .loginPage("/login")
-                .usernameParameter("email")
-                .passwordParameter("password")
-                .loginProcessingUrl("/ajaxLogin")
-                .defaultSuccessUrl("/index")
-                .failureHandler(formLoginFailureHandler)
-            .and()
-            .logout()
-                .logoutUrl("/logout")
-                .logoutSuccessUrl("/index")
-            .and()
-            .oauth2Login()
-                .loginPage("/login")
-                .defaultSuccessUrl("/index")
-                .userInfoEndpoint()
-                .userService(principalOauth2UserService);
-
+    	 http.csrf().disable();
+    	    http.authorizeRequests()
+    	        .antMatchers(whitelist).permitAll()
+    	        .anyRequest().authenticated()
+    	        .and()
+    	        .formLogin()
+    	            .loginPage("/login")
+    	            .usernameParameter("email")
+    	            .passwordParameter("password")
+    	            .loginProcessingUrl("/ajaxLogin")
+    	            .defaultSuccessUrl("/")
+    	            .failureHandler(formLoginFailureHandler)
+    	        .and()
+    	        .logout()
+    	            .logoutUrl("/logout")
+    	            .logoutSuccessUrl("/")
+    	        .and()
+    	        .oauth2Login()
+    	            .loginPage("/login")
+    	            .defaultSuccessUrl("/")
+    	            .userInfoEndpoint()
+    	            .userService(principalOauth2UserService);
     }
-
 
 }

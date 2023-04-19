@@ -136,7 +136,7 @@ public class UserController {
 	
 	
 	//회원 로그인 폼
-	@RequestMapping("/login")
+	@RequestMapping(value = "/login", method = {RequestMethod.GET, RequestMethod.POST})
 	public String login() {
 		return "login";
 	}
@@ -206,7 +206,10 @@ public class UserController {
 		forwardPath = "redirect:index";
 		return forwardPath;
 	}
-			
+    
+	
+	
+	
 	
 	// 회원 알림 전체보기
 	@LoginCheck
