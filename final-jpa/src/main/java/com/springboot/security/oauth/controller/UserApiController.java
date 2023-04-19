@@ -42,6 +42,7 @@ public class UserApiController {
         return ResponseEntity.status(HttpStatus.OK).body(memberId);
     }
 	*/
+    
     /**
      * 회원가입 - 이메일 검증 및 중복체크
      */
