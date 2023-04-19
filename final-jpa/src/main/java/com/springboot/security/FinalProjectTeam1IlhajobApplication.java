@@ -8,10 +8,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-@SpringBootApplication(scanBasePackages = {"com.itwill.ilhajob.user",
-											"com.itwill.ilhajob.corp",
-											"com.itwill.ilhajob.common",
-											"com.itwill.ilhajob.config"})
+@SpringBootApplication(scanBasePackages = {"com.springboot.security.oauth"})
 public class FinalProjectTeam1IlhajobApplication {
 
 	public static void main(String[] args) {

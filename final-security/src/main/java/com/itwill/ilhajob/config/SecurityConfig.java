@@ -1,7 +1,5 @@
-package com.springboot.security.oauth.config;
+package com.itwill.ilhajob.config;
 
-
-import javax.servlet.Filter;
 
 import org.springframework.boot.autoconfigure.security.reactive.PathRequest;
 import org.springframework.context.annotation.Bean;
@@ -12,14 +10,14 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.FilterChainBeanDefinitionParser;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.oauth2.client.authentication.OAuth2LoginAuthenticationProvider;
 import org.springframework.security.oauth2.client.web.OAuth2AuthorizationRequestRedirectFilter;
 import org.springframework.security.oauth2.client.web.OAuth2LoginAuthenticationFilter;
 import org.springframework.security.web.DefaultSecurityFilterChain;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import com.springboot.security.oauth.auth.FormLoginFailureHandler;
-import com.springboot.security.oauth.auth.PrincipalOauth2UserService;
+import com.itwill.ilhajob.oauth.auth.FormLoginFailureHandler;
+import com.itwill.ilhajob.oauth.auth.PrincipalOauth2UserService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -81,15 +79,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private final PrincipalOauth2UserService principalOauth2UserService;
     private final FormLoginFailureHandler formLoginFailureHandler;
     private final String[] whitelist = {
-    		"/resources/**",  "/css/**", "/js/**", "/images/**", 
+    	      "/resources/**", "/css/**", "/js/**", "/img/**",
               "/oauth2", "/api/**",
               "/",
-              "/login", "/login-popup", "/register", "/register-popup", "/findPassword", "/findPasswordEmailSend",
+              "/login","/login-popup", "/register", "/register-popup", "/findPassword", "/findPasswordEmailSend",
+              "/item/list", "/item/list/**", "/item/{itemId}"
     };
     
     @Override
     public void configure(WebSecurity web) throws Exception {
-    	web.ignoring().antMatchers("/fonts/**","/sass/**","/css/**", "/js/**", "/images/**","/","/index","/login","/login**","/oauth2");
+    	web.ignoring().antMatchers( "/css/**", "/js/**", "/img/**","/","/index","/login","/login**", "/final-jpa/**");
     }
     
     @Override
@@ -98,6 +97,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     	 http.csrf().disable();
     	    http.authorizeRequests()
     	        .antMatchers(whitelist).permitAll()
+    	        .antMatchers("/final-jpa/**").permitAll()
+    	        .antMatchers("/final-jpa/login").permitAll()
     	        .anyRequest().authenticated()
     	        .and()
     	        .formLogin()
@@ -118,9 +119,5 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     	            .userInfoEndpoint()
     	            .userService(principalOauth2UserService);
     }
-
-
-
-
 
 }
