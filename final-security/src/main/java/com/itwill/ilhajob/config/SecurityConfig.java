@@ -79,8 +79,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private final PrincipalOauth2UserService principalOauth2UserService;
     private final FormLoginFailureHandler formLoginFailureHandler;
     private final String[] whitelist = {
-    	      "/resources/**", "/css/**", "/js/**", "/img/**",
-              "/oauth2", "/api/**",
+    	      "/resources/**", "/css/**", "/js/**", "/images/**",
+              "/oauth2/**", "/api/**",
               "/",
               "/login","/login-popup", "/register", "/register-popup", "/findPassword", "/findPasswordEmailSend",
               "/item/list", "/item/list/**", "/item/{itemId}"
@@ -88,7 +88,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     
     @Override
     public void configure(WebSecurity web) throws Exception {
-    	web.ignoring().antMatchers( "/css/**", "/js/**", "/img/**","/","/index","/login","/login**", "/final-jpa/**");
+    	web.ignoring().antMatchers( "/fonts/**","/sass/**","/css/**", "/js/**", "/images/**","/","/index","/login","/login**");
     }
     
     @Override
@@ -97,8 +97,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     	 http.csrf().disable();
     	    http.authorizeRequests()
     	        .antMatchers(whitelist).permitAll()
-    	        .antMatchers("/final-jpa/**").permitAll()
-    	        .antMatchers("/final-jpa/login").permitAll()
     	        .anyRequest().authenticated()
     	        .and()
     	        .formLogin()
