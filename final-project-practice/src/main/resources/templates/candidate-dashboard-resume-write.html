@@ -47,7 +47,7 @@
     <section class="user-dashboard">
       <div class="dashboard-outer">
         <div class="upper-title-box">
-          <h3>My Resume</h3>
+          <h3>나의 이력서</h3>
           <div class="text">Ready to jump back in?</div>
         </div>
 
@@ -57,7 +57,7 @@
             <div class="ls-widget">
               <div class="tabs-box">
                 <div class="widget-title">
-                  <h4>My Profile</h4>
+                  <h4>이력서 작성</h4>
                 </div>
 
                 <div class="widget-content" th:object="${cvDetail}">
@@ -66,33 +66,32 @@
 
                       <!-- New Cv Name -->
                       <div class="form-group col-lg-12 col-md-12">
-                        <label>이력서 제목</label>
-                        <textarea placeholder="((테스트))이력서 제목을 입력하세요." name="cvName"></textarea>
+                        <label>제목</label>
+                        <input type="text" name="cvName" placeholder="이력서 제목을 입력하세요.">
                       </div>
 
                       <!-- About Company -->
                       <div class="form-group col-lg-12 col-md-12">
                         <label>자기소개서</label>
-                        <textarea placeholder="자기소개서를 작성해주세요." name="cvDescription"></textarea>
+                        <textarea placeholder="자기소개서를 입력하세요." name="cvDescription"></textarea>
                       </div>
                       
-                   		<input type="hidden" name="userSeq" th:value="${userSeq}"/>
-
+                   		<!-- <input type="hidden" name="userId" th:value="${userId}"/> -->
+                   		<!-- <input type="hidden" name="user" th:object="${user}" th:value="${user.id}"/> -->
+                   		
                       <!-- 포트폴리오 -->
                       <div class="form-group col-lg-12 col-md-12">
                         <label>포트폴리오</label>
-                        <!-- <textarea placeholder="포트폴리오를 업로드 사이트를 입력하세요." th:text="${cvDetail.cvPortfolio}"></textarea> -->
-                        <input type="text" name="cvPortfolio" placeholder="포트폴리오를 업로드 사이트를 입력하세요.">
+                        <input type="text" name="cvPortfolio" placeholder="포트폴리오를 입력하세요.">
                       </div>
                       <!-- 포트폴리오 -->
 
                       <div class="form-group col-lg-12 col-md-12">
                         <!-- Resume / Education -->
-                        <div class="resume-outer">
+                        <div class="resume-outer" id="edu-block">
                           <div class="upper-title">
                             <h4>학력</h4>
-                            <button class="add-info-btn" onclick="addEdu()"><span class="icon flaticon-plus"></span> 학력 추가</button>
-                            <button class="add-info-btn" id="addEduBtn" onclick="addEdu()"><span class="icon flaticon-plus"></span> 추가 버튼</button>
+                            <button type="button" class="add-info-btn" onclick="addEdu()"><span class="icon flaticon-plus"></span> 학력 추가</button>
                           </div>
                           <!-- Resume BLock -->
                           <div class="resume-block" th:each="edu:${eduList}" id="eduBlock">
@@ -108,8 +107,9 @@
                                   <span class="year" th:text="${edu.eduEndDate}">2012 - 2014</span>
                                   <div class="edit-btns">
                                   <!-- 버튼 클릭 펑션 추가필 -->
-                                    <button type="button" onclick=""><span class="la la-pencil"></span></button>
-                                    <button type="button" onclick=""><span class="la la-trash"></span></button>
+     	                             <input type="hidden" th:id="'eduId(' + ${edu.id} + ')'" name="eduId" th:value="${edu.id}">
+                                    <button type="button" onclick="updateEdu()"><span class="la la-pencil"></span></button>
+                                    <button type="button" th:id="'deleteEdu(' + ${edu.id} + ')'" th:onclick="'deleteEdu(' + ${edu.id} + ')'"  th:value="${edu.id}"><span class="la la-trash"></span></button>
                                   </div>
                                 </div>
                               </div>
@@ -117,7 +117,7 @@
 		                      
 		                      <!-- Input eduScore -->
 		                      <div class="form-group col-lg-12 col-md-12">
-		                        <label>(임시)학점</label>
+		                        <label>학점</label>
 		                        <input type="text" name="name" placeholder="학력 관련 추가 정보를 입력하세요." th:value="${edu.eduScore}">
 		                      </div>
 
@@ -165,25 +165,12 @@
                           </div>
                         </div>
 
-<!-- 
-		포트폴리오 파일 업로드
-                      <div class="form-group col-lg-6 col-md-12">
-                        <div class="uploading-outer">
-                          <div class="uploadButton">
-                            <input class="uploadButton-input" type="file" name="attachments[]" accept="image/*, application/pdf" id="upload" multiple />
-                            <label class="uploadButton-button ripple-effect" for="upload">Add Portfolio</label>
-                            <span class="uploadButton-file-name"></span>
-                          </div>
-                        </div>
-                      </div>
- -->
-
                       <div class="form-group col-lg-12 col-md-12">
                         <!-- Resume / Awards -->
                         <div class="resume-outer theme-yellow">
                           <div class="upper-title">
                             <h4>수상</h4>
-                            <button class="add-info-btn"><span class="icon flaticon-plus"></span> Awards</button>
+                            <button class="add-info-btn"><span class="icon flaticon-plus"></span> 수상 추가</button>
                           </div>
                           <!-- Resume BLock -->
                           <div class="resume-block" th:each="awards:${awardsList}">
@@ -211,22 +198,9 @@
                         </div>
                       </div>
                      </div>
-
-                      <!-- Search Select -->
-                      <div class="form-group col-lg-6 col-md-12">
-                        <label>기타 보유능력</label>
-                        <select data-placeholder="Categories" class="chosen-select multiple" multiple tabindex="4">
-                          <option value="Banking">Banking</option>
-                          <option value="Digital&Creative">Digital & Creative</option>
-                          <option value="Retail">Retail</option>
-                          <option value="Human Resources">Human Resources</option>
-                          <option value="Management">Management</option>
-                        </select>
-                      </div>
-
                       <!-- Input -->
                       <div class="form-group col-lg-12 col-md-12">
-                        <button class="theme-btn btn-style-one" onclick="writeCv()">Save</button>
+                        <button class="theme-btn btn-style-one" onclick="writeCv()">저장하기</button>
                       </div>
                     </div>
                   </form>

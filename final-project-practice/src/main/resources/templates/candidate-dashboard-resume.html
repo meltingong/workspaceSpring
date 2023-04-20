@@ -48,7 +48,7 @@
     <section class="user-dashboard">
       <div class="dashboard-outer">
         <div class="upper-title-box">
-          <h3>My Resume</h3>
+          <h3>이력서 관리</h3>
           <div class="text">Ready to jump back in?</div>
         </div>
 
@@ -58,25 +58,32 @@
             <div class="ls-widget">
               <div class="tabs-box">
                 <div class="widget-title">
-                  <h4>My Profile</h4>
+                  <h4>내 이력서</h4>
                 </div>
 
                 <div class="widget-content" th:object="${cvDetail}">
- 		<!-- ************ form start  ************ -->
-                  <form class="default-form" name="f">
                     <div class="row">
+		 		<!-- ************ cv form start  ************ -->
+                  <form class="default-form" name="cvForm">
                       <!-- Input -->
                       <div class="form-group col-lg-6 col-md-12">
-                        <label>이력서 선택</label>
-                        <select class="chosen-select" onchange="changeCv()" name="cvSeq">
-                          <option th:text="*{cvName}">My CV</option>
-                          <option th:each="cv:${cvList}" th:text="${cv.cvName}" th:value="${cv.cvSeq}">My CV</option>
-                        </select>
+					  <label>이력서 선택</label>
+					  <select class="chosen-select" onchange="changeCv()">
+					    <option th:text="*{cvName}">My CV</option> <!-- 선택된 이력서 제목 -->
+					    <option th:each="cv:${cvList}" th:id="'cvId('+${cv.id}+')'" th:text="${cv.cvName}" th:value="${cv.id}">My CV</option>
+					  </select>
+					  <input type="hidden" name="cvId" id="cvId" value="">
+					</div>
+                      
+                      <input type="hidden" name="id" th:value="${cvDetail.id}"/>
+                      <input type="hidden" name="userId" th:value="${userId}"/>
+                      
+                      <!-- Cv Name -->
+                      <div class="form-group col-lg-12 col-md-12">
+                        <label>제목</label>
+                        <input type="text" name="cvName" placeholder="((테스트))이력서 제목을 입력하세요." th:value="*{cvName}">
                       </div>
                       
-                      <input type="hidden" name="cvName" th:value="*{cvName}"/>
-                      <input type="hidden" name="userSeq" th:value="${userSeq}"/>
-
                       <!-- About Company -->
                       <div class="form-group col-lg-12 col-md-12">
                         <label>자기소개</label>
@@ -90,55 +97,86 @@
                         <input type="text" name="cvPortfolio" th:value="${cvDetail.cvPortfolio}" placeholder="포트폴리오를 업로드 사이트를 입력하세요.">
                       </div>
                       <!-- 포트폴리오 -->
-
+                      </form>
+		 		<!-- ************ cv form end  ************ -->
+						
+					<!-- edu, exp, awards div -->
                       <div class="form-group col-lg-12 col-md-12">
+                      
+                      <!-- eduForm Start -->
+	                  <form class="default-form" name="eduForm" id="eduForm">
+	                  	<input type="hidden" name="id" th:value="${cvDetail.id}">
                         <!-- Resume / Education -->
-                        <div class="resume-outer" th:object="${eduList}" th:each="edu:${eduList}">
+                        <div class="resume-outer" id="edu-block">
                           <div class="upper-title">
                             <h4>학력</h4>
-                            <button class="add-info-btn" onclick="addEdu()"><span class="icon flaticon-plus"></span> 학력 추가</button>
+                            <button type="button" class="add-info-btn" onclick="addEdu()"><span class="icon flaticon-plus"></span> 학력 추가</button>
                           </div>
                           <!-- Resume BLock -->
-                          <div class="resume-block">
-                            <div class="inner">
+                          <div class="resume-block" th:object="${eduList}" th:each="edu:${eduList}">
+                            <div class="inner" id="edit-block">
 		                        <!-- <input type="hidden" name="eduSeq" th:value="${edu.eduSeq}"/> -->
                               <span class="name">E</span>
                               <div class="title-box">
                                 <div class="info-box">
-                                <input type="hidden" name="eduMajor" th:value="${edu.eduMajor}"/>
-                                  <h3 th:text="${edu.eduMajor}">Bachlors in Fine Arts</h3>
                                 <input type="hidden" name="eduName" th:value="${edu.eduName}"/>
-                                  <span th:text="${edu.eduName}">Modern College</span>
+                                  <span th:text="${edu.eduName}" id="eduName">Modern College</span>
+                                <input type="hidden" name="eduMajor" th:value="${edu.eduMajor}"/>
+                                  <h3 th:text="${edu.eduMajor}" id="eduMajor">Bachlors in Fine Arts</h3>
                                 </div>
                                 <div class="edit-box">
-                                <!-- <input type="hidden" name="eduStartDate" th:value="${edu.eduStartDate}"/> -->
-								<span class="year" th:text="${edu.eduStartDate}">2012 - 2014</span>
-								<!-- <input type="hidden" name="eduEndDate" th:value="${edu.eduEndDate}"/> -->
-								<span class="year" th:text="${edu.eduEndDate}">2012 - 2014</span>
-                                  <div class="edit-btns">
-                                  <!-- 버튼 클릭 펑션 추가필 -->
-     	                             <input type="hidden" th:id="'eduSeq(' + ${edu.eduSeq} + ')'" name="eduSeq" th:value="${edu.eduSeq}">
-                                    <button type="button" onclick="updateEdu()"><span class="la la-pencil"></span></button>
-                                    <button type="button" th:id="'deleteEdu(' + ${edu.eduSeq} + ')'" th:onclick="'deleteEdu(' + ${edu.eduSeq} + ')'"  th:value="${edu.eduSeq}"><span class="la la-trash"></span></button>
+                                <input type="hidden" name="eduStartDate" th:value="${edu.eduStartDate}"/>
+								<span class="year" th:text="${edu.eduStartDate}" id="eduStartDate">2012 - 2014</span>
+								<input type="hidden" name="eduEndDate" th:value="${edu.eduEndDate}"/>
+								<span class="year" th:text="${edu.eduEndDate}" id="eduEndDate">2012 - 2014</span>
+                                  <div class="edit-btns" id="eduBtn">
+                                  <!-- 
+     	                            <input type="hidden" th:id="eduId+${edu.id}" name="'eduId'+${eud.Id}">
+                                    <button type="button" th:id="'editBtn(' + ${edu.id} + ')'"  th:onclick="'editEdu(' + ${edu.id} + ')'"><span class="la la-pencil"></span></button>
+                                    <button type="button" th:id="'editBtn(' + ${edu.id} + ')'"  th:onclick="'editEdu(' + ${edu.id} + ')'"><span class="la la-pencil"></span></button>
+     	                            <button type="button" th:id="'updateEdu(' + ${edu.id} + ')'"  th:onclick="'updateEdu(' + ${edu.id} + ')'"><span class="la la-check-circle-o"></span></button>
+                                    <button type="button" th:id="'deleteEdu(' + ${edu.id} + ')'" th:onclick="'deleteEdu(' + ${edu.id} + ')'"><span class="la la-trash"></span></button>
+                                   -->
+									  <input type="hidden" th:id="eduId+${edu.id}" name="eduId" >
+									  <button type="button" th:id="'editBtn(' + ${edu.id} + ')'" th:onclick="'editEdu(' + ${edu.id} + ')'"><span class="la la-pencil"></span></button>
+									  <button type="button" th:id="'updateEdu(' + ${edu.id} + ')'" th:onclick="'updateEdu(' + ${edu.id} + ')'"><span class="la la-check-circle-o"></span></button>
+									  <button type="button" th:id="'deleteEdu(' + ${edu.id} + ')'" th:onclick="'deleteEdu(' + ${edu.id} + ')'"><span class="la la-trash"></span></button>
                                   </div>
                                 </div>
                               </div>
                               <div class="text">
 		                      <!-- Input eduScore -->
 		                      <div class="form-group col-lg-12 col-md-12">
-		                        <label>(임시)학점</label>
-		                        <input type="text" name="name" placeholder="학력 관련 추가 정보를 입력하세요." th:value="${edu.eduScore}">
+		                        <label>학점</label>
+		                        <div>
+                                <input type="hidden" name="eduScore" th:value="${edu.eduScore}">
+		                        <div class="text" th:text="${edu.eduScore}" id="eduScore">Edu Score</div>
+		                        </div>
+		                        <!-- 
+		                         <input type="text" name="name" placeholder="학력 관련 추가 정보를 입력하세요." th:value="${edu.eduScore}">
+		                         -->
 		                      </div>
                                <!-- Input eduContent -->
 		                      <div class="form-group col-lg-12 col-md-12">
 		                        <label>추가 정보 입력</label>
+		                        <div>
+                                <input type="hidden" name="eduContent" th:value="${edu.eduContent}"/>
+		                        <div class="text" th:text="${edu.eduContent}" id="eduContent">Edu Content</div>
+		                        </div>
+		                        <!-- 
 		                         <input type="text" name="name" placeholder="학력 관련 추가 정보를 입력하세요." th:value="${edu.eduContent}">
+		                         -->
 		                      </div>
                               </div>
                             </div>
                           </div>
                         </div>
-
+                       </form>
+                      <!-- eduForm End -->
+						
+						
+						<!-- expForm Start -->
+					<form class="default-form" name="expForm">
                         <!-- Resume / Work & Experience -->
                         <div class="resume-outer theme-blue">
                           <div class="upper-title">
@@ -147,7 +185,7 @@
                           </div>
                           <!-- Resume BLock -->
                           <div class="resume-block" th:each="exp:${expList}">
-                          <input type="hidden" name="expSeq" th:value="${exp.expSeq}">
+                          <input type="hidden" name="expId" th:value="${exp.id}">
                             <div class="inner">
                               <span class="name">S</span>
                               <div class="title-box">
@@ -160,43 +198,35 @@
                                   <span class="year" th:value="${exp.expEndDate}" th:text="${exp.expEndDate}">2012 - 2014</span>
                                   <div class="edit-btns">
                                     <button><span class="la la-pencil" onclick=""></span></button>
-                                    <button><span class="la la-trash" th:value="${exp.expSeq}" onclick="deleteExp()"></span></button>
+                                    <button><span class="la la-trash" th:value="${exp.id}" onclick="deleteExp()"></span></button>
                                   </div>
                                 </div>
                               </div>
                            <!-- Input expContent -->
                               <div class="form-group col-lg-12 col-md-12">
 		                        <label>경력 상세</label>
-		                        <input type="text" name="name" placeholder="경력 관련 추가 정보를 입력하세요." th:value="${exp.expContent}">
+		                        <div class="text" th:text="${exp.expContent}"></div>
+		                        <!-- <input type="text" name="name" placeholder="경력 관련 추가 정보를 입력하세요." th:value="${exp.expContent}"> -->
 		                      </div>
                             </div>
                           </div>
                         </div>
+                      </form>
+					<!-- expForm End -->
 
-<!-- 
-		포트폴리오 파일 업로드
-                      <div class="form-group col-lg-6 col-md-12">
-                        <div class="uploading-outer">
-                          <div class="uploadButton">
-                            <input class="uploadButton-input" type="file" name="attachments[]" accept="image/*, application/pdf" id="upload" multiple />
-                            <label class="uploadButton-button ripple-effect" for="upload">Add Portfolio</label>
-                            <span class="uploadButton-file-name"></span>
-                          </div>
-                        </div>
-                      </div>
- -->
-
+				<!-- awardsForm Start -->
+					<form class="default-form" name="awardsForm">
                       <div class="form-group col-lg-12 col-md-12">
                         <!-- Resume / Awards -->
                         <div class="resume-outer theme-yellow">
                           <div class="upper-title">
                             <h4>수상</h4>
-                            <button class="add-info-btn"><span class="icon flaticon-plus"></span> Awards</button>
+                            <button class="add-info-btn"><span class="icon flaticon-plus"></span>수상 추가</button>
                           </div>
                           <!-- Resume BLock -->
                           <div class="resume-block" th:each="awards:${awardsList}">
                             <div class="inner">
-                              <span class="name">Awards</span>
+                              <span class="name">A</span>
                               <div class="title-box">
                                 <div class="info-box">
                                   <h3 th:text="${awards.awardsName}">Perfect Attendance Programs</h3>
@@ -212,40 +242,33 @@
                               </div>
                               <div class="form-group col-lg-12 col-md-12">
                               	<label>수상 상세</label>
-		                        <input type="text" name="name" placeholder="수상관련 추가 정보를 입력하세요." th:value="${awards.awardsContent}">
+                              	<div class="text" th:text="${awards.awardsContent}"></div>
+		                        <!-- <input type="text" name="name" placeholder="수상관련 추가 정보를 입력하세요." th:value="${awards.awardsContent}"> -->
 	                      	  </div>
                             </div>
                           </div>
                         </div>
                       </div>
+                      </form>
+				<!-- awardsForm End -->
+                      
                      </div>
-
-                      <!-- Search Select -->
-                      <div class="form-group col-lg-6 col-md-12">
-                        <label>기타 보유능력</label>
-                        <select data-placeholder="Categories" class="chosen-select multiple" multiple tabindex="4">
-                          <option value="Banking">Banking</option>
-                          <option value="Digital&Creative">Digital & Creative</option>
-                          <option value="Retail">Retail</option>
-                          <option value="Human Resources">Human Resources</option>
-                          <option value="Management">Management</option>
-                        </select>
-                      </div>
 
                       <!-- Input -->
                       <div class="form-group col-lg-12 col-md-12">
-                        <button class="theme-btn btn-style-one" onclick="updateCv()">Save</button>
-                        <button class="theme-btn btn-style-one" onclick="apply()">Apply</button>
+                        <button class="theme-btn btn-style-one" onclick="updateCv()">저장하기</button>
+                        <button class="theme-btn btn-style-one" onclick="apply()">지원하기</button>
+                        <button class="theme-btn btn-style-one" onclick="deleteCv()">삭제하기</button>
                       </div>
                     </div>
-                  </form>
+                  <!-- 
+                   </form>
+                   -->
  		<!-- ************ form end  ************ -->
                 </div>
               </div>
             </div>
           </div>
-
-
         </div>
       </div>
     </section>
@@ -255,9 +278,8 @@
     <div class="copyright-text">
       <p>© 2021 Superio. All Right Reserved.</p>
     </div>
-
+    
   </div><!-- End Page Wrapper -->
-
 
   <script src="js/jquery.js"></script>
   <script src="js/popper.min.js"></script>

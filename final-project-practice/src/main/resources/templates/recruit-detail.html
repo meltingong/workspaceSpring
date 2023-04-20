@@ -54,10 +54,14 @@
                         <li><span class="icon flaticon-clock-3"></span> 11 hours ago</li>
                         <li><span class="icon flaticon-money"></span> $35k - $45k</li>
                       </ul>
-                      <ul class="job-other-info">
-                        <li class="time">Full Time</li>
+                      <ul class="job-other-info" >
+                      	<div th:each="str : ${recruitTagNameList}">
+                        <li class="time" th:text ="${str}">Full Time</li>
+                        <!--  
                         <li class="privacy">Private</li>
                         <li class="required">Urgent</li>
+                        -->
+                        </div>
                       </ul>
                     </div>
                   </div>
@@ -128,7 +132,26 @@
                   <li>You are familiar using Jira and Confluence in your workflow</li>
                 </ul>
               </div>
-
+              <!-- 채용담당자 -->
+              <div th:each="manager:${managerList}" class="job-block">
+                  <div class="inner-box">
+                    <div class="content">
+                      <span class="company-logo"><img src="images/resource/company-logo/1-3.png" alt=""></span>
+                      <h4><a href="#">채용담당자</a></h4>
+                      <ul class="job-info">
+                      	
+                        <li class=""><span th:text="${manager.managerName}"></span></li>
+                        <li class="icon flaticon-telephone-1"><span th:text="${manager.managerPhone}"></span></li>
+                        <li class="icon flaticon-mail"><span th:text="${manager.managerEmail}"></span></li>
+                      </ul>
+                      <ul class="job-other-info">
+                        <li class="time">09:00 ~ 18:00</li>
+                        <li class="required" th:text="${manager.managerPosition}">Urgent</li>
+                      </ul>
+                    </div>
+                  </div>
+              </div>
+                
               <!-- Other Options -->
               <div class="other-options">
                 <div class="social-share">
@@ -143,7 +166,8 @@
             <div class="sidebar-column col-lg-4 col-md-12 col-sm-12">
               <aside class="sidebar">
                 <div class="btn-box">
-                  <a href="#" class="theme-btn btn-style-one">Apply For Job</a>
+                  <!-- <a href="#" class="theme-btn btn-style-one">Apply For Job</a> -->
+                  <a href="apply-popup" class="theme-btn btn-style-one call-modal">지원하기</a>
                   <button class="bookmark-btn"><i class="flaticon-bookmark"></i></button>
                 </div>
 
@@ -152,8 +176,8 @@
                     <div class="company-title">
                       <div class="company-logo"><img src="images/resource/company-7.png" alt=""></div>
                       <h5 class="company-name" th:text="${recruit.corp.corpName}">InVision</h5>
-                      <a href="#" class="profile-link" th:href="@{corp-detail(corpId=${recruit.corp.corpId})}">
-                      		View company profile</a> <!-- th:href="@{corp-detail(corpId=${recruit.corp.corpId})" 
+                      <a href="#" class="profile-link" th:href="@{corp-detail(corpId=${recruit.corp.id})}">
+                      		View company profile</a> <!-- th:href="@{corp-detail(corpId=${recruit.corp.corpId})}" 
                       									  th:href="@{recruit-detail(rcSeq=${recruit.rcSeq})}"   -->
                     </div>
 
@@ -174,10 +198,9 @@
                       </li>
                     </ul>
 
-                    <div class="btn-box"><a href="#" class="theme-btn btn-style-three" 
-                    								th:text="${recruit.corp.corpWebsite}"
-                    								th:href="@{recruit.corp.corpWebsite}">
-                    								www.invisionapp.com</a></div>
+                    <div class="btn-box">
+                    <a href="#" th:href="@{__${recruit.corp.corpWebsite}__}" class="theme-btn btn-style-three" th:text="${recruit.corp.corpWebsite}" target="_blank" th:if="${recruit.corp.corpWebsite != null}">
+                    www.invisionapp.com</a></div>
                   </div>
                 </div>
 

@@ -35,24 +35,24 @@
                 <input type="checkbox" name="remember-me" value="" id="remember">
                 <label for="remember" class="remember"><span class="custom-checkbox"></span> Remember me</label>
               </div>
-              <a href="#" class="pwd">Forgot password?</a>
+              <button type="button" onClick="findSubmit()">비밀번호 찾기</button>
             </div>
           </div>
 
           <div class="form-group">
-            <button class="theme-btn btn-style-one" type="button" id="log-in" name="log-in">Log In</button>
+            <button class="theme-btn btn-style-one" type="button" id="log-in" name="log-in">로그인</button>
           </div>
         </form>
 
         <div class="bottom-box">
-          <div class="text">Don't have an account? <a href="register-popup" class="call-modal signup">Signup</a></div>
+          <div class="text">Don't have an account? <a href="register-popup" class="call-modal signup">회원가입</a></div>
           <div class="divider"><span>or</span></div>
           <div class="btn-box row">
             <div class="col-lg-6 col-md-12">
-			<a href="/final-security/oauth2/authorization/naver" ><img src="/final-security/images/naver/naver_login.png" style="height:3.5em;"/></a>
+			<a href="/final-security/oauth2/authorization/naver" ><img src="/final-security/images/naver/naver_icon.png" width="50px" height="50px"/></a>
             </div>
             <div class="col-lg-6 col-md-12">
-			<a href="/final-security/oauth2/authorization/kakao" ><img src="/final-security/images/kakao/kakao_login.png" style="height:3.5em;"/></a>
+			<a href="/final-security/oauth2/authorization/kakao" ><img src="/final-security/images/kakao/kakao_icon.png" width="50px" height="50px"/></a>
             </div>
           </div>
         </div>
@@ -76,5 +76,5 @@
     });
 
   </script>
-
+<script src="js/findPassword.js"></script>
 </div>

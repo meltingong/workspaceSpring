@@ -1,10 +1,71 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+<script type="text/javascript">
 
+function blogList() {
+	window.location.href='blog-list';
+}
+
+
+function blogModifyForm() {
+	document.f.action = "blog-modify-form";
+	document.f.method='POST';
+	document.f.submit();
+}
+
+function blogRemove() {
+	if (window.confirm("정말 삭제하시겠습니까?")) {
+		document.f.method='POST';
+		document.f.action = "blog-remove-action";
+		document.f.submit();
+	}
+}
+
+function blogModifyAction() {
+	if (document.f.blogCateSeq.value == "") {
+		alert("카테고리를 선택하세요.");
+		document.f.blogCateSeq.focus();
+		return false;
+	}
+	
+	if (document.f.blogTitle.value == "") {
+		alert("블로그 제목을 입력하세요.");
+		document.f.blogTitle.focus();
+		return false;
+	}
+	if (document.f.blogContent.value == "") {
+		alert("내용을 입력하세요.");
+		document.f.blogContent.focus();
+		return false;
+	}
+
+	if (document.f.blogImage.value == "") {
+		alert("이미지를 첨부하세요.");
+		document.f.blogImage.focus();
+		return false;
+	}
+	
+	document.f.action = "blog_modify_action";
+	document.f.method='POST';
+	document.f.submit();
+}
+
+
+function blogCommentCreateAction() {
+	document.f1.action = "blogcomment_write_action";
+	document.f1.method='POST';
+	document.f1.submit();
+}
+
+
+
+
+
+</script>
 <head>
   <meta charset="utf-8">
-  <title>Superio | Just another HTML Template | Blog Single</title>
-
+   <title>Superio | Just another HTML Template | Blog Single</title>
+	
   <!-- Stylesheets  -->
   <link href="css/bootstrap.css" rel="stylesheet">
   <link href="css/style.css" rel="stylesheet">
@@ -12,7 +73,7 @@
 
   <link rel="shortcut icon" href="images/favicon.png" type="image/x-icon">
   <link rel="icon" href="images/favicon.png" type="image/x-icon">
-
+	
   <!-- Responsive -->
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
@@ -34,29 +95,39 @@
     <header class="main-header">
      <div id="main-header" th:include="include_common_top::include_common_top"></div>
     </header>
+           <!-- 리스트 !-->
+          <div style="margin-bottom: 10px">
+          <button type="button" class="theme-btn btn-style-ten" style="float: right; margin-right:5px;"onclick="blogList();" >목록보기</button>
+          <span><button type="button" class="theme-btn btn-style-ten" onclick="blogRemove();"  style="float: right; margin-right:5px;">삭제하기</button></span>
+          <span><button type="button" class="theme-btn btn-style-ten" onclick="blogModifyForm();" style="float: right; margin-right:5px;">수정하기</button></span>
+          </div>
     <!--End Main Header -->
 
     <!-- Blog Single -->
+    <form th:object="${blog}" name="f" method="post" >
     <section class="blog-single">
       <div class="auto-container">
         <div class="upper-box">
           <h3 th:text=${blog.blogTitle}>Keep your face always toward the sunshine - and shadows will fall behind you.</h3>
           <ul class="post-info">
-            <li ><span class="thumb"><img src="images/resource/thumb-1.png" alt=""></span> Alison Dawn</li>
-            <li th:text="${blog.blogDate}"> August 31, 2021</li>
+            <li ><span class="thumb"><img src="images/resource/thumb-1.png" alt=""></span><span th:text="${#strings.substringBefore(blog.user.userEmail,'@')}"></span></li>
+            <li th:text="${#temporals.format(blog.blogDate,'yyyy-MM-dd')}" > August 31, 2021</li>
             <li th:text="|${#lists.size(blogCommentList)} Comment|"> Comment</li>
+            <li th:text="|${blog.blogReadCount+1} views|">
           </ul>
         </div>
       </div>
       <figure class="main-image"><img src="images/resource/blog-single.jpg" alt=""></figure>
       <div class="auto-container">
-        <p th:text=${blog.blogContent}>Aliquam hendrerit sollicitudin purus, 
+        <p th:text=${blog.blogContent} style="white-space: pre-wrap;">Aliquam hendrerit sollicitudin purus, 
         quis rutrum mi accumsan nec. Quisque bibendum orci ac nibh facilisis, 
         at malesuada orci congue. Nullam tempus sollicitudin cursus. Ut et adipiscing erat. Curabitur this is a text link libero tempus congue.</p>
-    
 	</div>
-  
+	</section>
+	</form>
+	
         <!-- Comments area -->
+         <section class="blog-single">
          <div class="auto-container">
           <!-- Comment Box -->
           <div class="comment-box">
@@ -65,42 +136,39 @@
             <div class="comment" th:each="blogComment : ${blogCommentList}">
               <div class="user-thumb"><img src="images/resource/avatar-1.jpg" alt=""></div>
               <div class="comment-info">
-                <div class="user-name" th:text=${blogComment.userSeq}>Oscar Cafeo</div>
-                <div class="title" th:text=${blogComment.commentDate}>Beautiful courses</div>
+                <div class="user-name" th:text="${#strings.substringBefore(blogComment.user.userEmail,'@')}">Oscar Cafeo</div>
+                <div class="title" th:text="${#temporals.format(blogComment.commentDate,'yyyy-MM-dd')}">Beautiful courses</div>
               </div>
-              <div class="text" th:text="${blogComment.commentContent}">Far much that one rank beheld bluebird after outside ignobly allegedly more when oh arrogantly vehement tantaneously eel valiantly petted this along across highhandedly much.</div>
+              <div class="text" th:text="${blogComment.commentContent}" style="white-space: pre-wrap;">Far much that one rank beheld bluebird after outside ignobly allegedly more when oh arrogantly vehement tantaneously eel valiantly petted this along across highhandedly much.</div>
             </div>
           </div>
-
-
+		
         <!-- Comment Form -->
+         <form  th:object="${blogComment}" name="f1" method="post" >
         <div class="comment-form default-form">
           <h4>댓글 등록</h4>
-          <form>
-            <div class="row clearfix">
-              <div class="col-lg-6 col-md-12 col-sm-12 form-group">
-                <label>이름</label>
-                <input type="text" name="username" placeholder="Name" required>
+    		<div>
+                <input type="hidden" th:value="${blog.Id}" name="blogId">
               </div>
+                    <!-- 
               <div class="col-lg-6 col-md-12 col-sm-12 form-group">
-                <label>이메일</label>
-                <input type="email" name="email" placeholder="Email" required>
+        		 <label>유저이름</label>
+                <input type="hidden" name="userId" th:value="${blogComment.user.id}" placeholder="Name" required>
               </div>
+              -->
               <div class="col-lg-12 col-md-12 col-sm-12 form-group">
                 <label>댓글내용</label>
-                <textarea name="message" placeholder="Write Comment"></textarea>
+                <textarea name="commentContent" placeholder="Write Comment"></textarea>
               </div>
               <div class="col-lg-12 col-md-12 col-sm-12 form-group">
-                <button class="theme-btn btn-style-one" type="submit" name="submit-form">등록하기</button>
+                <button class="theme-btn btn-style-one" type="button" onclick="blogCommentCreateAction();">등록하기</button>
               </div>
             </div>
-          </form>
-        </div>
+         </form>
         <!--End Comment Form -->
       </div>
     </section>
     <!-- End Blog Single -->
-
     <!-- Main Footer -->
     <footer class="main-footer alternate5">
       <div class="auto-container">

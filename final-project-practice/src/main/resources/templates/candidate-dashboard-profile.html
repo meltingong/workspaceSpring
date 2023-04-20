@@ -46,7 +46,7 @@
     <div class="sidebar-backdrop"></div>
 
     <!-- User Sidebar -->
-    <div id="user-sidebar" th:include="user-sidebar::user-sidebar"></div>
+      <div id="user-sidebar" th:include="user-sidebar::user-sidebar"></div>
     <!-- End User Sidebar -->
 
     <!-- Dashboard -->
@@ -103,7 +103,18 @@
                         <label>Email address</label>
                         <input type="text" th:value="${loginUser.userEmail}" name="userEmail" disabled>
                       </div>
-
+						
+					<!-- 비밀번호 수정 -->
+					 <div class="form-group col-lg-6 col-md-12">
+                        <label>Change Password</label>
+                         <input type="password" th:value="${loginUser.userPassword}" name="userPassword" disabled>
+                      </div>
+                      
+                      <div class="form-group col-lg-6 col-md-12">
+                        <label>Password Confirm</label>
+                         <input type="password" th:value="${loginUser.userPassword}" name="userPasswordConfirm" disabled>
+                      </div>
+                      
                       <!-- Input -->
                       <div class="form-group col-lg-6 col-md-12">
                         <label>Sex</label>

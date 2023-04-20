@@ -18,6 +18,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
   <!--[if lt IE 9]><script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script><![endif]-->
   <!--[if lt IE 9]><script src="js/respond.js"></script><![endif]-->
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.7/handlebars.min.js"></script>
+
 </head>
 
 <body>
@@ -247,6 +250,11 @@
                   <button type="button" class="theme-btn toggle-filters"><span class="icon icon-filter"></span> Filter</button>
                   <div class="text">Showing <strong>41-60</strong> of <strong>944</strong> jobs</div>
                 </div>
+                <button class="changeTag" name="all" value="전체">전체</button>
+                <div th:each="tag: ${tagList}" th:if="${tag.tagId}<4">
+					<button class="changeTag" name="${tag.tagName}"
+					th:text="${tag.tagName}" th:value="${tag.tagId}">코프태그</button>
+                </div>
                 <div class="sort-by">
                   <select class="chosen-select">
                     <option>New Jobs</option>
@@ -267,7 +275,7 @@
                   </select>
                 </div>
               </div>
-
+			<div id="recruit-main-list">
               <div class="row">
                 <!-- Job Block -->
                 <div th:each="recruit:${recruitList}" class="job-block col-lg-6 col-md-12 col-sm-12">
@@ -275,7 +283,7 @@
                     <div class="content">
                       <span class="company-logo"><img src="images/resource/company-logo/1-2.png" alt=""></span>
                       <h4><a href="#"
-                      		 th:href="@{recruit-detail(rcSeq=${recruit.rcSeq})}" 
+                      		 th:href="@{recruit-detail(id=${recruit.id})}" 
                       		 th:text="${recruit.rcTitle}" >Recruiting Coordinator</a></h4>
                       <ul class="job-info">
                         <li th:text="${recruit.rcPosition}"><span class="icon flaticon-briefcase"></span></li>
@@ -284,15 +292,22 @@
                         <li><span class="icon flaticon-money"></span> $35k - $45k</li>
                       </ul>
                       <ul class="job-other-info">
-                        <li class="time">Full Time</li>
-                        <li class="privacy">Private</li>
+                      	<div th:each="recruitTag : ${recruitTagList}">
+                      	<div th:each="tag:${tagList}">
+                        <li class="time" th:if = "${recruit.id}==${recruitTag.recruit.Id} and ${tag.tagId}==${recruitTag.tagId}"  th:text ="${tag.tagName}">Full Time</li>
+                        </div>
+                        </div>
+                        <!--  
+                         <li class="privacy">Private</li>
                         <li class="required">Urgent</li>
+                        -->
                       </ul>
                       <button class="bookmark-btn"><span class="flaticon-bookmark"></span></button>
                     </div>
                   </div>
                 </div>
               </div>
+            </div>
 
               <!-- Pagination -->
               <nav class="ls-pagination mb-5">
@@ -427,7 +442,41 @@
 
   </div><!-- End Page Wrapper -->
 
+	<!-- 리크루트 태그 선택시 ajax요청 -->
+	<script type="text/x-handlebars-template" id="recruit-tag-template">
+		<div class="row">
+                <!-- Job Block -->
+				{{#each data}}
+                <div class="job-block col-lg-6 col-md-12 col-sm-12">
+                  <div class="inner-box">
+                    <div class="content">
+                      <span class="company-logo"><img src="images/resource/company-logo/1-2.png" alt=""></span>
+                      <h4><a href="recruit-detail?id={{recruit.id}}">
+						{{recruit.rcTitle}}</a></h4>
+                      <ul class="job-info">
+                        <li>{{recruit.rcPosition}}<span class="icon flaticon-briefcase"></span></li>
+                        <li>{{recruit.corp.corpAddress}}<span class="icon flaticon-map-locator"></span></li>
+                        <li><span class="icon flaticon-clock-3"></span> 11 hours ago</li>
+                        <li><span class="icon flaticon-money"></span> $35k - $45k</li>
+                      </ul>
+                      <ul class="job-other-info">
+						{{#each tagNameList}}
+                        <li class="time" >{{this}}</li>
+						{{/each}}
+                        <!--  
+                         <li class="privacy">Private</li>
+                        <li class="required">Urgent</li>
+                        -->
+                      </ul>
+                      <button class="bookmark-btn"><span class="flaticon-bookmark"></span></button>
+                    </div>
+                  </div>
+                </div>
+				{{/each}}
+              </div>
+	</script>
 
+	<!-- End리크루트 태그 선택시 ajax요청 -->
   <script src="js/jquery.js"></script>
   <script src="js/popper.min.js"></script>
   <script src="js/jquery-ui.min.js"></script>
@@ -443,7 +492,8 @@
   <script src="js/owl.js"></script>
   <script src="js/wow.js"></script>
   <script src="js/script.js"></script>
-
+	
+	<script src="js/app_recruit.js" type="module"></script>
 </body>
 
 </html>

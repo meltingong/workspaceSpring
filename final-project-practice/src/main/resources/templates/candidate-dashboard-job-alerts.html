@@ -96,12 +96,12 @@
                           <td th:text="${message.messageTitle}">
                           </td>
                            <td th:text="${message.messageContents}"></td>
-                          <td th:text="${#dates.format(message.messageDate,'yyyy.MM.dd')}"></td>
+                          <td th:text="${message.messageDate}"></td>
                           <td>
                             <div class="option-box">
                               <ul class="option-list">
-                               <input type="hidden" name="messageSeq" th:value="${message.messageSeq}"/>
-                                <li><button data-text="Delete Aplication" onClick="remove()" th:value="${message.messageSeq}"><span class="la la-trash"></span></button></li>
+                               <input type="hidden" name="messageId" th:value="${message.id}"/>
+                                <li><button data-text="Delete Aplication" onClick="remove()" th:value="${message.id}"><span class="la la-trash"></span></button></li>
                               </ul>
                             </div>
                           </td>

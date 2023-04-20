@@ -794,7 +794,7 @@
 
 	// Custom Select Box
 	if ($('.sortby-select').length) {
-    	$('.sortby-select').select2();
+    /*	$('.sortby-select').select2();*/
 	}
 
 	// Tooltip
@@ -807,12 +807,19 @@
 	  event.preventDefault();
 	  this.blur();
 	  $.get(this.href, function(html) {
+		$('.modal').remove();
 	    $(html).appendTo('body').modal({
 	    	closeExisting: true,
 			fadeDuration: 300,
 			fadeDelay: 0.15
 	    });
 	  });
+	});
+
+	// Close modal
+	$('.close-modal').on('click', function(event){
+		event.preventDefault();
+		$(this).closest('.modal').remove();
 	});
 
 
@@ -1091,7 +1098,157 @@
       });
     }
 
+	//login 
+	$(document).on('click', '#log-in', function(e) {
+		e.preventDefault();
+		let formData = {};
+		$.each($('#login-f').serializeArray(), function() {
+			formData[this.name] = this.value;
+		});
+		let jsonData = JSON.stringify(formData);
+		// Promise 객체 생성
+		let promise = $.ajax({
+			type: 'POST',
+			url: 'ajaxLogin',
+			data: jsonData,
+			contentType: 'application/json',
+			dataType: 'json'
+		});
 
+		// Promise 객체를 사용하여 Ajax 요청 처리
+		promise.then(function(response) {
+			// 로그인 성공 시 처리
+			if (response.success) {
+				window.location.href = '/final-project-team1-ilhajob';
+			}
+			// 로그인 실패 시 처리
+			else {
+				alert(response.message);
+				window.location.href = response.location;
+			}
+		})
+			.fail(function(xhr) {
+				// Ajax 요청 실패 시 처리
+				let errorMsg = document.createElement('p');
+				errorMsg.style.textAlign = 'center';
+				errorMsg.style.color = 'red';
+				errorMsg.textContent = xhr.responseText;
+				let passwordInput = document.getElementById('password-field');
+				passwordInput.insertAdjacentElement('afterend', errorMsg);
+				if(xhr.status === 5000 || xhr.status === 5300){
+					$('#email').focus();
+				}else if(xhr.status === 5301 || xhr.status === 5301){
+					$('#id').focus();
+				}
+			});
+	});
+	
+	//register
+	$(document).on('click', '#create-btn', function(e) {
+		e.preventDefault();
+		let formData = {};
+		$.each($('#create-f').serializeArray(), function() {
+			formData[this.name] = this.value;
+		});
+		
+	
+	    let emailInput = $('#email');
+		let emailError = $('#email-error');
+		let regEmail = /([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
+		let passwordInput = $('#password-field');
+		let passwordError = $('#password-error');
+		let regPassword = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@!%*#?&])[A-Za-z\d$@!%*#?&]{8,}$/;
+		
+		if (!regEmail.test(emailInput.val())) {
+		  emailError.text('올바른 이메일 주소를 입력해주세요.');
+		  emailError.show();
+		  emailInput.addClass('is-invalid');
+		  return false;
+		} else if(!regPassword.test(passwordInput.val())){
+		  passwordError.text('비밀번호는 최소 8자리 이상, 대,소문자/숫자/특수문자를 모두 포함해야 합니다.');
+		  passwordError.show();
+		  passwordInput.addClass('is-invalid');
+		  return false;
+			
+		}
+		
+		let jsonData = JSON.stringify(formData);
+
+		// Promise 객체 생성
+		let promise = $.ajax({
+			type: 'POST',
+			url: 'ajaxRegister',
+			data: jsonData,
+			contentType: 'application/json',
+			dataType: 'json'
+		});
+		
+		
+		 //Promise 객체를 사용하여 Ajax 요청 처리
+		promise.then(function(response) {
+			// 서버로부터 받은 응답 데이터 처리
+			console.log(response);
+			console.log(response.message);
+		 
+			// 회원가입 성공 시 처리
+			if (response.success) {
+				alert('가입성공');
+				if (location.href.endsWith('login')){
+					//document.getElementById("register-modal").style.display = "none";
+					$('#register-modal').css('display', 'none');
+				}else{
+					$('#login-modal').modal('show');
+				}
+			}
+			// 회원가입 실패 시 처리
+			else {
+				alert(response.message);
+				window.location.href = response.location;
+			}
+		})
+			.fail(function(xhr, status, error) {
+				// Ajax 요청 실패 시 처리
+				console.log(xhr);
+				console.log(status);
+				console.log(error);
+				let errorMsg = document.createElement('p');
+				errorMsg.style.textAlign = 'center';
+				errorMsg.style.color = 'red';
+				errorMsg.textContent = xhr.responseText;
+				let passwordInput = document.getElementById('password-field');
+				passwordInput.insertAdjacentElement('afterend', errorMsg);
+				if(xhr.status === 5200 || xhr.status === 5300){
+					$('#email').focus();
+				}
+			});
+	});
+	
+	$(document).on('click', '#candidate-btn', function(e) {
+		e.preventDefault();
+		$('.jquery-modal.blocker.current input#separate').val('user');
+    	$('.jquery-modal.blocker.current a#candidate-btn').toggleClass('btn-style-four btn-style-seven');
+    	$('.jquery-modal.blocker.current a#corp-btn').toggleClass('btn-style-seven btn-style-four');
+      	$('.jquery-modal.blocker.current input#id').attr('type','email');
+      	$('.jquery-modal.blocker.current input#id').attr('name','email');
+      	$('.jquery-modal.blocker.current input#id').attr('placeholder','Email Address');
+      	$('.jquery-modal.blocker.current input#id').attr('id','email');
+      	$('label[for="id"]').attr('for','email');
+      	$('label[for="email"]').text('Email');
+	});
+	
+	$(document).on('click', '#corp-btn', function(e) {
+		$('.jquery-modal.blocker.current input#separate').val('corp');
+    	$('.jquery-modal.blocker.current a#candidate-btn').toggleClass('btn-style-seven btn-style-four');
+    	$('.jquery-modal.blocker.current a#corp-btn').toggleClass('btn-style-four btn-style-seven');
+      	$('.jquery-modal.blocker.current input#email').attr('type','text');
+      	$('.jquery-modal.blocker.current input#email').attr('name','id');
+      	$('.jquery-modal.blocker.current input#email').attr('placeholder','ID');
+      	$('.jquery-modal.blocker.current input#email').attr('id','id');
+      	$('label[for="email"]').attr('for','id');
+      	$('label[for="id"]').text('ID');
+	});
+
+	
 
 /* ==========================================================================
    When document is Scrollig, do

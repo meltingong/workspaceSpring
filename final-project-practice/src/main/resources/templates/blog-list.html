@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <script type="text/javascript">
+
+  function blogCreateForm() {
+  	window.location.href='blog-write-form';
+  }
+  </script>
+
+<head>
+  <meta charset="utf-8">
+  <title>Superio | Just another HTML Template | Blog List v3</title>
+
+  <!-- Stylesheets -->
+  <link href="css/bootstrap.css" rel="stylesheet">
+  <link href="css/style.css" rel="stylesheet">
+
+  <link rel="shortcut icon" href="images/favicon.png" type="image/x-icon">
+  <link rel="icon" href="images/favicon.png" type="image/x-icon">
+
+  <!-- Responsive -->
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  <!--[if lt IE 9]><script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script><![endif]-->
+  <!--[if lt IE 9]><script src="js/respond.js"></script><![endif]-->
+</head>
+
+<body>
+
+  <div class="page-wrapper">
+
+    <!-- Preloader -->
+    <div class="preloader"></div>
+
+    <!-- Header Span -->
+    <span class="header-span"></span>
+
+    <!-- Main Header-->
+    <header class="main-header header-shaddow">
+      <div id="main-header" th:include="include_common_top::include_common_top"></div>
+    </header>
+    <!--End Main Header -->
+
+    <!--Page Title-->
+    <section class="page-title">
+      <div class="auto-container">
+        <div class="title-outer">
+          <h1>Blog</h1>
+          <ul class="page-breadcrumb">
+            <li><a href="index.html">Home</a></li>
+            <li>Blog</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+    <!--End Page Title-->
+</div>
+    <!-- Sidebar Page Container -->
+    <div class="sidebar-page-container">
+      <div class="auto-container">
+        <div class="row">      
+         <!-- 작성하기 버튼-->
+          <div style="margin-bottom: 10px">
+          <button type="button" class="theme-btn btn-style-one" style="float: right;" onclick="blogCreateForm();">작성하기</button>
+          </div>
+	 </div>
+    
+          <!--Content Side-->
+          <div class="content-side col-lg-12 col-md-12 col-sm-12">
+            <div class="blog-grid">
+              <div class="row">
+              
+               <!-- 
+									<tr th:each="blog:${blogList}" >
+										<td th:text="${}" width=50 align=center bgcolor="ffffff" height="20">158</td>
+										<td width=300 bgcolor="ffffff" style="padding-left:10">
+										<a	th:text="${guest.guest_title}" th:href="@{guest_view(guest_no=${guest.guest_no})}" href="guest_view?guest_no=158" class="user">제목</a></td>
+										<!-- th:href 링크걸때 앞에@ 붙이고 @{guest_view(guest_no=${guest.guest_no})} 요런식으로 th문법사용해야댐
+										<td th:text="${guest.guest_name}" width=120 align=center bgcolor="ffffff">테스트</td>
+										<td th:text="${guest.guest_date.substring(0,10)}" width=120 align=center bgcolor="ffffff">2023-02-15</td>
+									</tr>
+					 -->
+                <!-- News Block -->
+                <div class="news-block col-lg-4 col-md-6 col-sm-12" th:each="blog : ${blogList}">
+                  <div class="inner-box">
+                    <div class="image-box">
+                      <figure class="image"><img src="images/resource/news-1.jpg" alt="" /></figure>
+                    </div>
+                    <div class="lower-content">
+                      <ul class="post-meta">
+                        <li><p th:text="${#temporals.format(blog.blogDate,'yyyy-MM-dd')}" >August 31, 2021</li>
+                        <li><p th:text="|${#lists.size(blog.blogCommentList)} Comment|"></li>
+                        <li><p th:text="|${blog.blogReadCount} views|"></p>
+                        <li><p th:text="${blog.blogLike}"></p>
+                      </ul>
+                      <h3><a th:text="${blog.blogTitle}" th:href="@{blog-single(id=${blog.id})}">Attract Sales And Profits</a></h3>
+                      <p class="text" th:text="|${#strings.substring(blog.blogContent,0,3)}...|">이거 만약 글자수가 몇자이상일때만 substring할수있게 못하나?</p>
+                      <a th:href="@{blog-single(id=${blog.id})}" class="read-more">Read More <i class="fa fa-angle-right"></i></a>
+                    </div>
+                  </div>
+                </div>  
+                
+                
+                <!-- News Block -->
+                <!--<div class="news-block col-lg-4 col-md-6 col-sm-12">
+                  <div class="inner-box">
+                    <div class="image-box">
+                      <figure class="image"><img src="images/resource/news-1.jpg" alt="" /></figure>
+                    </div>
+                    <div class="lower-content">
+                      <ul class="post-meta">
+                        <li><a href="#">August 31, 2021</a></li>
+                        <li><a href="#">12 Comment</a></li>
+                      </ul>
+                      <h3><a href="blog-single.html">Attract Sales And Profits</a></h3>
+                      <p class="text">A job ravenously while Far much that one rank beheld after outside....</p>
+                      <a href="#" class="read-more">Read More <i class="fa fa-angle-right"></i></a>
+                    </div>
+                  </div>
+                </div>
+
+            
+              </div>-->
+
+              <!-- Pagination -->
+              <nav class="ls-pagination">
+                  <li th:each="page:${#numbers.sequence(0,totalPage -1)}" th:if="${page >= nowPage-1 and page <= nowPage+1}">
+                  <a th:href="@{blog-list?page=}+${pageStat.index}"></a></li>
+              <ul>
+                <li th:unless="${nowPage == 0}" class="prev"><a th:href="@{blog-list?page=}+${prePage}"><i class="fa fa-arrow-left"></i></a></li>
+                <li class="prev"><a th:unless="${nowPage == 0}" th:text="${nowPage}" th:href="@{blog-list?page=}+${prePage}"><i class="fa fa-arrow-left"></i></a></li>
+     			   <li><a class="current-page" th:text="${nowPage+1}" ></a></li>
+                <li class="next"><a th:unless="${nowPage == totalPage-1}" th:text="${nowPage+2}" th:href="@{blog-list?page=}+${nextPage}"><i class="fa fa-arrow-right"></i></a></li>
+             	<li th:unless="${nowPage == totalPage-1}" class="next"><a th:href="@{blog-list?page=}+${nextPage}"><i class="fa fa-arrow-right"></i></a></li>
+              </ul>
+              </nav>
+
+
+               <!-- <th:block th:each="page:${#numbers.sequence(startPage,endPage)}"
+                th:text="${pageStat.index+1}">
+             <a th:if="${page != nowPage}" th:href="@{/blog-list(page=${page-1})}" th:text ="${page}"></a>
+             <strong th:if="${page==nowPage}" th:text ="${page}" style="color:red"></strong>
+             th:if="${page >= paging.number-5 and page <= paging.number+5}"-->
+
+                  
+                  <!-- <ul>
+                  <li><a class="current-page" th:text="${nowPage}" ></a></li>
+                </ul>-->
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    <!--End Listing Page Section -->
+    <!-- End Sidebar Container -->
+
+    <!-- Main Footer -->
+    <footer class="main-footer alternate5">
+      <div class="auto-container">
+        <!--Widgets Section-->
+        <div class="widgets-section">
+          <div class="row">
+            <div class="big-column col-xl-4 col-lg-3 col-md-12">
+              <div class="footer-column about-widget">
+                <div class="logo"><a href="#"><img src="images/logo.svg" alt=""></a></div>
+                <p class="phone-num"><span>Call us </span><a href="thebeehost@support.com">123 456 7890</a></p>
+                <p class="address">329 Queensberry Street, North Melbourne VIC<br> 3051, Australia. <br><a href="mailto:support@superio.com" class="email">support@superio.com</a></p>
+              </div>
+            </div>
+
+            <div class="big-column col-xl-8 col-lg-9 col-md-12">
+              <div class="row">
+                <div class="footer-column col-lg-3 col-md-6 col-sm-12">
+                  <div class="footer-widget links-widget">
+                    <h4 class="widget-title">For Candidates</h4>
+                    <div class="widget-content">
+                      <ul class="list">
+                        <li><a href="#">Browse Jobs</a></li>
+                        <li><a href="#">Browse Categories</a></li>
+                        <li><a href="#">Candidate Dashboard</a></li>
+                        <li><a href="#">Job Alerts</a></li>
+                        <li><a href="#">My Bookmarks</a></li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+
+
+                <div class="footer-column col-lg-3 col-md-6 col-sm-12">
+                  <div class="footer-widget links-widget">
+                    <h4 class="widget-title">For Employers</h4>
+                    <div class="widget-content">
+                      <ul class="list">
+                        <li><a href="#">Browse Candidates</a></li>
+                        <li><a href="#">Employer Dashboard</a></li>
+                        <li><a href="#">Add Job</a></li>
+                        <li><a href="#">Job Packages</a></li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="footer-column col-lg-3 col-md-6 col-sm-12">
+                  <div class="footer-widget links-widget">
+                    <h4 class="widget-title">About Us</h4>
+                    <div class="widget-content">
+                      <ul class="list">
+                        <li><a href="#">Job Page</a></li>
+                        <li><a href="#">Job Page Alternative</a></li>
+                        <li><a href="#">Resume Page</a></li>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Contact</a></li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+
+
+                <div class="footer-column col-lg-3 col-md-6 col-sm-12">
+                  <div class="footer-widget links-widget">
+                    <h4 class="widget-title">Helpful Resources</h4>
+                    <div class="widget-content">
+                      <ul class="list">
+                        <li><a href="#">Site Map</a></li>
+                        <li><a href="#">Terms of Use</a></li>
+                        <li><a href="#">Privacy Center</a></li>
+                        <li><a href="#">Security Center</a></li>
+                        <li><a href="#">Accessibility Center</a></li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <!--Bottom-->
+      <div class="footer-bottom">
+        <div class="auto-container">
+          <div class="outer-box">
+            <div class="copyright-text">© 2021 <a href="#">Superio</a>. All Right Reserved.</div>
+            <div class="social-links">
+              <a href="#"><i class="fab fa-facebook-f"></i></a>
+              <a href="#"><i class="fab fa-twitter"></i></a>
+              <a href="#"><i class="fab fa-instagram"></i></a>
+              <a href="#"><i class="fab fa-linkedin-in"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Scroll To Top -->
+      <div class="scroll-to-top scroll-to-target" data-target="html"><span class="fa fa-angle-up"></span></div>
+    </footer>
+    <!-- End Main Footer -->
+
+
+  </div><!-- End Page Wrapper -->
+
+
+  <script src="js/jquery.js"></script>
+  <script src="js/popper.min.js"></script>
+  <script src="js/chosen.min.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script src="js/jquery-ui.min.js"></script>
+  <script src="js/jquery.fancybox.js"></script>
+  <script src="js/jquery.modal.min.js"></script>
+  <script src="js/mmenu.polyfills.js"></script>
+  <script src="js/mmenu.js"></script>
+  <script src="js/appear.js"></script>
+  <script src="js/ScrollMagic.min.js"></script>
+  <script src="js/rellax.min.js"></script>
+  <script src="js/owl.js"></script>
+  <script src="js/wow.js"></script>
+  <script src="js/script.js"></script>
+
+</body>

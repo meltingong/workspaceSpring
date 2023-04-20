@@ -50,7 +50,7 @@ public class CvController {
 	
 	/************************* cv form *******************************/
 	/** cv write form */
-	@LoginCheck
+	//@LoginCheck
 	@RequestMapping(value = "/cv-write-form")
 	public String cv_wirte_from(HttpServletRequest request, Model model) throws Exception {
 		Long userId = (Long)request.getSession().getAttribute("id");
@@ -73,7 +73,7 @@ public class CvController {
 	}
 
 	/** cv detail param(cvId) 없을 때 */
-	@LoginCheck
+	//@LoginCheck
 	@RequestMapping(value = "/cv-detail", params = "!cvId")
 	public String cv_detail(HttpServletRequest request, Model model) {
 		String forwardpath = "";
@@ -107,7 +107,7 @@ public class CvController {
 	}
 	
 	/** cv detail param(cvId) 있을 때 */
-	@LoginCheck
+	//@LoginCheck
 	@RequestMapping(value = "/cv-detail")
 		public String cv_detail(HttpServletRequest request, @RequestParam Long cvId, Model model) throws Exception {
 		String forwardpath = "";
@@ -145,7 +145,7 @@ public class CvController {
 	
 	/************************* cv action *******************************/
 	/** write_action */
-	@LoginCheck
+	//@LoginCheck
 //	@PostMapping(value = "/cv-write-action")
 	@RequestMapping(value = "/cv-write-action")
 	public String cv_write_action(HttpServletRequest request, @ModelAttribute CvDto cv, RedirectAttributes redirectAttributes) {
@@ -165,7 +165,7 @@ public class CvController {
 	}
 	
 	/** update_action */
-	@LoginCheck
+	//@LoginCheck
 	@RequestMapping(value = "/cv-update-action", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 	public String cv_update_action(HttpServletRequest request, @RequestParam(name = "id") Long cvId , @ModelAttribute CvDto cv, @ModelAttribute EduDto edu, Model model, RedirectAttributes redirectAttributes) throws Exception {
 		String userEmail = (String)request.getSession().getAttribute("sUserId");
@@ -179,7 +179,7 @@ public class CvController {
 	}
 
 	/** delete_action */
-	@LoginCheck
+	//@LoginCheck
 	@RequestMapping(value = "/cv-delete-action", method = RequestMethod.POST)
 	public String cv_delete_action(HttpServletRequest request, @RequestParam(name = "id") Long cvId) throws Exception {
 		cvService.removeById(cvId);
@@ -187,7 +187,7 @@ public class CvController {
 	}
 	
 	/*********************** cv apply action *************************/
-	@LoginCheck
+	//@LoginCheck
 //	@PostMapping("cv-apply-action")
 	@RequestMapping("cv-apply-action")
 	public String cv_apply_action(HttpServletRequest request, Model model, @ModelAttribute CvDto cvDto, @ModelAttribute RecruitDto rc) throws Exception {
@@ -211,7 +211,7 @@ public class CvController {
 	}
 
 	/** << ajax >> edu_write_action */
-	@LoginCheck
+	//@LoginCheck
 //	@PostMapping(value = "/cv-update-action")
 	@RequestMapping(value = "/ajax-send", produces = "application/json;charset=UTF-8")
 	public Map<String, Object> cv_update_action(HttpServletRequest request) {

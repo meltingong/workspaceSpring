@@ -1,6 +1,12 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-
+<script type="text/javascript">
+	function create_recruit() {
+		document.f.action = "dashboard-post-job-action";
+		document.method='POST';
+		document.f.submit();
+	}
+</script>
 <head>
   <meta charset="utf-8">
   <title>Superio | Just another HTML Template | Post New Job</title>
@@ -79,7 +85,7 @@
                     </div>
                   </div>
 
-                  <form class="default-form" method = "POST" action = "dashboard-post-job-action">
+                  <form name="f" class="default-form" method="post">
                     <div class="row">
                       <!-- Input -->
                       <div class="form-group col-lg-12 col-md-12">
@@ -93,8 +99,6 @@
                         <textarea name = "rcContent" placeholder="내용을 작성해주세요"></textarea>
                       </div>
 						
-						<!-- 오류 -->
-						<input type="hidden" name = "corpId" th:value = ${corp.corpId}> 
                       <!-- Input -->
                       <div class="form-group col-lg-6 col-md-12">
                         <label>회사명</label>
@@ -161,17 +165,17 @@
                           <option>신입/경력</option>
                         </select>
                       </div>
-						<!--  
+					<!-- 					
                       <div class="form-group col-lg-6 col-md-12">
                         <label>모집시작일</label>
                        <input name = "rcDate" type="date"/>
                       </div>
-                      -->
+                      
                       <div class="form-group col-lg-6 col-md-12">
                         <label>모집마감일</label>
                        <input name = "rcDeadLine" type="date"/>
                       </div>
-                  
+                    -->
                       <!-- Input 
                       <div class="form-group col-lg-12 col-md-12">
                         <label>Application Deadline Date</label>
@@ -241,7 +245,7 @@
 
                       <!-- Input -->
                       <div class="form-group col-lg-12 col-md-12 text-right">
-                        <button class="theme-btn btn-style-one" type = "submit" >공고등록</button>
+                        <button class="theme-btn btn-style-one" type = "button" onClick="create_recruit();">공고등록</button>
                       </div>
                     </div>
                   </form>

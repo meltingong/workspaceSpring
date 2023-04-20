@@ -39,7 +39,11 @@ public interface UserService {
 	 * 회원수정
 	 */
 	UserDto update(Long id, UserDto userDto) throws Exception;
-
+	
+	/*
+	 * sns 로그인으로 가입 시 이메일로 수정
+	 */
+	UserDto update(String userEmail, UserDto userDto) throws Exception;
 	/*
 	 * 회원탈퇴
 	 */

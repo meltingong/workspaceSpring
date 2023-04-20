@@ -94,7 +94,19 @@ public class UserServiceImpl implements UserService{
         user = userRepository.save(user);
         return modelMapper.map(user, UserDto.class);
 	}
-
+	// sns 가입시 update
+	@Override
+	@Transactional
+	public UserDto update(String userEmail, UserDto userDto) throws Exception {
+		 User user = userRepository.findByUserEmail(userEmail).orElseThrow(() 
+	        		-> new UserNotFoundException("존재하지 않습니다."));
+		 userDto.setId(user.getId());
+		 userDto.setUserEmail(userEmail);
+		 modelMapper.map(userDto, user);
+		 user = userRepository.save(user);
+		return modelMapper.map(user, UserDto.class);
+	}
+	
 	@Override
 	public void remove(Long id) throws Exception {
 		User user = userRepository.findById(id).orElseThrow(() 
@@ -177,7 +189,8 @@ public class UserServiceImpl implements UserService{
 		review = reviewRepository.save(review);
 		return modelMapper.map(review, ReviewDto.class);
 	}
-	
+
+
 	
 
 }

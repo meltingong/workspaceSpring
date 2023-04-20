@@ -75,23 +75,24 @@
                   </div>
                 </div>
                  -->
-
+		<span  th:each="cv:${cvList}">
 		<!-- form start -->
-		<form name="f">
+		<form name="f" th:id="f+${cv.id}" >
 			<!-- cv list -->
                 <div class="files-outer" >
-                  <div class="file-edit-box" th:each="cv:${cvList}">
+                  <div class="file-edit-box" >
                     <span class="title" th:text="${cv.cvName}">Sample CV</span>
                     <div class="edit-btns">
-                  	<input type="hidden" name="cvSeq" th:value="${cv.cvSeq}"/>
-                      <a th:href="@{cv-detail(cvSeq=${cv.cvSeq})}"><button type="button" th:value="${cv.cvSeq}"><span class="la la-pencil"></span></button></a>
-                      <!-- <button type="button" name="detail" th:value="${cv.cvSeq}" onclick="detail()"><span class="la la-pencil"></span></button> -->
-                      <button type="button" onclick="cvDelete()" th:value="${cv.cvSeq}"><span class="la la-trash"></span></button>
+                  	<input type="hidden" name="cvId" th:value="${cv.id}"/>
+                      <a th:href="@{cv-detail(cvId=${cv.id})}"><button type="button" th:value="${cv.id}"><span class="la la-pencil"></span></button></a>
+                      <!-- <button type="button" name="detail" th:value="${cv.id}" onclick="detail()"><span class="la la-pencil"></span></button> -->
+                      <button type="button" th:onclick="'cvDelete(' + ${cv.id} + ')'" th:value="${cv.id}"><span class="la la-trash"></span></button>
                     </div>
                   </div>
               </div>
 			<!-- cv list -->
 		</form>
+		</span>
 		<!-- form start -->
             </div>
           </div>

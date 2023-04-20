@@ -1,23 +1,27 @@
 <!DOCTYPE html>
 <html lang="en"  xmlns:th="http://www.thymeleaf.org">
 <script type="text/javascript">
-	function reviewCreate(){
-		console.log(document.getElementById('review-form'));
-		document.f.action = "review_write_action";
-		document.f.method='POST';
-		document.f.submit();
-		
+function reviewCreate(){
+	
+	if (isNaN(document.f.reviewGrade.value)) {
+	    alert("리뷰의 평점은 숫자만 입력하세요.");
+	    document.f.reviewGrade.focus();
+	    return false;
 	}
+	document.f.action = "review_write_action";
+	document.f.method='POST';
+	document.f.submit();
+	
+}
 
-	function reviewDelete(){
-			document.d.action = "review_delete";
-			document.d.method='POST';
-			document.d.submit();
-	}
-	
-	
+function reviewDelete(){
+	document.d.action = "review_delete";
+	document.d.method='POST';
+	document.d.submit();
+}
 
 </script>
+
 
 <head>
   <meta charset="utf-8">
@@ -53,16 +57,7 @@
       <div id="main-header" th:include="include_common_top::include_common_top"></div>
     </header>
     <!--End Main Header -->
-
-
-
-
-
-
-
     <!-- Job Detail Section -->
-    <!--  form th:object="${corp}" name="f" method="post"-->
-    <!--  input th:value="*{corpId}" type="hidden" -->
     <section class="job-detail-section">
       <!-- Upper Box -->
       <div class="upper-box">
@@ -72,16 +67,24 @@
             <div class="inner-box">
               <div class="content">
                 <span class="company-logo"><img src="images/resource/company-logo/5-1.png" alt=""></span>
-                <h4><a th:text="${corp.corpName}" href="#">title</a></h4>
+                <h4><a th:text="${corp.corpName}" href="#" th:href="@{__${corp.corpWebsite}__}" target="_blank" th:if="${corp.corpWebsite != null}">Invision</a></h4>
                 <ul class="job-info">
                   <li class="icon flaticon-map-locator"><span th:text="${corp.corpAddress}"></span></li>
                   <li class="icon flaticon-telephone-1"><span th:text="${corp.corpPhone}"></span></li>
                   <li class="icon flaticon-mail"><span th:text="${corp.corpWebsite}"></span></li>
                 </ul>
+                <ul class="job-other-info">
+                  <li th:text="|★현재 진행중인 구직공고: ${recruitCount}개★|" class="time">
+                  Open Jobs – 3
+                  </li>
+                   <li th:each ="str : ${corpTagNameList}" class="time">
+                   		<span th:text = "${str}"></span>
+                  </li>
+                </ul>
               </div>
 
               <div class="btn-box">
-                <a href="#" class="theme-btn btn-style-one">Apply For Job</a>
+                <a  href="#" class="theme-btn btn-style-one">Apply For Job</a>
                 <button class="bookmark-btn"><i class="flaticon-bookmark"></i></button>
               </div>
             </div>
@@ -95,11 +98,12 @@
             <div class="content-column col-lg-8 col-md-12 col-sm-12">
               <div class="job-detail">
                 <h4>About Company</h4>
-                <p th:text="${corp.corpComment}"></p>
+                <p th:text="${corp.corpComment}">Moody’s Corporation, often referred to as Moody’s, is an American business and financial services company. It is the holding company for Moody’s Investors Service (MIS), an American credit rating agency, and Moody’s Analytics (MA), an American provider of financial analysis software and services.</p>
+                <p>Moody’s was founded by John Moody in 1909 to produce manuals of statistics related to stocks and bonds and bond ratings. Moody’s was acquired by Dun & Bradstreet in 1962. In 2000, Dun & Bradstreet spun off Moody’s Corporation as a separate company that was listed on the NYSE under MCO. In 2007, Moody’s Corporation was split into two operating divisions, Moody’s Investors Service, the rating agency, and Moody’s Analytics, with all of its other products.</p>
                 <h4>Company Welfare</h4>
                 <p th:text="${corp.corpWelfare}"></p>
                 <div class="row images-outer">
-                 <h4>Company Images</h4>
+                <h4>Company Images</h4>
                   <div class="col-lg-3 col-md-3 col-sm-6">
                     <figure class="image"><a href="images/resource/employers-single-1.png" class="lightbox-image" data-fancybox="gallery"><img src="images/resource/employers-single-1.png" alt=""></a></figure>
                   </div>
@@ -113,23 +117,26 @@
                     <figure class="image"><a href="images/resource/employers-single-4.png" class="lightbox-image" data-fancybox="gallery"><img src="images/resource/employers-single-4.png" alt=""></a></figure>
                   </div>
                 </div>
+                <p>Moody’s Corporation, often referred to as Moody’s, is an American business and financial services company. It is the holding company for Moody’s Investors Service (MIS), an American credit rating agency, and Moody’s Analytics (MA), an American provider of financial analysis software and services.</p>
+                <p>Moody’s was founded by John Moody in 1909 to produce manuals of statistics related to stocks and bonds and bond ratings. Moody’s was acquired by Dun & Bradstreet in 1962. In 2000, Dun & Bradstreet spun off Moody’s Corporation as a separate company that was listed on the NYSE under MCO. In 2007, Moody’s Corporation was split into two operating divisions, Moody’s Investors Service, the rating agency, and Moody’s Analytics, with all of its other products.</p>
               </div>
 
-              <!-- Related Jobs: 해당 기업이 낸 기업 공고리스트 -->
+              <!-- Related Jobs -->
               <div class="related-jobs">
                 <div class="title-box">
                   <h3>Recruit [공고]</h3>
                   <div class="text">해당 기업의 공고 리스트를 제공합니다.</div>
                 </div>
 
-                <!-- Job Block 해당 기업이 낸 공고 1-->
-                <div class="job-block">
+                <!-- Job Block -->
+                <div  th:each="recruit:${recruitList}" class="job-block">
                   <div class="inner-box">
-                    <div th:each="recruit:${corp.recruitList}" class="content">
+                    <div class="content">
                       <span class="company-logo"><img src="images/resource/company-logo/1-3.png" alt=""></span>
-                      <h4><a th:text="${recruit.rcTitle}" th:href="@{recruit-detail(rcSeq=${recruit.rcSeq})}" href="#" >Product Designer / UI Designer</a></h4>
+                      <h4><a th:text="${recruit.rcTitle}" th:href="@{recruit-detail(id=${recruit.id})}" href="#" >Product Designer / UI Designer</a></h4>
+                      <!-- h4><a th:text="${recruit.rcTitle}" th:href="@{recruit-detail(id=${recruit.id})}" href="#" >Product Designer / UI Designer</a></h4-->
                       <ul class="job-info" >
-                        <li class="icon flaticon-map-locator"><span th:text="${corp.corpAddress}"></span></li>
+                        <li class="icon flaticon-map-locator"><span th:text="${corp.corpAddress}">주소</span></li>
                         <li class="icon flaticon-clock-3"><span th:text="${recruit.rcDate}"></span></li>
                         <li class="icon flaticon-money"><span th:text="${recruit.rcSalary}"></span></li>
                       </ul>
@@ -140,101 +147,89 @@
                       <button class="bookmark-btn"><span class="flaticon-bookmark"></span></button>
                     </div>
                   </div>
-                </div>
-                
-			<!-- Related Jobs: 해당 기업이 낸 기업 리뷰리스트 -->
-              <div class="related-jobs">
-                <div class="title-box">
-                  <h3>ReView [리뷰]</h3>
-                  <div class="text">해당 기업에 대해 작성된 리뷰 리스트를 제공합니다.</div>
-                </div>
-                
-                 <!-- Comments area -->
-         <div class="auto-container">
-          <!-- Comment Box -->
-          <div class="comment-box">
-            <h4>Comment</h4>
-            <!-- Comment -->
-            <div th:each="review:${corp1.reviewList}" class="comment" >
-              <div class="user-thumb"><img src="images/resource/avatar-1.jpg" alt=""></div>
-              <div class="comment-info">
-                <div th:text="|Review Title: ${review.reviewTitle}|" class="user-name">Oscar Cafeo</div>
-                <div th:text="|Review Grade(5점 만점): ${review.reviewGrade} 점|" class="title" >Beautiful courses</div>
-              </div>
-              <div th:text="|Review Content: ${review.reviewContent}|" class="text" >Far much that one rank beheld bluebird after outside ignobly allegedly more when oh arrogantly vehement tantaneously eel valiantly petted this along across highhandedly much.</div>
-      	 
- 			 	<form name="d">
-   				 	<!-- <input type="hidden"  th:value="${#session.getAttribute('loginUserSeq')}"/> -->
-   				 	
-    					<input th:value="${review.corpId}" type="hidden" name="corpId" /> 
-    					<th:block th:if="${session.loginUserSeq==review.userSeq}">
-    						<li><button data-text="Delete Aplication" onclick="reviewDelete()" th:value="${review.reviewSeq}"><span class="la la-trash"></span></button></li>
-  						</th:block>
-  					</form>
-			
-            </div>
-          </div>
+                </div> 
 
-        <!-- Comment Form -->
-        <div class="comment-form default-form">
-          <h4>리뷰 등록</h4>
-          <form id ="review-form" name ="f" method="post" th:object="${review}">
-            <input th:value="${corp.corpId}" type="hidden" name="corpId" /> 
-            <div class="row clearfix">
-              <div class="col-lg-6 col-md-12 col-sm-12 form-group">
-                <label>이름</label>
-                <input th:value="${review?.reviewTitle}" type="text" name="reviewTitle" placeholder="Name" required>
               </div>
-              <div class="col-lg-6 col-md-12 col-sm-12 form-group">
-                <label>평점</label>
-                <input th:value="${review?.reviewGrade}"  type="text" name="reviewGrade" placeholder="Grade" required>
-              </div>
-              <div class="col-lg-12 col-md-12 col-sm-12 form-group">
-                <label>댓글내용</label>
-                <textarea th:value="${review?.reviewContent}"  name="reviewContent" placeholder="Write Comment"></textarea>
-              </div>
-              <div class="col-lg-12 col-md-12 col-sm-12 form-group">
-                <button class="theme-btn btn-style-one" type="button" onClick="reviewCreate();" name="submit-form">등록하기</button>
-              </div>
+              
+	        
+		        
+		         	<form name="d">
+              <!-- 여기 리뷰 LIST -->
+	                <h3>Review [리뷰]</h3><br>
+	                  <div class="text">해당 기업의 리뷰 리스트를 제공합니다.</div>
+	               <!-- Comments area -->
+			        <div class="comments-area">
+			          <!-- Comment Box -->
+			          <div class="comment-box">
+			            <h4>Comment</h4>
+			            <!-- Comment -->
+			            <div th:each="review:${reviewList}" class="comment">
+			              <div class="user-thumb"><img src="images/resource/avatar-1.jpg" alt=""></div>
+			              <div class="comment-info">
+			                <div th:text="${review.reviewTitle}" class="review-title">Oscar Cafeo</div>
+			                <div th:text="${review.reviewGrade}+'점'" class="review-grade">Beautiful courses</div>
+			              </div>
+			              <div th:text="${review.reviewContent}" class="review-content">Far much that one rank beheld bluebird after outside ignobly allegedly more when oh arrogantly vehement tantaneously eel valiantly petted this along across highhandedly much.</div>
+			           
+			          
+	    					<th:block th:if = "${loginUser!=null}">
+    							 <th:block th:if="${loginUser.id==review.user.id}">  
+	    						<input th:value="${review.corp.id}" type="hidden" name="corpId" /> 
+	    						<input th:value="${review.id}" type="hidden" name="id" /> 
+    							<li><button data-text="Delete Aplication" onclick="reviewDelete()" th:value="${review.id}"><span class="la la-trash"></span></button></li>
+  							</th:block>  
+  						</th:block>  
+		           
+		            </div>
+		          </div>
+
+			</div>
+		        </form>  
+		        
+		        <!-- Comment Form -->
+	        <th:block th:if = "${loginUser!=null}">
+               <th:block th:if="${count==0}"> <!--  -->
+		        <div class="comment-form default-form">
+		          <h4>리뷰 등록</h4>
+		         <form id ="review-form" name ="f" method="post" >
+		         <input th:value="${corp.id}" type="hidden" id="corpId" name="corpId" />
+		         	
+		            <div class="row clearfix">
+		              <div class="col-lg-6 col-md-12 col-sm-12 form-group">
+		                <label>제목</label>
+		                <input type="text" name="reviewTitle" placeholder="리뷰제목" required>
+		              </div>
+		              <div class="col-lg-6 col-md-12 col-sm-12 form-group">
+		                <label>평점</label>
+		                <input type="text" name="reviewGrade" placeholder="평점" required>
+		              </div>
+		              <div class="col-lg-12 col-md-12 col-sm-12 form-group">
+		                <label>댓글내용</label>
+		                <textarea name="reviewContent" placeholder="내용"></textarea>
+		              </div>
+		              <div class="col-lg-12 col-md-12 col-sm-12 form-group">
+		           <button class="theme-btn btn-style-one" type="button" onClick="reviewCreate()" name="submit-form">리뷰 등록</button>    
+		          <!--ajax      <button class="theme-btn btn-style-one" type="button" id="reviewCreate-btn" name="reviewCreate-btn">리뷰 등록</button> -->    
+		              </div>
+		            </div>
+		          </form>
+		        </div>
+			        </th:block> <!--  -->
+			        
+		        </th:block>  
+		        <!--End Comment Form -->
+		        
+		        
+		        
+		        
+		        
             </div>
-          </form>
-        </div>
-        <!--End Comment Form -->
-      </div>
-    </section>
-    <!-- End Blog Single -->
-                
-                
-                
-                
-                
-                
-				    <!-- Job Block 해당 기업의 리뷰 리스트 껍데기-->
-                <!--  div class="job-block">
-                  <div class="inner-box">
-                    <div  class="content">
-                      <span class="company-logo"><img src="images/resource/company-logo/1-3.png" alt=""></span>
-                      <h4><a href="#" >Product Designer / UI Designer</a></h4>
-                      <ul class="job-info" >
-                        <li><span class="icon flaticon-map-locator" ></span>리뷰 구성요소1</li>
-                        <li><span class="icon flaticon-clock-3" ></span>리뷰 구성요소2</li>
-                        <li><span class="icon flaticon-money" ></span>리뷰 구성요소3</li>
-                      </ul>
-                      <ul class="job-other-info">
-                        <li class="time">Full Time</li>
-                        <li class="required">Urgent</li>
-                      </ul>
-                      <button class="bookmark-btn"><span class="flaticon-bookmark"></span></button>
-                    </div>
-                  </div>
-                </div-->
-				
+
             <div class="sidebar-column col-lg-4 col-md-12 col-sm-12">
               <aside class="sidebar">
                 <div class="sidebar-widget company-widget">
                   <div class="widget-content">
-					
-					<!-- 해당 기업의 상세정보: 오른쪽 박스 -->
+
                     <ul class="company-info mt-0">
                       <li>Primary industry: <span th:text="${corp.job}">Software</span></li>
                       <li>Company size: <span th:text="${corp.corpSize}">501-1,000</span></li>
@@ -251,8 +246,13 @@
                         </div>
                       </li>
                     </ul>
-
-                    <div class="btn-box"><a href="#" class="theme-btn btn-style-three" th:text="${corp.corpWebsite}">www.www.com</a></div>
+					<div class="btn-box">
+					<a th:href="@{__${corp.corpWebsite}__}" class="theme-btn btn-style-three" th:text="${corp.corpWebsite}" target="_blank" th:if="${corp.corpWebsite != null}">
+					    <button>www.www.com</button>
+					  </a>
+					</div>
+					                    
+                    <!-- div class="btn-box"><a href="#"  onclick="location.href='${corpWebsite}'" class="theme-btn btn-style-three" th:text="${corp.corpWebsite}"><button>www.www.com</button></a></div-->
                   </div>
                 </div>
 
@@ -274,16 +274,106 @@
         </div>
       </div>
     </section>
-    <!--  /form-->
     <!-- End Job Detail Section -->
 
 
+    <!-- Main Footer -->
+    <footer class="main-footer alternate5">
+      <div class="auto-container">
+        <!--Widgets Section-->
+        <div class="widgets-section">
+          <div class="row">
+            <div class="big-column col-xl-4 col-lg-3 col-md-12">
+              <div class="footer-column about-widget">
+                <div class="logo"><a href="#"><img src="images/logo.svg" alt=""></a></div>
+                <p class="phone-num"><span>Call us </span><a href="thebeehost@support.com">123 456 7890</a></p>
+                <p class="address">329 Queensberry Street, North Melbourne VIC<br> 3051, Australia. <br><a href="mailto:support@superio.com" class="email">support@superio.com</a></p>
+              </div>
+            </div>
+
+            <div class="big-column col-xl-8 col-lg-9 col-md-12">
+              <div class="row">
+                <div class="footer-column col-lg-3 col-md-6 col-sm-12">
+                  <div class="footer-widget links-widget">
+                    <h4 class="widget-title">For Candidates</h4>
+                    <div class="widget-content">
+                      <ul class="list">
+                        <li><a href="#">Browse Jobs</a></li>
+                        <li><a href="#">Browse Categories</a></li>
+                        <li><a href="#">Candidate Dashboard</a></li>
+                        <li><a href="#">Job Alerts</a></li>
+                        <li><a href="#">My Bookmarks</a></li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
 
 
+                <div class="footer-column col-lg-3 col-md-6 col-sm-12">
+                  <div class="footer-widget links-widget">
+                    <h4 class="widget-title">For Employers</h4>
+                    <div class="widget-content">
+                      <ul class="list">
+                        <li><a href="#">Browse Candidates</a></li>
+                        <li><a href="#">Employer Dashboard</a></li>
+                        <li><a href="#">Add Job</a></li>
+                        <li><a href="#">Job Packages</a></li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="footer-column col-lg-3 col-md-6 col-sm-12">
+                  <div class="footer-widget links-widget">
+                    <h4 class="widget-title">About Us</h4>
+                    <div class="widget-content">
+                      <ul class="list">
+                        <li><a href="#">Job Page</a></li>
+                        <li><a href="#">Job Page Alternative</a></li>
+                        <li><a href="#">Resume Page</a></li>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Contact</a></li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
 
 
+                <div class="footer-column col-lg-3 col-md-6 col-sm-12">
+                  <div class="footer-widget links-widget">
+                    <h4 class="widget-title">Helpful Resources</h4>
+                    <div class="widget-content">
+                      <ul class="list">
+                        <li><a href="#">Site Map</a></li>
+                        <li><a href="#">Terms of Use</a></li>
+                        <li><a href="#">Privacy Center</a></li>
+                        <li><a href="#">Security Center</a></li>
+                        <li><a href="#">Accessibility Center</a></li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
 
 
+      <!--Bottom-->
+      <div class="footer-bottom">
+        <div class="auto-container">
+          <div class="outer-box">
+            <div class="copyright-text">© 2021 <a href="#">Superio</a>. All Right Reserved.</div>
+            <div class="social-links">
+              <a href="#"><i class="fab fa-facebook-f"></i></a>
+              <a href="#"><i class="fab fa-twitter"></i></a>
+              <a href="#"><i class="fab fa-instagram"></i></a>
+              <a href="#"><i class="fab fa-linkedin-in"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
     <!-- Main Footer -->
     <footer class="main-footer alternate5">
       <div class="auto-container">
@@ -406,6 +496,7 @@
   <script src="js/owl.js"></script>
   <script src="js/wow.js"></script>
   <script src="js/script.js"></script>
+  <script src="js/review.js"></script>
   <!--Google Map APi Key-->
   <script src="http://maps.google.com/maps/api/js?key=AIzaSyDaaCBm4FEmgKs5cfVrh3JYue3Chj1kJMw&#038;ver=5.2.4"></script>
   <script src="js/map-script.js"></script>

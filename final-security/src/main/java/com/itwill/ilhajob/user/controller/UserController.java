@@ -8,6 +8,12 @@ import javax.sound.sampled.ReverbType;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.oauth2.client.OAuth2AuthorizedClient;
+import org.springframework.security.oauth2.client.OAuth2AuthorizedClientService;
+import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -61,6 +67,8 @@ public class UserController {
 	@Autowired
 	private CorpService corpService;
 	
+	 @Autowired
+	 private OAuth2AuthorizedClientService authorizedClientService;
 	
 
 
@@ -87,53 +95,101 @@ public class UserController {
 //	}
 	
 	//회원 대시보드 보기
-	@LoginCheck
+	//@LoginCheck
+	 
+	private boolean validateAccessToken(String accessToken) {
+	        // 액세스 토큰을 검증하는 API 호출 등으로 검증 수행
+	    // ...
+	    return true; // 검증 성공시 true 반환
+	}
 	@RequestMapping("/candidate-dashboard")
-	public String dashboard(HttpServletRequest request) throws Exception {
-		String sUserId = (String)request.getSession().getAttribute("sUserId");
-		//System.out.println(">>>>>>>>"+sUserId);
-		UserDto loginUser = userService.findUser(sUserId);
-		request.setAttribute("loginUser", loginUser);
+	public String dashboard(HttpServletRequest request,@AuthenticationPrincipal OAuth2User user) throws Exception {
+	        OAuth2AuthenticationToken authentication = (OAuth2AuthenticationToken) SecurityContextHolder.getContext().getAuthentication();
+	        OAuth2AuthorizedClient client = authorizedClientService.loadAuthorizedClient(authentication.getAuthorizedClientRegistrationId(), authentication.getName());
+	        String accessToken = client.getAccessToken().getTokenValue();
+	        
+	        // 액세스 토큰을 검증하여 로그인 여부 판단
+	        boolean isLoggedIn = validateAccessToken(accessToken);
+		if(isLoggedIn) {
+			
+		}else {
+			String sUserId = (String)request.getSession().getAttribute("sUserId");
+			//System.out.println(">>>>>>>>"+sUserId);
+			UserDto loginUser = userService.findUser(sUserId);
+			request.setAttribute("loginUser", loginUser);
+		}
 		String forwardPath = "candidate-dashboard";
 		return forwardPath;
 	}
 	
 	//회원 정보 보기
-	@LoginCheck
+	//@LoginCheck
 	@RequestMapping("/candidate-dashboard-profile")
-	public String user_profile(HttpServletRequest request) throws Exception {
-		String forwardPath = "";
-		String sUserId = (String)request.getSession().getAttribute("sUserId");
-		UserDto loginUser = userService.findUser(sUserId);
-		request.setAttribute("loginUser", loginUser);
-		forwardPath = "candidate-dashboard-profile";
-		return forwardPath;
+	public String user_profile(HttpServletRequest request,@AuthenticationPrincipal OAuth2User user) throws Exception {
+	        OAuth2AuthenticationToken authentication = (OAuth2AuthenticationToken) SecurityContextHolder.getContext().getAuthentication();
+	        OAuth2AuthorizedClient client = authorizedClientService.loadAuthorizedClient(authentication.getAuthorizedClientRegistrationId(), authentication.getName());
+	        String accessToken = client.getAccessToken().getTokenValue();
+	        
+	        // 액세스 토큰을 검증하여 로그인 여부 판단
+	        boolean isLoggedIn = validateAccessToken(accessToken);
+	        if(isLoggedIn) {
+	        	
+	        }else {
+				String sUserId = (String)request.getSession().getAttribute("sUserId");
+				UserDto loginUser = userService.findUser(sUserId);
+				request.setAttribute("loginUser", loginUser);
+	        }
+		        String forwardPath = "";
+				forwardPath = "candidate-dashboard-profile";
+				return forwardPath;
 	}
 	
 	// 회원 정보수정 폼 ***템플릿 복사해서 수정 가능한 modify-form 만들어야 함****
-	@LoginCheck
+	//@LoginCheck
 	@RequestMapping("/candidate-dashboard-profile-modify-form")
-	public String modify_form(HttpServletRequest request) throws Exception {
-		String forwardPath = "";
-		String sUserId = (String)request.getSession().getAttribute("sUserId");
-		UserDto loginUser = userService.findUser(sUserId);
-		request.setAttribute("loginUser", loginUser);
+	public String modify_form(HttpServletRequest request,@AuthenticationPrincipal OAuth2User user) throws Exception {
+        OAuth2AuthenticationToken authentication = (OAuth2AuthenticationToken) SecurityContextHolder.getContext().getAuthentication();
+        OAuth2AuthorizedClient client = authorizedClientService.loadAuthorizedClient(authentication.getAuthorizedClientRegistrationId(), authentication.getName());
+        String accessToken = client.getAccessToken().getTokenValue();
+        String forwardPath = "";
+        
+        // 액세스 토큰을 검증하여 로그인 여부 판단
+        boolean isLoggedIn = validateAccessToken(accessToken);
+        if(isLoggedIn) {
+        	
+        }else {
+			String sUserId = (String)request.getSession().getAttribute("sUserId");
+			UserDto loginUser = userService.findUser(sUserId);
+			request.setAttribute("loginUser", loginUser);
+        }
 		forwardPath = "candidate-dashboard-profile-modify-form";
 		return forwardPath;
 	}
 	
 	// 회원 정보수정
-	@LoginCheck
+	//@LoginCheck
 	@RequestMapping("/modify_action")
-	public String modify_action(@ModelAttribute UserDto userDto, HttpServletRequest request,String userPassword,String userPasswordConfirm) throws Exception {
+	public String modify_action(@ModelAttribute UserDto userDto, HttpServletRequest request,String userPassword,String userPasswordConfirm,@AuthenticationPrincipal OAuth2User user) throws Exception {
 		String forwardPath = "";
-		Long id = (Long)request.getSession().getAttribute("id");
-		
-		if(userPassword.equals(userPasswordConfirm)) {
-			userService.update(id,userDto);
-		}
-		forwardPath = "redirect:candidate-dashboard-profile";
-		
+        OAuth2AuthenticationToken authentication = (OAuth2AuthenticationToken) SecurityContextHolder.getContext().getAuthentication();
+        OAuth2AuthorizedClient client = authorizedClientService.loadAuthorizedClient(authentication.getAuthorizedClientRegistrationId(), authentication.getName());
+        String accessToken = client.getAccessToken().getTokenValue();
+        Long id = 0L;
+        // 액세스 토큰을 검증하여 로그인 여부 판단
+        boolean isLoggedIn = validateAccessToken(accessToken);
+        if(isLoggedIn) {
+        	String userEmail = client.getPrincipalName();
+        	if(userPassword.equals(userPasswordConfirm)) {
+        		userService.update(userEmail, userDto);
+        	}
+        }else {
+			id = (Long)request.getSession().getAttribute("id");
+			
+			if(userPassword.equals(userPasswordConfirm)) {
+				userService.update(id,userDto);
+			}
+        }
+        forwardPath = "redirect:candidate-dashboard-profile";
 		return forwardPath;
 	}
 	
@@ -166,7 +222,7 @@ public class UserController {
 	}
 	
 	// 회원 로그아웃 액션
-	@LoginCheck
+	//@LoginCheck
 	@RequestMapping("/user_logout_action")
 	public String user_logout_action(HttpServletRequest request) {
 		String forwardPath = "";
@@ -199,7 +255,7 @@ public class UserController {
 	}
 	
 	// 회원 탈퇴
-	@LoginCheck
+	//@LoginCheck
 	@RequestMapping("/delete-action")
 	public String user_delete(HttpServletRequest request) throws Exception {
 		String forwardPath="";
@@ -212,7 +268,7 @@ public class UserController {
 			
 	
 	// 회원 알림 전체보기
-	@LoginCheck
+	//@LoginCheck
 	@RequestMapping("/candidate-dashboard-job-alerts")
 	public String user_alerts(HttpServletRequest request,UserDto user,Model model) throws Exception {
 		String forwardPath="";
@@ -228,7 +284,7 @@ public class UserController {
 	}
 	
 	// 알림 선택삭제
-	@LoginCheck
+	//@LoginCheck
 	@RequestMapping("/alerts-remove")
 	public String user_alerts_remove(HttpServletRequest request,Long messageId) throws Exception {
 		String forwardPath="";
@@ -240,7 +296,7 @@ public class UserController {
 	}
 	
 	// 지원한 목록 보기
-	@LoginCheck
+	//@LoginCheck
 	@RequestMapping("/candidate-dashboard-applied-job")
 	public String user_applied_job(HttpServletRequest request, Model model) throws Exception{
 		String forwardPath="";
@@ -269,7 +325,7 @@ public class UserController {
 		return forwardPath;
 	}
 	*/
-	@LoginCheck
+	//@LoginCheck
 	@RequestMapping(value = "/remove-applied-job")                             //appSeq-> appDto의 id로 들어가야함
 	public String remove_applied_job(HttpServletRequest request, @RequestParam int appSeq) throws Exception{
 		//appService.deleteApp(appSeq);
@@ -312,7 +368,7 @@ public class UserController {
 		} */
 	
 		
-		@LoginCheck
+		//@LoginCheck
 		@RequestMapping("/review_write_action")
 		public String review_write_action(@ModelAttribute ReviewDto reviewDto,@ModelAttribute UserDto userDto ,HttpServletRequest request,@RequestParam("corpId") Long corpId,Model model) throws Exception{
 			String forwardPath="";
@@ -347,7 +403,7 @@ public class UserController {
 	
 		
 		
-		@LoginCheck
+		//@LoginCheck
 		@RequestMapping("/review_delete")
 		public String review_delete(Long id,Long corpId) throws Exception{
 			reviewService.remove(id);

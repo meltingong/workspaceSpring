@@ -1,16 +1,26 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<!-- 이력서가 없을 때 메시지를 띄우는 부분 -->
+<!-- script th:if="${not #strings.isEmpty(errorMsg)}">
+    window.alert([[${errorMsg}]]);
+</script-->
 <script type="text/javascript">
-	function cvDelete(){
-		document.f.action=""
+	//이력서 승인 버튼 클릭 시
+	function approveCv(form){
+		form.action="cv-approve-action";
+		form.method='POST';
+		form.submit();
 	}
 	
+	//이력서 거절 버튼 클릭 시
+	function rejectCv(form){
+		form.action="cv-reject-action";
+		form.method='POST';
+		form.submit();
+	}
 
 </script>
-
-
-
-
 
 
 
@@ -34,11 +44,12 @@
 </head>
 
 <body>
+	
 
   <div class="page-wrapper dashboard ">
 
     <!-- Preloader -->
-    <!-- <div class="preloader"></div> -->
+    <div class="preloader"></div>
 
     <!-- Header Span -->
     <span class="header-span"></span>
@@ -60,8 +71,8 @@
     <section class="user-dashboard">
       <div class="dashboard-outer">
         <div class="upper-title-box">
-          <h3>All Aplicants</h3>
-          <div class="text">해당 공고의 이력서 목록입니다.</div>
+          <h3>이력서 목록</h3>
+          <div class="text">귀사 공고에 제출된 이력서 목록입니다</div>
         </div>
 
         <div class="row">
@@ -70,26 +81,26 @@
             <div class="ls-widget">
               <div class="tabs-box">
                 <div class="widget-title">
-                  <h4>Applicant</h4>
+                  <h4>이력서의 합격/불합격 여부를 확인해주세요</h4>
 
                   <div class="chosen-outer">
                     <!--Tabs Box-->
-                    <select class="chosen-select">
+                    <!--  select class="chosen-select">
                       <option>Select Jobs</option>
                       <option>Last 12 Months</option>
                       <option>Last 16 Months</option>
                       <option>Last 24 Months</option>
                       <option>Last 5 year</option>
-                    </select>
+                    </select-->
 
                     <!--Tabs Box-->
-                    <select class="chosen-select">
+                    <!--  select class="chosen-select">
                       <option>All Status</option>
                       <option>Last 12 Months</option>
                       <option>Last 16 Months</option>
                       <option>Last 24 Months</option>
                       <option>Last 5 year</option>
-                    </select>
+                    </select-->
                   </div>
                 </div>
 
@@ -99,9 +110,9 @@
                     <div class="aplicants-upper-bar">
                       <h6 th:text="${recruit.rcTitle}">Senior Product Designer</h6>
                       <ul class="aplicantion-status tab-buttons clearfix">
-                        <li class="tab-btn active-btn totals" data-tab="#totals">Total(s): 6</li>
-                        <li class="tab-btn approved" data-tab="#approved">Approved: 2</li>
-                        <li class="tab-btn rejected" data-tab="#rejected">Rejected(s): 4</li>
+                        <li class="tab-btn active-btn totals" data-tab="#totals" th:text="|전체 이력서: ${appList.size()}|">Total(s): 6</li>
+                        <li class="tab-btn approved" data-tab="#approved" th:text="|이력서 합격: ${approveList.size()}|">Approved: 2</li>
+                        <li class="tab-btn rejected" data-tab="#rejected" th:text="|이력서 불합격: ${rejectList.size()}|">Rejected(s): 4</li>
                       </ul>
                     </div>
 
@@ -109,17 +120,19 @@
                       <!--Tab-->
                       <div class="tab active-tab" id="totals">
                         <div class="row">
+                        
                           <!-- Candidate block three -->
-                          <div th:each="cv:${cvList}" class="candidate-block-three col-lg-6 col-md-12 col-sm-12">
-                            <div  class="inner-box">
+                          <div th:each="appList:${appList}" class="candidate-block-three col-lg-6 col-md-12 col-sm-12">
+                  <!-- form 자리 -->
+                          <form class="default-form" name="cvCheckForm" method="post">
+                            <div class="inner-box">
                               <div class="content">
                                 <figure class="image"><img src="images/resource/candidate-1.png" alt=""></figure>
-                                <h4 th:text="${cv.cvName}" class="name" ><a href="#">Darlene Robertson</a></h4>
+                                <h4 class="name"><a th:href="@{cv-detail(id=${appList.cv.id})}" href="#" th:text="${appList.cv.cvName}">Darlene Robertson</a></h4>
                                 <ul class="candidate-info">
-                                  <li th:text="|UserNo= ${cv.userSeq}|" class="designation">UI Designer</li>
-                                  <li class="icon flaticon-map-locator"><span th:text="|Description= ${cv.cvDescription}|">London, UK</span></li>
-                                  <li class="icon flaticon-money"><span th:text="|Portfoli
-                                  o= ${cv.cvPortfolio}|" >$99 / hour</span></li>
+                                  <li th:text="|지원직무: ${recruit.rcPosition}|" class="designation">UI Designer</li>
+                                  <li th:text="|Description= ${appList.cv.cvDescription}|"><span class="icon flaticon-map-locator"></span> London, UK</li>
+                                  <li th:text="|Portfolio= ${appList.cv.cvPortfolio}|"><span class="icon flaticon-money"></span> $99 / hour</li>
                                 </ul>
                                 <ul class="post-tags">
                                   <li><a href="#">App</a></li>
@@ -129,34 +142,36 @@
                               </div>
                               <div class="option-box">
                                 <ul class="option-list">
-                                
-                                <form id="cvControl" name="f">
-                                  <input type="hidden"/>
-                                  <li><button data-text="View Aplication"><span class="la la-eye"></span></button></li>
-                                  <li><button data-text="Approve Aplication"><span class="la la-check"></span></button></li>
-                                  <li><button data-text="Reject Aplication"><span class="la la-times-circle"></span></button></li>
-                                  <li><button data-text="Delete Aplication" onclick="cvDelete()" th:value="${cv.cvSeq}"><span class="la la-trash"></span></button></li>
-                                </form>
-                                
+                                <input type="hidden" name="id" th:value="${appList.id}">
+                                  <!-- li><button data-text="View Aplication"><span class="la la-eye"></span></button></li-->
+                                  <li><button data-text="이력서 승인" type="button" onClick="approveCv(this.form);"><span class="la la-check"></span></button></li>
+                                  <li><button data-text="이력서 거절" type="button" onClick="rejectCv(this.form);"><span class="la la-times-circle"></span></button></li>
+                                  <!--li><button data-text="Delete Aplication"><span class="la la-trash"></span></button></li-->
                                 </ul>
                               </div>
                             </div>
-                          </div>
-
-                          
+                            </form>
+			      <!-- form 자리 -->
+                          </div> <!-- candidate 닫힘, div 3개 남음 -->
+					
+                        </div>
+                      </div>
+<!-- approve 시작 -->
                       <!--Tab-->
                       <div class="tab" id="approved">
                         <div class="row">
                           <!-- Candidate block three -->
-                          <div class="candidate-block-three col-lg-6 col-md-12 col-sm-12">
+                          <div th:each="appList: ${appList}" th:if="${appList.appStatus==2}" class="candidate-block-three col-lg-6 col-md-12 col-sm-12">
+                             <!-- form 자리 -->
+                          <form class="default-form" name="cvCheckForm" method="post">
                             <div class="inner-box">
                               <div class="content">
                                 <figure class="image"><img src="images/resource/candidate-1.png" alt=""></figure>
-                                <h4 class="name"><a href="#">Darlene Robertson</a></h4>
+                                <h4 class="name"><a th:href="@{cv-detail(id=${appList.cv.id})}" href="#" th:text="${appList.cv.cvName}">Darlene Robertson</a></h4>
                                 <ul class="candidate-info">
-                                  <li class="designation">UI Designer</li>
-                                  <li><span class="icon flaticon-map-locator"></span> London, UK</li>
-                                  <li><span class="icon flaticon-money"></span> $99 / hour</li>
+                                  <li th:text="|지원직무: ${recruit.rcPosition}|" class="designation">UI Designer</li>
+                                  <li th:text="|Description= ${appList.cv.cvDescription}|"><span class="icon flaticon-map-locator"></span> London, UK</li>
+                                  <li th:text="|Portfolio= ${appList.cv.cvPortfolio}|"><span class="icon flaticon-money"></span> $99 / hour</li>
                                 </ul>
                                 <ul class="post-tags">
                                   <li><a href="#">App</a></li>
@@ -166,30 +181,36 @@
                               </div>
                               <div class="option-box">
                                 <ul class="option-list">
-                                  <li><button data-text="View Aplication"><span class="la la-eye"></span></button></li>
-                                  <li><button data-text="Approve Aplication"><span class="la la-check"></span></button></li>
-                                  <li><button data-text="Reject Aplication"><span class="la la-times-circle"></span></button></li>
-                                  <li><button data-text="Delete Aplication"><span class="la la-trash"></span></button></li>
+                                <input type="hidden" name="id" th:value="${appList.id}">
+                                  <!-- li><button data-text="View Aplication"><span class="la la-eye"></span></button></li-->
+                                  <!-- li><button data-text="Approve Aplication"><span class="la la-check"></span></button></li-->
+                                  <!-- li><button data-text="Approve Aplication" type="button" onClick="approveCv(this.form);"><span class="la la-check"></span></button></li-->
+                                  <!-- li><button data-text="Reject Aplication" type="button" onClick="rejectCv(this.form);"><span class="la la-times-circle"></span></button></li-->
                                 </ul>
                               </div>
+                              </div>
+                              </form>
                             </div>
-                          </div>
 
-                       
-
+                        </div>
+                      </div>
+<!-- approve 끝 -->   
+<!-- reject 시작 -->
                       <!--Tab-->
                       <div class="tab" id="rejected">
                         <div class="row">
                           <!-- Candidate block three -->
-                          <div class="candidate-block-three col-lg-6 col-md-12 col-sm-12">
+                          <div th:each="appList: ${appList}" th:if="${appList.appStatus==3}" class="candidate-block-three col-lg-6 col-md-12 col-sm-12">
+                             <!-- form 자리 -->
+                          <form class="default-form" name="cvCheckForm" method="post">
                             <div class="inner-box">
                               <div class="content">
                                 <figure class="image"><img src="images/resource/candidate-3.png" alt=""></figure>
-                                <h4 class="name"><a href="#">Leslie Alexander</a></h4>
+                                <h4 class="name"><a th:href="@{cv-detail(id=${appList.cv.id})}" href="#" th:text="${appList.cv.cvName}">Leslie Alexander</a></h4>
                                 <ul class="candidate-info">
-                                  <li class="designation">UI Designer</li>
-                                  <li><span class="icon flaticon-map-locator"></span> London, UK</li>
-                                  <li><span class="icon flaticon-money"></span> $99 / hour</li>
+                                  <li th:text="|지원직무: ${recruit.rcPosition}|"  class="designation">UI Designer</li>
+                                  <li th:text="|Description= ${appList.cv.cvDescription}|"><span class="icon flaticon-map-locator"></span> London, UK</li>
+                                  <li th:text="|Portfolio= ${appList.cv.cvPortfolio}|"><span class="icon flaticon-money"></span> $99 / hour</li>
                                 </ul>
                                 <ul class="post-tags">
                                   <li><a href="#">App</a></li>
@@ -199,42 +220,16 @@
                               </div>
                               <div class="option-box">
                                 <ul class="option-list">
-                                  <li><button data-text="View Aplication"><span class="la la-eye"></span></button></li>
-                                  <li><button data-text="Approve Aplication"><span class="la la-check"></span></button></li>
-                                  <li><button data-text="Reject Aplication"><span class="la la-times-circle"></span></button></li>
-                                  <li><button data-text="Delete Aplication"><span class="la la-trash"></span></button></li>
+                                  <input type="hidden" name="id" th:value="${appList.id}">
+                                  <!-- li><button data-text="View Aplication"><span class="la la-eye"></span></button></li-->
+                                  <!-- li><button data-text="Approve Aplication"><span class="la la-check"></span></button></li-->
+                                  <!--li><button data-text="Approve Aplication" type="button" onClick="approveCv(this.form);"><span class="la la-check"></span></button></li-->
+                                  <!--li><button data-text="Reject Aplication" type="button" onClick="rejectCv(this.form);"><span class="la la-times-circle"></span></button></li-->
                                 </ul>
                               </div>
                             </div>
-                          </div>
+                          </div> <!-- candidate까지 닫힘, div 2개 남음 -->
 
-                          <!-- Candidate block three -->
-                          <div class="candidate-block-three col-lg-6 col-md-12 col-sm-12">
-                            <div class="inner-box">
-                              <div class="content">
-                                <figure class="image"><img src="images/resource/candidate-1.png" alt=""></figure>
-                                <h4 class="name"><a href="#">Darlene Robertson</a></h4>
-                                <ul class="candidate-info">
-                                  <li class="designation">UI Designer</li>
-                                  <li><span class="icon flaticon-map-locator"></span> London, UK</li>
-                                  <li><span class="icon flaticon-money"></span> $99 / hour</li>
-                                </ul>
-                                <ul class="post-tags">
-                                  <li><a href="#">App</a></li>
-                                  <li><a href="#">Design</a></li>
-                                  <li><a href="#">Digital</a></li>
-                                </ul>
-                              </div>
-                              <div class="option-box">
-                                <ul class="option-list">
-                                  <li><button data-text="View Aplication"><span class="la la-eye"></span></button></li>
-                                  <li><button data-text="Approve Aplication"><span class="la la-check"></span></button></li>
-                                  <li><button data-text="Reject Aplication"><span class="la la-times-circle"></span></button></li>
-                                  <li><button data-text="Delete Aplication"><span class="la la-trash"></span></button></li>
-                                </ul>
-                              </div>
-                            </div>
-                          </div>
                         </div>
                       </div>
                     </div>
@@ -275,6 +270,8 @@
   <script src="http://maps.google.com/maps/api/js?key=AIzaSyDaaCBm4FEmgKs5cfVrh3JYue3Chj1kJMw&#038;ver=5.2.4"></script>
   <script src="js/map-script.js"></script>
   <!--End Google Map APi-->
+  
+  
 </body>
 
 </html>

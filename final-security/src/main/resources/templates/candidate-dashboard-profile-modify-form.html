@@ -78,7 +78,7 @@ function modifyAction(){
                   </div>
 
                   <form name="f" class="default-form" method ="POST">
-                    <div class="row">
+                    <div class="row" th:with = "loginUser = ${#authentication.getPrincipal().user}">
                       <!-- Input -->
                       <div class="form-group col-lg-6 col-md-12">
                         <label>Full Name</label>

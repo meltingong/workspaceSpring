@@ -2,320 +2,435 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-  <meta charset="utf-8">
-  <title>Superio | Just another HTML Template | Employers List v3</title>
+<meta charset="utf-8">
+<title>Superio | Just another HTML Template | Employers List v3</title>
 
-  <!-- Stylesheets -->
-  <link href="css/bootstrap.css" rel="stylesheet">
-  <link href="css/style.css" rel="stylesheet">
-  
+<!-- Stylesheets -->
+<link href="css/bootstrap.css" rel="stylesheet">
+<link href="css/style.css" rel="stylesheet">
 
-  <link rel="shortcut icon" href="images/favicon.png" type="image/x-icon">
-  <link rel="icon" href="images/favicon.png" type="image/x-icon">
 
-  <!-- Responsive -->
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
-  <!--[if lt IE 9]><script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script><![endif]-->
-  <!--[if lt IE 9]><script src="js/respond.js"></script><![endif]-->
+<link rel="shortcut icon" href="images/favicon.png" type="image/x-icon">
+<link rel="icon" href="images/favicon.png" type="image/x-icon">
+
+<!-- Responsive -->
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+<!--[if lt IE 9]><script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script><![endif]-->
+<!--[if lt IE 9]><script src="js/respond.js"></script><![endif]-->
+
+<!-- Handlebars -->
+<!-- script  defer type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.1.2/handlebars.min.js"></script-->
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.7/handlebars.min.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
 </head>
+<!-- corpName, job으로 검색하기 ajax-->
+<script>
+  $(document).ready(function() {
+    $('#searchInput').on('input', function() {
+      var corpName = $('#searchInput').val();
+      var job = $('select[name="job"]').val();
+      $.ajax({
+        url: '/search',
+        method: 'GET',
+        data: {
+          corpName: corpName,
+          job: job
+        },
+        success: function(results) {
+          var template = Handlebars.compile($('#searchTemplate').html());
+          if (results.length > 0) {
+            $('#searchResults').html(template({ results: results }));
+          } else {
+            $('#searchResults').html('');
+            $('#searchResults').append('<div class="alert alert-warning">검색 결과가 없습니다.</div>');
+          }
+        }
+      });
+    });
+  });
+</script>
+<!--script>
+		$(function(){
+			$("#search-form").submit(function(event){
+				event.preventDefault();
+				var corpName=$("#corpName").val();
+				window.location.href="/final-project-team1-ilhajob/search?corpName="+corpName;
+			});
+		});	
+		
+	</script-->
 
 <body>
 
-  <div class="page-wrapper">
+	<div class="page-wrapper">
 
-    <!-- Preloader -->
-    <div class="preloader"></div>
+		<!-- Preloader -->
+		<div class="preloader"></div>
 
-    <!-- Header Span -->
-    <span class="header-span"></span>
+		<!-- Header Span -->
+		<span class="header-span"></span>
 
-    <!-- Main Header-->
-    <header class="main-header">
-		 <div id="main-header" th:include="include_common_top::include_common_top"></div>
-    </header>
-    <!--End Main Header -->
+		<!-- Main Header-->
+		<header class="main-header">
+			<div id="main-header"
+				th:include="include_common_top::include_common_top"></div>
+		</header>
+		<!--End Main Header -->
 
-    <!--Page Title-->
-    <section class="page-title">
-      <div class="auto-container"></div>
-        <!-- Job Search Form -->
-        <div class="job-search-form">
-          <form method="post" action="/search">
-            <div class="row">
-              <!-- Form Group -->
-              <div class="form-group col-lg-5 col-md-12 col-sm-12">
-                <span class="icon flaticon-search-1"></span>
-                <input type="text" name="query" id="query" placeholder="회사명">
-              </div>
+		<!--Page Title-->
+		<section class="page-title">
+			<div class="auto-container">
 
-              <!-- Form Group -->
-              <!--  
-              <div class="form-group col-lg-3 col-md-12 col-sm-12 location">
-                <span class="icon flaticon-map-locator"></span>
-                <input type="text" name="field_name" placeholder="지역">
-              </div>
-              -->
-			<!--Form Group--> 
-              
-              <div class="form-group col-lg-5 col-md-12 col-sm-12 location">
-                <span class="icon flaticon-briefcase"></span>
-                <select class="chosen-select">
-                  <option value="">카테고리</option>
-                  <option value="44">웹프로그래머</option>
-                  <option value="106">응용프로그램</option>
-                  <option value="46">네트워크</option>
-                  <option value="48">웹 퍼블리싱</option>
-                  <option value="47">게임</option>
-                  <option value="45">디자인/ 컴퓨터 강사</option>
-                  <option value="105">빅데이터 ai</option>
-                  <option value="107">소프트웨어 하드웨어</option>
-                </select>
-              </div>
-			 
-			  
-              <!-- Form Group -->
-              <div class="form-group col-lg-2 col-md-12 col-sm-12 text-right">
-                <button type="button" id = "search-button" class="theme-btn btn-style-one">기업 찾기</button>
-              </div>
-            </div>
-          </form>
-          		<!--  
-   			 	<ul th:each="item:${result}">
-            	<li th:value = "${item}"></li>
-            	</ul>
-            	-->
-        </div>
-        <!-- Job Search Form -->
-		<!--  
-        <div class="top-filters">
-          <div class="form-group">
-            <select class="chosen-select">
-              <option>회사원규모순</option>
-              <option>신규순</option>
-              <option>이름순</option>
-              <option>매출순</option>
-              <option>Temporary</option>
-            </select>
-          </div>
 
-          <div class="form-group">
-            <select class="chosen-select">
-              <option>Founded Date</option>
-              <option>New Jobs</option>
-              <option>Freelance</option>
-              <option>Full Time</option>
-              <option>Internship</option>
-              <option>Part Time</option>
-              <option>Temporary</option>
-            </select>
-          </div>
-        </div>
-      </div>
-       -->
-    </section>
-   
-    <!--End Page Title-->
+				<!-- Job Search Form -->
+				<div class="job-search-form">
+					<form id="search-form" th:action="@{/search}" method="get">
+						<div class="row">
+							<!-- Form Group -->
+							<div class="form-group col-lg-5 col-md-12 col-sm-12">
 
-    <!-- Listing Section -->
-    <section class="ls-section">
-      <div class="auto-container">
-        <div class="filters-backdrop"></div>
+								<span class="icon flaticon-search-1"></span> <input type="text"
+									id="searchInput" name="corpName" placeholder="기업명을 입력하세요.">
+							</div>
+							<!-- 검색 카테고리 추가 -->
+							<div class="form-group col-lg-5 col-md-12 col-sm-12 location">
+								<span class="icon flaticon-briefcase"></span> <select
+									class="chosen-select" name="job">
+									<option value="">카테고리</option>
+									<option value="웹프로그래머">웹프로그래머</option>
+									<option value="응용프로그램">응용프로그램</option>
+									<option value="네트워크">네트워크</option>
+									<option value="웹퍼블리싱">웹퍼블리싱</option>
+									<option value="게임">게임</option>
+									<option value="디자인/컴퓨터강사">디자인/컴퓨터강사</option>
+									<option value="빅데이터ai">빅데이터ai</option>
+									<option value="소프트웨어하드웨어">소프트웨어하드웨어</option>
+								</select>
+							</div>
 
-        <div class="row">
-          <!-- Content Column -->
-          <div class="content-column col-lg-12 col-md-12 col-sm-12">
-            <div class="ls-outer">
-              <button type="button" class="theme-btn btn-style-two toggle-filters">Show Filters</button>
+							<div class="form-group col-lg-2 col-md-12 col-sm-12 text-right">
+								<button type="submit" class="theme-btn btn-style-one">기업
+									찾기</button>
+							</div>
+						</div>
+					</form>
+				</div>
 
-              <!-- ls Switcher -->
-              <div class="ls-switcher">
-                <div class="showing-result">
-                  <div class="text">Showing <!-- <strong>41-60</strong> of  --><strong th:text = "${corpList.size()}"></strong> employer</div>
-                </div>
-                <div class="sort-by">
-                  <select class="chosen-select">
-                    <option>필터</option>
-                    <option>회사원규모</option>
-                    <option>신규등록순</option>
-                    <option>회사명순</option>
-                    <option>매출크기</option>
-                  </select>
+				<!-- 검색 결과 표시할 영역 -->
+				<div id="searchResults"></div>
+		</section>
 
-                  <select class="chosen-select">
-                    <option>Show 10</option>
-                    <option>Show 20</option>
-                    <option>Show 30</option>
-                    <option>Show 40</option>
-                    <option>Show 50</option>
-                    <option>Show 60</option>
-                  </select>
-                </div>
-              </div>
+		<!--End Page Title-->
 
-              <div class="row">
-                <!-- Company Block Four -->
-                <div class="company-block-four col-xl-3 col-lg-4 col-md-6 col-sm-12" th:each="corp : ${corpList}">
-                  <div class="inner-box">
+		<!-- Listing Section -->
+		<section class="ls-section">
+			<div class="auto-container">
+				<div class="filters-backdrop"></div>
+
+				<div class="row">
+					<!-- Content Column -->
+					<div class="content-column col-lg-12 col-md-12 col-sm-12">
+						<div class="ls-outer">
+							<button type="button"
+								class="theme-btn btn-style-two toggle-filters">Show
+								Filters</button>
+
+							<!-- ls Switcher -->
+							<div class="ls-switcher">
+								<div class="showing-result">
+									<div class="text">
+										Showing
+										<!-- <strong>41-60</strong> of  -->
+										<strong th:text="${corpList.size()}"></strong> employer
+									</div>
+								</div>
+								<button class="changeTag" name="all" value="전체">전체</button>
+
+								<div th:each="tag: ${tagList}" th:if="${tag.tagId}>3">
+									<button class="changeTag" name="${tag.tagName}"
+										th:text="${tag.tagName}" th:value="${tag.tagId}">코프태그</button>
+								</div>
+								<div class="sort-by">
+									<select class="chosen-select">
+										<option>필터</option>
+										<option>회사원규모</option>
+										<option>신규등록순</option>
+										<option>회사명순</option>
+										<option>매출크기</option>
+									</select>
+
+								</div>
+							</div>
+
+							<div id="corp-main-list">
+								<div class="row">
+									<!-- Company Block Four -->
+									<div
+										class="company-block-four col-xl-3 col-lg-4 col-md-6 col-sm-12"
+										th:each="corp : ${corpList}">
+										<div class="inner-box">
+											<button class="bookmark-btn">
+												<span class="flaticon-bookmark"></span>
+											</button>
+											<span class="featured">Featured</span> <span
+												class="company-logo"><img
+												src="images/resource/company-logo/6-1.png" alt=""></span>
+											<h4>
+												<a th:href="@{/corp-detail(corpId=${corp.id})}"
+													th:text="${corp.corpName}"></a>
+											</h4>
+											<ul class="job-info">
+												<li><span class="icon flaticon-map-locator"></span> <span
+													th:text="${corp.corpAddress}"><br /> </span></li>
+												<li><span class="icon flaticon-briefcase"></span> <span
+													th:text="${corp.corpWelfare}"> </span></li>
+											</ul>
+											<span th:each="corpTag:${corpTagList}"> <span
+												th:each="tag:${tagList}"> <span class="job-type"
+													style="margin-right: 1px; margin-bottom: 5px"
+													th:if="${corpTag.corp.Id}==${corp.id} and ${tag.tagId}==${corpTag.tagId}"
+													th:text="${tag.tagName}">Open Jobs – 2</span>
+											</span>
+											</span>
+										</div>
+									</div>
+								</div>
+							</div>
+							<!-- 검색어 없을 때 표시할 영역 -->
+							<!--  div class="alert alert-warning" style="color: white;"></div-->
+							<!-- Pagination -->
+							<nav class="ls-pagination">
+								<ul>
+									<li class="prev"><a href="#"><i
+											class="fa fa-arrow-left"></i></a></li>
+									<li><a href="#">1</a></li>
+									<li><a href="#" class="current-page">2</a></li>
+									<li><a href="#">3</a></li>
+									<li class="next"><a href="#"><i
+											class="fa fa-arrow-right"></i></a></li>
+								</ul>
+							</nav>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+		<!--End Listing Page Section -->
+
+
+		<!-- Main Footer -->
+		<footer class="main-footer alternate5">
+			<div class="auto-container">
+				<!--Widgets Section-->
+				<div class="widgets-section">
+					<div class="row">
+						<div class="big-column col-xl-4 col-lg-3 col-md-12">
+							<div class="footer-column about-widget">
+								<div class="logo">
+									<a href="#"><img src="images/logo.svg" alt=""></a>
+								</div>
+								<p class="phone-num">
+									<span>Call us </span><a href="thebeehost@support.com">123
+										456 7890</a>
+								</p>
+								<p class="address">
+									329 Queensberry Street, North Melbourne VIC<br> 3051,
+									Australia. <br> <a href="mailto:support@superio.com"
+										class="email">support@superio.com</a>
+								</p>
+							</div>
+						</div>
+
+						<div class="big-column col-xl-8 col-lg-9 col-md-12">
+							<div class="row">
+								<div class="footer-column col-lg-3 col-md-6 col-sm-12">
+									<div class="footer-widget links-widget">
+										<h4 class="widget-title">For Candidates</h4>
+										<div class="widget-content">
+											<ul class="list">
+												<li><a href="#">Browse Jobs</a></li>
+												<li><a href="#">Browse Categories</a></li>
+												<li><a href="#">Candidate Dashboard</a></li>
+												<li><a href="#">Job Alerts</a></li>
+												<li><a href="#">My Bookmarks</a></li>
+											</ul>
+										</div>
+									</div>
+								</div>
+
+
+								<div class="footer-column col-lg-3 col-md-6 col-sm-12">
+									<div class="footer-widget links-widget">
+										<h4 class="widget-title">For Employers</h4>
+										<div class="widget-content">
+											<ul class="list">
+												<li><a href="#">Browse Candidates</a></li>
+												<li><a href="#">Employer Dashboard</a></li>
+												<li><a href="#">Add Job</a></li>
+												<li><a href="#">Job Packages</a></li>
+											</ul>
+										</div>
+									</div>
+								</div>
+
+								<div class="footer-column col-lg-3 col-md-6 col-sm-12">
+									<div class="footer-widget links-widget">
+										<h4 class="widget-title">About Us</h4>
+										<div class="widget-content">
+											<ul class="list">
+												<li><a href="#">Job Page</a></li>
+												<li><a href="#">Job Page Alternative</a></li>
+												<li><a href="#">Resume Page</a></li>
+												<li><a href="#">Blog</a></li>
+												<li><a href="#">Contact</a></li>
+											</ul>
+										</div>
+									</div>
+								</div>
+
+
+								<div class="footer-column col-lg-3 col-md-6 col-sm-12">
+									<div class="footer-widget links-widget">
+										<h4 class="widget-title">Helpful Resources</h4>
+										<div class="widget-content">
+											<ul class="list">
+												<li><a href="#">Site Map</a></li>
+												<li><a href="#">Terms of Use</a></li>
+												<li><a href="#">Privacy Center</a></li>
+												<li><a href="#">Security Center</a></li>
+												<li><a href="#">Accessibility Center</a></li>
+											</ul>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+
+			<!--Bottom-->
+			<div class="footer-bottom">
+				<div class="auto-container">
+					<div class="outer-box">
+						<div class="copyright-text">
+							© 2021 <a href="#">Superio</a>. All Right Reserved.
+						</div>
+						<div class="social-links">
+							<a href="#"><i class="fab fa-facebook-f"></i></a> <a href="#"><i
+								class="fab fa-twitter"></i></a> <a href="#"><i
+								class="fab fa-instagram"></i></a> <a href="#"><i
+								class="fab fa-linkedin-in"></i></a>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- Scroll To Top -->
+			<div class="scroll-to-top scroll-to-target" data-target="html">
+				<span class="fa fa-angle-up"></span>
+			</div>
+		</footer>
+		<!-- End Main Footer -->
+
+
+	</div>
+	<!-- End Page Wrapper -->
+
+	<!-- corp-search-template: handlebars -->
+	<script id="searchTemplate" type="text/x-handlebars-template">
+  {{#each results}}
+  <div class="company-block-four col-xl-3 col-lg-4 col-md-6 col-sm-12">
+    <div class="inner-box">
+      <button class="bookmark-btn"><span class="flaticon-bookmark"></span></button>
+      <span class="featured">Featured</span>
+      <span class="company-logo"><img src="images/resource/company-logo/6-1.png" alt=""></span>
+      <h4><a href="/corp-detail?corpId={{id}}">{{corpName}}</a></h4>
+      <ul class="job-info">
+        <li><span class="icon flaticon-map-locator"></span>{{corpAddress}}</li>
+        <li><span class="icon flaticon-briefcase"></span>{{corpWelfare}}</li>
+      </ul>
+      {{#each tags}}
+      <span class="job-type" style="margin-right: 1px; margin-bottom: 5px">{{tag.tagName}}</span>
+      {{/each}}
+    </div>
+  </div>
+  {{/each}}
+</script>
+
+	<script type="text/x-handlebars-template" id="tag-filter-template">
+			<div class="row">
+				{{#each data}}
+			   <div class="company-block-four col-xl-3 col-lg-4 col-md-6 col-sm-12">
+                  <div class="inner-box" >
                     <button class="bookmark-btn"><span class="flaticon-bookmark"></span></button>
                     <span class="featured">Featured</span>
-                    <span class="company-logo"><img src="images/resource/company-logo/6	-1.png" alt=""></span>
-                    <h4><a th:href="@{/corp-detail(corpId=${corp.corpId})}" th:text="${corp.corpName}"></a></h4>
+                    <span class="company-logo"><img src="images/resource/company-logo/6-1.png" alt=""></span>
+                    <h4><a href="corp-detail?corpId={{corp.id}}">{{corp.corpName}}</a></h4>
                     <ul class="job-info">
-                      <li><span class="icon flaticon-map-locator" ></span>
-                      	  <span th:text="${corp.corpAddress}"><br/>
+                      <li><span class="icon flaticon-map-locator" style="margin-top:23px"></span>
+                      	  <span><br/>{{corp.corpAddress}}
                       	  </span>
                       </li>
-                      <li><span class="icon flaticon-briefcase" ></span>
-                     	  <span th:text="${corp.corpWelfare}">
+						</ul>
+ 						<ul class="job-info">
+                     		 <li><span class="icon flaticon-briefcase">
+						  </span>
+                     	  <span>{{corp.corpWelfare}}
                      	  </span>
-                      </li>
-                    </ul>
-                    <div class="job-type"  th:text="${corp.job}" >Open Jobs – 2</div>
-                  </div>
+                    		  </li>
+						</ul>
+							<span class="job-type" style="margin-right:1px; margin-bottom: 5px" >{{tagName}}</span>
+                	</div>
                 </div>
-              </div>
+				{{/each}}
+			</div>
+	</script>
 
-              <!-- Pagination -->
-              <nav class="ls-pagination">
-                <ul>
-                  <li class="prev"><a href="#"><i class="fa fa-arrow-left"></i></a></li>
-                  <li><a href="#">1</a></li>
-                  <li><a href="#" class="current-page">2</a></li>
-                  <li><a href="#">3</a></li>
-                  <li class="next"><a href="#"><i class="fa fa-arrow-right"></i></a></li>
-                </ul>
-              </nav>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-    <!--End Listing Page Section -->
+	<!-- 오류 안나면 /ul 밑에 태그 추가하기 
+	      {{#each corpTags}}
+        {{#each ../tagList}}
+          {{#ifCond ../id '==' ../corpId}}
+            {{#ifCond tagId '==' tag.tagId}}
+              <span class="job-type" style="margin-right:1px; margin-bottom: 5px">{{tag.tagName}}</span>
+            {{/ifCond}}
+          {{/ifCond}}
+        {{/each}}
+      {{/each}}
+      
+      
+      
+							{{#each tagData}}
+								{{#ifCond corpTag.tagId '==' tag.tagId}}
+									<span class="job-type" style="margin-right:1px; margin-bottom: 5px">{{tagName}}</span>
+								{{/if}}		
+							{{/each}}
+      
+      -->
+	<script src="js/jquery-3.6.0.min.js"></script>
+	<script src="js/jquery.js"></script>
+	<script src="js/popper.min.js"></script>
+	<script src="js/jquery-ui.min.js"></script>
+	<script src="js/chosen.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/jquery.fancybox.js"></script>
+	<script src="js/jquery.modal.min.js"></script>
+	<script src="js/mmenu.polyfills.js"></script>
+	<script src="js/mmenu.js"></script>
+	<script src="js/appear.js"></script>
+	<script src="js/ScrollMagic.min.js"></script>
+	<script src="js/rellax.min.js"></script>
+	<script src="js/owl.js"></script>
+	<script src="js/wow.js"></script>
+	<script src="js/script.js"></script>
 
-
-    <!-- Main Footer -->
-    <footer class="main-footer alternate5">
-      <div class="auto-container">
-        <!--Widgets Section-->
-        <div class="widgets-section">
-          <div class="row">
-            <div class="big-column col-xl-4 col-lg-3 col-md-12">
-              <div class="footer-column about-widget">
-                <div class="logo"><a href="#"><img src="images/logo.svg" alt=""></a></div>
-                <p class="phone-num"><span>Call us </span><a href="thebeehost@support.com">123 456 7890</a></p>
-                <p class="address">329 Queensberry Street, North Melbourne VIC<br> 3051, Australia. <br><a href="mailto:support@superio.com" class="email">support@superio.com</a></p>
-              </div>
-            </div>
-
-            <div class="big-column col-xl-8 col-lg-9 col-md-12">
-              <div class="row">
-                <div class="footer-column col-lg-3 col-md-6 col-sm-12">
-                  <div class="footer-widget links-widget">
-                    <h4 class="widget-title">For Candidates</h4>
-                    <div class="widget-content">
-                      <ul class="list">
-                        <li><a href="#">Browse Jobs</a></li>
-                        <li><a href="#">Browse Categories</a></li>
-                        <li><a href="#">Candidate Dashboard</a></li>
-                        <li><a href="#">Job Alerts</a></li>
-                        <li><a href="#">My Bookmarks</a></li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-
-
-                <div class="footer-column col-lg-3 col-md-6 col-sm-12">
-                  <div class="footer-widget links-widget">
-                    <h4 class="widget-title">For Employers</h4>
-                    <div class="widget-content">
-                      <ul class="list">
-                        <li><a href="#">Browse Candidates</a></li>
-                        <li><a href="#">Employer Dashboard</a></li>
-                        <li><a href="#">Add Job</a></li>
-                        <li><a href="#">Job Packages</a></li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="footer-column col-lg-3 col-md-6 col-sm-12">
-                  <div class="footer-widget links-widget">
-                    <h4 class="widget-title">About Us</h4>
-                    <div class="widget-content">
-                      <ul class="list">
-                        <li><a href="#">Job Page</a></li>
-                        <li><a href="#">Job Page Alternative</a></li>
-                        <li><a href="#">Resume Page</a></li>
-                        <li><a href="#">Blog</a></li>
-                        <li><a href="#">Contact</a></li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-
-
-                <div class="footer-column col-lg-3 col-md-6 col-sm-12">
-                  <div class="footer-widget links-widget">
-                    <h4 class="widget-title">Helpful Resources</h4>
-                    <div class="widget-content">
-                      <ul class="list">
-                        <li><a href="#">Site Map</a></li>
-                        <li><a href="#">Terms of Use</a></li>
-                        <li><a href="#">Privacy Center</a></li>
-                        <li><a href="#">Security Center</a></li>
-                        <li><a href="#">Accessibility Center</a></li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-
-      <!--Bottom-->
-      <div class="footer-bottom">
-        <div class="auto-container">
-          <div class="outer-box">
-            <div class="copyright-text">© 2021 <a href="#">Superio</a>. All Right Reserved.</div>
-            <div class="social-links">
-              <a href="#"><i class="fab fa-facebook-f"></i></a>
-              <a href="#"><i class="fab fa-twitter"></i></a>
-              <a href="#"><i class="fab fa-instagram"></i></a>
-              <a href="#"><i class="fab fa-linkedin-in"></i></a>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Scroll To Top -->
-      <div class="scroll-to-top scroll-to-target" data-target="html"><span class="fa fa-angle-up"></span></div>
-    </footer>
-    <!-- End Main Footer -->
-
-
-  </div><!-- End Page Wrapper -->
-
-
-  <script src="js/jquery.js"></script>
-  <script src="js/popper.min.js"></script>
-  <script src="js/jquery-ui.min.js"></script>
-  <script src="js/chosen.min.js"></script>
-  <script src="js/bootstrap.min.js"></script>
-  <script src="js/jquery.fancybox.js"></script>
-  <script src="js/jquery.modal.min.js"></script>
-  <script src="js/mmenu.polyfills.js"></script>
-  <script src="js/mmenu.js"></script>
-  <script src="js/appear.js"></script>
-  <script src="js/ScrollMagic.min.js"></script>
-  <script src="js/rellax.min.js"></script>
-  <script src="js/owl.js"></script>
-  <script src="js/wow.js"></script>
-  <script src="js/script.js"></script>
+	<script src="js/app_corp.js" type="module"></script>
 </body>
 
 </html>

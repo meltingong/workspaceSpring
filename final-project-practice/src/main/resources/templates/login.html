@@ -45,7 +45,7 @@
           <!--Nav Outer -->
           <div class="nav-outer">
             <div class="logo-box">
-              <div class="logo"><a href="index.html"><img src="images/logo-2.svg" alt="" title=""></a></div>
+              <div class="logo"><a href="index"><img src="images/logo-2.svg" alt="" title=""></a></div>
             </div>
           </div>
 
@@ -78,7 +78,7 @@
           <div class="form-inner">
             <h3>Login to Superio</h3>
             <!--Login Form-->
-            <form name="f" th:object="${fuser}" method="post" action="add-parcel.html">
+            <form name="f" th:object="${fuser}" method="post">
               <div class="form-group">
                 <label>Username</label>
                 <input type="text" th:value="${fuser?.userEmail}" name="userEmail" placeholder="Username" required><br>
@@ -107,7 +107,7 @@
             </form>
 
             <div class="bottom-box">
-              <div class="text">Don't have an account? <a href="register">Signup</a></div>
+              <div class="text">Don't have an account? <a href="register-popup" class="call-modal signup">Signup</a></div>
               <div class="divider"><span>or</span></div>
               <div class="btn-box row">
                 <div class="col-lg-6 col-md-12">
@@ -124,8 +124,6 @@
       </div>
     </div>
     <!-- End Info Section -->
-
-
   </div><!-- End Page Wrapper -->
 
 
