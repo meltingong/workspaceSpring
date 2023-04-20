@@ -7,6 +7,8 @@ import javax.servlet.http.HttpSession;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 
+import com.itwill.ilhajob.sns.kakao.KakaoProfile;
+
 /*
 ①HandlerInterceptor 인터페이스
 ②HandlerInterceptorAdapter 추상클래스
@@ -45,8 +47,19 @@ public class AuthLoginAnnotationInterceptor implements HandlerInterceptor {
 			return true;
 		}
 		HttpSession session = request.getSession();
+		
 		String sUserId = (String) session.getAttribute("sUserId");
 		if (sUserId == null) {
+			// kakaoProfile에서 sUserId 추출해서 session에 저장
+	        KakaoProfile kakaoProfile = (KakaoProfile) session.getAttribute("kakaoprofile");
+	        sUserId = kakaoProfile.getId().toString();
+	       if(sUserId == null) {
+	    	   // kakao 아이디도 없는 경우
+	    	   response.sendRedirect("register");;
+	       }else {
+	    	   session.setAttribute("sUserId", sUserId);
+	       }
+
 			response.sendRedirect("login");
 			return false; 
 		}

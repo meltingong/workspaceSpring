@@ -37,7 +37,6 @@ public class KaKaoController {
 		 String access_token=kakaoService.getToken(code);
    		 System.out.println("access_token:"+access_token);
    		 KakaoProfile kakaoProfile = kakaoService.getKakaoProfile(access_token);
-		 
 		/*
 		 * 이미 가입한 사용자라면 로그인 진행
 		 * 미가입 사용자라면 회원가입 진행
@@ -60,9 +59,10 @@ public class KaKaoController {
          session.invalidate();
          // 위 코드는 session객체에 담긴 정보를 초기화 하는 코드.
          session=request.getSession();
-         
+    		
          //session.setAttribute("kakaoProfile", kakaoProfile);
          request.setAttribute("kakaoProfile", kakaoProfile);
+        
          Cookie authorize_access_token=new Cookie("authorize-access-token", access_token);
          response.addCookie(authorize_access_token);
 		return "redirect:index";
