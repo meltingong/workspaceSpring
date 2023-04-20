@@ -20,11 +20,12 @@ public class KaKaoController {
 	private KaKaoService kakaoService;
 	/*
     kakao_main.html 페이지보여주기
-    */
+    
 	@GetMapping("/kakao_main")
 	public String kakao_main() {
 		return "kakao_main";
 	}
+	*/
 	/*
     - redirection url로 등록된 요청
     - kakao가 발행한 code를 파라메타로 붙혀서 호출해준다.
@@ -64,7 +65,7 @@ public class KaKaoController {
          request.setAttribute("kakaoProfile", kakaoProfile);
          Cookie authorize_access_token=new Cookie("authorize-access-token", access_token);
          response.addCookie(authorize_access_token);
-		return "index";
+		return "redirect:index";
 	}
 	
 	

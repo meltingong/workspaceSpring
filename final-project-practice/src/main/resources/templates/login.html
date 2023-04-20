@@ -10,7 +10,8 @@
 
 
 </script>
-
+<script src="https://code.jquery.com/jquery-latest.min.js"></script>
+<script src="https://t1.kakaocdn.net/kakao_js_sdk/2.1.0/kakao.min.js"></script>
 <head>
   <meta charset="utf-8">
   <title>Superio | Just another HTML Template | Login</title>
@@ -110,12 +111,16 @@
               <div class="text">Don't have an account? <a href="register-popup" class="call-modal signup">Signup</a></div>
               <div class="divider"><span>or</span></div>
               <div class="btn-box row">
+              
                 <div class="col-lg-6 col-md-12">
-                  <a href="#" class="theme-btn social-btn-two facebook-btn"><i class="fab fa-facebook-f"></i> Log In via Facebook</a>
-                </div>
-                <div class="col-lg-6 col-md-12">
-                  <a href="#" class="theme-btn social-btn-two google-btn"><i class="fab fa-google"></i> Log In via Gmail</a>
-                </div>
+				<a href="/final-security/oauth2/authorization/naver" ><img src="/final-project-practice/images/naver/naver_icon.png" width="50px" height="50px"/></a>
+	            </div>
+	            
+	            <th:block th:if = "${kakaoProfile == null}">
+	            <div class="col-lg-6 col-md-12">
+				<a href="https://kauth.kakao.com/oauth/authorize?client_id=a6d14f150ac48d2473522d64212f6633&redirect_uri=http://localhost/final-project-practice/kakao_login_action&response_type=code"><img src="/final-project-practice/images/kakao/kakao_icon.png" width="50px" height="50px" /></a>
+	            </div>
+	          	</th:block>
               </div>
             </div>
           </div>
@@ -125,7 +130,9 @@
     </div>
     <!-- End Info Section -->
   </div><!-- End Page Wrapper -->
-
+<script type="text/javascript">
+	displayToken();
+	</script>
 
   <script src="js/jquery.js"></script>
   <script src="js/popper.min.js"></script>
