@@ -65,6 +65,7 @@ public class KaKaoController {
 	        String password = UUID.randomUUID().toString(); // 임시 비밀번호 생성
 	        UserDto userDto = new UserDto();
 	        userDto.setSnsId(kakaoId);
+	        userDto.setSnsType("kakao");
 	        userDto.setUserEmail(email);
 	        userDto.setUserPassword(password);
 	        try {
