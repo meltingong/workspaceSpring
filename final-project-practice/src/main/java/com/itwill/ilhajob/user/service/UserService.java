@@ -49,6 +49,11 @@ public interface UserService {
 	 * 아이디중복체크
 	 */
 	boolean isDuplicateEmail(String userEmail) throws Exception;
+	
+	/*
+	 * 카카오 아이디 있는지 확인
+	 */
+	//boolean findKakaoUser(String snsId) throws Exception;
 	/*
 	 *  회원의 지원리스트
 	 */

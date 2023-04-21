@@ -50,16 +50,8 @@ public class AuthLoginAnnotationInterceptor implements HandlerInterceptor {
 		
 		String sUserId = (String) session.getAttribute("sUserId");
 		if (sUserId == null) {
-			// kakaoProfile에서 sUserId 추출해서 session에 저장
-	        KakaoProfile kakaoProfile = (KakaoProfile) session.getAttribute("kakaoprofile");
-	        sUserId = kakaoProfile.getId().toString();
-	       if(sUserId == null) {
-	    	   // kakao 아이디도 없는 경우
-	    	   response.sendRedirect("register");;
-	       }else {
-	    	   session.setAttribute("sUserId", sUserId);
-	       }
-
+	
+			session.setAttribute("sUserId", sUserId);
 			response.sendRedirect("login");
 			return false; 
 		}

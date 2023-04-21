@@ -81,6 +81,12 @@ public class UserServiceImpl implements UserService{
 		User findUser = optionalUser.get();
 		return modelMapper.map(findUser, UserDto.class);
 	}
+	/*
+	@Override
+	public boolean findKakaoUser(String snsId) throws Exception {
+		return userRepository.findBySnsId(snsId);
+	}
+	*/
 
 	@Override
 	@Transactional
@@ -177,6 +183,8 @@ public class UserServiceImpl implements UserService{
 		review = reviewRepository.save(review);
 		return modelMapper.map(review, ReviewDto.class);
 	}
+
+	
 	
 	
 
