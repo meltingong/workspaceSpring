@@ -55,10 +55,12 @@ public class KaKaoController {
    			 session=request.getSession();
    			 
    			 session.setAttribute("sUserId", kakaoProfile.getKakao_account().email);
+   			 //session.setAttribute("id", kakaoProfile.id);
    			 request.setAttribute("kakaoProfile", kakaoProfile);
    			 
    			 Cookie authorize_access_token=new Cookie("authorize-access-token", access_token);
    			 response.addCookie(authorize_access_token);
+   			 
    			 return "redirect:index";
    		 }else {
    		    String email = kakaoProfile.getKakao_account().getEmail();
@@ -74,8 +76,9 @@ public class KaKaoController {
 	   			 session.invalidate();
 	   			 // 위 코드는 session객체에 담긴 정보를 초기화 하는 코드.
 	   			 session=request.getSession();
-	   			 
 	   			 session.setAttribute("sUserId", kakaoProfile.getKakao_account().email);
+	   			 System.out.println(">>>>>>>>>>>>"+userDto.getId());
+	   			 session.setAttribute("id",userDto.getId());
 	   			 request.setAttribute("kakaoProfile", kakaoProfile);
 	   			 
 	   			 Cookie authorize_access_token=new Cookie("authorize-access-token", access_token);

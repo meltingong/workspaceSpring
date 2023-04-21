@@ -201,9 +201,9 @@ public class UserController {
 	// 회원 탈퇴
 	@LoginCheck
 	@RequestMapping("/delete-action")
-	public String user_delete(HttpServletRequest request) throws Exception {
+	public String user_delete(HttpServletRequest request, HttpSession session) throws Exception {
 		String forwardPath="";
-		
+	
 		Long id = (Long)request.getSession().getAttribute("id");
 		
 		userService.remove(id);

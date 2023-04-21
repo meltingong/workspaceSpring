@@ -63,6 +63,7 @@ public class NaverController {
         	String password = UUID.randomUUID().toString();
         	String gender = naverLoginProfile.getGender();
         	UserDto userDto = new UserDto();
+        	
         	userDto.setSnsId(naverId);
         	userDto.setSnsType("naver");
         	userDto.setUserEmail(email);
@@ -74,6 +75,7 @@ public class NaverController {
         		session.invalidate();
         		session = request.getSession();
         		session.setAttribute("sUserId", naverLoginProfile.getEmail());
+        		//session.setAttribute("id",userDto.getId());
         		request.setAttribute("naverProfile", naverLoginProfile);
         		
         		return "redirect:index";
