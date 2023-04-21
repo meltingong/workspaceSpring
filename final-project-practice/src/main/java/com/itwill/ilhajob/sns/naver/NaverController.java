@@ -62,14 +62,12 @@ public class NaverController {
         	String email = naverLoginProfile.getEmail();
         	String password = UUID.randomUUID().toString();
         	String gender = naverLoginProfile.getGender();
-        	int age = Integer.parseInt(naverLoginProfile.getAge());
         	UserDto userDto = new UserDto();
         	userDto.setSnsId(naverId);
         	userDto.setSnsType("naver");
         	userDto.setUserEmail(email);
         	userDto.setUserPassword(password);
         	userDto.setUserSex(gender);
-        	userDto.setUserAge(age);
         	try {
         		userService.create(userDto);
         		HttpSession session = request.getSession();
