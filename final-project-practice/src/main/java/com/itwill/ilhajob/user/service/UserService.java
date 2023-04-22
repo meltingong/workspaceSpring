@@ -44,7 +44,12 @@ public interface UserService {
 	 * 회원탈퇴
 	 */
 	void remove(Long id) throws Exception;
-
+	
+	/*
+	 * 이메일로 회원탈퇴
+	 */
+	void remove(String userEmail) throws Exception;
+	
 	/*
 	 * 아이디중복체크
 	 */

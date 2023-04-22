@@ -203,10 +203,10 @@ public class UserController {
 	@RequestMapping("/delete-action")
 	public String user_delete(HttpServletRequest request, HttpSession session) throws Exception {
 		String forwardPath="";
-	
-		Long id = (Long)request.getSession().getAttribute("id");
 		
-		userService.remove(id);
+		String userEmail = (String)request.getSession().getAttribute("sUserId");
+		
+		userService.remove(userEmail);
 		request.getSession().invalidate();
 		forwardPath = "redirect:index";
 		return forwardPath;
